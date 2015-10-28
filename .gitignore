@@ -5,7 +5,7 @@
 /InstalledFiles
 /pkg/
 /spec/reports/
-/spec/test_app/db/test.sqlite3
+/spec/test_app/db/*.sqlite3
 /spec/test_app/log/
 /tmp/
 
