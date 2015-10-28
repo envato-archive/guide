@@ -1,0 +1,45 @@
+<% view.child_node_views.each do |child_node_view| %>
+  <% if child_node_view.visible_to_user? %>
+    <%= content_tag :li,
+                    :class => top_level_node ? 'sg-navigation__section' : nil do %>
+      <% if child_node_view.leaf_node? %>
+        <%= link_to child_node_view.name,
+                    guide_node_path(
+                      :node_path => if node_path.present?
+                        "#{node_path}/#{child_node_view.id}"
+                      else
+                        "#{child_node_view.id}"
+                      end
+                    ),
+                    :class => child_node_view.active? ? 'is-active' : nil %>
+      <% else %>
+        <% if top_level_node %>
+          <div class="sg-navigation__section-title">
+            <%= link_to guide_node_path(child_node_view.id) do %>
+              <h4><%= child_node_view.name %></h4>
+            <% end %>
+          </div>
+          <%= link_to '', '#', :class => [
+                        "sg-navigation__section-expander",
+                        ('is-active' if child_node_view.active?),
+                      ] %>
+        <% else %>
+          <%= link_to '#', :class => "sg-navigation__header" do %>
+            <h5><%= child_node_view.name %></h5>
+          <% end %>
+        <% end %>
+
+        <ul class="sg-navigation__sub-group">
+          <%= render  'styleguide/common/navigation_node',
+                      :node_path => if node_path.present?
+                        "#{node_path}/#{child_node_view.id}"
+                      else
+                        "#{child_node_view.id}"
+                      end,
+                      :top_level_node => false,
+                      :view => child_node_view %>
+        </ul>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

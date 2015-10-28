@@ -1,0 +1,14 @@
+<% if view.uses_cells? %>
+  <%= cell(view.cell, view.view).call %>
+<% else %>
+  <% if view.format == 'text' %>
+    <pre><%= render  "#{view.template}.#{view.format}",
+              :view => view.view %></pre>
+  <% elsif view.format == 'html' %>
+    <%= render  view.template,
+                :view => view.view %>
+  <% else %>
+    <%= render  "#{view.template}.#{view.format}",
+                :view => view.view %>
+  <% end %>
+<% end %>

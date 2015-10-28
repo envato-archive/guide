@@ -1,0 +1,9 @@
+<div class="sg-controls__category">
+  <h2>
+    <% if view.on_homepage? %>
+      Living Styleguide
+    <% else %>
+      <%= view.active_node_name %>
+    <% end %>
+  </h2>
+</div>

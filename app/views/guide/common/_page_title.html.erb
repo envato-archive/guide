@@ -1,0 +1,8 @@
+<div class="sg-header__summary <%= 'is-hidden-tablet-and-below' if view.on_homepage? %>">
+  <% if view.on_homepage? %>
+    <h1 class="t-heading -size-xl -color-light">Welcome to the Living Styleguide</h1>
+  <% else %>
+    <h1 class="t-heading -size-xl -color-light"><%= view.active_node_name %></h1>
+    <h3 class="t-heading -size-m -color-inherit -weight-light h-remove-margin"><%= view.active_node_heritage %></h3>
+  <% end %>
+</div>

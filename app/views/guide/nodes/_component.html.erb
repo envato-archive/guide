@@ -1,0 +1,99 @@
+<nav class="box -radius-all h-spacing-below">
+  <h3 class="t-heading -size-m">Scenarios:</h3>
+  <ul class="t-list -style-decimal">
+    <% view.visible_scenarios.each do |scenario_id, scenario| %>
+      <li class="t-body h-remove-margin">
+        <%= link_to scenario.name, "##{scenario_id}", :class => 't-link' %>
+      </li>
+    <% end %>
+  </ul>
+</nav>
+
+<% if view.user_is_staff? %>
+  <div class="h-spacing-below">
+    <code class="sg-code t-body -size-m" title="template location">
+      <%= view.template_location %>
+    </code>
+  </div>
+<% end %>
+
+<% view.visible_scenarios.each do |scenario_id, scenario| %>
+  <section class="sg-scenario" id="<%= scenario_id %>">
+    <header class="sg-scenario__header">
+      <div class="sg-banner -status-<%= scenario.options[:visibility] || :public %>">
+        <% if view.user_is_staff? %>
+          <%= render  'styleguide/nodes/scenario_visibility_icon',
+                      :visibility => scenario.options[:visibility] %>
+        <% end %>
+        <div class="sg-banner__message">
+          <h3 class="t-heading -size-xxs -color-inherit h-remove-margin">
+            <%= link_to scenario.name, "##{scenario_id}",
+                        :class => [
+                          "t-link -decoration-reversed",
+                          (scenario.options[:visibility].nil? ? '-color-inherit' : '-color-light')
+                        ] %>
+          </h3>
+        </div>
+        <div class="sg-banner__action">
+          <% if scenario.options.show_submit_state? %>
+            <%= render 'styleguide/nodes/show_submit_state' %>
+          <% end %>
+          <% if view.user_is_staff? %>
+            <%= link_to guide_scenario_path(
+                          :scenario_id => scenario_id,
+                          :node_path => view.node_path,
+                          :scenario_format => "html",
+                        ),
+                        :class =>"sg-banner__action-icon",
+                        :target => "_blank" do %>
+              <i class="e-icon -icon-link-ext -color-inherit -size-medium -margin-left">
+                <span class="e-icon__alt">Open in new tab</span>
+              </i>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </header>
+
+    <% if feature_on?(:styleguide_scenarios_as_iframes) %>
+      <% view.formats.each do |scenario_format| %>
+        <% if view.multiple_formats? %>
+          <h3 class="t-heading -size-xs h-spacing-above">
+            <%= t(scenario_format, :scope => 'styleguide.format')%>
+          </h3>
+        <% end %>
+        <%= content_tag :div,
+                        :class => ["sg-scenario__container",
+                                   "-status-#{scenario.options[:visibility] || :public}",
+                                   view.default_wrapper_css,
+                                   scenario.options.wrapper_css].join(" "),
+                        :data => {
+                          :view => "sgScenario"
+                        } do %>
+          <%= render  'styleguide/nodes/scenario_as_iframe',
+                      :scenario_id => scenario_id,
+                      :node_path => view.node_path,
+                      :scenario_format => scenario_format %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= content_tag :div,
+                        :class => ["sg-scenario__container",
+                                   "-status-#{scenario.options[:visibility] || :public}",
+                                   view.default_wrapper_css,
+                                   scenario.options.wrapper_css].join(" "),
+                        :data => {
+                          :view => "sgScenario"
+                        } do %>
+        <% if view.uses_cells? %>
+          <%= cell(view.cell, scenario.view_model).call %>
+        <% else %>
+          <%= render  view.partial,
+                      :view => scenario.view_model,
+                      :presenter => scenario.view_model,
+                      :view_model => scenario.view_model %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </section>
+<% end %>
