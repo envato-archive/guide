@@ -1,0 +1,42 @@
+class Guide::NodeView
+  delegate :id,
+    :options,
+    :name,
+    :partial,
+    :formats,
+    :cell,
+    :custom_show_partial,
+    :default_wrapper_css,
+    :node_type,
+    :can_be_rendered?, :to => :@node
+
+  attr_reader :node_path
+
+  def initialize(node:, bouncer:, node_path:)
+    @node = node
+    @bouncer = bouncer
+    @node_path = node_path
+  end
+
+  def visible_scenarios
+    @node.scenarios.select do |scenario_id, scenario|
+      @bouncer.user_can_access?(scenario)
+    end
+  end
+
+  def multiple_formats?
+    @node.formats.size > 1
+  end
+
+  def uses_cells?
+    cell.present?
+  end
+
+  def template_location
+    template || cell || partial
+  end
+
+  def user_is_staff?
+    @bouncer.user_is_staff?
+  end
+end

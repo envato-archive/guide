@@ -1,0 +1,6 @@
+en:
+  guide:
+    monkey:
+      invalid_node: "I can't give you what you're looking for because a node in your path (%{node_id}) doesn't exist.\nPerhaps you need to add it to its parent using `contains :%{node_id}`."
+
+      invalid_starting_node: "I can't give you what you're looking for because the node that you told me to start from doesn't exist. This means that something is fundamentally wrong with your setup."

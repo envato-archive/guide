@@ -1,0 +1,12 @@
+<% content_for :sidebar do %>
+  <%= content_tag "ul",
+                  :class => "sg-navigation",
+                  :data => {
+                    :view => ("sgTreeNav")
+                  } do %>
+    <%= render  'styleguide/common/navigation_node',
+                  :node_path => nil,
+                  :top_level_node => true,
+                  :view => view %>
+  <% end %>
+<% end %>
