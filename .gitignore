@@ -6,7 +6,8 @@
 /pkg/
 /spec/reports/
 /spec/test_app/db/*.sqlite3
-/spec/test_app/log/
+/spec/test_app/log/*
+/spec/test_app/tmp/*
 /tmp/
 
 ## Documentation cache and generated files:

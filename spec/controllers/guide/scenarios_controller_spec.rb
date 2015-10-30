@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Guide::ScenariosController, :type => :controller do
+  routes { Guide::Engine.routes }
+
   describe '#show' do
     let(:show) do
       get(:show,

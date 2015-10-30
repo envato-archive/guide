@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Guide::NodesController, :type => :controller do
+  routes { Guide::Engine.routes }
+
   describe '#show' do
     let(:show) { get :show, :node_path => 'structures/purchase_flow/checkout' }
 
