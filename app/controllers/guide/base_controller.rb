@@ -1,4 +1,6 @@
 class Guide::BaseController < Guide.configuration.controller_class_to_inherit.constantize
+  layout 'guide/application'
+
   private
 
   def authorisation_system

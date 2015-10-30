@@ -22,7 +22,7 @@
     <header class="sg-scenario__header">
       <div class="sg-banner -status-<%= scenario.options[:visibility] || :public %>">
         <% if view.user_is_staff? %>
-          <%= render  'styleguide/nodes/scenario_visibility_icon',
+          <%= render  'guide/nodes/scenario_visibility_icon',
                       :visibility => scenario.options[:visibility] %>
         <% end %>
         <div class="sg-banner__message">
@@ -36,10 +36,10 @@
         </div>
         <div class="sg-banner__action">
           <% if scenario.options.show_submit_state? %>
-            <%= render 'styleguide/nodes/show_submit_state' %>
+            <%= render 'guide/nodes/show_submit_state' %>
           <% end %>
           <% if view.user_is_staff? %>
-            <%= link_to guide_scenario_path(
+            <%= link_to Guide::Engine.routes.url_helpers.scenario_path(
                           :scenario_id => scenario_id,
                           :node_path => view.node_path,
                           :scenario_format => "html",
@@ -55,7 +55,7 @@
       </div>
     </header>
 
-    <% if feature_on?(:styleguide_scenarios_as_iframes) %>
+    <% if true %>
       <% view.formats.each do |scenario_format| %>
         <% if view.multiple_formats? %>
           <h3 class="t-heading -size-xs h-spacing-above">
@@ -70,7 +70,7 @@
                         :data => {
                           :view => "sgScenario"
                         } do %>
-          <%= render  'styleguide/nodes/scenario_as_iframe',
+          <%= render  'guide/nodes/scenario_as_iframe',
                       :scenario_id => scenario_id,
                       :node_path => view.node_path,
                       :scenario_format => scenario_format %>

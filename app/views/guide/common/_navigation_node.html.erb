@@ -4,7 +4,7 @@
                     :class => top_level_node ? 'sg-navigation__section' : nil do %>
       <% if child_node_view.leaf_node? %>
         <%= link_to child_node_view.name,
-                    guide_node_path(
+                    Guide::Engine.routes.url_helpers.node_path(
                       :node_path => if node_path.present?
                         "#{node_path}/#{child_node_view.id}"
                       else
@@ -15,7 +15,7 @@
       <% else %>
         <% if top_level_node %>
           <div class="sg-navigation__section-title">
-            <%= link_to guide_node_path(child_node_view.id) do %>
+            <%= link_to Guide::Engine.routes.url_helpers.node_path(child_node_view.id) do %>
               <h4><%= child_node_view.name %></h4>
             <% end %>
           </div>
@@ -30,7 +30,7 @@
         <% end %>
 
         <ul class="sg-navigation__sub-group">
-          <%= render  'styleguide/common/navigation_node',
+          <%= render  'guide/common/navigation_node',
                       :node_path => if node_path.present?
                         "#{node_path}/#{child_node_view.id}"
                       else

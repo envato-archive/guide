@@ -4,6 +4,6 @@ class Guide::Document < Guide::Node
   end
 
   def partial
-    self.class.to_s.underscore
+    "style#{self.class.to_s.underscore}"
   end
 end
