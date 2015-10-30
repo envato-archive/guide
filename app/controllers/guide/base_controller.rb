@@ -1,4 +1,4 @@
-class Guide::BaseController < ActionController::Base
+class Guide::BaseController < Guide.controller_class_to_inherit
   private
 
   def authorisation_system
