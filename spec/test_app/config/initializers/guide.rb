@@ -1,3 +1,3 @@
 Guide.configure do |config|
-  config.inherit_from_application_controller = true
+  config.controller_class_to_inherit = 'ApplicationController'
 end
