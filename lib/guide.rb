@@ -11,10 +11,11 @@ module Guide
   end
 
   class Configuration
-    attr_accessor :company_name
+    attr_accessor :company_name, :controller_class_to_inherit
 
     def initialize
       @company_name = 'Your awesome company'
+      @controller_class_to_inherit = 'ActionContoller::Base'
     end
   end
 end
