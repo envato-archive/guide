@@ -1,0 +1,21 @@
+<footer class="sg-layout__footer">
+  <%= link_to root_path, :class => "sg-header__logo" do %>
+    <%= image_tag "styleguide/envato-market-styleguide--dark-v3.svg",
+                  :alt => "Envato Market Styleguide",
+                  :width => 212 %>
+  <% end %>
+  <p class="t-body -size-m">
+    <%= link_to "This styleguide is a living, breathing work in progress.",
+                "http://webuild.envato.com/blog/styleguide-driven-development",
+                :class => "t-link -color-dark" %>
+    Various elements are likely to change at any time without warning.<br />
+    It uses the latest CSS3 features and is best viewed with modern browsers (for now).
+  </p>
+
+  <p class="t-body -size-m h-remove-margin">
+    &copy; <%= Time.now.year %> Envato Pty Ltd.
+    <%# unless view.user_signed_in? %>
+      | <%#= link_to "Sign In", sign_in_path, :class => "t-link -color-dark" %>
+    <%# end %>
+  </p>
+</footer>

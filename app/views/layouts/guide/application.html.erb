@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+      <% if @layout_view.on_homepage? %>
+        Envato Market Styleguide
+      <% else %>
+        <%= @layout_view.active_node_title %> ~ Envato Market Styleguide
+      <% end %>
+    </title>
+    <meta name="description" content="<% if @layout_view.on_homepage? %>A living, breathing, evolving styleguide that showcases the building blocks that our team use to develop Envato Market.<% end %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= favicon_link_tag("/icons/market.styleguide.envato.com/favicon.ico") %>
+
+    <%= javascript_include_tag("market/core/head") %>
+    <%= stylesheet_link_tag("guide/application", :media => "all") %>
+
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/icons/market.styleguide.envato.com/apple-touch-icon-144x144-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/icons/market.styleguide.envato.com/apple-touch-icon-120x120-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/icons/market.styleguide.envato.com/apple-touch-icon-114x114-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/icons/market.styleguide.envato.com/apple-touch-icon-72x72-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" href="/icons/market.styleguide.envato.com/apple-touch-icon-precomposed.png" />
+  </head>
+
+  <body data-user-signed-in="true">
+    <div data-view="sgSidebarNav" class="sg-layout">
+      <aside class="js-layout__sidebar sg-layout__sidebar">
+        <div class="sg-drawer">
+          <div class="sg-drawer__logo">
+            <%= link_to image_tag("guide/envato-market-styleguide--light-v3.svg", :alt => "Envato Market Styleguide"), root_path, :class => "sg-header__logo" %>
+          </div>
+          <div class="sg-drawer__nav">
+            <%= yield :sidebar %>
+          </div>
+        </div>
+      </aside>
+      <main class="js-layout__content sg-layout__main">
+        <header class="sg-header">
+          <%= render 'guide/common/page_title', :view => @layout_view %>
+
+          <div class="sg-header__controls">
+            <div class="sg-controls">
+              <div class="sg-controls__hamburger">
+                <a class="js-layout__nav-toggle">
+                  <i class="e-icon -icon-hamburger -size-medium"><span class="e-icon__alt">Nav</span></i>
+                </a>
+              </div>
+
+              <%= render 'guide/common/category', :view => @layout_view %>
+              <%= render 'guide/common/search', :view => @layout_view %>
+            </div>
+          </div>
+
+          <%= render 'guide/common/visibility_banner', :view => @layout_view %>
+        </header>
+
+        <div class="sg-layout__content">
+          <%= yield %>
+          <%= render 'guide/common/footer', :view => @layout_view %>
+        </div>
+        <div class="js-layout__nav-overlay sg-layout__overlay"></div>
+      </main>
+    </div>
+
+    <%# TODO: Insert JavaScript here %>
+
+  </body>
+</html>
