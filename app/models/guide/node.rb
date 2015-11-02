@@ -1,14 +1,4 @@
 class Guide::Node
-  class_attribute :child_nodes
-
-  def self.inherited(sub_class)
-    sub_class.child_nodes = {}
-  end
-
-  def self.contains(id, options = {})
-    child_nodes[id] = child_node_class(id).new(options)
-  end
-
   def self.child_node_class(id)
     child_node_class_name = "#{self}::#{id.to_s.camelize}"
     child_node_class_name.constantize
@@ -18,10 +8,14 @@ class Guide::Node
       name_error.backtrace
   end
 
-  attr_reader :id, :options
+  attr_reader :id, :child_nodes, :options
+  attr_accessor :path
 
-  def initialize(options = {})
-    @id = infer_id_from_class_name
+  def initialize(id, path, options = {})
+    @id = id.to_sym
+    @path = path
+
+    @child_nodes = {}
     @options = options
   end
 
@@ -30,30 +24,48 @@ class Guide::Node
   end
 
   def leaf_node?
-    self.child_nodes.empty?
-  end
-
-  def child_nodes
-    self.class.child_nodes
+    child_nodes.empty?
   end
 
   def ==(other)
-    self.class == other.class
+    self.path == other.path
   end
 
   def node_type
-    # for direct children, this will be :node
-    self.class.superclass.name.demodulize.underscore.to_sym
+    :node
   end
 
   def can_be_rendered?
     false
   end
 
+  # For instance_eval in DSL
+  def node(child_id, child_options = {}, &block)
+    child = Guide::Node.new(child_id, "#{path}/#{child_id}", options.merge(child_options))
+    child_nodes[child_id] = child
+    child.instance_eval(&block) if block_given?
+  end
+
+  def document(child_id, child_options = {}, &block)
+    child = Guide::Document.new(child_id, "#{path}/#{child_id}", options.merge(child_options))
+    child_nodes[child_id] = child
+    child.instance_eval(&block) if block_given?
+  end
+
+  def component(child_id, child_options = {}, &block)
+    child = child_component_klass(child_id).new(child_id, "#{path}/#{child_id}", options.merge(child_options))
+    child_nodes[child_id] = child
+    child.instance_eval(&block) if block_given?
+  end
+
   private
 
-  def infer_id_from_class_name
-    # for example, Structures::Checkout::Page becomes :page
-    self.class.name.demodulize.underscore.to_sym
+  def child_component_klass(child_id)
+    class_name = "Guide::#{path.split('/').push(child_id.to_s).map(&:camelize).join('::')}"
+    class_name.constantize
+  rescue NameError => name_error
+    raise Guide::Errors::InvalidNode,
+      "I can't build the tree that backs the Styleguide because I could not load the class #{class_name}",
+      name_error.backtrace
   end
 end
