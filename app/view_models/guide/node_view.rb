@@ -5,6 +5,7 @@ class Guide::NodeView
     :partial,
     :formats,
     :cell,
+    :template,
     :custom_show_partial,
     :default_wrapper_css,
     :node_type,

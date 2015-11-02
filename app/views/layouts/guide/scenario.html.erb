@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+      <%= @layout_view.node_title %> ~ <%= @layout_view.scenario_name %> ~ Envato Market Styleguide
+    </title>
+    <meta name="description" content="A living, breathing, evolving styleguide that showcases the building blocks that our team use to develop Envato Market.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= favicon_link_tag("/icons/market.styleguide.envato.com/favicon.ico") %>
+
+    <% # Guide specific assets %>
+    <%#= javascript_include_tag("guide/head") %>
+    <%#= stylesheet_link_tag("guide/scenario", :media => "all") %>
+
+    <% # App specific stylesheets to render template %>
+    <% @layout_view.node_stylesheets.each do |styleheet|%>
+      <%= stylesheet_link_tag(styleheet, :media => "all") %>
+    <% end %>
+  </head>
+
+  <body>
+    <% if @layout_view.format == 'html' %>
+      <%= render  @layout_view.node_layout_template,
+                  :presenter => @layout_view.node_layout_presenter %>
+    <% else %>
+      <%= render  "#{@layout_view.node_layout_template}.#{@layout_view.format}",
+                  :presenter => @layout_view.node_layout_presenter %>
+    <% end %>
+
+    <% @layout_view.node_javascripts.each do |javascript|%>
+      <%# TODO: extract Styleguide Javascript (up next) %>
+      <%#= javascript_include_tag(javascript) %>
+    <% end %>
+    <%#<script>$(function(){viewloader.execute(Views);});</script>%>
+  </body>
+</html>
