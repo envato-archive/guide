@@ -16,7 +16,7 @@ class Guide::BaseController < Guide.configuration.controller_class_to_inherit.co
   end
 
   def content
-    @content ||= Guide::Content.new
+    @content ||= Guide::Tree.root
   end
 
   def monkey
