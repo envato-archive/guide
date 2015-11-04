@@ -1,0 +1,7 @@
+Description:
+    Mount Guide routes as Rails engine
+
+Example:
+    rails generate guide:routes
+
+    This will add routes to config/routes.rb
