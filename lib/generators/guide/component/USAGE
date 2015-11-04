@@ -1,0 +1,8 @@
+Description:
+    Generate new Guide component
+
+Example:
+    rails generate component component_name
+
+    This will create:
+        app/styleguide/guide/component_name.rb
