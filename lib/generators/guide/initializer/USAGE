@@ -1,0 +1,8 @@
+Description:
+  Generate initializer for guide
+
+Example:
+    rails generate guide:initializer
+
+    This will create:
+        config/initializers/guide.rb

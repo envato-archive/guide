@@ -1,0 +1,5 @@
+Description:
+  Install Guide for your Rails app
+
+Example:
+    rails generate guide:install
