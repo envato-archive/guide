@@ -40,24 +40,24 @@ class Guide::Node
 
   # For instance_eval in DSL
   def node(child_id, child_options = {}, &block)
-    child = Guide::Node.new(child_id, "#{path}/#{child_id}", options.merge(child_options))
-    child_nodes[child_id] = child
-    child.instance_eval(&block) if block_given?
+    create_child_node(Guide::Node, child_id, child_options, &block)
   end
 
   def document(child_id, child_options = {}, &block)
-    child = Guide::Document.new(child_id, "#{path}/#{child_id}", options.merge(child_options))
-    child_nodes[child_id] = child
-    child.instance_eval(&block) if block_given?
+    create_child_node(Guide::Document, child_id, child_options, &block)
   end
 
   def component(child_id, child_options = {}, &block)
-    child = child_component_klass(child_id).new(child_id, "#{path}/#{child_id}", options.merge(child_options))
-    child_nodes[child_id] = child
-    child.instance_eval(&block) if block_given?
+    create_child_node(child_component_klass(child_id), child_id, child_options, &block)
   end
 
   private
+
+  def create_child_node(child_klass, child_id, child_options, &block)
+    child = child_klass.new(child_id, "#{path}/#{child_id}", options.merge(child_options))
+    child_nodes[child_id] = child
+    child.instance_eval(&block) if block_given?
+  end
 
   def child_component_klass(child_id)
     class_name = "Guide::#{path.split('/').push(child_id.to_s).map(&:camelize).join('::')}"
