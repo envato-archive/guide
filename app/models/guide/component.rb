@@ -1,4 +1,8 @@
 class Guide::Component < Guide::Node
+  def node_type
+    :component
+  end
+
   def template
     nil
   end
