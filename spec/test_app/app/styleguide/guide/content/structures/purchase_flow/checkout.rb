@@ -1,23 +1,15 @@
-module Guide
-  module Content
-    module Structures
-      module PurchaseFlow
-        class Checkout < Guide::Component
-          def template
-            'purchase_flow/checkout'
-          end
+class Guide::Content::Structures::PurchaseFlow::Checkout < Guide::Component
+  def template
+    'purchase_flow/checkout'
+  end
 
-          def view_model
-            Guide::ViewModel.new
-          end
+  def view_model
+    Guide::ViewModel.new
+  end
 
-          private
+  private
 
-          scenario :payment_method do
-            view_model
-          end
-        end
-      end
-    end
+  scenario :payment_method do
+    view_model
   end
 end

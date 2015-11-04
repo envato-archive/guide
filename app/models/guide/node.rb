@@ -8,8 +8,7 @@ class Guide::Node
       name_error.backtrace
   end
 
-  attr_reader :id, :child_nodes, :options
-  attr_accessor :path
+  attr_reader :id, :child_nodes, :options, :path
 
   def initialize(id, path, options = {})
     @id = id.to_sym
