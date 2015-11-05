@@ -54,6 +54,14 @@ class Guide::Component < Guide::Node
     true
   end
 
+  def stylesheets
+    []
+  end
+
+  def javascripts
+    []
+  end
+
   private
 
   def image_path(image_name, extension = "png")
