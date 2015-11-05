@@ -1,6 +1,5 @@
 class Guide::ScenariosController < Guide::BaseController
-  # To be migrated across in a less Envato-Market-Specific form
-  # layout 'guide/scenario'
+  layout 'guide/scenario'
 
   def show
     expose_layout

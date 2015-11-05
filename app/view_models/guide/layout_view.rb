@@ -27,6 +27,11 @@ class Guide::LayoutView
     cartographer.draw_paths_to_visible_renderable_nodes(starting_node: @content_node)
   end
 
+  def show_locale_switcher?
+    #TODO: Add Diplomat
+    false
+  end
+
   def user_is_staff?
     @bouncer.user_is_staff?
   end

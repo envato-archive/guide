@@ -7,7 +7,7 @@ class Guide::Component < Guide::Node
     nil
   end
 
-  def default_wrapper_css
+  def layout_css_classes
     ''
   end
 
@@ -43,7 +43,7 @@ class Guide::Component < Guide::Node
   end
 
   def layout_template
-    'layouts/guide_scenario/default'
+    'layouts/guide/scenario/default'
   end
 
   def layout_view_model

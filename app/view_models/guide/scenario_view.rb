@@ -24,4 +24,17 @@ class Guide::ScenarioView
   def view
     @scenario.view
   end
+
+  def presenter
+    @scenario.presenter
+  end
+
+  def layout_css_classes
+    @node.layout_css_classes || ""
+  end
+
+  def wrapper_classes
+    [@scenario.options.custom_wrapper_css].join(" ") || ""
+  end
+
 end

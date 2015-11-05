@@ -1,6 +1,21 @@
 class Guide::Content::Structures::PurchaseFlow::Checkout < Guide::Component
   def template
-    'purchase_flow/checkout'
+    'temp/component'
+  end
+
+  def layout_css_classes
+    {
+      :parent => '',
+      :scenario => ''
+    }
+  end
+
+  def stylesheets
+    ['application/core.css', 'application/default.css']
+  end
+
+  def javascripts
+    ['application/core.js', 'application/default.js']
   end
 
   def view_model
@@ -9,7 +24,7 @@ class Guide::Content::Structures::PurchaseFlow::Checkout < Guide::Component
 
   private
 
-  scenario :payment_method do
+  scenario :default do
     view_model
   end
 end

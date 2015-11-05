@@ -5,8 +5,9 @@ class Guide::NodeView
     :partial,
     :formats,
     :cell,
+    :template,
     :custom_show_partial,
-    :default_wrapper_css,
+    :layout_css_classes,
     :node_type,
     :can_be_rendered?, :to => :@node
 
@@ -30,6 +31,11 @@ class Guide::NodeView
 
   def uses_cells?
     cell.present?
+  end
+
+  def show_locale_switcher?
+    #TODO: Add Diplomat
+    false
   end
 
   def template_location
