@@ -1,7 +1,7 @@
 <div class="sg-controls__category">
   <h2>
     <% if view.on_homepage? %>
-      ACME Pty Ltd Styleguide
+      <%= Guide.configuration.company_name%>Styleguide
     <% else %>
       <%= view.active_node_name %>
     <% end %>
