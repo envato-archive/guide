@@ -6,7 +6,7 @@ RSpec.describe Guide::ScenariosController, :type => :controller do
   describe '#show' do
     let(:show) do
       get(:show,
-          :node_path => 'structures/purchase_flow/checkout',
+          :node_path => 'structures/purchase_flow/checkout/billing_details',
           :scenario_id => 'payment_method',
           :scenario_format => 'html')
     end
