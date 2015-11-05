@@ -1,6 +1,6 @@
 <% if view.user_is_staff? %>
   <% case view.active_node_visibility %>
-  <% when :financial %>
+  <% when :restricted %>
     <div class="sg-header__visibility -status-restricted">
       <p class="t-body -color-light -size-m h-remove-margin">
         <i class="e-icon -icon-lock -margin-right"><span class="e-icon__alt">Restricted</span></i>
