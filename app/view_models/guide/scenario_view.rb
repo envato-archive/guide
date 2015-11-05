@@ -25,8 +25,8 @@ class Guide::ScenarioView
     @scenario.view
   end
 
-  def presenter
-    @scenario.presenter
+  def view_model
+    @scenario.view_model
   end
 
   def layout_css_classes

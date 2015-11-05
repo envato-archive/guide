@@ -2,17 +2,17 @@
   <div class="<%= @scenario_view.layout_css_classes[:parent] %>">
     <div class="e-guide__scenario <%= @scenario_view.layout_css_classes[:scenario] %>">
       <% if @scenario_view.uses_cells? %>
-        <%= cell(@scenario_view.cell, @scenario_view.presenter).call %>
+        <%= cell(@scenario_view.cell, @scenario_view.view_model).call %>
       <% else %>
         <% if @scenario_view.format == 'text' %>
           <pre><%= render  "#{@scenario_view.template}.#{@scenario_view.format}",
-                    :presenter => @scenario_view.presenter %></pre>
+                    :presenter => @scenario_view.view_model %></pre>
         <% elsif @scenario_view.format == 'html' %>
           <%= render  @scenario_view.template,
-                      :presenter => @scenario_view.presenter %>
+                      :presenter => @scenario_view.view_model %>
         <% else %>
           <%= render  "#{@scenario_view.template}.#{@scenario_view.format}",
-                      :presenter => @scenario_view.presenter %>
+                      :presenter => @scenario_view.view_model %>
         <% end %>
       <% end %>
     </div>
