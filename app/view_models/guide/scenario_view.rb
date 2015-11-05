@@ -34,7 +34,7 @@ class Guide::ScenarioView
   end
 
   def wrapper_classes
-    [@scenario.options.custom_wrapper_css].join(" ") || ""
+    @scenario.options.custom_wrapper_css || ""
   end
 
 end
