@@ -1,0 +1,32 @@
+<div class="sg-content">
+  <div am-Grid class="h-text-align-center">
+    <div am-Grid-Col="m:4 l:6" am-Grid-Row="m:start l:start">
+      <div class="sg-home__section">
+        <%= link_to Guide::Engine.routes.url_helpers.node_path('structures'),
+                    :class => "t-link -color-dark -decoration-reversed" do %>
+          <h3 class="t-heading -size-m">Structures</h3>
+        <% end %>
+        <div class="sg-home__intro">
+          <p class="t-body -size-l">
+            Here you will find the living documentation for the pieces that make up ACME Pty Ltd. We use real templates from the site and recreate the different states that they might be in.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div am-Grid-Col="m:4 l:6" am-Grid-Row="m:end l:end">
+      <div class="sg-home__section <%= 'is-disabled-interaction' unless @user_is_staff  %>">
+        <%= link_to Guide::Engine.routes.url_helpers.node_path('ui_library'),
+                    :class => "t-link -color-dark -decoration-reversed" do %>
+          <h3 class="t-heading -size-m">UI Library</h3>
+        <% end %>
+        <div class="sg-home__intro">
+          <p class="t-body -size-l">
+            Everything on our site is formed from basic building blocks like buttons, forms, alert boxes and typography. We use this pattern library to keep track of all of these bits and pieces.
+          </p>
+        </div>
+        <span class="e-text-label--reversed -color-green">Coming soon</span>
+      </div>
+    </div>
+  </div>
+</div>

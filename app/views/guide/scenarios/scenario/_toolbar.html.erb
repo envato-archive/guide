@@ -1,0 +1,42 @@
+<header class="sg-scenario__header">
+  <div class="sg-toolbar -status-<%= scenario.options[:visibility] || :public %>">
+    <% if view.user_is_staff? %>
+      <%= render  'guide/scenarios/scenario/visibility',
+                  :visibility => scenario.options[:visibility] %>
+    <% end %>
+    <div class="sg-toolbar__title">
+      <h3 class="t-heading -size-xxs -color-inherit h-remove-margin">
+        <%= link_to scenario.name, "##{scenario_id}",
+                    :class => [
+                      "t-link -decoration-reversed",
+                      (scenario.options[:visibility].nil? ? '-color-inherit' : '-color-light')
+                    ] %>
+      </h3>
+    </div>
+    <div class="sg-toolbar__controls">
+      <div class="sg-actions">
+        <% if view.show_locale_switcher? %>
+          <div class="sg-actions__control is-hidden-phone">
+            <%= render 'guide/scenarios/scenario/locale_switcher', :view => view %>
+          </div>
+        <% end %>
+        <div class="sg-actions__control is-hidden-phone">
+          <%= link_to "S", "##{scenario_id}", :class => "js-guide__responsive-phone t-link -color-inherit -decoration-reversed" %>
+          <%= link_to "M", "##{scenario_id}", :class => "js-guide__responsive-tablet t-link -color-inherit -decoration-reversed" %>
+          <%= link_to "L", "##{scenario_id}", :class => "js-guide__responsive-desktop t-link -color-inherit -decoration-reversed" %>
+        </div>
+        <div class="sg-actions__control">
+          <%= link_to Guide::Engine.routes.url_helpers.scenario_path(
+                        :scenario_id => scenario_id,
+                        :node_path => view.node_path,
+                        :scenario_format => "html",
+                      ),
+                      :class =>"sg-actions__icon",
+                      :target => "_blank" do %>
+            <i class="e-icon -icon-link-ext -color-inherit -size-medium"><span class="e-icon__alt">Open in new tab</span></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

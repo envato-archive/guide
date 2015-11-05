@@ -1,0 +1,175 @@
+<div class="sg-content">
+  <div class="sg-content__intro">
+    <p class="t-body">These are colours. They'll brighten up your life. Try it! Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+  </div>
+
+  <section class="sg-content__group">
+    <h2 class="t-heading -size-m">Brand Specific Colors</h2>
+    <p class="t-body">When using this Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+
+    <% brand_colors = [
+      ["$envato-green", "#82b541", "light"],
+      ["$power-elite-green", "#81b254", "light"],
+      ["$green-audiojungle", "#9ac130", "light"],
+      ["$green-themeforest", "#1abc9c", "light"],
+      ["$blue-graphicriver", "#308eb1", "light"],
+      ["$blue-photodune", "#0f8c98", "light"],
+      ["$blue-envato-studio", "#1fb4da", "light"],
+      ["$red-3docean", "#ab0f34", "light"],
+      ["$orange-activeden", "#d35400", "light"],
+      ["$orange-codecanyon", "#e78733", "light"],
+      ["$yellow-videohive", "#e7a802", "light"],
+    ] %>
+
+    <div class="sg-grid">
+      <% brand_colors.each do |variable, hex, text_color| %>
+        <div class="sg-grid__item">
+          <div class="sg-swatch">
+            <div class="sg-swatch__header -color-<%= text_color %>" style="background-color:<%= hex %>;}">
+              <%= hex %>
+            </div>
+            <div class="sg-swatch__body -color-light">
+              <%= variable %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+
+   <section class="sg-content__group">
+    <h2 class="t-heading -size-m">50 Shades of Grey</h2>
+    <p class="t-body">When using this Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+
+    <% grey_colors = [
+      ["$black", "#000", "light"],
+      ["$grey-ultra-dark", "#1f1f1f", "light"],
+      ["$grey-mega-dark", "#232323", "light"],
+      ["$grey-super-dark", "#282828", "light"],
+      ["$grey-very-dark", "#2b2b2b", "light"],
+      ["$grey-darker", "#333", "light"],
+      ["$grey-slightly-darker", "#3e3e3e", "light"],
+      ["$grey-dark", "#444", "light"],
+      ["$grey-darkish", "#555", "light"],
+      ["$grey-a-bit-dark", "#666", "light"],
+      ["$grey-somewhat-darker", "#777", "light"],
+      ["$grey-somewhat-dark", "#7e7e7e", "light"],
+      ["$grey", "#999", "light"],
+      ["$grey-somewhat-light", "#9e9e9e", "light"],
+      ["$grey-lightish", "#aaa", "light"],
+      ["$grey-light", "#bbb", "dark"],
+      ["$grey-barely-lighter", "#cbcbcb", "dark"],
+      ["$grey-slightly-lighter", "#c5c5c5", "dark"],
+      ["$grey-a-bit-lighter", "#d2d1d0", "dark"],
+      ["$grey-lighter", "#d4d4d4", "dark"],
+      ["$grey-lots-lighter", "#ddd", "dark"],
+      ["$grey-very-light", "#e0e0e0", "dark"],
+      ["$grey-very-veryish-light", "#e3e3e3", "dark"],
+      ["$grey-very-very-light", "#e5e5e5", "dark"],
+      ["$grey-super-light", "#eee", "dark"],
+      ["$grey-mega-light", "#f4f4f4", "dark"],
+      ["$grey-ultra-light", "#f5f5f5", "dark"],
+      ["$grey-box-border", "#e1e8ed", "dark"],
+      ["$grey-bling", "#fbfbfb", "dark"],
+      ["$white", "#fff", "dark"],
+    ] %>
+
+    <div class="sg-grid">
+      <% grey_colors.each do |variable, hex, text_color| %>
+        <div class="sg-grid__item">
+          <div class="sg-swatch">
+            <div class="sg-swatch__header -color-<%= text_color %>" style="background-color:<%= hex %>;}">
+              <%= hex %>
+            </div>
+            <div class="sg-swatch__body -color-light">
+              <%= variable %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+
+  <section class="sg-content__group">
+    <h2 class="t-heading -size-m">Colors</h2>
+    <p class="t-body">When using this Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+
+    <% main_colors = [
+      ["$brown", "#885418", "light"],
+      ["$brown-orangeish", "#cda869", "light"],
+      ["$brown-light", "#b6a375", "light"],
+      ["$grey-brownish", "#837e76", "light"],
+      ["$brown-muted", "#8f887c", "light"],
+      ["$brown-very-light", "#DED9CD", "dark"],
+      ["$green-very-dark", "#125906", "light"],
+      ["$green-dark", "#178e0e", "light"],
+      ["$green-pop-dark", "#78a63b", "light"],
+      ["$green-pop-very-dark", "#6f9a37", "light"],
+      ["$green-pop", "#82b440", "light"],
+      ["$green", "#95b833", "light"],
+      ["$green-desaturated", "#93D072", "light"],
+      ["$green-chartreuse", "#73bd28", "light"],
+      ["$green-bright", "#63c242", "light"],
+      ["$green-brighter", "#69bd3f", "light"],
+      ["$green-medium-lighter", "#a0ce80", "light"],
+      ["$green-medium-light", "#c0daa0", "dark"],
+      ["$green-pastel", "#cbe6c2", "dark"],
+      ["$green-light", "#F2FCF0", "dark"],
+      ["$gold", "#fec42d", "light"],
+      ["$orange", "#f39c12", "light"],
+      ["$orange-slightly-dark", "#e9930c", "light"],
+      ["$orange-dark", "#c77e0a", "light"],
+      ["$orange-rss", "#e78733", "light"],
+      ["$bright-orange-dark", "#d77b0a", "light"],
+      ["$bright-orange", "#f59620", "light"],
+      ["$yellow-dark", "#E39D06", "light"],
+      ["$yellow-mid", "#efa506", "light"],
+      ["$yellow", "#f0ca39", "dark"],
+      ["$yellow-light", "#f5f5b4", "dark"],
+      ["$pale-yellow", "#fdf3a9", "dark"],
+      ["$purple", "#703593", "light"],
+      ["$burgundy", "#991c48", "light"],
+      ["$red", "#df2c2c", "light"],
+      ["$red-slightly-dark", "#ce2424", "light"],
+      ["$orange-red", "#ea4d20", "light"],
+      ["$red-dark", "#c24242", "light"],
+      ["$red-light", "#fa8072", "light"],
+      ["$red-very-light", "#F4867A", "light"],
+      ["$orange-light", "#FAC7AE", "dark"],
+      ["$salmon", "#BB726F", "light"],
+      ["$salmon-dark", "#a6524f", "light"],
+      ["$orange-pink", "#f54a5d", "light"],
+      ["$pink", "#FF98BF", "light"],
+      ["$blue-ocean-dark", "#212b2f", "light"],
+      ["$blue-dark", "#125bd3", "light"],
+      ["$blue-bright-darker", "#007099", "light"],
+      ["$blue-bright", "#0084B4", "light"],
+      ["$blue", "#2d75ed", "light"],
+      ["$blue-deep-sky", "#13a0d8", "light"],
+      ["$aqua-dark", "#0f8c98", "light"],
+      ["$aqua", "#15a0c9", "light"],
+      ["$dark-sky-blue", "#7bc4c4", "light"],
+      ["$blue-somewhat-light", "#a7d5d9", "dark"],
+      ["$blue-light", "#d0e8ea", "dark"],
+      ["$blue-bright-really-light", "#e5f2f7", "dark"],
+    ] %>
+
+    <div class="sg-grid">
+      <% main_colors.each do |variable, hex, text_color| %>
+        <div class="sg-grid__item">
+          <div class="sg-swatch">
+            <div class="sg-swatch__header -color-<%= text_color %>" style="background-color:<%= hex %>;}">
+              <%= hex %>
+            </div>
+            <div class="sg-swatch__body -color-light">
+              <%= variable %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+</div>

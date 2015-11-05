@@ -1,17 +1,17 @@
 <% if view.user_is_staff? %>
   <% case view.active_node_visibility %>
-  <% when :restricted %>
+  <% when :financial %>
     <div class="sg-header__visibility -status-restricted">
       <p class="t-body -color-light -size-m h-remove-margin">
         <i class="e-icon -icon-lock -margin-right"><span class="e-icon__alt">Restricted</span></i>
-        This is only visible to people with 'Restricted' clearance.
+        This is only visible to Envato Staff with 'Restricted' clearance.
       </p>
     </div>
   <% when :unpublished %>
     <div class="sg-header__visibility -status-unpublished">
       <p class="t-body -color-light -size-m h-remove-margin">
         <i class="e-icon -icon-lock -margin-right"><span class="e-icon__alt">Unpublished</span></i>
-        This is not visible to the public. It is most likely a work in progress.
+        This is only visible to Envato Staff. It is most likely a work in progress.
       </p>
     </div>
   <% else %>

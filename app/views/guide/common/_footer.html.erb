@@ -1,0 +1,19 @@
+<footer class="sg-layout__footer">
+  <p class="t-body -size-m">
+    <%= link_to "This styleguide is a living, breathing work in progress.",
+                "http://webuild.envato.com/blog/styleguide-driven-development",
+                :class => "t-link -color-dark" %>
+    Various elements are likely to change at any time without warning.<br />
+    It uses the latest CSS3 features and is best viewed with modern browsers (for now).
+  </p>
+
+  <% if view.show_locale_switcher? %>
+    <div class="sg-footer__language">
+      <%= render 'guide/common/locale_switcher', :view => view %>
+    </div>
+  <% end %>
+
+  <p class="t-body -size-m h-remove-margin">
+    &copy; <%= Time.now.year %> ACME Pty Ltd.
+  </p>
+</footer>

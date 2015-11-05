@@ -1,14 +1,66 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Guide</title>
-  <%= stylesheet_link_tag    "guide/application", media: "all" %>
-  <%= javascript_include_tag "guide/application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+      <% if @layout_view.on_homepage? %>
+        Guide
+      <% else %>
+        <%= @layout_view.active_node_title %> ~ Guide
+      <% end %>
+    </title>
+    <meta name="description" content="<% if @layout_view.on_homepage? %>A living, breathing, evolving styleguide.<% end %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<%= yield %>
+    <%#= stylesheet_link_tag("guide/application", :media => "all") %>
 
-</body>
+    <%# TEMP: Hotlink to Envato Market prod assets %>
+    <%= stylesheet_link_tag("http://dmypbau5frl9g.cloudfront.net/assets/guide/index-bccecb5fff0c3b6b7d621ef429b0fd2a.css", :media => "all") %>
+  </head>
+
+  <body>
+    <div data-view="layout" class="sg-layout">
+      <aside class="js-layout__sidebar sg-layout__sidebar">
+        <div class="sg-drawer">
+          <div class="sg-drawer__logo">
+            <h2 class="t-heading -color-light -size-m">ACME Styleguide</h2>
+          </div>
+          <div class="sg-drawer__nav">
+            <%= yield :sidebar %>
+          </div>
+        </div>
+      </aside>
+      <main class="js-layout__content sg-layout__main">
+        <header class="sg-header">
+          <%= render 'guide/common/page_title', :view => @layout_view %>
+
+          <div class="sg-header__controls">
+            <div class="sg-controls">
+              <div class="sg-controls__hamburger">
+                <a class="js-layout__nav-toggle">
+                  <i class="e-icon -icon-hamburger -size-medium"><span class="e-icon__alt">Nav</span></i>
+                </a>
+              </div>
+
+              <%= render 'guide/common/category', :view => @layout_view %>
+              <%= render 'guide/common/search', :view => @layout_view %>
+            </div>
+          </div>
+
+          <%= render 'guide/common/visibility_banner', :view => @layout_view %>
+        </header>
+
+        <div class="sg-layout__content">
+          <%= yield %>
+          <%= render 'guide/common/footer', :view => @layout_view %>
+        </div>
+        <div class="js-layout__nav-overlay sg-layout__overlay"></div>
+      </main>
+    </div>
+
+    <%# TEMP: Hotlink to Envato Market prod assets %>
+    <%= javascript_include_tag("http://dmypbau5frl9g.cloudfront.net/assets/guide/application-5b02550575241f6e79288471732822e1.js") %>
+    <script>$(function(){viewloader.execute(Views);});</script>
+  </body>
 </html>

@@ -1,4 +1,4 @@
-<div class="sg-controls__search" data-view="sgSearch">
+<div class="sg-controls__search" data-view="search">
   <div class="sg-search">
     <div class="sg-search__input">
       <%= text_field_tag  "search", "",
@@ -9,7 +9,7 @@
             @layout_view.paths_to_visible_renderable_nodes.map do |node_path, node_title|
               {
                 :label => node_title,
-                :value => guide_node_path(
+                :value => Guide::Engine.routes.url_helpers.node_path(
                   :node_path => node_path
                 )
               }

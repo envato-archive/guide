@@ -1,1 +1,27 @@
-<%= render 'scenario', :view => @scenario_view %>
+<div class="js- e-guide__component <%= @scenario_view.wrapper_classes %>">
+  <div class="<%= @scenario_view.layout_css_classes[:parent] %>">
+    <div class="e-guide__scenario <%= @scenario_view.layout_css_classes[:scenario] %>">
+      <% if @scenario_view.uses_cells? %>
+        <%= cell(@scenario_view.cell, @scenario_view.presenter).call %>
+      <% else %>
+        <% if @scenario_view.format == 'text' %>
+          <pre><%= render  "#{@scenario_view.template}.#{@scenario_view.format}",
+                    :presenter => @scenario_view.presenter %></pre>
+        <% elsif @scenario_view.format == 'html' %>
+          <%= render  @scenario_view.template,
+                      :presenter => @scenario_view.presenter %>
+        <% else %>
+          <%= render  "#{@scenario_view.template}.#{@scenario_view.format}",
+                      :presenter => @scenario_view.presenter %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% unless @scenario_view.format == 'text' %>
+  <div class="js- e-guide__translation-missing is-hidden">
+    <h3>This is awkward. We have no translations for:</h3>
+    <ul></ul>
+  </div>
+<% end %>

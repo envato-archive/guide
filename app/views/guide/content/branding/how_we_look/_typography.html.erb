@@ -1,0 +1,57 @@
+<div class="sg-content">
+  <div class="sg-content__intro">
+    <p class="t-body">This is how typography should be used on the ACME Pty Ltds and marketing.</p>
+
+    <div class="alert-box">
+      <div class="alert-box__icon">
+        <i class="e-icon -icon-flag"></i>
+      </div>
+      <div class="alert-box__message">
+        <p class="t-body -size-m h-remove-margin">
+          <strong>Note:</strong> Please see the css utilities <%= link_to "Heading typography", Guide::Engine.routes.url_helpers.node_path('ui_library/typography/heading') %> and <%= link_to "Body typography", Guide::Engine.routes.url_helpers.node_path('ui_library/typography/body') %> sections for implmentation instructions.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <section class="sg-content__group">
+    <h2 class="t-heading -size-m">Default Usage</h2>
+    <p class="t-body">Use this combination of headers for regular pages</p>
+
+    <div class="sg-content__example">
+      <%= code_example('markup') do %>
+        <!-- First level default heading -->
+        <h1 class="t-heading -size-xl">First level</h1>
+
+        <!-- Second level default heading -->
+        <h1 class="t-heading -size-m">Second level</h1>
+
+        <!-- Third level default heading -->
+        <h1 class="t-heading -size-s">Third level</h1>
+
+        <!-- Fourth level and below headings -->
+        <h1 class="t-heading -size-xs">Fourth level (and below)</h1>
+      <% end %>
+    </div>
+  </section>
+
+
+  <section class="sg-content__group">
+    <h2 class="t-heading -size-m">Landing Page usage</h2>
+    <p class="t-body">Use this combination of headers for landing pages</p>
+
+    <div class="sg-content__example">
+      <%= code_example('markup') do %>
+        <!-- First level landing page heading -->
+        <h1 class="t-heading -size-xxl">First level</h1>
+
+        <!-- Second level landing page heading -->
+        <h1 class="t-heading -size-l">Second level</h1>
+
+        <!-- Third level landing page heading -->
+        <h1 class="t-heading -size-m">Third level</h1>
+      <% end %>
+    </div>
+
+  </section>
+</div>
