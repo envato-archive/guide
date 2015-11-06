@@ -1,5 +1,5 @@
-<%= render 'guide/scenarios/scenario_list', :view => view %>
-<%= render 'guide/scenarios/template_location', :view => view %>
+<%= render 'scenario_list', :view => view %>
+<%= render 'template_location', :view => view %>
 
 <% view.visible_scenarios.each do |scenario_id, scenario| %>
   <section class="sg-scenario" id="<%= scenario_id %>" data-view="scenario">
@@ -16,7 +16,7 @@
       <% end %>
       <%= content_tag :div,
                       :class => "js-guide__scenario-container sg-scenario__container" do %>
-        <%= render  'guide/scenarios/scenario',
+        <%= render  'scenario',
                     :scenario_id => scenario_id,
                     :node_path => view.node_path,
                     :scenario_format => scenario_format %>

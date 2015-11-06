@@ -1,18 +1,27 @@
-<%= content_tag(  :div,
-                  :class => "sg-scenario__iframe is-loading",
-                  :data => {
-                    :view => "iframe"
-                  }
-                ) do %>
+<div class="js- e-guide__component <%= view.wrapper_classes %>">
+  <div class="<%= view.layout_css_classes[:parent] %>">
+    <div class="e-guide__scenario <%= view.layout_css_classes[:scenario] %>">
+      <% if view.uses_cells? %>
+        <%= cell(view.cell, view.view_model).call %>
+      <% else %>
+        <% if view.format == 'text' %>
+          <pre><%= render  "#{view.template}.#{view.format}",
+                    :presenter => view.view_model %></pre>
+        <% elsif view.format == 'html' %>
+          <%= render  view.template,
+                      :presenter => view.view_model %>
+        <% else %>
+          <%= render  "#{view.template}.#{view.format}",
+                      :presenter => view.view_model %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-  <%= content_tag(  :iframe,
-                    nil,
-                    :width => "100%",
-                    :scrolling => "no",
-                    :src => Guide::Engine.routes.url_helpers.scenario_path(
-                      :scenario_id => scenario_id,
-                      :node_path => node_path,
-                      :scenario_format => scenario_format,
-                    )
-                  ) %>
+<% unless view.format == 'text' %>
+  <div class="js- e-guide__translation-missing is-hidden">
+    <h3>This is awkward. We have no translations for:</h3>
+    <ul></ul>
+  </div>
 <% end %>
