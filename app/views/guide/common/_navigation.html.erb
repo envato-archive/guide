@@ -2,9 +2,9 @@
   <%= content_tag "ul",
                   :class => "sg-navigation",
                   :data => {
-                    :view => ("sgTreeNav")
+                    :view => "navigation"
                   } do %>
-    <%= render  'styleguide/common/navigation_node',
+    <%= render  'guide/common/navigation_node',
                   :node_path => nil,
                   :top_level_node => true,
                   :view => view %>

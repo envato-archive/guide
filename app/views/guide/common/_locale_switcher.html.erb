@@ -1,0 +1,6 @@
+<form action="" method="get" data-view="languageSwitcher">
+  <%= select_tag  view.locale_param,
+                  options_for_select(view.supported_locales, view.current_locale),
+                  :class => 'js-guide__language f-select' %>
+  <%= submit_tag "Switch Language", :name => nil, :class => 'is-hidden--js' %>
+</form>

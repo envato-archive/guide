@@ -1,0 +1,5 @@
+<form action="" method="get">
+  <%= select_tag  view.locale_param,
+                  options_for_select(view.supported_locales, view.current_locale),
+                  :class => 'js-guide__scenario-locale f-select' %>
+</form>

@@ -1,14 +1,27 @@
-<% if view.uses_cells? %>
-  <%= cell(view.cell, view.view).call %>
-<% else %>
-  <% if view.format == 'text' %>
-    <pre><%= render  "#{view.template}.#{view.format}",
-              :view => view.view %></pre>
-  <% elsif view.format == 'html' %>
-    <%= render  view.template,
-                :view => view.view %>
-  <% else %>
-    <%= render  "#{view.template}.#{view.format}",
-                :view => view.view %>
-  <% end %>
+<div class="js- e-guide__component <%= view.wrapper_classes %>">
+  <div class="<%= view.layout_css_classes[:parent] %>">
+    <div class="e-guide__scenario <%= view.layout_css_classes[:scenario] %>">
+      <% if view.uses_cells? %>
+        <%= cell(view.cell, view.view_model).call %>
+      <% else %>
+        <% if view.format == 'text' %>
+          <pre><%= render  "#{view.template}.#{view.format}",
+                    :presenter => view.view_model %></pre>
+        <% elsif view.format == 'html' %>
+          <%= render  view.template,
+                      :presenter => view.view_model %>
+        <% else %>
+          <%= render  "#{view.template}.#{view.format}",
+                      :presenter => view.view_model %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% unless view.format == 'text' %>
+  <div class="js- e-guide__translation-missing is-hidden">
+    <h3>This is awkward. We have no translations for:</h3>
+    <ul></ul>
+  </div>
 <% end %>

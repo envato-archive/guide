@@ -1,0 +1,15 @@
+<footer class="sg-layout__footer">
+  <p class="t-body -size-m">
+    The styleguide uses the latest CSS3 features and is best viewed with modern browsers (for now).
+  </p>
+
+  <% if view.show_locale_switcher? %>
+    <div class="sg-footer__language">
+      <%= render 'guide/common/locale_switcher', :view => view %>
+    </div>
+  <% end %>
+
+  <p class="t-body -size-m h-remove-margin">
+    &copy; <%= Time.now.year %> <%= Guide.configuration.company_name %>
+  </p>
+</footer>

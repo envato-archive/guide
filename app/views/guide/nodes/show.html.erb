@@ -1,7 +1,7 @@
-<%= render 'styleguide/common/navigation', :view => @navigation_view %>
+<%= render 'guide/common/navigation', :view => @navigation_view %>
 
 <% if @node_view.can_be_rendered? %>
-  <%= render "styleguide/nodes/#{@node_view.node_type}", :view => @node_view %>
+  <%= render "guide/nodes/#{@node_view.node_type}", :view => @node_view %>
 <% else %>
   <% raise "I was asked to render '#{@node_view.name}' but that node cannot be rendered because it is only a #{@node_view.node_type}, not something smarter like a component or a document" %>
 <% end %>

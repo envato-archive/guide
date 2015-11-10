@@ -1,0 +1,10 @@
+<nav class="sg-box h-spacing-below">
+  <h3 class="t-heading -size-m">Scenarios:</h3>
+  <ul class="t-list -style-decimal">
+    <% view.visible_scenarios.each do |scenario_id, scenario| %>
+      <li class="t-body h-remove-margin">
+        <%= link_to scenario.name, "##{scenario_id}", :class => 't-link' %>
+      </li>
+    <% end %>
+  </ul>
+</nav>
