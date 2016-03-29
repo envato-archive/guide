@@ -2,7 +2,7 @@
   <h3 class="t-heading -size-m">Scenarios:</h3>
   <ul class="t-list -style-decimal">
     <% view.visible_scenarios.each do |scenario_id, scenario| %>
-      <li class="t-body h-remove-margin">
+      <li class="t-body h-m0">
         <%= link_to scenario.name, "##{scenario_id}", :class => 't-link' %>
       </li>
     <% end %>
