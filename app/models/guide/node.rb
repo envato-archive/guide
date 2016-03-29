@@ -14,7 +14,7 @@ class Guide::Node
     child_node_class_name.constantize
   rescue NameError => name_error
     raise Guide::Errors::InvalidNode,
-      "I can't build the tree that backs the Styleguide because I could not load the class #{child_node_class_name}.",
+      "I can't build the tree that backs Guide because I could not load the class #{child_node_class_name}.",
       name_error.backtrace
   end
 

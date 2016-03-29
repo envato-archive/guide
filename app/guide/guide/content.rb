@@ -1,5 +1,5 @@
 class Guide::Content < Guide::Document
-  # The content in the Living Styleguide for your application is organised
+  # The content in the Living Guide for your application is organised
   # into a tree structure. This class is the root node of that tree.
   # To add child nodes, use the following DSL:
   #
@@ -22,7 +22,7 @@ class Guide::Content < Guide::Document
   #
   # app/<whatever_you_want>/guide/content.rb
   #
-  # The convention for the subdirectory in app/ is "styleguide",
+  # The convention for the subdirectory in app/ is "guide",
   # but if you don't like that, you can use something else (even "models"!).
   # You probably shouldn't use any other standard rails directories though.
 end

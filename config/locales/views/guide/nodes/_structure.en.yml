@@ -1,0 +1,7 @@
+en:
+  guide:
+    nodes:
+      structure:
+        format_heading:
+          html: "HTML version"
+          text: "Plain text version"

@@ -8,9 +8,9 @@ RSpec.describe Guide::Bouncer do
 
   before do
     allow(authorisation_system).to receive(:allow?).
-      with(:view_styleguide_unpublished).and_return(false)
+      with(:view_guide_unpublished).and_return(false)
     allow(authorisation_system).to receive(:allow?).
-      with(:view_styleguide_restricted).and_return(false)
+      with(:view_guide_restricted).and_return(false)
   end
 
   describe '#user_can_access?' do
@@ -42,7 +42,7 @@ RSpec.describe Guide::Bouncer do
       context 'and the user has permission to view unpublished nodes' do
         before do
           allow(authorisation_system).to receive(:allow?).
-            with(:view_styleguide_unpublished).and_return(true)
+            with(:view_guide_unpublished).and_return(true)
         end
 
         it { is_expected.to be true }
@@ -51,7 +51,7 @@ RSpec.describe Guide::Bouncer do
       context 'but the user does not have permission to view unpublished nodes' do
         before do
           allow(authorisation_system).to receive(:allow?).
-            with(:view_styleguide_unpublished).and_return(false)
+            with(:view_guide_unpublished).and_return(false)
         end
 
         it { is_expected.to be false }
@@ -60,9 +60,9 @@ RSpec.describe Guide::Bouncer do
       context 'and the user has permission to view restricted nodes, but bizarrely does not have permission to view unpublished nodes' do
         before do
           allow(authorisation_system).to receive(:allow?).
-            with(:view_styleguide_unpublished).and_return(false)
+            with(:view_guide_unpublished).and_return(false)
           allow(authorisation_system).to receive(:allow?).
-            with(:view_styleguide_restricted).and_return(true)
+            with(:view_guide_restricted).and_return(true)
         end
 
         it { is_expected.to be false }
@@ -75,7 +75,7 @@ RSpec.describe Guide::Bouncer do
       context 'and the user has permission to view restricted nodes' do
         before do
           allow(authorisation_system).to receive(:allow?).
-            with(:view_styleguide_restricted).and_return(true)
+            with(:view_guide_restricted).and_return(true)
         end
 
         it { is_expected.to be true }
@@ -84,7 +84,7 @@ RSpec.describe Guide::Bouncer do
       context 'but the user does not have permission to view restricted nodes' do
         before do
           allow(authorisation_system).to receive(:allow?).
-            with(:view_styleguide_restricted).and_return(false)
+            with(:view_guide_restricted).and_return(false)
         end
 
         it { is_expected.to be false }
@@ -93,9 +93,9 @@ RSpec.describe Guide::Bouncer do
       context 'and the user has permission to view restricted nodes, but bizarrely does not have permission to view unpublished nodes' do
         before do
           allow(authorisation_system).to receive(:allow?).
-            with(:view_styleguide_unpublished).and_return(false)
+            with(:view_guide_unpublished).and_return(false)
           allow(authorisation_system).to receive(:allow?).
-            with(:view_styleguide_restricted).and_return(true)
+            with(:view_guide_restricted).and_return(true)
         end
 
         it { is_expected.to be true }

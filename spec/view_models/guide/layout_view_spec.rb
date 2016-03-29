@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Guide::LayoutView do
   let(:view) do
     described_class.new(bouncer: bouncer,
+                        diplomat: diplomat,
                         content_node: content_node,
                         active_node: active_node,
                         active_node_heritage: active_node_heritage,
@@ -10,6 +11,7 @@ RSpec.describe Guide::LayoutView do
                         active_node_title: active_node_title)
   end
   let(:bouncer) { instance_double(Guide::Bouncer) }
+  let(:diplomat) { instance_double(Guide::Diplomat) }
   let(:content_node) { instance_double(Guide::Node) }
   let(:active_node) { instance_double(Guide::Node) }
   let(:active_node_heritage) { 'Such » Node' }

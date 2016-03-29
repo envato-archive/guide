@@ -19,7 +19,7 @@ class Guide::ScenarioLayoutView
   end
 
   def node_layout_view
-    @node.layout_view
+    @node.layout_view_model
   end
 
   def format
@@ -32,10 +32,6 @@ class Guide::ScenarioLayoutView
 
   def node_javascripts
     @node.javascripts
-  end
-
-  def node_layout_view_model
-    @node.layout_view_model
   end
 
   def optional_tracking_header
