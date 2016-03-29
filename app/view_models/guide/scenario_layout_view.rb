@@ -37,4 +37,8 @@ class Guide::ScenarioLayoutView
   def node_layout_view_model
     @node.layout_view_model
   end
+
+  def optional_tracking_header
+    # Override this with any html injections that are used for tracking e.g. NewRelic
+  end
 end
