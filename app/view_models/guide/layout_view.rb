@@ -23,6 +23,10 @@ class Guide::LayoutView
     @active_node == @content_node
   end
 
+  def optional_tracking_header
+    # Override this with any html injections that are used for tracking e.g. NewRelic
+  end
+
   def paths_to_visible_renderable_nodes
     cartographer.draw_paths_to_visible_renderable_nodes(starting_node: @content_node)
   end
