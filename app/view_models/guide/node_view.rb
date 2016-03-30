@@ -2,20 +2,19 @@ class Guide::NodeView
   delegate :id,
     :options,
     :name,
-    :partial,
     :formats,
     :cell,
     :template,
-    :custom_show_partial,
     :layout_css_classes,
     :node_type,
     :can_be_rendered?, :to => :@node
 
   attr_reader :node_path
 
-  def initialize(node:, bouncer:, node_path:)
+  def initialize(node:, bouncer:, diplomat:, node_path:)
     @node = node
     @bouncer = bouncer
+    @diplomat = diplomat
     @node_path = node_path
   end
 
@@ -33,16 +32,27 @@ class Guide::NodeView
     cell.present?
   end
 
-  def show_locale_switcher?
-    #TODO: Add Diplomat
-    false
-  end
-
   def template_location
-    template || cell || partial
+    template || cell
   end
 
   def user_is_staff?
     @bouncer.user_is_staff?
+  end
+
+  def supported_locales
+    @diplomat.supported_locales
+  end
+
+  def show_locale_switcher?
+    @bouncer.user_is_staff? && @diplomat.multiple_supported_locales?
+  end
+
+  def current_locale
+    @diplomat.current_locale
+  end
+
+  def locale_param
+    'temp_locale'
   end
 end

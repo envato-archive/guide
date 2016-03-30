@@ -1,6 +1,6 @@
 class Guide::Simulator
-  def initialize(component, bouncer)
-    @component = component
+  def initialize(structure, bouncer)
+    @structure = structure
     @bouncer = bouncer
   end
 
@@ -13,7 +13,7 @@ class Guide::Simulator
   private
 
   def scenario(scenario_id)
-    @component.scenarios[scenario_id].tap do |scenario|
+    @structure.scenarios[scenario_id].tap do |scenario|
       raise Guide::Errors::InvalidScenario unless scenario.present?
     end
   end

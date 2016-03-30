@@ -10,21 +10,21 @@ RSpec.describe Guide::Monkey do
   describe '#fetch_node' do
     subject(:fetch_node) { monkey.fetch_node(node_path) }
 
-    context 'given a valid tree of styleguide content' do
-      let(:node_path) { 'structures/checkout/page' }
+    context 'given a valid tree of guide content' do
+      let(:node_path) { 'structures/friendly/example' }
       let(:starting_node) do
         instance_double(Guide::Node,
                         :id => :content,
                         :child_nodes => child_nodes)
       end
-      let(:red_herring) do
+      let(:not_the_node_you_are_looking_for) do
         instance_double(Guide::Node,
-                        :id => :red_herring)
+                        :id => :not_the_node_you_are_looking_for)
       end
       let(:child_nodes) do
         {
           :structures => child_node,
-          :ui_library => red_herring,
+          :other_section => not_the_node_you_are_looking_for,
         }
       end
       let(:child_node) do
@@ -34,26 +34,26 @@ RSpec.describe Guide::Monkey do
       end
       let(:grand_child_nodes) do
         {
-          :shopping_cart => red_herring,
-          :checkout => grand_child_node,
-          :search_results => red_herring,
+          :shopping_cart => not_the_node_you_are_looking_for,
+          :friendly => grand_child_node,
+          :search_results => not_the_node_you_are_looking_for,
         }
       end
       let(:grand_child_node) do
         instance_double(Guide::Node,
-                        :id => :checkout,
+                        :id => :friendly,
                         :child_nodes => leaf_nodes)
       end
       let(:leaf_nodes) do
         {
-          :payment_method => red_herring,
-          :order_summary => red_herring,
-          :page => leaf_node,
+          :payment_method => not_the_node_you_are_looking_for,
+          :order_summary => not_the_node_you_are_looking_for,
+          :example => leaf_node,
         }
       end
       let(:leaf_node) do
         instance_double(Guide::Node,
-                        :id => :page)
+                        :id => :example)
       end
 
       before do
@@ -129,7 +129,7 @@ RSpec.describe Guide::Monkey do
       end
     end
 
-    context 'given an invalid tree of styleguide content' do
+    context 'given an invalid tree of guide content' do
       let(:starting_node) do
         instance_double(Guide::Node,
                         :id => :content,
@@ -150,7 +150,7 @@ RSpec.describe Guide::Monkey do
       end
 
       context 'because a node along the path does not exist' do
-        let(:node_path) { 'structures/brick/page' }
+        let(:node_path) { 'structures/brick/example' }
 
         it "raises an InvalidNode error and tries to explain what happened" do
           expect { fetch_node }.to raise_error(

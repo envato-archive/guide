@@ -12,14 +12,19 @@ class Guide::AuthorisationSystem
   private
 
   def system
-    # Override this method with code that makes sense in the context
-    # of your application. If you don't care about authorisation,
-    # feel free to leave this blank.
+    Guide.configuration.authorisation_system_class.constantize.new(@user)
   end
 
   def bypass_authorisation?
-    # By default, Guide will allow anything in development.
-    # If you don't override the system method, everything is allowed.
-    Rails.env.development? || system.blank?
+    Rails.env.development?
+  end
+
+  class Default
+    def initialize(_user)
+    end
+
+    def allow?(action)
+      true
+    end
   end
 end

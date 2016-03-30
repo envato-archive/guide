@@ -1,12 +1,12 @@
-class Guide::Content::Structures::PurchaseFlow::Checkout < Guide::Component
+class Guide::Content::Structures::Friendly::Example < Guide::Structure
   def template
-    'temp/component'
+    'temp/structure'
   end
 
   def layout_css_classes
     {
       :parent => '',
-      :scenario => ''
+      :scenario => '',
     }
   end
 

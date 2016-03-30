@@ -4,10 +4,25 @@ class Guide::BaseController < Guide.configuration.controller_class_to_inherit.co
 
   private
 
-  def authorisation_system
-    # Override this method if you need to pass arguments into whatever
-    # implementation of Guide::AuthorisationSystem works for your application
-    @authorisation_system ||= Guide::AuthorisationSystem.new
+  around_filter :set_locale
+  def set_locale
+    I18n.with_locale(diplomat.negotiate_locale) { yield }
+  end
+
+  around_filter :handle_known_errors
+  def handle_known_errors
+    begin
+      yield
+    rescue Guide::Errors::Base => error
+      raise error if Rails.env.development?
+
+      case error
+      when Guide::Errors::InvalidNode, Guide::Errors::PermissionDenied
+        render :text => 'Nothing to see here.', :status => '404'
+      else
+        render :text => "Something's gone wrong. Sorry about that.", :status => '500'
+      end
+    end
   end
 
   def active_node
@@ -18,8 +33,18 @@ class Guide::BaseController < Guide.configuration.controller_class_to_inherit.co
     @bouncer ||= Guide::Bouncer.new(authorisation_system)
   end
 
+  def authorisation_system
+    # Override this method if you need to pass arguments into whatever
+    # implementation of Guide::AuthorisationSystem works for your application
+    @authorisation_system ||= Guide::AuthorisationSystem.new
+  end
+
   def content
     @content ||= Guide::Content.new
+  end
+
+  def diplomat
+    @diplomat ||= Guide::Diplomat.new(session, params, I18n.default_locale)
   end
 
   def monkey
@@ -36,17 +61,5 @@ class Guide::BaseController < Guide.configuration.controller_class_to_inherit.co
 
   def node_path
     params[:node_path] || ""
-  end
-
-  def raise_error_in_dev_else_404(error)
-    if Rails.env.development?
-      raise error
-    else
-      render_404
-    end
-  end
-
-  def render_404
-    render :text => 'Not Found', :status => '404'
   end
 end

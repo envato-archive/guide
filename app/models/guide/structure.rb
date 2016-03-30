@@ -1,6 +1,9 @@
-class Guide::Component < Guide::Node
+class Guide::Structure < Guide::Node
   def template
-    nil
+    partial || raise(NotImplementedError)
+  end
+
+  def partial
   end
 
   def cell
@@ -8,11 +11,19 @@ class Guide::Component < Guide::Node
   end
 
   def layout_css_classes
-    ''
+    {}
   end
 
   def formats
     [:html]
+  end
+
+  def stylesheets
+    Guide.configuration.default_stylesheets_for_structures
+  end
+
+  def javascripts
+    Guide.configuration.default_javascripts_for_structures
   end
 
   def self.scenario(id, **options, &block)
@@ -43,7 +54,7 @@ class Guide::Component < Guide::Node
   end
 
   def layout_template
-    'layouts/guide/scenario/default'
+    layout_template_default
   end
 
   def layout_view_model
@@ -54,17 +65,13 @@ class Guide::Component < Guide::Node
     true
   end
 
-  def stylesheets
-    []
-  end
-
-  def javascripts
-    []
-  end
-
   private
 
   def image_path(image_name, extension = "png")
     Guide::Photographer.new(image_name, extension).image_path
+  end
+
+  def layout_template_default
+    'layouts/guide/scenario/default'
   end
 end

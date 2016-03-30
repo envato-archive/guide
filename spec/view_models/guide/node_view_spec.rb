@@ -2,15 +2,17 @@ require 'rails_helper'
 
 RSpec.describe Guide::NodeView do
   let(:view) do
-    described_class.new(node: component,
+    described_class.new(node: structure,
+                        diplomat: diplomat,
                         bouncer: bouncer,
                         node_path: node_path)
   end
-  let(:component) do
-    instance_double(Guide::Component,
+  let(:structure) do
+    instance_double(Guide::Structure,
                     :scenarios => scenarios)
   end
   let(:bouncer) { instance_double(Guide::Bouncer) }
+  let(:diplomat) { instance_double(Guide::Diplomat) }
   let(:node_path) { 'such/node/wow' }
 
   let(:scenarios) do
