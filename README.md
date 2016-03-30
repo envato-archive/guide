@@ -8,7 +8,7 @@ Document your application with a living component library and styleguide.
 - `rails s`
 
 **Browser**
-- `http://localhost:3000/guide/structures/purchase_flow/checkout`
+- `http://localhost:3000/guide/structures/friendly/example`
 
 ### JavaScript Assets
 
