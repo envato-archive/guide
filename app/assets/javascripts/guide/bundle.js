@@ -1,13 +1,2146 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({2:[function(require,module,exports){
 _hmr["websocket:null"].initModule("javascript/index.js", module);
 (function(){
-var $ = require('jquery')
+var $ = window.jQuery = require('jquery')
 
-window.$  = $
+require('./vendor/modernizr')
+require('./vendor/overthrow')
+var viewloader = require('./vendor/viewloader')
+
+var Layout = require('./views/layout')
+var Iframe = require('./views/iframe')
+var Navigation = require('./views/navigation')
+var LanguageSwitcher = require('./views/languageSwitcher')
+
+var Views = {}
+Views.Layout = Layout
+Views.Iframe = Iframe
+Views.Navigation = Navigation
+Views.LanguageSwitcher = LanguageSwitcher
+
+viewloader.execute(Views)
 
 }).apply(this, arguments);
 
-},{"jquery":34}],3:[function(require,module,exports){
+},{"./vendor/modernizr":3,"./vendor/overthrow":4,"./vendor/viewloader":6,"./views/iframe":7,"./views/languageSwitcher":8,"./views/layout":9,"./views/navigation":10,"jquery":46}],3:[function(require,module,exports){
+_hmr["websocket:null"].initModule("javascript/vendor/modernizr.js", module);
+(function(){
+/*!
+ * modernizr v3.2.0
+ * Build http://modernizr.com/download?-audio-cors-cssanimations-flexbox-input-inputtypes-localstorage-placeholder-svg-xhr2-domprefixes-mq-prefixes-shiv-testallprops-testprop-teststyles-dontmin
+ *
+ * Copyright (c)
+ *  Faruk Ates
+ *  Paul Irish
+ *  Alex Sexton
+ *  Ryan Seddon
+ *  Patrick Kettner
+ *  Stu Cox
+ *  Richard Herrera
+
+ * MIT License
+ */
+
+/*
+ * Modernizr tests which native CSS3 and HTML5 features are available in the
+ * current UA and makes the results available to you in two ways: as properties on
+ * a global `Modernizr` object, and as classes on the `<html>` element. This
+ * information allows you to progressively enhance your pages with a granular level
+ * of control over the experience.
+*/
+
+;(function(window, document, undefined){
+  var tests = [];
+
+
+  /**
+   *
+   * ModernizrProto is the constructor for Modernizr
+   *
+   * @class
+   * @access public
+   */
+
+  var ModernizrProto = {
+    // The current version, dummy
+    _version: '3.2.0',
+
+    // Any settings that don't work as separate modules
+    // can go in here as configuration.
+    _config: {
+      'classPrefix': '',
+      'enableClasses': true,
+      'enableJSClass': true,
+      'usePrefixes': true
+    },
+
+    // Queue of tests
+    _q: [],
+
+    // Stub these for people who are listening
+    on: function(test, cb) {
+      // I don't really think people should do this, but we can
+      // safe guard it a bit.
+      // -- NOTE:: this gets WAY overridden in src/addTest for actual async tests.
+      // This is in case people listen to synchronous tests. I would leave it out,
+      // but the code to *disallow* sync tests in the real version of this
+      // function is actually larger than this.
+      var self = this;
+      setTimeout(function() {
+        cb(self[test]);
+      }, 0);
+    },
+
+    addTest: function(name, fn, options) {
+      tests.push({name: name, fn: fn, options: options});
+    },
+
+    addAsyncTest: function(fn) {
+      tests.push({name: null, fn: fn});
+    }
+  };
+
+
+
+  // Fake some of Object.create so we can force non test results to be non "own" properties.
+  var Modernizr = function() {};
+  Modernizr.prototype = ModernizrProto;
+
+  // Leak modernizr globally when you `require` it rather than force it here.
+  // Overwrite name so constructor name is nicer :D
+  Modernizr = new Modernizr();
+
+
+/*!
+{
+  "name": "Cross-Origin Resource Sharing",
+  "property": "cors",
+  "caniuse": "cors",
+  "authors": ["Theodoor van Donge"],
+  "notes": [{
+    "name": "MDN documentation",
+    "href": "https://developer.mozilla.org/en-US/docs/HTTP/Access_control_CORS"
+  }],
+  "polyfills": ["pmxdr", "ppx", "flxhr"]
+}
+!*/
+/* DOC
+Detects support for Cross-Origin Resource Sharing: method of performing XMLHttpRequests across domains.
+*/
+
+  Modernizr.addTest('cors', 'XMLHttpRequest' in window && 'withCredentials' in new XMLHttpRequest());
+
+/*!
+{
+  "name": "SVG",
+  "property": "svg",
+  "caniuse": "svg",
+  "tags": ["svg"],
+  "authors": ["Erik Dahlstrom"],
+  "polyfills": [
+    "svgweb",
+    "raphael",
+    "amplesdk",
+    "canvg",
+    "svg-boilerplate",
+    "sie",
+    "dojogfx",
+    "fabricjs"
+  ]
+}
+!*/
+/* DOC
+Detects support for SVG in `<embed>` or `<object>` elements.
+*/
+
+  Modernizr.addTest('svg', !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect);
+
+/*!
+{
+  "name": "XML HTTP Request Level 2 XHR2",
+  "property": "xhr2",
+  "tags": ["network"],
+  "builderAliases": ["network_xhr2"],
+  "notes": [{
+    "name": "W3 Spec",
+    "href": "http://www.w3.org/TR/XMLHttpRequest2/"
+  },{
+    "name": "Details on Related Github Issue",
+    "href": "http://github.com/Modernizr/Modernizr/issues/385"
+  }]
+}
+!*/
+/* DOC
+Tests for XHR2.
+*/
+
+  // all three of these details report consistently across all target browsers:
+  //   !!(window.ProgressEvent);
+  //   'XMLHttpRequest' in window && 'withCredentials' in new XMLHttpRequest
+  Modernizr.addTest('xhr2', 'XMLHttpRequest' in window && 'withCredentials' in new XMLHttpRequest());
+
+/*!
+{
+  "name": "Local Storage",
+  "property": "localstorage",
+  "caniuse": "namevalue-storage",
+  "tags": ["storage"],
+  "knownBugs": [],
+  "notes": [],
+  "warnings": [],
+  "polyfills": [
+    "joshuabell-polyfill",
+    "cupcake",
+    "storagepolyfill",
+    "amplifyjs",
+    "yui-cacheoffline"
+  ]
+}
+!*/
+
+  // In FF4, if disabled, window.localStorage should === null.
+
+  // Normally, we could not test that directly and need to do a
+  //   `('localStorage' in window) && ` test first because otherwise Firefox will
+  //   throw bugzil.la/365772 if cookies are disabled
+
+  // Also in iOS5 Private Browsing mode, attempting to use localStorage.setItem
+  // will throw the exception:
+  //   QUOTA_EXCEEDED_ERROR DOM Exception 22.
+  // Peculiarly, getItem and removeItem calls do not throw.
+
+  // Because we are forced to try/catch this, we'll go aggressive.
+
+  // Just FWIW: IE8 Compat mode supports these features completely:
+  //   www.quirksmode.org/dom/html5.html
+  // But IE8 doesn't support either with local files
+
+  Modernizr.addTest('localstorage', function() {
+    var mod = 'modernizr';
+    try {
+      localStorage.setItem(mod, mod);
+      localStorage.removeItem(mod);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  });
+
+
+  /**
+   * List of property values to set for css tests. See ticket #21
+   * http://git.io/vUGl4
+   *
+   * @memberof Modernizr
+   * @name Modernizr._prefixes
+   * @optionName Modernizr._prefixes
+   * @optionProp prefixes
+   * @access public
+   * @example
+   *
+   * Modernizr._prefixes is the internal list of prefixes that we test against
+   * inside of things like [prefixed](#modernizr-prefixed) and [prefixedCSS](#-code-modernizr-prefixedcss). It is simply
+   * an array of kebab-case vendor prefixes you can use within your code.
+   *
+   * Some common use cases include
+   *
+   * Generating all possible prefixed version of a CSS property
+   * ```js
+   * var rule = Modernizr._prefixes.join('transform: rotate(20deg); ');
+   *
+   * rule === 'transform: rotate(20deg); webkit-transform: rotate(20deg); moz-transform: rotate(20deg); o-transform: rotate(20deg); ms-transform: rotate(20deg);'
+   * ```
+   *
+   * Generating all possible prefixed version of a CSS value
+   * ```js
+   * rule = 'display:' +  Modernizr._prefixes.join('flex; display:') + 'flex';
+   *
+   * rule === 'display:flex; display:-webkit-flex; display:-moz-flex; display:-o-flex; display:-ms-flex; display:flex'
+   * ```
+   */
+
+  var prefixes = (ModernizrProto._config.usePrefixes ? ' -webkit- -moz- -o- -ms- '.split(' ') : []);
+
+  // expose these for the plugin API. Look in the source for how to join() them against your input
+  ModernizrProto._prefixes = prefixes;
+
+
+
+  var classes = [];
+
+
+  /**
+   * is returns a boolean if the typeof an obj is exactly type.
+   *
+   * @access private
+   * @function is
+   * @param {*} obj - A thing we want to check the type of
+   * @param {string} type - A string to compare the typeof against
+   * @returns {boolean}
+   */
+
+  function is(obj, type) {
+    return typeof obj === type;
+  }
+  ;
+
+  /**
+   * Run through all tests and detect their support in the current UA.
+   *
+   * @access private
+   */
+
+  function testRunner() {
+    var featureNames;
+    var feature;
+    var aliasIdx;
+    var result;
+    var nameIdx;
+    var featureName;
+    var featureNameSplit;
+
+    for (var featureIdx in tests) {
+      if (tests.hasOwnProperty(featureIdx)) {
+        featureNames = [];
+        feature = tests[featureIdx];
+        // run the test, throw the return value into the Modernizr,
+        // then based on that boolean, define an appropriate className
+        // and push it into an array of classes we'll join later.
+        //
+        // If there is no name, it's an 'async' test that is run,
+        // but not directly added to the object. That should
+        // be done with a post-run addTest call.
+        if (feature.name) {
+          featureNames.push(feature.name.toLowerCase());
+
+          if (feature.options && feature.options.aliases && feature.options.aliases.length) {
+            // Add all the aliases into the names list
+            for (aliasIdx = 0; aliasIdx < feature.options.aliases.length; aliasIdx++) {
+              featureNames.push(feature.options.aliases[aliasIdx].toLowerCase());
+            }
+          }
+        }
+
+        // Run the test, or use the raw value if it's not a function
+        result = is(feature.fn, 'function') ? feature.fn() : feature.fn;
+
+
+        // Set each of the names on the Modernizr object
+        for (nameIdx = 0; nameIdx < featureNames.length; nameIdx++) {
+          featureName = featureNames[nameIdx];
+          // Support dot properties as sub tests. We don't do checking to make sure
+          // that the implied parent tests have been added. You must call them in
+          // order (either in the test, or make the parent test a dependency).
+          //
+          // Cap it to TWO to make the logic simple and because who needs that kind of subtesting
+          // hashtag famous last words
+          featureNameSplit = featureName.split('.');
+
+          if (featureNameSplit.length === 1) {
+            Modernizr[featureNameSplit[0]] = result;
+          } else {
+            // cast to a Boolean, if not one already
+            /* jshint -W053 */
+            if (Modernizr[featureNameSplit[0]] && !(Modernizr[featureNameSplit[0]] instanceof Boolean)) {
+              Modernizr[featureNameSplit[0]] = new Boolean(Modernizr[featureNameSplit[0]]);
+            }
+
+            Modernizr[featureNameSplit[0]][featureNameSplit[1]] = result;
+          }
+
+          classes.push((result ? '' : 'no-') + featureNameSplit.join('-'));
+        }
+      }
+    }
+  }
+  ;
+
+  /**
+   * If the browsers follow the spec, then they would expose vendor-specific style as:
+   *   elem.style.WebkitBorderRadius
+   * instead of something like the following, which would be technically incorrect:
+   *   elem.style.webkitBorderRadius
+
+   * Webkit ghosts their properties in lowercase but Opera & Moz do not.
+   * Microsoft uses a lowercase `ms` instead of the correct `Ms` in IE8+
+   *   erik.eae.net/archives/2008/03/10/21.48.10/
+
+   * More here: github.com/Modernizr/Modernizr/issues/issue/21
+   *
+   * @access private
+   * @returns {string} The string representing the vendor-specific style properties
+   */
+
+  var omPrefixes = 'Moz O ms Webkit';
+
+
+  /**
+   * List of JavaScript DOM values used for tests
+   *
+   * @memberof Modernizr
+   * @name Modernizr._domPrefixes
+   * @optionName Modernizr._domPrefixes
+   * @optionProp domPrefixes
+   * @access public
+   * @example
+   *
+   * Modernizr._domPrefixes is exactly the same as [_prefixes](#modernizr-_prefixes), but rather
+   * than kebab-case properties, all properties are their Capitalized variant
+   *
+   * ```js
+   * Modernizr._domPrefixes === [ "Moz", "O", "ms", "Webkit" ];
+   * ```
+   */
+
+  var domPrefixes = (ModernizrProto._config.usePrefixes ? omPrefixes.toLowerCase().split(' ') : []);
+  ModernizrProto._domPrefixes = domPrefixes;
+
+
+  /**
+   * docElement is a convenience wrapper to grab the root element of the document
+   *
+   * @access private
+   * @returns {HTMLElement|SVGElement} The root element of the document
+   */
+
+  var docElement = document.documentElement;
+
+
+  /**
+   * A convenience helper to check if the document we are running in is an SVG document
+   *
+   * @access private
+   * @returns {boolean}
+   */
+
+  var isSVG = docElement.nodeName.toLowerCase() === 'svg';
+
+
+/**
+  * @optionName html5shiv
+  * @optionProp html5shiv
+  */
+
+  // Take the html5 variable out of the html5shiv scope so we can return it.
+  var html5;
+  if (!isSVG) {
+    /**
+     * @preserve HTML5 Shiv 3.7.3 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
+     */
+    ;(function(window, document) {
+      /*jshint evil:true */
+      /** version */
+      var version = '3.7.3';
+
+      /** Preset options */
+      var options = window.html5 || {};
+
+      /** Used to skip problem elements */
+      var reSkip = /^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i;
+
+      /** Not all elements can be cloned in IE **/
+      var saveClones = /^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i;
+
+      /** Detect whether the browser supports default html5 styles */
+      var supportsHtml5Styles;
+
+      /** Name of the expando, to work with multiple documents or to re-shiv one document */
+      var expando = '_html5shiv';
+
+      /** The id for the the documents expando */
+      var expanID = 0;
+
+      /** Cached data for each document */
+      var expandoData = {};
+
+      /** Detect whether the browser supports unknown elements */
+      var supportsUnknownElements;
+
+      (function() {
+        try {
+          var a = document.createElement('a');
+          a.innerHTML = '<xyz></xyz>';
+          //if the hidden property is implemented we can assume, that the browser supports basic HTML5 Styles
+          supportsHtml5Styles = ('hidden' in a);
+
+          supportsUnknownElements = a.childNodes.length == 1 || (function() {
+            // assign a false positive if unable to shiv
+            (document.createElement)('a');
+            var frag = document.createDocumentFragment();
+            return (
+              typeof frag.cloneNode == 'undefined' ||
+                typeof frag.createDocumentFragment == 'undefined' ||
+                typeof frag.createElement == 'undefined'
+            );
+          }());
+        } catch(e) {
+          // assign a false positive if detection fails => unable to shiv
+          supportsHtml5Styles = true;
+          supportsUnknownElements = true;
+        }
+
+      }());
+
+      /*--------------------------------------------------------------------------*/
+
+      /**
+       * Creates a style sheet with the given CSS text and adds it to the document.
+       * @private
+       * @param {Document} ownerDocument The document.
+       * @param {String} cssText The CSS text.
+       * @returns {StyleSheet} The style element.
+       */
+      function addStyleSheet(ownerDocument, cssText) {
+        var p = ownerDocument.createElement('p'),
+          parent = ownerDocument.getElementsByTagName('head')[0] || ownerDocument.documentElement;
+
+        p.innerHTML = 'x<style>' + cssText + '</style>';
+        return parent.insertBefore(p.lastChild, parent.firstChild);
+      }
+
+      /**
+       * Returns the value of `html5.elements` as an array.
+       * @private
+       * @returns {Array} An array of shived element node names.
+       */
+      function getElements() {
+        var elements = html5.elements;
+        return typeof elements == 'string' ? elements.split(' ') : elements;
+      }
+
+      /**
+       * Extends the built-in list of html5 elements
+       * @memberOf html5
+       * @param {String|Array} newElements whitespace separated list or array of new element names to shiv
+       * @param {Document} ownerDocument The context document.
+       */
+      function addElements(newElements, ownerDocument) {
+        var elements = html5.elements;
+        if(typeof elements != 'string'){
+          elements = elements.join(' ');
+        }
+        if(typeof newElements != 'string'){
+          newElements = newElements.join(' ');
+        }
+        html5.elements = elements +' '+ newElements;
+        shivDocument(ownerDocument);
+      }
+
+      /**
+       * Returns the data associated to the given document
+       * @private
+       * @param {Document} ownerDocument The document.
+       * @returns {Object} An object of data.
+       */
+      function getExpandoData(ownerDocument) {
+        var data = expandoData[ownerDocument[expando]];
+        if (!data) {
+          data = {};
+          expanID++;
+          ownerDocument[expando] = expanID;
+          expandoData[expanID] = data;
+        }
+        return data;
+      }
+
+      /**
+       * returns a shived element for the given nodeName and document
+       * @memberOf html5
+       * @param {String} nodeName name of the element
+       * @param {Document|DocumentFragment} ownerDocument The context document.
+       * @returns {Object} The shived element.
+       */
+      function createElement(nodeName, ownerDocument, data){
+        if (!ownerDocument) {
+          ownerDocument = document;
+        }
+        if(supportsUnknownElements){
+          return ownerDocument.createElement(nodeName);
+        }
+        if (!data) {
+          data = getExpandoData(ownerDocument);
+        }
+        var node;
+
+        if (data.cache[nodeName]) {
+          node = data.cache[nodeName].cloneNode();
+        } else if (saveClones.test(nodeName)) {
+          node = (data.cache[nodeName] = data.createElem(nodeName)).cloneNode();
+        } else {
+          node = data.createElem(nodeName);
+        }
+
+        // Avoid adding some elements to fragments in IE < 9 because
+        // * Attributes like `name` or `type` cannot be set/changed once an element
+        //   is inserted into a document/fragment
+        // * Link elements with `src` attributes that are inaccessible, as with
+        //   a 403 response, will cause the tab/window to crash
+        // * Script elements appended to fragments will execute when their `src`
+        //   or `text` property is set
+        return node.canHaveChildren && !reSkip.test(nodeName) && !node.tagUrn ? data.frag.appendChild(node) : node;
+      }
+
+      /**
+       * returns a shived DocumentFragment for the given document
+       * @memberOf html5
+       * @param {Document} ownerDocument The context document.
+       * @returns {Object} The shived DocumentFragment.
+       */
+      function createDocumentFragment(ownerDocument, data){
+        if (!ownerDocument) {
+          ownerDocument = document;
+        }
+        if(supportsUnknownElements){
+          return ownerDocument.createDocumentFragment();
+        }
+        data = data || getExpandoData(ownerDocument);
+        var clone = data.frag.cloneNode(),
+          i = 0,
+          elems = getElements(),
+          l = elems.length;
+        for(;i<l;i++){
+          clone.createElement(elems[i]);
+        }
+        return clone;
+      }
+
+      /**
+       * Shivs the `createElement` and `createDocumentFragment` methods of the document.
+       * @private
+       * @param {Document|DocumentFragment} ownerDocument The document.
+       * @param {Object} data of the document.
+       */
+      function shivMethods(ownerDocument, data) {
+        if (!data.cache) {
+          data.cache = {};
+          data.createElem = ownerDocument.createElement;
+          data.createFrag = ownerDocument.createDocumentFragment;
+          data.frag = data.createFrag();
+        }
+
+
+        ownerDocument.createElement = function(nodeName) {
+          //abort shiv
+          if (!html5.shivMethods) {
+            return data.createElem(nodeName);
+          }
+          return createElement(nodeName, ownerDocument, data);
+        };
+
+        ownerDocument.createDocumentFragment = Function('h,f', 'return function(){' +
+                                                        'var n=f.cloneNode(),c=n.createElement;' +
+                                                        'h.shivMethods&&(' +
+                                                        // unroll the `createElement` calls
+                                                        getElements().join().replace(/[\w\-:]+/g, function(nodeName) {
+          data.createElem(nodeName);
+          data.frag.createElement(nodeName);
+          return 'c("' + nodeName + '")';
+        }) +
+          ');return n}'
+                                                       )(html5, data.frag);
+      }
+
+      /*--------------------------------------------------------------------------*/
+
+      /**
+       * Shivs the given document.
+       * @memberOf html5
+       * @param {Document} ownerDocument The document to shiv.
+       * @returns {Document} The shived document.
+       */
+      function shivDocument(ownerDocument) {
+        if (!ownerDocument) {
+          ownerDocument = document;
+        }
+        var data = getExpandoData(ownerDocument);
+
+        if (html5.shivCSS && !supportsHtml5Styles && !data.hasCSS) {
+          data.hasCSS = !!addStyleSheet(ownerDocument,
+                                        // corrects block display not defined in IE6/7/8/9
+                                        'article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}' +
+                                        // adds styling not present in IE6/7/8/9
+                                        'mark{background:#FF0;color:#000}' +
+                                        // hides non-rendered elements
+                                        'template{display:none}'
+                                       );
+        }
+        if (!supportsUnknownElements) {
+          shivMethods(ownerDocument, data);
+        }
+        return ownerDocument;
+      }
+
+      /*--------------------------------------------------------------------------*/
+
+      /**
+       * The `html5` object is exposed so that more elements can be shived and
+       * existing shiving can be detected on iframes.
+       * @type Object
+       * @example
+       *
+       * // options can be changed before the script is included
+       * html5 = { 'elements': 'mark section', 'shivCSS': false, 'shivMethods': false };
+       */
+      var html5 = {
+
+        /**
+         * An array or space separated string of node names of the elements to shiv.
+         * @memberOf html5
+         * @type Array|String
+         */
+        'elements': options.elements || 'abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output picture progress section summary template time video',
+
+        /**
+         * current version of html5shiv
+         */
+        'version': version,
+
+        /**
+         * A flag to indicate that the HTML5 style sheet should be inserted.
+         * @memberOf html5
+         * @type Boolean
+         */
+        'shivCSS': (options.shivCSS !== false),
+
+        /**
+         * Is equal to true if a browser supports creating unknown/HTML5 elements
+         * @memberOf html5
+         * @type boolean
+         */
+        'supportsUnknownElements': supportsUnknownElements,
+
+        /**
+         * A flag to indicate that the document's `createElement` and `createDocumentFragment`
+         * methods should be overwritten.
+         * @memberOf html5
+         * @type Boolean
+         */
+        'shivMethods': (options.shivMethods !== false),
+
+        /**
+         * A string to describe the type of `html5` object ("default" or "default print").
+         * @memberOf html5
+         * @type String
+         */
+        'type': 'default',
+
+        // shivs the document according to the specified `html5` object options
+        'shivDocument': shivDocument,
+
+        //creates a shived element
+        createElement: createElement,
+
+        //creates a shived documentFragment
+        createDocumentFragment: createDocumentFragment,
+
+        //extends list of elements
+        addElements: addElements
+      };
+
+      /*--------------------------------------------------------------------------*/
+
+      // expose html5
+      window.html5 = html5;
+
+      // shiv the document
+      shivDocument(document);
+
+      if(typeof module == 'object' && module.exports){
+        module.exports = html5;
+      }
+
+    }(typeof window !== "undefined" ? window : this, document));
+  }
+;
+
+  /**
+   * createElement is a convenience wrapper around document.createElement. Since we
+   * use createElement all over the place, this allows for (slightly) smaller code
+   * as well as abstracting away issues with creating elements in contexts other than
+   * HTML documents (e.g. SVG documents).
+   *
+   * @access private
+   * @function createElement
+   * @returns {HTMLElement|SVGElement} An HTML or SVG element
+   */
+
+  function createElement() {
+    if (typeof document.createElement !== 'function') {
+      // This is the case in IE7, where the type of createElement is "object".
+      // For this reason, we cannot call apply() as Object is not a Function.
+      return document.createElement(arguments[0]);
+    } else if (isSVG) {
+      return document.createElementNS.call(document, 'http://www.w3.org/2000/svg', arguments[0]);
+    } else {
+      return document.createElement.apply(document, arguments);
+    }
+  }
+
+  ;
+/*!
+{
+  "name" : "HTML5 Audio Element",
+  "property": "audio",
+  "tags" : ["html5", "audio", "media"]
+}
+!*/
+/* DOC
+Detects the audio element
+*/
+
+  // This tests evaluates support of the audio element, as well as
+  // testing what types of content it supports.
+  //
+  // We're using the Boolean constructor here, so that we can extend the value
+  // e.g.  Modernizr.audio     // true
+  //       Modernizr.audio.ogg // 'probably'
+  //
+  // Codec values from : github.com/NielsLeenheer/html5test/blob/9106a8/index.html#L845
+  //                     thx to NielsLeenheer and zcorpan
+
+  // Note: in some older browsers, "no" was a return value instead of empty string.
+  //   It was live in FF3.5.0 and 3.5.1, but fixed in 3.5.2
+  //   It was also live in Safari 4.0.0 - 4.0.4, but fixed in 4.0.5
+  Modernizr.addTest('audio', function() {
+    /* jshint -W053 */
+    var elem = createElement('audio');
+    var bool = false;
+
+    try {
+      if (bool = !!elem.canPlayType) {
+        bool      = new Boolean(bool);
+        bool.ogg  = elem.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/, '');
+        bool.mp3  = elem.canPlayType('audio/mpeg; codecs="mp3"')  .replace(/^no$/, '');
+        bool.opus  = elem.canPlayType('audio/ogg; codecs="opus"') .replace(/^no$/, '');
+
+        // Mimetypes accepted:
+        //   developer.mozilla.org/En/Media_formats_supported_by_the_audio_and_video_elements
+        //   bit.ly/iphoneoscodecs
+        bool.wav  = elem.canPlayType('audio/wav; codecs="1"')     .replace(/^no$/, '');
+        bool.m4a  = (elem.canPlayType('audio/x-m4a;')            ||
+                     elem.canPlayType('audio/aac;'))             .replace(/^no$/, '');
+      }
+    } catch (e) { }
+
+    return bool;
+  });
+
+/*!
+{
+  "name": "placeholder attribute",
+  "property": "placeholder",
+  "tags": ["forms", "attribute"],
+  "builderAliases": ["forms_placeholder"]
+}
+!*/
+/* DOC
+Tests for placeholder attribute in inputs and textareas
+*/
+
+  Modernizr.addTest('placeholder', ('placeholder' in createElement('input') && 'placeholder' in createElement('textarea')));
+
+
+  /**
+   * since we have a fairly large number of input tests that don't mutate the input
+   * we create a single element that can be shared with all of those tests for a
+   * minor perf boost
+   *
+   * @access private
+   * @returns {HTMLInputElement}
+   */
+  var inputElem = createElement('input');
+
+/*!
+{
+  "name": "Input attributes",
+  "property": "input",
+  "tags": ["forms"],
+  "authors": ["Mike Taylor"],
+  "notes": [{
+    "name": "WHATWG spec",
+    "href": "http://www.whatwg.org/specs/web-apps/current-work/multipage/the-input-element.html#input-type-attr-summary"
+  }],
+  "knownBugs": ["Some blackberry devices report false positive for input.multiple"]
+}
+!*/
+/* DOC
+Detects support for HTML5 `<input>` element attributes and exposes Boolean subproperties with the results:
+
+```javascript
+Modernizr.input.autocomplete
+Modernizr.input.autofocus
+Modernizr.input.list
+Modernizr.input.max
+Modernizr.input.min
+Modernizr.input.multiple
+Modernizr.input.pattern
+Modernizr.input.placeholder
+Modernizr.input.required
+Modernizr.input.step
+```
+*/
+
+  // Run through HTML5's new input attributes to see if the UA understands any.
+  // Mike Taylr has created a comprehensive resource for testing these attributes
+  //   when applied to all input types:
+  //   miketaylr.com/code/input-type-attr.html
+
+  // Only input placeholder is tested while textarea's placeholder is not.
+  // Currently Safari 4 and Opera 11 have support only for the input placeholder
+  // Both tests are available in feature-detects/forms-placeholder.js
+
+  var inputattrs = 'autocomplete autofocus list placeholder max min multiple pattern required step'.split(' ');
+  var attrs = {};
+
+  Modernizr.input = (function(props) {
+    for (var i = 0, len = props.length; i < len; i++) {
+      attrs[ props[i] ] = !!(props[i] in inputElem);
+    }
+    if (attrs.list) {
+      // safari false positive's on datalist: webk.it/74252
+      // see also github.com/Modernizr/Modernizr/issues/146
+      attrs.list = !!(createElement('datalist') && window.HTMLDataListElement);
+    }
+    return attrs;
+  })(inputattrs);
+
+/*!
+{
+  "name": "Form input types",
+  "property": "inputtypes",
+  "caniuse": "forms",
+  "tags": ["forms"],
+  "authors": ["Mike Taylor"],
+  "polyfills": [
+    "jquerytools",
+    "webshims",
+    "h5f",
+    "webforms2",
+    "nwxforms",
+    "fdslider",
+    "html5slider",
+    "galleryhtml5forms",
+    "jscolor",
+    "html5formshim",
+    "selectedoptionsjs",
+    "formvalidationjs"
+  ]
+}
+!*/
+/* DOC
+Detects support for HTML5 form input types and exposes Boolean subproperties with the results:
+
+```javascript
+Modernizr.inputtypes.color
+Modernizr.inputtypes.date
+Modernizr.inputtypes.datetime
+Modernizr.inputtypes['datetime-local']
+Modernizr.inputtypes.email
+Modernizr.inputtypes.month
+Modernizr.inputtypes.number
+Modernizr.inputtypes.range
+Modernizr.inputtypes.search
+Modernizr.inputtypes.tel
+Modernizr.inputtypes.time
+Modernizr.inputtypes.url
+Modernizr.inputtypes.week
+```
+*/
+
+  // Run through HTML5's new input types to see if the UA understands any.
+  //   This is put behind the tests runloop because it doesn't return a
+  //   true/false like all the other tests; instead, it returns an object
+  //   containing each input type with its corresponding true/false value
+
+  // Big thanks to @miketaylr for the html5 forms expertise. miketaylr.com/
+  var inputtypes = 'search tel url email datetime date month week time datetime-local number range color'.split(' ');
+  var inputs = {};
+
+  Modernizr.inputtypes = (function(props) {
+    var len = props.length;
+    var smile = '1)';
+    var inputElemType;
+    var defaultView;
+    var bool;
+
+    for (var i = 0; i < len; i++) {
+
+      inputElem.setAttribute('type', inputElemType = props[i]);
+      bool = inputElem.type !== 'text' && 'style' in inputElem;
+
+      // We first check to see if the type we give it sticks..
+      // If the type does, we feed it a textual value, which shouldn't be valid.
+      // If the value doesn't stick, we know there's input sanitization which infers a custom UI
+      if (bool) {
+
+        inputElem.value         = smile;
+        inputElem.style.cssText = 'position:absolute;visibility:hidden;';
+
+        if (/^range$/.test(inputElemType) && inputElem.style.WebkitAppearance !== undefined) {
+
+          docElement.appendChild(inputElem);
+          defaultView = document.defaultView;
+
+          // Safari 2-4 allows the smiley as a value, despite making a slider
+          bool =  defaultView.getComputedStyle &&
+            defaultView.getComputedStyle(inputElem, null).WebkitAppearance !== 'textfield' &&
+            // Mobile android web browser has false positive, so must
+            // check the height to see if the widget is actually there.
+            (inputElem.offsetHeight !== 0);
+
+          docElement.removeChild(inputElem);
+
+        } else if (/^(search|tel)$/.test(inputElemType)) {
+          // Spec doesn't define any special parsing or detectable UI
+          //   behaviors so we pass these through as true
+
+          // Interestingly, opera fails the earlier test, so it doesn't
+          //  even make it here.
+
+        } else if (/^(url|email)$/.test(inputElemType)) {
+          // Real url and email support comes with prebaked validation.
+          bool = inputElem.checkValidity && inputElem.checkValidity() === false;
+
+        } else {
+          // If the upgraded input compontent rejects the :) text, we got a winner
+          bool = inputElem.value != smile;
+        }
+      }
+
+      inputs[ props[i] ] = !!bool;
+    }
+    return inputs;
+  })(inputtypes);
+
+
+  /**
+   * getBody returns the body of a document, or an element that can stand in for
+   * the body if a real body does not exist
+   *
+   * @access private
+   * @function getBody
+   * @returns {HTMLElement|SVGElement} Returns the real body of a document, or an
+   * artificially created element that stands in for the body
+   */
+
+  function getBody() {
+    // After page load injecting a fake body doesn't work so check if body exists
+    var body = document.body;
+
+    if (!body) {
+      // Can't use the real body create a fake one.
+      body = createElement(isSVG ? 'svg' : 'body');
+      body.fake = true;
+    }
+
+    return body;
+  }
+
+  ;
+
+  /**
+   * injectElementWithStyles injects an element with style element and some CSS rules
+   *
+   * @access private
+   * @function injectElementWithStyles
+   * @param {string} rule - String representing a css rule
+   * @param {function} callback - A function that is used to test the injected element
+   * @param {number} [nodes] - An integer representing the number of additional nodes you want injected
+   * @param {string[]} [testnames] - An array of strings that are used as ids for the additional nodes
+   * @returns {boolean}
+   */
+
+  function injectElementWithStyles(rule, callback, nodes, testnames) {
+    var mod = 'modernizr';
+    var style;
+    var ret;
+    var node;
+    var docOverflow;
+    var div = createElement('div');
+    var body = getBody();
+
+    if (parseInt(nodes, 10)) {
+      // In order not to give false positives we create a node for each test
+      // This also allows the method to scale for unspecified uses
+      while (nodes--) {
+        node = createElement('div');
+        node.id = testnames ? testnames[nodes] : mod + (nodes + 1);
+        div.appendChild(node);
+      }
+    }
+
+    style = createElement('style');
+    style.type = 'text/css';
+    style.id = 's' + mod;
+
+    // IE6 will false positive on some tests due to the style element inside the test div somehow interfering offsetHeight, so insert it into body or fakebody.
+    // Opera will act all quirky when injecting elements in documentElement when page is served as xml, needs fakebody too. #270
+    (!body.fake ? div : body).appendChild(style);
+    body.appendChild(div);
+
+    if (style.styleSheet) {
+      style.styleSheet.cssText = rule;
+    } else {
+      style.appendChild(document.createTextNode(rule));
+    }
+    div.id = mod;
+
+    if (body.fake) {
+      //avoid crashing IE8, if background image is used
+      body.style.background = '';
+      //Safari 5.13/5.1.4 OSX stops loading if ::-webkit-scrollbar is used and scrollbars are visible
+      body.style.overflow = 'hidden';
+      docOverflow = docElement.style.overflow;
+      docElement.style.overflow = 'hidden';
+      docElement.appendChild(body);
+    }
+
+    ret = callback(div, rule);
+    // If this is done after page load we don't want to remove the body so check if body exists
+    if (body.fake) {
+      body.parentNode.removeChild(body);
+      docElement.style.overflow = docOverflow;
+      // Trigger layout so kinetic scrolling isn't disabled in iOS6+
+      docElement.offsetHeight;
+    } else {
+      div.parentNode.removeChild(div);
+    }
+
+    return !!ret;
+
+  }
+
+  ;
+
+  /**
+   * Modernizr.mq tests a given media query, live against the current state of the window
+   * adapted from matchMedia polyfill by Scott Jehl and Paul Irish
+   * gist.github.com/786768
+   *
+   * @memberof Modernizr
+   * @name Modernizr.mq
+   * @optionName Modernizr.mq()
+   * @optionProp mq
+   * @access public
+   * @function mq
+   * @param {string} mq - String of the media query we want to test
+   * @returns {boolean}
+   * @example
+   * Modernizr.mq allows for you to programmatically check if the current browser
+   * window state matches a media query.
+   *
+   * ```js
+   *  var query = Modernizr.mq('(min-width: 900px)');
+   *
+   *  if (query) {
+   *    // the browser window is larger than 900px
+   *  }
+   * ```
+   *
+   * Only valid media queries are supported, therefore you must always include values
+   * with your media query
+   *
+   * ```js
+   * // good
+   *  Modernizr.mq('(min-width: 900px)');
+   *
+   * // bad
+   *  Modernizr.mq('min-width');
+   * ```
+   *
+   * If you would just like to test that media queries are supported in general, use
+   *
+   * ```js
+   *  Modernizr.mq('only all'); // true if MQ are supported, false if not
+   * ```
+   *
+   *
+   * Note that if the browser does not support media queries (e.g. old IE) mq will
+   * always return false.
+   */
+
+  var mq = (function() {
+    var matchMedia = window.matchMedia || window.msMatchMedia;
+    if (matchMedia) {
+      return function(mq) {
+        var mql = matchMedia(mq);
+        return mql && mql.matches || false;
+      };
+    }
+
+    return function(mq) {
+      var bool = false;
+
+      injectElementWithStyles('@media ' + mq + ' { #modernizr { position: absolute; } }', function(node) {
+        bool = (window.getComputedStyle ?
+                window.getComputedStyle(node, null) :
+                node.currentStyle).position == 'absolute';
+      });
+
+      return bool;
+    };
+  })();
+
+
+  ModernizrProto.mq = mq;
+
+
+
+  /**
+   * testStyles injects an element with style element and some CSS rules
+   *
+   * @memberof Modernizr
+   * @name Modernizr.testStyles
+   * @optionName Modernizr.testStyles()
+   * @optionProp testStyles
+   * @access public
+   * @function testStyles
+   * @param {string} rule - String representing a css rule
+   * @param {function} callback - A function that is used to test the injected element
+   * @param {number} [nodes] - An integer representing the number of additional nodes you want injected
+   * @param {string[]} [testnames] - An array of strings that are used as ids for the additional nodes
+   * @returns {boolean}
+   * @example
+   *
+   * `Modernizr.testStyles` takes a CSS rule and injects it onto the current page
+   * along with (possibly multiple) DOM elements. This lets you check for features
+   * that can not be detected by simply checking the [IDL](https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Interface_development_guide/IDL_interface_rules).
+   *
+   * ```js
+   * Modernizr.testStyles('#modernizr { width: 9px; color: papayawhip; }', function(elem, rule) {
+   *   // elem is the first DOM node in the page (by default #modernizr)
+   *   // rule is the first argument you supplied - the CSS rule in string form
+   *
+   *   addTest('widthworks', elem.style.width === '9px')
+   * });
+   * ```
+   *
+   * If your test requires multiple nodes, you can include a third argument
+   * indicating how many additional div elements to include on the page. The
+   * additional nodes are injected as children of the `elem` that is returned as
+   * the first argument to the callback.
+   *
+   * ```js
+   * Modernizr.testStyles('#modernizr {width: 1px}; #modernizr2 {width: 2px}', function(elem) {
+   *   document.getElementById('modernizr').style.width === '1px'; // true
+   *   document.getElementById('modernizr2').style.width === '2px'; // true
+   *   elem.firstChild === document.getElementById('modernizr2'); // true
+   * }, 1);
+   * ```
+   *
+   * By default, all of the additional elements have an ID of `modernizr[n]`, where
+   * `n` is its index (e.g. the first additional, second overall is `#modernizr2`,
+   * the second additional is `#modernizr3`, etc.).
+   * If you want to have more meaningful IDs for your function, you can provide
+   * them as the fourth argument, as an array of strings
+   *
+   * ```js
+   * Modernizr.testStyles('#foo {width: 10px}; #bar {height: 20px}', function(elem) {
+   *   elem.firstChild === document.getElementById('foo'); // true
+   *   elem.lastChild === document.getElementById('bar'); // true
+   * }, 2, ['foo', 'bar']);
+   * ```
+   *
+   */
+
+  var testStyles = ModernizrProto.testStyles = injectElementWithStyles;
+
+
+  var cssomPrefixes = (ModernizrProto._config.usePrefixes ? omPrefixes.split(' ') : []);
+  ModernizrProto._cssomPrefixes = cssomPrefixes;
+
+
+
+  /**
+   * contains checks to see if a string contains another string
+   *
+   * @access private
+   * @function contains
+   * @param {string} str - The string we want to check for substrings
+   * @param {string} substr - The substring we want to search the first string for
+   * @returns {boolean}
+   */
+
+  function contains(str, substr) {
+    return !!~('' + str).indexOf(substr);
+  }
+
+  ;
+
+  /**
+   * cssToDOM takes a kebab-case string and converts it to camelCase
+   * e.g. box-sizing -> boxSizing
+   *
+   * @access private
+   * @function cssToDOM
+   * @param {string} name - String name of kebab-case prop we want to convert
+   * @returns {string} The camelCase version of the supplied name
+   */
+
+  function cssToDOM(name) {
+    return name.replace(/([a-z])-([a-z])/g, function(str, m1, m2) {
+      return m1 + m2.toUpperCase();
+    }).replace(/^-/, '');
+  }
+  ;
+
+  /**
+   * fnBind is a super small [bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) polyfill.
+   *
+   * @access private
+   * @function fnBind
+   * @param {function} fn - a function you want to change `this` reference to
+   * @param {object} that - the `this` you want to call the function with
+   * @returns {function} The wrapped version of the supplied function
+   */
+
+  function fnBind(fn, that) {
+    return function() {
+      return fn.apply(that, arguments);
+    };
+  }
+
+  ;
+
+  /**
+   * testDOMProps is a generic DOM property test; if a browser supports
+   *   a certain property, it won't return undefined for it.
+   *
+   * @access private
+   * @function testDOMProps
+   * @param {array.<string>} props - An array of properties to test for
+   * @param {object} obj - An object or Element you want to use to test the parameters again
+   * @param {boolean|object} elem - An Element to bind the property lookup again. Use `false` to prevent the check
+   */
+  function testDOMProps(props, obj, elem) {
+    var item;
+
+    for (var i in props) {
+      if (props[i] in obj) {
+
+        // return the property name as a string
+        if (elem === false) {
+          return props[i];
+        }
+
+        item = obj[props[i]];
+
+        // let's bind a function
+        if (is(item, 'function')) {
+          // bind to obj unless overriden
+          return fnBind(item, elem || obj);
+        }
+
+        // return the unbound function or obj or value
+        return item;
+      }
+    }
+    return false;
+  }
+
+  ;
+
+  /**
+   * Create our "modernizr" element that we do most feature tests on.
+   *
+   * @access private
+   */
+
+  var modElem = {
+    elem: createElement('modernizr')
+  };
+
+  // Clean up this element
+  Modernizr._q.push(function() {
+    delete modElem.elem;
+  });
+
+
+
+  var mStyle = {
+    style: modElem.elem.style
+  };
+
+  // kill ref for gc, must happen before mod.elem is removed, so we unshift on to
+  // the front of the queue.
+  Modernizr._q.unshift(function() {
+    delete mStyle.style;
+  });
+
+
+
+  /**
+   * domToCSS takes a camelCase string and converts it to kebab-case
+   * e.g. boxSizing -> box-sizing
+   *
+   * @access private
+   * @function domToCSS
+   * @param {string} name - String name of camelCase prop we want to convert
+   * @returns {string} The kebab-case version of the supplied name
+   */
+
+  function domToCSS(name) {
+    return name.replace(/([A-Z])/g, function(str, m1) {
+      return '-' + m1.toLowerCase();
+    }).replace(/^ms-/, '-ms-');
+  }
+  ;
+
+  /**
+   * nativeTestProps allows for us to use native feature detection functionality if available.
+   * some prefixed form, or false, in the case of an unsupported rule
+   *
+   * @access private
+   * @function nativeTestProps
+   * @param {array} props - An array of property names
+   * @param {string} value - A string representing the value we want to check via @supports
+   * @returns {boolean|undefined} A boolean when @supports exists, undefined otherwise
+   */
+
+  // Accepts a list of property names and a single value
+  // Returns `undefined` if native detection not available
+  function nativeTestProps(props, value) {
+    var i = props.length;
+    // Start with the JS API: http://www.w3.org/TR/css3-conditional/#the-css-interface
+    if ('CSS' in window && 'supports' in window.CSS) {
+      // Try every prefixed variant of the property
+      while (i--) {
+        if (window.CSS.supports(domToCSS(props[i]), value)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    // Otherwise fall back to at-rule (for Opera 12.x)
+    else if ('CSSSupportsRule' in window) {
+      // Build a condition string for every prefixed variant
+      var conditionText = [];
+      while (i--) {
+        conditionText.push('(' + domToCSS(props[i]) + ':' + value + ')');
+      }
+      conditionText = conditionText.join(' or ');
+      return injectElementWithStyles('@supports (' + conditionText + ') { #modernizr { position: absolute; } }', function(node) {
+        return getComputedStyle(node, null).position == 'absolute';
+      });
+    }
+    return undefined;
+  }
+  ;
+
+  // testProps is a generic CSS / DOM property test.
+
+  // In testing support for a given CSS property, it's legit to test:
+  //    `elem.style[styleName] !== undefined`
+  // If the property is supported it will return an empty string,
+  // if unsupported it will return undefined.
+
+  // We'll take advantage of this quick test and skip setting a style
+  // on our modernizr element, but instead just testing undefined vs
+  // empty string.
+
+  // Property names can be provided in either camelCase or kebab-case.
+
+  function testProps(props, prefixed, value, skipValueTest) {
+    skipValueTest = is(skipValueTest, 'undefined') ? false : skipValueTest;
+
+    // Try native detect first
+    if (!is(value, 'undefined')) {
+      var result = nativeTestProps(props, value);
+      if (!is(result, 'undefined')) {
+        return result;
+      }
+    }
+
+    // Otherwise do it properly
+    var afterInit, i, propsLength, prop, before;
+
+    // If we don't have a style element, that means we're running async or after
+    // the core tests, so we'll need to create our own elements to use
+
+    // inside of an SVG element, in certain browsers, the `style` element is only
+    // defined for valid tags. Therefore, if `modernizr` does not have one, we
+    // fall back to a less used element and hope for the best.
+    var elems = ['modernizr', 'tspan'];
+    while (!mStyle.style) {
+      afterInit = true;
+      mStyle.modElem = createElement(elems.shift());
+      mStyle.style = mStyle.modElem.style;
+    }
+
+    // Delete the objects if we created them.
+    function cleanElems() {
+      if (afterInit) {
+        delete mStyle.style;
+        delete mStyle.modElem;
+      }
+    }
+
+    propsLength = props.length;
+    for (i = 0; i < propsLength; i++) {
+      prop = props[i];
+      before = mStyle.style[prop];
+
+      if (contains(prop, '-')) {
+        prop = cssToDOM(prop);
+      }
+
+      if (mStyle.style[prop] !== undefined) {
+
+        // If value to test has been passed in, do a set-and-check test.
+        // 0 (integer) is a valid property value, so check that `value` isn't
+        // undefined, rather than just checking it's truthy.
+        if (!skipValueTest && !is(value, 'undefined')) {
+
+          // Needs a try catch block because of old IE. This is slow, but will
+          // be avoided in most cases because `skipValueTest` will be used.
+          try {
+            mStyle.style[prop] = value;
+          } catch (e) {}
+
+          // If the property value has changed, we assume the value used is
+          // supported. If `value` is empty string, it'll fail here (because
+          // it hasn't changed), which matches how browsers have implemented
+          // CSS.supports()
+          if (mStyle.style[prop] != before) {
+            cleanElems();
+            return prefixed == 'pfx' ? prop : true;
+          }
+        }
+        // Otherwise just return true, or the property name if this is a
+        // `prefixed()` call
+        else {
+          cleanElems();
+          return prefixed == 'pfx' ? prop : true;
+        }
+      }
+    }
+    cleanElems();
+    return false;
+  }
+
+  ;
+
+  /**
+   * testProp() investigates whether a given style property is recognized
+   * Property names can be provided in either camelCase or kebab-case.
+   *
+   * @memberof Modernizr
+   * @name Modernizr.testProp
+   * @access public
+   * @optionName Modernizr.testProp()
+   * @optionProp testProp
+   * @function testProp
+   * @param {string} prop - Name of the CSS property to check
+   * @param {string} [value] - Name of the CSS value to check
+   * @param {boolean} [useValue] - Whether or not to check the value if @supports isn't supported
+   * @returns {boolean}
+   * @example
+   *
+   * Just like [testAllProps](#modernizr-testallprops), only it does not check any vendor prefixed
+   * version of the string.
+   *
+   * Note that the property name must be provided in camelCase (e.g. boxSizing not box-sizing)
+   *
+   * ```js
+   * Modernizr.testProp('pointerEvents')  // true
+   * ```
+   *
+   * You can also provide a value as an optional second argument to check if a
+   * specific value is supported
+   *
+   * ```js
+   * Modernizr.testProp('pointerEvents', 'none') // true
+   * Modernizr.testProp('pointerEvents', 'penguin') // false
+   * ```
+   */
+
+  var testProp = ModernizrProto.testProp = function(prop, value, useValue) {
+    return testProps([prop], undefined, value, useValue);
+  };
+
+
+  /**
+   * testPropsAll tests a list of DOM properties we want to check against.
+   * We specify literally ALL possible (known and/or likely) properties on
+   * the element including the non-vendor prefixed one, for forward-
+   * compatibility.
+   *
+   * @access private
+   * @function testPropsAll
+   * @param {string} prop - A string of the property to test for
+   * @param {string|object} [prefixed] - An object to check the prefixed properties on. Use a string to skip
+   * @param {HTMLElement|SVGElement} [elem] - An element used to test the property and value against
+   * @param {string} [value] - A string of a css value
+   * @param {boolean} [skipValueTest] - An boolean representing if you want to test if value sticks when set
+   */
+  function testPropsAll(prop, prefixed, elem, value, skipValueTest) {
+
+    var ucProp = prop.charAt(0).toUpperCase() + prop.slice(1),
+    props = (prop + ' ' + cssomPrefixes.join(ucProp + ' ') + ucProp).split(' ');
+
+    // did they call .prefixed('boxSizing') or are we just testing a prop?
+    if (is(prefixed, 'string') || is(prefixed, 'undefined')) {
+      return testProps(props, prefixed, value, skipValueTest);
+
+      // otherwise, they called .prefixed('requestAnimationFrame', window[, elem])
+    } else {
+      props = (prop + ' ' + (domPrefixes).join(ucProp + ' ') + ucProp).split(' ');
+      return testDOMProps(props, prefixed, elem);
+    }
+  }
+
+  // Modernizr.testAllProps() investigates whether a given style property,
+  // or any of its vendor-prefixed variants, is recognized
+  //
+  // Note that the property names must be provided in the camelCase variant.
+  // Modernizr.testAllProps('boxSizing')
+  ModernizrProto.testAllProps = testPropsAll;
+
+
+
+  /**
+   * testAllProps determines whether a given CSS property is supported in the browser
+   *
+   * @memberof Modernizr
+   * @name Modernizr.testAllProps
+   * @optionName Modernizr.testAllProps()
+   * @optionProp testAllProps
+   * @access public
+   * @function testAllProps
+   * @param {string} prop - String naming the property to test (either camelCase or kebab-case)
+   * @param {string} [value] - String of the value to test
+   * @param {boolean} [skipValueTest=false] - Whether to skip testing that the value is supported when using non-native detection
+   * @example
+   *
+   * testAllProps determines whether a given CSS property, in some prefixed form,
+   * is supported by the browser.
+   *
+   * ```js
+   * testAllProps('boxSizing')  // true
+   * ```
+   *
+   * It can optionally be given a CSS value in string form to test if a property
+   * value is valid
+   *
+   * ```js
+   * testAllProps('display', 'block') // true
+   * testAllProps('display', 'penguin') // false
+   * ```
+   *
+   * A boolean can be passed as a third parameter to skip the value check when
+   * native detection (@supports) isn't available.
+   *
+   * ```js
+   * testAllProps('shapeOutside', 'content-box', true);
+   * ```
+   */
+
+  function testAllProps(prop, value, skipValueTest) {
+    return testPropsAll(prop, undefined, undefined, value, skipValueTest);
+  }
+  ModernizrProto.testAllProps = testAllProps;
+
+/*!
+{
+  "name": "CSS Animations",
+  "property": "cssanimations",
+  "caniuse": "css-animation",
+  "polyfills": ["transformie", "csssandpaper"],
+  "tags": ["css"],
+  "warnings": ["Android < 4 will pass this test, but can only animate a single property at a time"],
+  "notes": [{
+    "name" : "Article: 'Dispelling the Android CSS animation myths'",
+    "href": "http://goo.gl/OGw5Gm"
+  }]
+}
+!*/
+/* DOC
+Detects whether or not elements can be animated using CSS
+*/
+
+  Modernizr.addTest('cssanimations', testAllProps('animationName', 'a', true));
+
+/*!
+{
+  "name": "Flexbox",
+  "property": "flexbox",
+  "caniuse": "flexbox",
+  "tags": ["css"],
+  "notes": [{
+    "name": "The _new_ flexbox",
+    "href": "http://dev.w3.org/csswg/css3-flexbox"
+  }],
+  "warnings": [
+    "A `true` result for this detect does not imply that the `flex-wrap` property is supported; see the `flexwrap` detect."
+  ]
+}
+!*/
+/* DOC
+Detects support for the Flexible Box Layout model, a.k.a. Flexbox, which allows easy manipulation of layout order and sizing within a container.
+*/
+
+  Modernizr.addTest('flexbox', testAllProps('flexBasis', '1px', true));
+
+
+  // Run each test
+  testRunner();
+
+  delete ModernizrProto.addTest;
+  delete ModernizrProto.addAsyncTest;
+
+  // Run the things that are supposed to run after the tests
+  for (var i = 0; i < Modernizr._q.length; i++) {
+    Modernizr._q[i]();
+  }
+
+  // Leak Modernizr namespace
+  window.Modernizr = Modernizr;
+
+
+;
+
+})(window, document);
+
+}).apply(this, arguments);
+
+},{}],4:[function(require,module,exports){
+_hmr["websocket:null"].initModule("javascript/vendor/overthrow.js", module);
+(function(){
+/*
+This is a modified version of overthrow because the original one does not support common js.
+ */
+
+/*! Overthrow. An overflow:auto polyfill for responsive design. (c) 2012: Scott Jehl, Filament Group, Inc. http://filamentgroup.github.com/Overthrow/license.txt */
+let doc = window.document
+let docElem = doc.documentElement
+let enabledClassName = 'overthrow-enabled'
+
+// Touch events are used in the polyfill, and thus are a prerequisite
+let canBeFilledWithPoly = 'ontouchmove' in doc
+
+// The following attempts to determine whether the browser has native overflow support
+// so we can enable it but not polyfill
+let nativeOverflow =
+  // Features-first. iOS5 overflow scrolling property check - no UA needed here. thanks Apple :)
+  'WebkitOverflowScrolling' in docElem.style ||
+  // Test the windows scrolling property as well
+  'msOverflowStyle' in docElem.style ||
+  // Touch events aren't supported and screen width is greater than X
+  // ...basically, this is a loose 'desktop browser' check.
+  // It may wrongly opt-in very large tablets with no touch support.
+  (!canBeFilledWithPoly && window.screen.width > 800) ||
+  // Hang on to your hats.
+  // Whitelist some popular, overflow-supporting mobile browsers for now and the future
+  // These browsers are known to get overlow support right, but give us no way of detecting it.
+  (function () {
+    let ua = window.navigator.userAgent
+    // Webkit crosses platforms, and the browsers on our list run at least version 534
+    let webkit = ua.match(/AppleWebKit\/([0-9]+)/)
+    let wkversion = webkit && webkit[1]
+    let wkLte534 = webkit && wkversion >= 534
+
+    return (
+      /* Android 3+ with webkit gte 534
+      ~: Mozilla/5.0 (Linux; U; Android 3.0; en-us; Xoom Build/HRI39) AppleWebKit/534.13 (KHTML, like Gecko) Version/4.0 Safari/534.13 */
+      ua.match(/Android ([0-9]+)/) && RegExp.$1 >= 3 && wkLte534 ||
+      /* Blackberry 7+ with webkit gte 534
+      ~: Mozilla/5.0 (BlackBerry; U; BlackBerry 9900; en-US) AppleWebKit/534.11+ (KHTML, like Gecko) Version/7.0.0 Mobile Safari/534.11+ */
+      ua.match(/ Version\/([0-9]+)/) && RegExp.$1 >= 0 && window.blackberry && wkLte534 ||
+      /* Blackberry Playbook with webkit gte 534
+      ~: Mozilla/5.0 (PlayBook; U; RIM Tablet OS 1.0.0; en-US) AppleWebKit/534.8+ (KHTML, like Gecko) Version/0.0.1 Safari/534.8+ */
+      ua.indexOf('PlayBook') > -1 && wkLte534 && !ua.indexOf('Android 2') === -1 ||
+      /* Firefox Mobile (Fennec) 4 and up
+      ~: Mozilla/5.0 (Mobile; rv:15.0) Gecko/15.0 Firefox/15.0 */
+      ua.match(/Firefox\/([0-9]+)/) && RegExp.$1 >= 4 ||
+      /* WebOS 3 and up (TouchPad too)
+      ~: Mozilla/5.0 (hp-tablet; Linux; hpwOS/3.0.0; U; en-US) AppleWebKit/534.6 (KHTML, like Gecko) wOSBrowser/233.48 Safari/534.6 TouchPad/1.0 */
+      ua.match(/wOSBrowser\/([0-9]+)/) && RegExp.$1 >= 233 && wkLte534 ||
+      /* Nokia Browser N8
+      ~: Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba
+      ~: Note: the N9 doesn't have native overflow with one-finger touch. wtf */
+      ua.match(/NokiaBrowser\/([0-9\.]+)/) && parseFloat(RegExp.$1) === 7.3 && webkit && wkversion >= 533
+    )
+  })()
+
+// Expose overthrow API
+let overthrow = {}
+
+overthrow.enabledClassName = enabledClassName
+
+overthrow.addClass = () => {
+  if (docElem.className.indexOf(overthrow.enabledClassName) === -1) {
+    docElem.className += ' ' + overthrow.enabledClassName
+  }
+}
+
+overthrow.removeClass = () => {
+  docElem.className = docElem.className.replace(overthrow.enabledClassName, '')
+}
+
+// Enable and potentially polyfill overflow
+overthrow.set = () => {
+  // If nativeOverflow or at least the element canBeFilledWithPoly, add a class to cue CSS that assumes overflow scrolling will work (setting height on elements and such)
+  if (nativeOverflow) {
+    overthrow.addClass()
+  }
+}
+
+// expose polyfillable
+overthrow.canBeFilledWithPoly = canBeFilledWithPoly
+
+// Destroy everything later. If you want to.
+overthrow.forget = () => {
+  overthrow.removeClass()
+}
+
+// Expose overthrow API
+overthrow.support = nativeOverflow ? 'native' : 'none'
+
+module.exports = overthrow
+
+}).apply(this, arguments);
+
+},{}],5:[function(require,module,exports){
+_hmr["websocket:null"].initModule("javascript/vendor/tendina.js", module);
+(function(){
+/*
+Tendina jQuery plugin v0.11.1
+
+Copyright (c) 2015 Ivan Prignano
+Released under the MIT License
+ */
+
+(function() {
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __slice = [].slice;
+
+  (function($, window) {
+    var Tendina;
+    Tendina = (function() {
+      Tendina.prototype.defaults = {
+        animate: true,
+        speed: 500,
+        onHover: false,
+        hoverDelay: 200,
+        activeMenu: null
+      };
+
+      function Tendina(el, options) {
+        this._eventHandler = __bind(this._eventHandler, this);
+        this.options = $.extend({}, this.defaults, options);
+        this.$el = $(el);
+        this.elSelector = this._getSelector(this.$el);
+        this.$el.addClass('tendina');
+        this.linkSelector = "" + this.elSelector + " a";
+        this.$listElements = $(this.linkSelector).parent('li');
+        this._hideSubmenus();
+        this.mouseEvent = this.options.onHover === true ? 'mouseenter.tendina' : 'click.tendina';
+        this._bindEvents();
+        if (this.options.activeMenu !== null) {
+          this._openActiveMenu(this.options.activeMenu);
+        }
+      }
+
+      Tendina.prototype._bindEvents = function() {
+        return $(document).on(this.mouseEvent, this.linkSelector, this._eventHandler);
+      };
+
+      Tendina.prototype._unbindEvents = function() {
+        return $(document).off(this.mouseEvent);
+      };
+
+      Tendina.prototype._getSelector = function(el) {
+        var elId, firstClass, _ref;
+        firstClass = (_ref = $(el).attr('class')) != null ? _ref.split(' ')[0] : void 0;
+        elId = $(el).attr('id');
+        if (elId !== void 0) {
+          return "#" + elId;
+        } else {
+          return "." + firstClass;
+        }
+      };
+
+      Tendina.prototype._isFirstLevel = function(targetEl) {
+        if ($(targetEl).parent().parent().hasClass('tendina')) {
+          return true;
+        }
+      };
+
+      Tendina.prototype._eventHandler = function(event) {
+        var targetEl;
+        targetEl = event.currentTarget;
+        if (this._hasChildren(targetEl) && this._IsChildrenHidden(targetEl)) {
+          event.preventDefault();
+          if (this.options.onHover) {
+            return setTimeout((function(_this) {
+              return function() {
+                if ($(targetEl).is(':hover')) {
+                  return _this._openSubmenu(targetEl);
+                }
+              };
+            })(this), this.options.hoverDelay);
+          } else {
+            return this._openSubmenu(targetEl);
+          }
+        } else if (this._isCurrentlyOpen(targetEl) && this._hasChildren(targetEl)) {
+          event.preventDefault();
+          if (!this.options.onHover) {
+            return this._closeSubmenu(targetEl);
+          }
+        }
+      };
+
+      Tendina.prototype._openSubmenu = function(el) {
+        var $openMenus, $targetMenu;
+        $targetMenu = $(el).next('ul');
+        $openMenus = this.$el.find('> .selected ul').not($targetMenu).not($targetMenu.parents('ul'));
+        $(el).parent('li').addClass('selected');
+        this._close($openMenus);
+        this.$el.find('.selected').not($targetMenu.parents('li')).removeClass('selected');
+        this._open($targetMenu);
+        if (this.options.openCallback) {
+          return this.options.openCallback($(el).parent());
+        }
+      };
+
+      Tendina.prototype._closeSubmenu = function(el) {
+        var $nestedMenus, $targetMenu;
+        $targetMenu = $(el).next('ul');
+        $nestedMenus = $targetMenu.find('li.selected');
+        $(el).parent().removeClass('selected');
+        this._close($targetMenu);
+        $nestedMenus.removeClass('selected');
+        this._close($nestedMenus.find('ul'));
+        if (this.options.closeCallback) {
+          return this.options.closeCallback($(el).parent());
+        }
+      };
+
+      Tendina.prototype._open = function($el) {
+        if (this.options.animate) {
+          return $el.stop(true, true).slideDown(this.options.speed);
+        } else {
+          return $el.show();
+        }
+      };
+
+      Tendina.prototype._close = function($el) {
+        if (this.options.animate) {
+          return $el.stop(true, true).slideUp(this.options.speed);
+        } else {
+          return $el.hide();
+        }
+      };
+
+      Tendina.prototype._hasChildren = function(el) {
+        return $(el).next('ul').length > 0;
+      };
+
+      Tendina.prototype._IsChildrenHidden = function(el) {
+        return $(el).next('ul').is(':hidden');
+      };
+
+      Tendina.prototype._isCurrentlyOpen = function(el) {
+        return $(el).parent().hasClass('selected');
+      };
+
+      Tendina.prototype._hideSubmenus = function() {
+        return this.$el.find('ul').hide();
+      };
+
+      Tendina.prototype._showSubmenus = function() {
+        this.$el.find('ul').show();
+        return this.$el.find('li').addClass('selected');
+      };
+
+      Tendina.prototype._openActiveMenu = function(element) {
+        var $activeMenu, $activeParents;
+        $activeMenu = element instanceof jQuery ? element : this.$el.find(element);
+        $activeParents = $activeMenu.closest('ul').parents('li').find('> a');
+        if (this._hasChildren($activeParents) && this._IsChildrenHidden($activeParents)) {
+          $activeParents.next('ul').show();
+        } else {
+          $activeMenu.next('ul').show();
+        }
+        $activeMenu.parent().addClass('selected');
+        return $activeParents.parent().addClass('selected');
+      };
+
+      Tendina.prototype.destroy = function() {
+        this.$el.removeData('tendina');
+        this._unbindEvents();
+        this._showSubmenus();
+        this.$el.removeClass('tendina');
+        return this.$el.find('.selected').removeClass('selected');
+      };
+
+      Tendina.prototype.hideAll = function() {
+        return this._hideSubmenus();
+      };
+
+      Tendina.prototype.showAll = function() {
+        return this._showSubmenus();
+      };
+
+      return Tendina;
+
+    })();
+    return $.fn.extend({
+      tendina: function() {
+        var args, option;
+        option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+        return this.each(function() {
+          var $this, data;
+          $this = $(this);
+          data = $this.data('tendina');
+          if (!data) {
+            $this.data('tendina', (data = new Tendina(this, option)));
+          }
+          if (typeof option === 'string') {
+            return data[option].apply(data, args);
+          }
+        });
+      }
+    });
+  })(window.jQuery, window);
+
+}).call(this);
+
+}).apply(this, arguments);
+
+},{}],6:[function(require,module,exports){
+_hmr["websocket:null"].initModule("javascript/vendor/viewloader.js", module);
+(function(){
+var $ = require('jquery')
+
+function capitaliseFirstLetter (string) {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
+var viewloader = {
+  execute: function (Views, $scope) {
+    var $els = $scope ? $scope.find('[data-view]') : $('[data-view]')
+
+    if ($els.length) {
+      $els.each(function (i, el) {
+        var $el = $(el)
+        var view = capitaliseFirstLetter($el.data('view'))
+
+        if (view && Views[view]) {
+          return new Views[view]($el, el)
+        }
+      })
+    }
+  }
+}
+
+module.exports = viewloader
+
+}).apply(this, arguments);
+
+},{"jquery":46}],7:[function(require,module,exports){
+_hmr["websocket:null"].initModule("javascript/views/iframe.js", module);
+(function(){
+/**
+ * Guide: iFrame
+ */
+var $ = require('jquery')
+var iFrameResize = require('iframe-resizer')
+
+var Iframe = function ($el) {
+  this.$el = $el
+
+  iFrameResize.iframeResizer({
+    resizedCallback: function (messageData) {
+      // Specify which iframe to target
+      var iframeId = messageData.iframe.id
+      var $currentIframe = $('#' + iframeId)
+      $currentIframe.parent().removeClass('is-loading')
+    }
+  }, $el.find('iframe')[0])
+}
+
+module.exports = Iframe
+
+}).apply(this, arguments);
+
+},{"iframe-resizer":40,"jquery":46}],8:[function(require,module,exports){
+_hmr["websocket:null"].initModule("javascript/views/languageSwitcher.js", module);
+(function(){
+/**
+ * Guide: Language Switcher
+ */
+var $ = require('jquery')
+
+var LanguageSwitcher = function ($el) {
+  this.$el = $el
+
+  this.$select = $el.find('.js-gudie__language')
+  this.$select.on('change', this.handleChange.bind(this))
+}
+
+LanguageSwitcher.prototype.handleChange = function () {
+  this.$el.submit()
+}
+
+module.exports = LanguageSwitcher
+
+}).apply(this, arguments);
+
+},{"jquery":46}],9:[function(require,module,exports){
+_hmr["websocket:null"].initModule("javascript/views/layout.js", module);
+(function(){
+/**
+ * Guide: Layout
+ */
+var $ = require('jquery')
+
+var Layout = function ($el) {
+  this.$el = $el
+
+  this.dom = {
+    $body: $('body'),
+    $toggle: $el.find('.js-layout__nav-toggle'),
+    $overlay: $el.find('.js-layout__nav-overlay')
+  }
+
+  this.dom.$overlay.on('click', this.closeNav.bind(this))
+  this.dom.$toggle.on('click', this.openNav.bind(this))
+}
+
+Layout.prototype.closeNav = function () {
+  this.dom.$body.attr('data-off-canvas', 'disabled')
+}
+
+Layout.prototype.openNav = function () {
+  this.dom.$body.attr('data-off-canvas', 'enabled')
+}
+
+module.exports = Layout
+
+}).apply(this, arguments);
+
+},{"jquery":46}],10:[function(require,module,exports){
+_hmr["websocket:null"].initModule("javascript/views/navigation.js", module);
+(function(){
+/**
+ * Guide: Navigation
+ */
+var jQuery = $ = require('jquery')
+require('../vendor/tendina')
+
+var Navigation = function ($el) {
+  $el.tendina({
+    activeMenu: '.is-active',
+    speed: 300
+  })
+}
+
+module.exports = Navigation
+
+}).apply(this, arguments);
+
+},{"../vendor/tendina":5,"jquery":46}],11:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/after/index.js", module);
 (function(){
 module.exports = after
@@ -41,7 +2174,7 @@ function noop() {}
 
 }).apply(this, arguments);
 
-},{}],4:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/arraybuffer.slice/index.js", module);
 (function(){
 /**
@@ -76,7 +2209,7 @@ module.exports = function(arraybuffer, start, end) {
 
 }).apply(this, arguments);
 
-},{}],5:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/backo2/index.js", module);
 (function(){
 
@@ -167,7 +2300,7 @@ Backoff.prototype.setJitter = function(jitter){
 
 }).apply(this, arguments);
 
-},{}],6:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/base64-arraybuffer/lib/base64-arraybuffer.js", module);
 (function(){
 /*
@@ -232,7 +2365,7 @@ _hmr["websocket:null"].initModule("node_modules/base64-arraybuffer/lib/base64-ar
 
 }).apply(this, arguments);
 
-},{}],7:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/blob/index.js", module);
 (function(){
 (function (global){
@@ -336,13 +2469,13 @@ module.exports = (function() {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{}],8:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/browser-resolve/empty.js", module);
 (function(){
 
 }).apply(this, arguments);
 
-},{}],9:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/browserify-hmr/inc/index.js", module);
 (function(){
 (function (global){
@@ -1008,7 +3141,7 @@ module.exports = main;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"../lib/has":10,"../lib/str-set":11,"lodash/array/zipObject":36,"lodash/collection/filter":37,"lodash/collection/forEach":38,"lodash/collection/map":39,"lodash/collection/some":40,"lodash/object/assign":95,"lodash/object/forOwn":96,"lodash/object/mapValues":99}],10:[function(require,module,exports){
+},{"../lib/has":18,"../lib/str-set":19,"lodash/array/zipObject":48,"lodash/collection/filter":49,"lodash/collection/forEach":50,"lodash/collection/map":51,"lodash/collection/some":52,"lodash/object/assign":107,"lodash/object/forOwn":108,"lodash/object/mapValues":111}],18:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/browserify-hmr/lib/has.js", module);
 (function(){
 'use strict';
@@ -1020,7 +3153,7 @@ module.exports = has;
 
 }).apply(this, arguments);
 
-},{}],11:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/browserify-hmr/lib/str-set.js", module);
 (function(){
 'use strict';
@@ -1101,7 +3234,7 @@ module.exports = StrSet;
 
 }).apply(this, arguments);
 
-},{"./has":10}],12:[function(require,module,exports){
+},{"./has":18}],20:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/component-bind/index.js", module);
 (function(){
 /**
@@ -1130,7 +3263,7 @@ module.exports = function(obj, fn){
 
 }).apply(this, arguments);
 
-},{}],13:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/component-emitter/index.js", module);
 (function(){
 
@@ -1300,7 +3433,7 @@ Emitter.prototype.hasListeners = function(event){
 
 }).apply(this, arguments);
 
-},{}],14:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/component-inherit/index.js", module);
 (function(){
 
@@ -1312,7 +3445,7 @@ module.exports = function(a, b){
 };
 }).apply(this, arguments);
 
-},{}],15:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/debug/browser.js", module);
 (function(){
 
@@ -1486,7 +3619,7 @@ function localstorage(){
 
 }).apply(this, arguments);
 
-},{"./debug":16}],16:[function(require,module,exports){
+},{"./debug":24}],24:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/debug/debug.js", module);
 (function(){
 
@@ -1689,7 +3822,7 @@ function coerce(val) {
 
 }).apply(this, arguments);
 
-},{"ms":103}],17:[function(require,module,exports){
+},{"ms":115}],25:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/engine.io-client/index.js", module);
 (function(){
 
@@ -1697,7 +3830,7 @@ module.exports =  require('./lib/');
 
 }).apply(this, arguments);
 
-},{"./lib/":18}],18:[function(require,module,exports){
+},{"./lib/":26}],26:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/engine.io-client/lib/index.js", module);
 (function(){
 
@@ -1713,7 +3846,7 @@ module.exports.parser = require('engine.io-parser');
 
 }).apply(this, arguments);
 
-},{"./socket":19,"engine.io-parser":27}],19:[function(require,module,exports){
+},{"./socket":27,"engine.io-parser":35}],27:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/engine.io-client/lib/socket.js", module);
 (function(){
 (function (global){
@@ -2449,7 +4582,7 @@ Socket.prototype.filterUpgrades = function (upgrades) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"./transport":20,"./transports":21,"component-emitter":13,"debug":15,"engine.io-parser":27,"indexof":32,"parsejson":104,"parseqs":105,"parseuri":106}],20:[function(require,module,exports){
+},{"./transport":28,"./transports":29,"component-emitter":21,"debug":23,"engine.io-parser":35,"indexof":44,"parsejson":116,"parseqs":117,"parseuri":118}],28:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/engine.io-client/lib/transport.js", module);
 (function(){
 /**
@@ -2610,7 +4743,7 @@ Transport.prototype.onClose = function () {
 
 }).apply(this, arguments);
 
-},{"component-emitter":13,"engine.io-parser":27}],21:[function(require,module,exports){
+},{"component-emitter":21,"engine.io-parser":35}],29:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/engine.io-client/lib/transports/index.js", module);
 (function(){
 (function (global){
@@ -2671,7 +4804,7 @@ function polling(opts){
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"./polling-jsonp":22,"./polling-xhr":23,"./websocket":25,"xmlhttprequest-ssl":26}],22:[function(require,module,exports){
+},{"./polling-jsonp":30,"./polling-xhr":31,"./websocket":33,"xmlhttprequest-ssl":34}],30:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/engine.io-client/lib/transports/polling-jsonp.js", module);
 (function(){
 (function (global){
@@ -2917,7 +5050,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"./polling":24,"component-inherit":14}],23:[function(require,module,exports){
+},{"./polling":32,"component-inherit":22}],31:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/engine.io-client/lib/transports/polling-xhr.js", module);
 (function(){
 (function (global){
@@ -3337,7 +5470,7 @@ function unloadHandler() {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"./polling":24,"component-emitter":13,"component-inherit":14,"debug":15,"xmlhttprequest-ssl":26}],24:[function(require,module,exports){
+},{"./polling":32,"component-emitter":21,"component-inherit":22,"debug":23,"xmlhttprequest-ssl":34}],32:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/engine.io-client/lib/transports/polling.js", module);
 (function(){
 /**
@@ -3590,7 +5723,7 @@ Polling.prototype.uri = function(){
 
 }).apply(this, arguments);
 
-},{"../transport":20,"component-inherit":14,"debug":15,"engine.io-parser":27,"parseqs":105,"xmlhttprequest-ssl":26,"yeast":119}],25:[function(require,module,exports){
+},{"../transport":28,"component-inherit":22,"debug":23,"engine.io-parser":35,"parseqs":117,"xmlhttprequest-ssl":34,"yeast":131}],33:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/engine.io-client/lib/transports/websocket.js", module);
 (function(){
 (function (global){
@@ -3886,7 +6019,7 @@ WS.prototype.check = function(){
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"../transport":20,"component-inherit":14,"debug":15,"engine.io-parser":27,"parseqs":105,"ws":8,"yeast":119}],26:[function(require,module,exports){
+},{"../transport":28,"component-inherit":22,"debug":23,"engine.io-parser":35,"parseqs":117,"ws":16,"yeast":131}],34:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/engine.io-client/lib/xmlhttprequest.js", module);
 (function(){
 // browser shim for xmlhttprequest module
@@ -3928,7 +6061,7 @@ module.exports = function(opts) {
 
 }).apply(this, arguments);
 
-},{"has-cors":31}],27:[function(require,module,exports){
+},{"has-cors":39}],35:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/engine.io-parser/lib/browser.js", module);
 (function(){
 (function (global){
@@ -4530,7 +6663,7 @@ exports.decodePayloadAsBinary = function (data, binaryType, callback) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"./keys":28,"after":3,"arraybuffer.slice":4,"base64-arraybuffer":6,"blob":7,"has-binary":29,"utf8":118}],28:[function(require,module,exports){
+},{"./keys":36,"after":11,"arraybuffer.slice":12,"base64-arraybuffer":14,"blob":15,"has-binary":37,"utf8":130}],36:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/engine.io-parser/lib/keys.js", module);
 (function(){
 
@@ -4555,7 +6688,7 @@ module.exports = Object.keys || function keys (obj){
 
 }).apply(this, arguments);
 
-},{}],29:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/engine.io-parser/node_modules/has-binary/index.js", module);
 (function(){
 (function (global){
@@ -4621,7 +6754,7 @@ function hasBinary(data) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"isarray":33}],30:[function(require,module,exports){
+},{"isarray":45}],38:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/has-binary/index.js", module);
 (function(){
 (function (global){
@@ -4688,7 +6821,7 @@ function hasBinary(data) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"isarray":33}],31:[function(require,module,exports){
+},{"isarray":45}],39:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/has-cors/index.js", module);
 (function(){
 
@@ -4711,7 +6844,2101 @@ try {
 
 }).apply(this, arguments);
 
-},{}],32:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules/iframe-resizer/index.js", module);
+(function(){
+
+'use strict';
+
+module.exports = require('./js');
+
+}).apply(this, arguments);
+
+},{"./js":43}],41:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules/iframe-resizer/js/iframeResizer.contentWindow.js", module);
+(function(){
+/*
+ * File: iframeResizer.contentWindow.js
+ * Desc: Include this file in any page being loaded into an iframe
+ *       to force the iframe to resize to the content size.
+ * Requires: iframeResizer.js on host page.
+ * Doc: https://github.com/davidjbradshaw/iframe-resizer
+ * Author: David J. Bradshaw - dave@bradshaw.net
+ * Contributor: Jure Mav - jure.mav@gmail.com
+ * Contributor: Ian Caunce - ian@hallnet.co.uk
+ */
+
+
+;(function(window) {
+	'use strict';
+
+	var
+		autoResize            = true,
+		base                  = 10,
+		bodyBackground        = '',
+		bodyMargin            = 0,
+		bodyMarginStr         = '',
+		bodyObserver          = null,
+		bodyPadding           = '',
+		calculateWidth        = false,
+		doubleEventList       = {'resize':1,'click':1},
+		eventCancelTimer      = 128,
+		firstRun              = true,
+		height                = 1,
+		heightCalcModeDefault = 'bodyOffset',
+		heightCalcMode        = heightCalcModeDefault,
+		initLock              = true,
+		initMsg               = '',
+		inPageLinks           = {},
+		interval              = 32,
+		intervalTimer         = null,
+		logging               = false,
+		msgID                 = '[iFrameSizer]',  //Must match host page msg ID
+		msgIdLen              = msgID.length,
+		myID                  = '',
+		observer              = null,
+		resetRequiredMethods  = {max:1,min:1,bodyScroll:1,documentElementScroll:1},
+		resizeFrom            = 'child',
+		sendPermit            = true,
+		target                = window.parent,
+		targetOriginDefault   = '*',
+		tolerance             = 0,
+		triggerLocked         = false,
+		triggerLockedTimer    = null,
+		throttledTimer        = 16,
+		width                 = 1,
+		widthCalcModeDefault  = 'scroll',
+		widthCalcMode         = widthCalcModeDefault,
+		win                   = window,
+		messageCallback       = function(){warn('MessageCallback function not defined');},
+		readyCallback         = function(){},
+		pageInfoCallback      = function(){};
+
+
+	function addEventListener(el,evt,func){
+		/* istanbul ignore else */ // Not testable in phantonJS
+		if ('addEventListener' in window){
+			el.addEventListener(evt,func, false);
+		} else if ('attachEvent' in window){ //IE
+			el.attachEvent('on'+evt,func);
+		}
+	}
+
+	function removeEventListener(el,evt,func){
+		/* istanbul ignore else */ // Not testable in phantonJS
+		if ('removeEventListener' in window){
+			el.removeEventListener(evt,func, false);
+		} else if ('detachEvent' in window){ //IE
+			el.detachEvent('on'+evt,func);
+		}
+	}
+
+	function capitalizeFirstLetter(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+
+	//Based on underscore.js
+	function throttle(func) {
+		var
+			context, args, result,
+			timeout = null,
+			previous = 0,
+			later = function() {
+				previous = getNow();
+				timeout = null;
+				result = func.apply(context, args);
+				if (!timeout) {
+					context = args = null;
+				}
+			};
+
+		return function() {
+			var now = getNow();
+
+			if (!previous) {
+				previous = now;
+			}
+
+			var remaining = throttledTimer - (now - previous);
+
+			context = this;
+			args = arguments;
+
+			if (remaining <= 0 || remaining > throttledTimer) {
+				if (timeout) {
+					clearTimeout(timeout);
+					timeout = null;
+				}
+
+				previous = now;
+				result = func.apply(context, args);
+
+				if (!timeout) {
+					context = args = null;
+				}
+
+			} else if (!timeout) {
+				timeout = setTimeout(later, remaining);
+			}
+
+			return result;
+		};
+	}
+
+	var getNow = Date.now || function() {
+		/* istanbul ignore next */ // Not testable in PhantonJS
+		return new Date().getTime();
+	};
+
+	function formatLogMsg(msg){
+		return msgID + '[' + myID + ']' + ' ' + msg;
+	}
+
+	function log(msg){
+		if (logging && ('object' === typeof window.console)){
+			console.log(formatLogMsg(msg));
+		}
+	}
+
+	function warn(msg){
+		if ('object' === typeof window.console){
+			console.warn(formatLogMsg(msg));
+		}
+	}
+
+
+	function init(){
+		readDataFromParent();
+		log('Initialising iFrame ('+location.href+')');
+		readDataFromPage();
+		setMargin();
+		setBodyStyle('background',bodyBackground);
+		setBodyStyle('padding',bodyPadding);
+		injectClearFixIntoBodyElement();
+		checkHeightMode();
+		checkWidthMode();
+		stopInfiniteResizingOfIFrame();
+		setupPublicMethods();
+		startEventListeners();
+		inPageLinks = setupInPageLinks();
+		sendSize('init','Init message from host page');
+		readyCallback();
+	}
+
+	function readDataFromParent(){
+
+		function strBool(str){
+			return 'true' === str ? true : false;
+		}
+
+		var data = initMsg.substr(msgIdLen).split(':');
+
+		myID               = data[0];
+		bodyMargin         = (undefined !== data[1]) ? Number(data[1])   : bodyMargin; //For V1 compatibility
+		calculateWidth     = (undefined !== data[2]) ? strBool(data[2])  : calculateWidth;
+		logging            = (undefined !== data[3]) ? strBool(data[3])  : logging;
+		interval           = (undefined !== data[4]) ? Number(data[4])   : interval;
+		autoResize         = (undefined !== data[6]) ? strBool(data[6])  : autoResize;
+		bodyMarginStr      = data[7];
+		heightCalcMode     = (undefined !== data[8]) ? data[8]           : heightCalcMode;
+		bodyBackground     = data[9];
+		bodyPadding        = data[10];
+		tolerance          = (undefined !== data[11]) ? Number(data[11]) : tolerance;
+		inPageLinks.enable = (undefined !== data[12]) ? strBool(data[12]): false;
+		resizeFrom         = (undefined !== data[13]) ? data[13]         : resizeFrom;
+		widthCalcMode      = (undefined !== data[14]) ? data[14]         : widthCalcMode;
+	}
+
+	function readDataFromPage(){
+		function readData(){
+			var data = window.iFrameResizer;
+
+			log('Reading data from page: ' + JSON.stringify(data));
+
+			messageCallback     = ('messageCallback'         in data) ? data.messageCallback         : messageCallback;
+			readyCallback       = ('readyCallback'           in data) ? data.readyCallback           : readyCallback;
+			targetOriginDefault = ('targetOrigin'            in data) ? data.targetOrigin            : targetOriginDefault;
+			heightCalcMode      = ('heightCalculationMethod' in data) ? data.heightCalculationMethod : heightCalcMode;
+			widthCalcMode       = ('widthCalculationMethod'  in data) ? data.widthCalculationMethod  : widthCalcMode;
+		}
+
+		if(('iFrameResizer' in window) && (Object === window.iFrameResizer.constructor)) {
+			readData();
+		}
+
+		log('TargetOrigin for parent set to: ' + targetOriginDefault);
+	}
+
+
+	function chkCSS(attr,value){
+		if (-1 !== value.indexOf('-')){
+			warn('Negative CSS value ignored for '+attr);
+			value='';
+		}
+		return value;
+	}
+
+	function setBodyStyle(attr,value){
+		if ((undefined !== value) && ('' !== value) && ('null' !== value)){
+			document.body.style[attr] = value;
+			log('Body '+attr+' set to "'+value+'"');
+		}
+	}
+
+	function setMargin(){
+		//If called via V1 script, convert bodyMargin from int to str
+		if (undefined === bodyMarginStr){
+			bodyMarginStr = bodyMargin+'px';
+		}
+
+		setBodyStyle('margin',chkCSS('margin',bodyMarginStr));
+	}
+
+	function stopInfiniteResizingOfIFrame(){
+		document.documentElement.style.height = '';
+		document.body.style.height = '';
+		log('HTML & body height set to "auto"');
+	}
+
+
+	function manageTriggerEvent(options){
+		function handleEvent(){
+			sendSize(options.eventName,options.eventType);
+		}
+
+		var listener = {
+			add:    function(eventName){
+				addEventListener(window,eventName,handleEvent);
+			},
+			remove: function(eventName){
+				removeEventListener(window,eventName,handleEvent);
+			}
+		};
+
+		if(options.eventNames && Array.prototype.map){
+			options.eventName = options.eventNames[0];
+			options.eventNames.map(listener[options.method]);
+		} else {
+			listener[options.method](options.eventName);
+		}
+
+		log(capitalizeFirstLetter(options.method) + ' event listener: ' + options.eventType);
+	}
+
+	function manageEventListeners(method){
+		manageTriggerEvent({method:method, eventType: 'Animation Start',           eventNames: ['animationstart','webkitAnimationStart'] });
+		manageTriggerEvent({method:method, eventType: 'Animation Iteration',       eventNames: ['animationiteration','webkitAnimationIteration'] });
+		manageTriggerEvent({method:method, eventType: 'Animation End',             eventNames: ['animationend','webkitAnimationEnd'] });
+		manageTriggerEvent({method:method, eventType: 'Input',                     eventName:  'input' });
+		manageTriggerEvent({method:method, eventType: 'Mouse Up',                  eventName:  'mouseup' });
+		manageTriggerEvent({method:method, eventType: 'Mouse Down',                eventName:  'mousedown' });
+		manageTriggerEvent({method:method, eventType: 'Orientation Change',        eventName:  'orientationchange' });
+		manageTriggerEvent({method:method, eventType: 'Print',                     eventName:  ['afterprint', 'beforeprint'] });
+		manageTriggerEvent({method:method, eventType: 'Ready State Change',        eventName:  'readystatechange' });
+		manageTriggerEvent({method:method, eventType: 'Touch Start',               eventName:  'touchstart' });
+		manageTriggerEvent({method:method, eventType: 'Touch End',                 eventName:  'touchend' });
+		manageTriggerEvent({method:method, eventType: 'Touch Cancel',              eventName:  'touchcancel' });
+		manageTriggerEvent({method:method, eventType: 'Transition Start',          eventNames: ['transitionstart','webkitTransitionStart','MSTransitionStart','oTransitionStart','otransitionstart'] });
+		manageTriggerEvent({method:method, eventType: 'Transition Iteration',      eventNames: ['transitioniteration','webkitTransitionIteration','MSTransitionIteration','oTransitionIteration','otransitioniteration'] });
+		manageTriggerEvent({method:method, eventType: 'Transition End',            eventNames: ['transitionend','webkitTransitionEnd','MSTransitionEnd','oTransitionEnd','otransitionend'] });
+		if('child' === resizeFrom){
+			manageTriggerEvent({method:method, eventType: 'IFrame Resized',        eventName:  'resize' });
+		}
+	}
+
+	function checkCalcMode(calcMode,calcModeDefault,modes,type){
+		if (calcModeDefault !== calcMode){
+			if (!(calcMode in modes)){
+				warn(calcMode + ' is not a valid option for '+type+'CalculationMethod.');
+				calcMode=calcModeDefault;
+			}
+			log(type+' calculation method set to "'+calcMode+'"');
+		}
+
+		return calcMode;
+	}
+
+	function checkHeightMode(){
+		heightCalcMode = checkCalcMode(heightCalcMode,heightCalcModeDefault,getHeight,'height');
+	}
+
+	function checkWidthMode(){
+		widthCalcMode = checkCalcMode(widthCalcMode,widthCalcModeDefault,getWidth,'width');
+	}
+
+	function startEventListeners(){
+		if ( true === autoResize ) {
+			manageEventListeners('add');
+			setupMutationObserver();
+		}
+		else {
+			log('Auto Resize disabled');
+		}
+	}
+
+	function stopMsgsToParent(){
+		log('Disable outgoing messages');
+		sendPermit = false;
+	}
+
+	function removeMsgListener(){
+		log('Remove event listener: Message');
+		removeEventListener(window, 'message', receiver);
+	}
+
+	function disconnectMutationObserver(){
+		if (null !== bodyObserver){
+			/* istanbul ignore next */ // Not testable in PhantonJS
+			bodyObserver.disconnect();
+		}
+	}
+
+	function stopEventListeners(){
+		manageEventListeners('remove');
+		disconnectMutationObserver();
+		clearInterval(intervalTimer);
+	}
+
+	function teardown(){
+		stopMsgsToParent();
+		removeMsgListener();
+		if (true === autoResize) stopEventListeners();
+	}
+
+	function injectClearFixIntoBodyElement(){
+		var clearFix = document.createElement('div');
+		clearFix.style.clear   = 'both';
+		clearFix.style.display = 'block'; //Guard against this having been globally redefined in CSS.
+		document.body.appendChild(clearFix);
+	}
+
+	function setupInPageLinks(){
+
+		function getPagePosition (){
+			return {
+				x: (window.pageXOffset !== undefined) ? window.pageXOffset : document.documentElement.scrollLeft,
+				y: (window.pageYOffset !== undefined) ? window.pageYOffset : document.documentElement.scrollTop
+			};
+		}
+
+		function getElementPosition(el){
+			var
+				elPosition   = el.getBoundingClientRect(),
+				pagePosition = getPagePosition();
+
+			return {
+				x: parseInt(elPosition.left,10) + parseInt(pagePosition.x,10),
+				y: parseInt(elPosition.top,10)  + parseInt(pagePosition.y,10)
+			};
+		}
+
+		function findTarget(location){
+			function jumpToTarget(target){
+				var jumpPosition = getElementPosition(target);
+
+				log('Moving to in page link (#'+hash+') at x: '+jumpPosition.x+' y: '+jumpPosition.y);
+				sendMsg(jumpPosition.y, jumpPosition.x, 'scrollToOffset'); // X&Y reversed at sendMsg uses height/width
+			}
+
+			var
+				hash     = location.split('#')[1] || location, //Remove # if present
+				hashData = decodeURIComponent(hash),
+				target   = document.getElementById(hashData) || document.getElementsByName(hashData)[0];
+
+			if (undefined !== target){
+				jumpToTarget(target);
+			} else {
+				log('In page link (#' + hash + ') not found in iFrame, so sending to parent');
+				sendMsg(0,0,'inPageLink','#'+hash);
+			}
+		}
+
+		function checkLocationHash(){
+			if ('' !== location.hash && '#' !== location.hash){
+				findTarget(location.href);
+			}
+		}
+
+		function bindAnchors(){
+			function setupLink(el){
+				function linkClicked(e){
+					e.preventDefault();
+
+					/*jshint validthis:true */
+					findTarget(this.getAttribute('href'));
+				}
+
+				if ('#' !== el.getAttribute('href')){
+					addEventListener(el,'click',linkClicked);
+				}
+			}
+
+			Array.prototype.forEach.call( document.querySelectorAll( 'a[href^="#"]' ), setupLink );
+		}
+
+		function bindLocationHash(){
+			addEventListener(window,'hashchange',checkLocationHash);
+		}
+
+		function initCheck(){ //check if page loaded with location hash after init resize
+			setTimeout(checkLocationHash,eventCancelTimer);
+		}
+
+		function enableInPageLinks(){
+			/* istanbul ignore else */ // Not testable in phantonJS
+			if(Array.prototype.forEach && document.querySelectorAll){
+				log('Setting up location.hash handlers');
+				bindAnchors();
+				bindLocationHash();
+				initCheck();
+			} else {
+				warn('In page linking not fully supported in this browser! (See README.md for IE8 workaround)');
+			}
+		}
+
+		if(inPageLinks.enable){
+			enableInPageLinks();
+		} else {
+			log('In page linking not enabled');
+		}
+
+		return {
+			findTarget:findTarget
+		};
+	}
+
+	function setupPublicMethods(){
+		log('Enable public methods');
+
+		win.parentIFrame = {
+
+			autoResize: function autoResizeF(resize){
+				if (true === resize && false === autoResize) {
+					autoResize=true;
+					startEventListeners();
+					//sendSize('autoResize','Auto Resize enabled');
+				} else if (false === resize && true === autoResize) {
+					autoResize=false;
+					stopEventListeners();
+				}
+
+				return autoResize;
+			},
+
+			close: function closeF(){
+				sendMsg(0,0,'close');
+				teardown();
+			},
+
+			getId: function getIdF(){
+				return myID;
+			},
+
+			getPageInfo: function getPageInfoF(callback){
+				if ('function' === typeof callback){
+					pageInfoCallback = callback;
+					sendMsg(0,0,'pageInfo');
+				} else {
+					pageInfoCallback = function(){};
+					sendMsg(0,0,'pageInfoStop');
+				}
+			},
+
+			moveToAnchor: function moveToAnchorF(hash){
+				inPageLinks.findTarget(hash);
+			},
+
+			reset: function resetF(){
+				resetIFrame('parentIFrame.reset');
+			},
+
+			scrollTo: function scrollToF(x,y){
+				sendMsg(y,x,'scrollTo'); // X&Y reversed at sendMsg uses height/width
+			},
+
+			scrollToOffset: function scrollToF(x,y){
+				sendMsg(y,x,'scrollToOffset'); // X&Y reversed at sendMsg uses height/width
+			},
+
+			sendMessage: function sendMessageF(msg,targetOrigin){
+				sendMsg(0,0,'message',JSON.stringify(msg),targetOrigin);
+			},
+
+			setHeightCalculationMethod: function setHeightCalculationMethodF(heightCalculationMethod){
+				heightCalcMode = heightCalculationMethod;
+				checkHeightMode();
+			},
+
+			setWidthCalculationMethod: function setWidthCalculationMethodF(widthCalculationMethod){
+				widthCalcMode = widthCalculationMethod;
+				checkWidthMode();
+			},
+
+			setTargetOrigin: function setTargetOriginF(targetOrigin){
+				log('Set targetOrigin: '+targetOrigin);
+				targetOriginDefault = targetOrigin;
+			},
+
+			size: function sizeF(customHeight, customWidth){
+				var valString = ''+(customHeight?customHeight:'')+(customWidth?','+customWidth:'');
+				//lockTrigger();
+				sendSize('size','parentIFrame.size('+valString+')', customHeight, customWidth);
+			}
+		};
+	}
+
+	function initInterval(){
+		if ( 0 !== interval ){
+			log('setInterval: '+interval+'ms');
+			intervalTimer = setInterval(function(){
+				sendSize('interval','setInterval: '+interval);
+			},Math.abs(interval));
+		}
+	}
+
+	/* istanbul ignore next */  //Not testable in PhantomJS
+	function setupBodyMutationObserver(){
+		function addImageLoadListners(mutation) {
+			function addImageLoadListener(element){
+				if (false === element.complete) {
+					log('Attach listeners to ' + element.src);
+					element.addEventListener('load', imageLoaded, false);
+					element.addEventListener('error', imageError, false);
+					elements.push(element);
+				}
+			}
+
+			if (mutation.type === 'attributes' && mutation.attributeName === 'src'){
+				addImageLoadListener(mutation.target);
+			} else if (mutation.type === 'childList'){
+				Array.prototype.forEach.call(
+					mutation.target.querySelectorAll('img'),
+					addImageLoadListener
+				);
+			}
+		}
+
+		function removeFromArray(element){
+			elements.splice(elements.indexOf(element),1);
+		}
+
+		function removeImageLoadListener(element){
+			log('Remove listeners from ' + element.src);
+			element.removeEventListener('load', imageLoaded, false);
+			element.removeEventListener('error', imageError, false);
+			removeFromArray(element);
+		}
+
+		function imageEventTriggered(event,type,typeDesc){
+			removeImageLoadListener(event.target);
+			sendSize(type, typeDesc + ': ' + event.target.src, undefined, undefined);
+		}
+
+		function imageLoaded(event) {
+			imageEventTriggered(event,'imageLoad','Image loaded');
+		}
+
+		function imageError(event) {
+			imageEventTriggered(event,'imageLoadFailed','Image load failed');
+		}
+
+		function mutationObserved(mutations) {
+			sendSize('mutationObserver','mutationObserver: ' + mutations[0].target + ' ' + mutations[0].type);
+
+			//Deal with WebKit asyncing image loading when tags are injected into the page
+			mutations.forEach(addImageLoadListners);
+		}
+
+		function createMutationObserver(){
+			var
+				target = document.querySelector('body'),
+
+				config = {
+					attributes            : true,
+					attributeOldValue     : false,
+					characterData         : true,
+					characterDataOldValue : false,
+					childList             : true,
+					subtree               : true
+				};
+
+			observer = new MutationObserver(mutationObserved);
+
+			log('Create body MutationObserver');
+			observer.observe(target, config);
+
+			return observer;
+		}
+
+		var
+			elements         = [],
+			MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
+			observer         = createMutationObserver();
+
+		return {
+			disconnect: function (){
+				if ('disconnect' in observer){
+					log('Disconnect body MutationObserver');
+					observer.disconnect();
+					elements.forEach(removeImageLoadListener);
+				}
+			}
+		};
+	}
+
+	function setupMutationObserver(){
+		var	forceIntervalTimer = 0 > interval;
+
+		/* istanbul ignore if */ // Not testable in PhantomJS
+		if (window.MutationObserver || window.WebKitMutationObserver){
+			if (forceIntervalTimer) {
+				initInterval();
+			} else {
+				bodyObserver = setupBodyMutationObserver();
+			}
+		} else {
+			log('MutationObserver not supported in this browser!');
+			initInterval();
+		}
+	}
+
+
+	// document.documentElement.offsetHeight is not reliable, so
+	// we have to jump through hoops to get a better value.
+	function getComputedStyle(prop,el) {
+		/* istanbul ignore next */  //Not testable in PhantomJS
+		function convertUnitsToPxForIE8(value) {
+			var PIXEL = /^\d+(px)?$/i;
+
+			if (PIXEL.test(value)) {
+				return parseInt(value,base);
+			}
+
+			var
+				style = el.style.left,
+				runtimeStyle = el.runtimeStyle.left;
+
+			el.runtimeStyle.left = el.currentStyle.left;
+			el.style.left = value || 0;
+			value = el.style.pixelLeft;
+			el.style.left = style;
+			el.runtimeStyle.left = runtimeStyle;
+
+			return value;
+		}
+
+		var retVal = 0;
+		el =  el || document.body;
+
+		/* istanbul ignore else */ // Not testable in phantonJS
+		if (('defaultView' in document) && ('getComputedStyle' in document.defaultView)) {
+			retVal = document.defaultView.getComputedStyle(el, null);
+			retVal = (null !== retVal) ? retVal[prop] : 0;
+		} else {//IE8
+			retVal =  convertUnitsToPxForIE8(el.currentStyle[prop]);
+		}
+
+		return parseInt(retVal,base);
+	}
+
+	function chkEventThottle(timer){
+		if(timer > throttledTimer/2){
+			throttledTimer = 2*timer;
+			log('Event throttle increased to ' + throttledTimer + 'ms');
+		}
+	}
+
+	//Idea from https://github.com/guardian/iframe-messenger
+	function getMaxElement(side,elements) {
+		var
+			elementsLength = elements.length,
+			elVal          = 0,
+			maxVal         = 0,
+			Side           = capitalizeFirstLetter(side),
+			timer          = getNow();
+
+		for (var i = 0; i < elementsLength; i++) {
+			elVal = elements[i].getBoundingClientRect()[side] + getComputedStyle('margin'+Side,elements[i]);
+			if (elVal > maxVal) {
+				maxVal = elVal;
+			}
+		}
+
+		timer = getNow() - timer;
+
+		log('Parsed '+elementsLength+' HTML elements');
+		log('Element position calculated in ' + timer + 'ms');
+
+		chkEventThottle(timer);
+
+		return maxVal;
+	}
+
+	function getAllMeasurements(dimention){
+		return [
+			dimention.bodyOffset(),
+			dimention.bodyScroll(),
+			dimention.documentElementOffset(),
+			dimention.documentElementScroll()
+		];
+	}
+
+	function getTaggedElements(side,tag){
+		function noTaggedElementsFound(){
+			warn('No tagged elements ('+tag+') found on page');
+			return height; //current height
+		}
+
+		var elements = document.querySelectorAll('['+tag+']');
+
+		return 0 === elements.length ?  noTaggedElementsFound() : getMaxElement(side,elements);
+	}
+
+	function getAllElements(){
+		return document.querySelectorAll('body *');
+	}
+
+	var
+		getHeight = {
+			bodyOffset: function getBodyOffsetHeight(){
+				return  document.body.offsetHeight + getComputedStyle('marginTop') + getComputedStyle('marginBottom');
+			},
+
+			offset: function(){
+				return getHeight.bodyOffset(); //Backwards compatability
+			},
+
+			bodyScroll: function getBodyScrollHeight(){
+				return document.body.scrollHeight;
+			},
+
+			documentElementOffset: function getDEOffsetHeight(){
+				return document.documentElement.offsetHeight;
+			},
+
+			documentElementScroll: function getDEScrollHeight(){
+				return document.documentElement.scrollHeight;
+			},
+
+			max: function getMaxHeight(){
+				return Math.max.apply(null,getAllMeasurements(getHeight));
+			},
+
+			min: function getMinHeight(){
+				return Math.min.apply(null,getAllMeasurements(getHeight));
+			},
+
+			grow: function growHeight(){
+				return getHeight.max(); //Run max without the forced downsizing
+			},
+
+			lowestElement: function getBestHeight(){
+				return Math.max(getHeight.bodyOffset(), getMaxElement('bottom',getAllElements()));
+			},
+
+			taggedElement: function getTaggedElementsHeight(){
+				return getTaggedElements('bottom','data-iframe-height');
+			}
+		},
+
+		getWidth = {
+			bodyScroll: function getBodyScrollWidth(){
+				return document.body.scrollWidth;
+			},
+
+			bodyOffset: function getBodyOffsetWidth(){
+				return document.body.offsetWidth;
+			},
+
+			documentElementScroll: function getDEScrollWidth(){
+				return document.documentElement.scrollWidth;
+			},
+
+			documentElementOffset: function getDEOffsetWidth(){
+				return document.documentElement.offsetWidth;
+			},
+
+			scroll: function getMaxWidth(){
+				return Math.max(getWidth.bodyScroll(), getWidth.documentElementScroll());
+			},
+
+			max: function getMaxWidth(){
+				return Math.max.apply(null,getAllMeasurements(getWidth));
+			},
+
+			min: function getMinWidth(){
+				return Math.min.apply(null,getAllMeasurements(getWidth));
+			},
+
+			rightMostElement: function rightMostElement(){
+				return getMaxElement('right', getAllElements());
+			},
+
+			taggedElement: function getTaggedElementsWidth(){
+				return getTaggedElements('right', 'data-iframe-width');
+			}
+		};
+
+
+	function sizeIFrame(triggerEvent, triggerEventDesc, customHeight, customWidth){
+
+		function resizeIFrame(){
+			height = currentHeight;
+			width  = currentWidth;
+
+			sendMsg(height,width,triggerEvent);
+		}
+
+		function isSizeChangeDetected(){
+			function checkTolarance(a,b){
+				var retVal = Math.abs(a-b) <= tolerance;
+				return !retVal;
+			}
+
+			currentHeight = (undefined !== customHeight)  ? customHeight : getHeight[heightCalcMode]();
+			currentWidth  = (undefined !== customWidth )  ? customWidth  : getWidth[widthCalcMode]();
+
+			return	checkTolarance(height,currentHeight) || (calculateWidth && checkTolarance(width,currentWidth));
+		}
+
+		function isForceResizableEvent(){
+			return !(triggerEvent in {'init':1,'interval':1,'size':1});
+		}
+
+		function isForceResizableCalcMode(){
+			return (heightCalcMode in resetRequiredMethods) || (calculateWidth && widthCalcMode in resetRequiredMethods);
+		}
+
+		function logIgnored(){
+			log('No change in size detected');
+		}
+
+		function checkDownSizing(){
+			if (isForceResizableEvent() && isForceResizableCalcMode()){
+				resetIFrame(triggerEventDesc);
+			} else if (!(triggerEvent in {'interval':1})){
+				logIgnored();
+			}
+		}
+
+		var	currentHeight,currentWidth;
+
+		if (isSizeChangeDetected() || 'init' === triggerEvent){
+			lockTrigger();
+			resizeIFrame();
+		} else {
+			checkDownSizing();
+		}
+	}
+
+	var sizeIFrameThrottled = throttle(sizeIFrame);
+
+	function sendSize(triggerEvent, triggerEventDesc, customHeight, customWidth){
+		function recordTrigger(){
+			if (!(triggerEvent in {'reset':1,'resetPage':1,'init':1})){
+				log( 'Trigger event: ' + triggerEventDesc );
+			}
+		}
+
+		function isDoubleFiredEvent(){
+			return  triggerLocked && (triggerEvent in doubleEventList);
+		}
+
+		if (!isDoubleFiredEvent()){
+			recordTrigger();
+			sizeIFrameThrottled(triggerEvent, triggerEventDesc, customHeight, customWidth);
+		} else {
+			log('Trigger event cancelled: '+triggerEvent);
+		}
+	}
+
+	function lockTrigger(){
+		if (!triggerLocked){
+			triggerLocked = true;
+			log('Trigger event lock on');
+		}
+		clearTimeout(triggerLockedTimer);
+		triggerLockedTimer = setTimeout(function(){
+			triggerLocked = false;
+			log('Trigger event lock off');
+			log('--');
+		},eventCancelTimer);
+	}
+
+	function triggerReset(triggerEvent){
+		height = getHeight[heightCalcMode]();
+		width  = getWidth[widthCalcMode]();
+
+		sendMsg(height,width,triggerEvent);
+	}
+
+	function resetIFrame(triggerEventDesc){
+		var hcm = heightCalcMode;
+		heightCalcMode = heightCalcModeDefault;
+
+		log('Reset trigger event: ' + triggerEventDesc);
+		lockTrigger();
+		triggerReset('reset');
+
+		heightCalcMode = hcm;
+	}
+
+	function sendMsg(height,width,triggerEvent,msg,targetOrigin){
+		function setTargetOrigin(){
+			if (undefined === targetOrigin){
+				targetOrigin = targetOriginDefault;
+			} else {
+				log('Message targetOrigin: '+targetOrigin);
+			}
+		}
+
+		function sendToParent(){
+			var
+				size  = height + ':' + width,
+				message = myID + ':' +  size + ':' + triggerEvent + (undefined !== msg ? ':' + msg : '');
+
+			log('Sending message to host page (' + message + ')');
+			target.postMessage( msgID + message, targetOrigin);
+		}
+
+		if(true === sendPermit){
+			setTargetOrigin();
+			sendToParent();
+		}
+	}
+
+	function receiver(event) {
+		function isMessageForUs(){
+			return msgID === (''+event.data).substr(0,msgIdLen); //''+ Protects against non-string messages
+		}
+
+		function initFromParent(){
+			initMsg = event.data;
+			target  = event.source;
+
+			init();
+			firstRun = false;
+			setTimeout(function(){ initLock = false;},eventCancelTimer);
+		}
+
+		function resetFromParent(){
+			if (!initLock){
+				log('Page size reset by host page');
+				triggerReset('resetPage');
+			} else {
+				log('Page reset ignored by init');
+			}
+		}
+
+		function resizeFromParent(){
+			sendSize('resizeParent','Parent window requested size check');
+		}
+
+		function moveToAnchor(){
+			var anchor = getData();
+			inPageLinks.findTarget(anchor);
+		}
+
+		function getMessageType(){
+			return event.data.split(']')[1].split(':')[0];
+		}
+
+		function getData(){
+			return event.data.substr(event.data.indexOf(':')+1);
+		}
+
+		function isMiddleTier(){
+			return ('iFrameResize' in window);
+		}
+
+		function messageFromParent(){
+			var msgBody = getData();
+
+			log('MessageCallback called from parent: ' + msgBody );
+			messageCallback(JSON.parse(msgBody));
+			log(' --');
+		}
+
+		function pageInfoFromParent(){
+			var msgBody = getData();
+			log('PageInfoFromParent called from parent: ' + msgBody );
+			pageInfoCallback(JSON.parse(msgBody));
+			log(' --');
+		}
+
+		function isInitMsg(){
+			//Test if this message is from a child below us. This is an ugly test, however, updating
+			//the message format would break backwards compatibity.
+			return event.data.split(':')[2] in {'true':1,'false':1};
+		}
+
+		function callFromParent(){
+			switch (getMessageType()){
+			case 'reset':
+				resetFromParent();
+				break;
+			case 'resize':
+				resizeFromParent();
+				break;
+			case 'moveToAnchor':
+				moveToAnchor();
+				break;
+			case 'message':
+				messageFromParent();
+				break;
+			case 'pageInfo':
+				pageInfoFromParent();
+				break;
+			default:
+				if (!isMiddleTier() && !isInitMsg()){
+					warn('Unexpected message ('+event.data+')');
+				}
+			}
+		}
+
+		function processMessage(){
+			if (false === firstRun) {
+				callFromParent();
+			} else if (isInitMsg()) {
+				initFromParent();
+			} else {
+				log('Ignored message of type "' + getMessageType() + '". Received before initialization.');
+			}
+		}
+
+		if (isMessageForUs()){
+			processMessage();
+		}
+	}
+
+	//Normally the parent kicks things off when it detects the iFrame has loaded.
+	//If this script is async-loaded, then tell parent page to retry init.
+	function chkLateLoaded(){
+		if('loading' !== document.readyState){
+			window.parent.postMessage('[iFrameResizerChild]Ready','*');
+		}
+	}
+
+	addEventListener(window, 'message', receiver);
+	chkLateLoaded();
+
+	
+
+})(window || {});
+
+}).apply(this, arguments);
+
+},{}],42:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules/iframe-resizer/js/iframeResizer.js", module);
+(function(){
+/*
+ * File: iframeResizer.js
+ * Desc: Force iframes to size to content.
+ * Requires: iframeResizer.contentWindow.js to be loaded into the target frame.
+ * Doc: https://github.com/davidjbradshaw/iframe-resizer
+ * Author: David J. Bradshaw - dave@bradshaw.net
+ * Contributor: Jure Mav - jure.mav@gmail.com
+ * Contributor: Reed Dadoune - reed@dadoune.com
+ */
+
+
+;(function(window) {
+	'use strict';
+
+	var
+		count                 = 0,
+		logEnabled            = false,
+		hiddenCheckEnabled    = false,
+		msgHeader             = 'message',
+		msgHeaderLen          = msgHeader.length,
+		msgId                 = '[iFrameSizer]', //Must match iframe msg ID
+		msgIdLen              = msgId.length,
+		pagePosition          = null,
+		requestAnimationFrame = window.requestAnimationFrame,
+		resetRequiredMethods  = {max:1,scroll:1,bodyScroll:1,documentElementScroll:1},
+		settings              = {},
+		timer                 = null,
+		logId                 = 'Host Page',
+
+		defaults              = {
+			autoResize                : true,
+			bodyBackground            : null,
+			bodyMargin                : null,
+			bodyMarginV1              : 8,
+			bodyPadding               : null,
+			checkOrigin               : true,
+			inPageLinks               : false,
+			enablePublicMethods       : true,
+			heightCalculationMethod   : 'bodyOffset',
+			id                        : 'iFrameResizer',
+			interval                  : 32,
+			log                       : false,
+			maxHeight                 : Infinity,
+			maxWidth                  : Infinity,
+			minHeight                 : 0,
+			minWidth                  : 0,
+			resizeFrom                : 'parent',
+			scrolling                 : false,
+			sizeHeight                : true,
+			sizeWidth                 : false,
+			tolerance                 : 0,
+			widthCalculationMethod    : 'scroll',
+			closedCallback            : function(){},
+			initCallback              : function(){},
+			messageCallback           : function(){warn('MessageCallback function not defined');},
+			resizedCallback           : function(){},
+			scrollCallback            : function(){return true;}
+		};
+
+	function addEventListener(obj,evt,func){
+		/* istanbul ignore else */ // Not testable in PhantonJS
+		if ('addEventListener' in window){
+			obj.addEventListener(evt,func, false);
+		} else if ('attachEvent' in window){//IE
+			obj.attachEvent('on'+evt,func);
+		}
+	}
+
+	function removeEventListener(el,evt,func){
+		/* istanbul ignore else */ // Not testable in phantonJS
+		if ('removeEventListener' in window){
+			el.removeEventListener(evt,func, false);
+		} else if ('detachEvent' in window){ //IE
+			el.detachEvent('on'+evt,func);
+		}
+	}
+
+	function setupRequestAnimationFrame(){
+		var
+			vendors = ['moz', 'webkit', 'o', 'ms'],
+			x;
+
+		// Remove vendor prefixing if prefixed and break early if not
+		for (x = 0; x < vendors.length && !requestAnimationFrame; x += 1) {
+			requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+		}
+
+		if (!(requestAnimationFrame)){
+			log('setup','RequestAnimationFrame not supported');
+		}
+	}
+
+	function getMyID(iframeId){
+		var retStr = 'Host page: '+iframeId;
+
+		if (window.top!==window.self){
+			if (window.parentIFrame && window.parentIFrame.getId){
+				retStr = window.parentIFrame.getId()+': '+iframeId;
+			} else {
+				retStr = 'Nested host page: '+iframeId;
+			}
+		}
+
+		return retStr;
+	}
+
+	function formatLogHeader(iframeId){
+		return msgId + '[' + getMyID(iframeId) + ']';
+	}
+
+	function isLogEnabled(iframeId){
+		return settings[iframeId] ? settings[iframeId].log : logEnabled;
+	}
+
+	function log(iframeId,msg){
+		output('log',iframeId,msg,isLogEnabled(iframeId));
+	}
+
+	function info(iframeId,msg){
+		output('info',iframeId,msg,isLogEnabled(iframeId));
+	}
+
+	function warn(iframeId,msg){
+		output('warn',iframeId,msg,true);
+	}
+
+	function output(type,iframeId,msg,enabled){
+		if (true === enabled && 'object' === typeof window.console){
+			console[type](formatLogHeader(iframeId),msg);
+		}
+	}
+
+	function iFrameListener(event){
+		function resizeIFrame(){
+			function resize(){
+				setSize(messageData);
+				setPagePosition(iframeId);
+			}
+
+			ensureInRange('Height');
+			ensureInRange('Width');
+
+			syncResize(resize,messageData,'init');
+		}
+
+		function processMsg(){
+			var data = msg.substr(msgIdLen).split(':');
+
+			return {
+				iframe: settings[data[0]].iframe,
+				id:     data[0],
+				height: data[1],
+				width:  data[2],
+				type:   data[3]
+			};
+		}
+
+		function ensureInRange(Dimension){
+			var
+				max  = Number(settings[iframeId]['max' + Dimension]),
+				min  = Number(settings[iframeId]['min' + Dimension]),
+				dimension = Dimension.toLowerCase(),
+				size = Number(messageData[dimension]);
+
+			log(iframeId,'Checking ' + dimension + ' is in range ' + min + '-' + max);
+
+			if (size<min) {
+				size=min;
+				log(iframeId,'Set ' + dimension + ' to min value');
+			}
+
+			if (size>max) {
+				size=max;
+				log(iframeId,'Set ' + dimension + ' to max value');
+			}
+
+			messageData[dimension] = '' + size;
+		}
+
+
+		function isMessageFromIFrame(){
+			function checkAllowedOrigin(){
+				function checkList(){
+					var
+						i = 0,
+						retCode = false;
+
+					log(iframeId,'Checking connection is from allowed list of origins: ' + checkOrigin);
+
+					for (; i < checkOrigin.length; i++) {
+						if (checkOrigin[i] === origin) {
+							retCode = true;
+							break;
+						}
+					}
+					return retCode;
+				}
+
+				function checkSingle(){
+					var remoteHost  = settings[iframeId].remoteHost;
+					log(iframeId,'Checking connection is from: '+remoteHost);
+					return origin === remoteHost;
+				}
+
+				return checkOrigin.constructor === Array ? checkList() : checkSingle();
+			}
+
+			var
+				origin      = event.origin,
+				checkOrigin = settings[iframeId].checkOrigin;
+
+			if (checkOrigin && (''+origin !== 'null') && !checkAllowedOrigin()) {
+				throw new Error(
+					'Unexpected message received from: ' + origin +
+					' for ' + messageData.iframe.id +
+					'. Message was: ' + event.data +
+					'. This error can be disabled by setting the checkOrigin: false option or by providing of array of trusted domains.'
+				);
+			}
+
+			return true;
+		}
+
+		function isMessageForUs(){
+			return msgId === (('' + msg).substr(0,msgIdLen)) && (msg.substr(msgIdLen).split(':')[0] in settings); //''+Protects against non-string msg
+		}
+
+		function isMessageFromMetaParent(){
+			//Test if this message is from a parent above us. This is an ugly test, however, updating
+			//the message format would break backwards compatibity.
+			var retCode = messageData.type in {'true':1,'false':1,'undefined':1};
+
+			if (retCode){
+				log(iframeId,'Ignoring init message from meta parent page');
+			}
+
+			return retCode;
+		}
+
+		function getMsgBody(offset){
+			return msg.substr(msg.indexOf(':')+msgHeaderLen+offset);
+		}
+
+		function forwardMsgFromIFrame(msgBody){
+			log(iframeId,'MessageCallback passed: {iframe: '+ messageData.iframe.id + ', message: ' + msgBody + '}');
+			callback('messageCallback',{
+				iframe: messageData.iframe,
+				message: JSON.parse(msgBody)
+			});
+			log(iframeId,'--');
+		}
+
+		function getPageInfo(){
+			var
+				bodyPosition   = document.body.getBoundingClientRect(),
+				iFramePosition = messageData.iframe.getBoundingClientRect();
+
+			return JSON.stringify({
+				iframeHeight: iFramePosition.height,
+				iframeWidth:  iFramePosition.width,
+				clientHeight: Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
+				clientWidth:  Math.max(document.documentElement.clientWidth,  window.innerWidth  || 0),
+				offsetTop:    parseInt(iFramePosition.top  - bodyPosition.top,  10),
+				offsetLeft:   parseInt(iFramePosition.left - bodyPosition.left, 10),
+				scrollTop:    window.pageYOffset,
+				scrollLeft:   window.pageXOffset
+			});
+		}
+
+		function sendPageInfoToIframe(iframe,iframeId){
+			function debouncedTrigger(){
+				trigger(
+					'Send Page Info',
+					'pageInfo:' + getPageInfo(), 
+					iframe, 
+					iframeId
+				);
+			}
+
+			debouce(debouncedTrigger,32);
+		}
+
+
+		function startPageInfoMonitor(){
+			function setListener(type,func){
+				function sendPageInfo(){
+					if (settings[id]){
+						sendPageInfoToIframe(settings[id].iframe,id);
+					} else {
+						stop();
+					}
+				}
+
+				['scroll','resize'].forEach(function(evt){
+					log(id, type +  evt + ' listener for sendPageInfo');
+					func(window,evt,sendPageInfo);
+				});
+			}
+
+			function stop(){
+				setListener('Remove ', removeEventListener);
+			}
+
+			function start(){
+				setListener('Add ', addEventListener);
+			}
+			
+			var id = iframeId; //Create locally scoped copy of iFrame ID
+
+			start();
+
+			settings[id].stopPageInfo = stop;
+		}
+
+		function stopPageInfoMonitor(){
+			if (settings[iframeId] && settings[iframeId].stopPageInfo){
+				settings[iframeId].stopPageInfo();
+				delete settings[iframeId].stopPageInfo;
+			}
+		}
+
+		function checkIFrameExists(){
+			var retBool = true;
+
+			if (null === messageData.iframe) {
+				warn(iframeId,'IFrame ('+messageData.id+') not found');
+				retBool = false;
+			}
+			return retBool;
+		}
+
+		function getElementPosition(target){
+			var iFramePosition = target.getBoundingClientRect();
+
+			getPagePosition(iframeId);
+
+			return {
+				x: Math.floor( Number(iFramePosition.left) + Number(pagePosition.x) ),
+				y: Math.floor( Number(iFramePosition.top)  + Number(pagePosition.y) )
+			};
+		}
+
+		function scrollRequestFromChild(addOffset){
+			/* istanbul ignore next */  //Not testable in Karma
+			function reposition(){
+				pagePosition = newPosition;
+				scrollTo();
+				log(iframeId,'--');
+			}
+
+			function calcOffset(){
+				return {
+					x: Number(messageData.width) + offset.x,
+					y: Number(messageData.height) + offset.y
+				};
+			}
+
+			function scrollParent(){
+				if (window.parentIFrame){
+					window.parentIFrame['scrollTo'+(addOffset?'Offset':'')](newPosition.x,newPosition.y);
+				} else {
+					warn(iframeId,'Unable to scroll to requested position, window.parentIFrame not found');
+				}
+			}
+
+			var
+				offset = addOffset ? getElementPosition(messageData.iframe) : {x:0,y:0},
+				newPosition = calcOffset();
+
+			log(iframeId,'Reposition requested from iFrame (offset x:'+offset.x+' y:'+offset.y+')');
+
+			if(window.top!==window.self){
+				scrollParent();
+			} else {
+				reposition();
+			}
+		}
+
+		function scrollTo(){
+			if (false !== callback('scrollCallback',pagePosition)){
+				setPagePosition(iframeId);
+			} else {
+				unsetPagePosition();
+			}
+		}
+
+		function findTarget(location){
+			function jumpToTarget(){
+				var jumpPosition = getElementPosition(target);
+
+				log(iframeId,'Moving to in page link (#'+hash+') at x: '+jumpPosition.x+' y: '+jumpPosition.y);
+				pagePosition = {
+					x: jumpPosition.x,
+					y: jumpPosition.y
+				};
+
+				scrollTo();
+				log(iframeId,'--');
+			}
+
+			function jumpToParent(){
+				if (window.parentIFrame){
+					window.parentIFrame.moveToAnchor(hash);
+				} else {
+					log(iframeId,'In page link #'+hash+' not found and window.parentIFrame not found');
+				}
+			}
+
+			var
+				hash     = location.split('#')[1] || '',
+				hashData = decodeURIComponent(hash),
+				target   = document.getElementById(hashData) || document.getElementsByName(hashData)[0];
+
+			if (target){
+				jumpToTarget();
+			} else if(window.top!==window.self){
+				jumpToParent();
+			} else {
+				log(iframeId,'In page link #'+hash+' not found');
+			}
+		}
+
+		function callback(funcName,val){
+			return chkCallback(iframeId,funcName,val);
+		}
+
+		function actionMsg(){
+
+			if(settings[iframeId].firstRun) firstRun();
+
+			switch(messageData.type){
+			case 'close':
+				closeIFrame(messageData.iframe);
+				break;
+			case 'message':
+				forwardMsgFromIFrame(getMsgBody(6));
+				break;
+			case 'scrollTo':
+				scrollRequestFromChild(false);
+				break;
+			case 'scrollToOffset':
+				scrollRequestFromChild(true);
+				break;
+			case 'pageInfo':
+				sendPageInfoToIframe(settings[iframeId].iframe,iframeId);
+				startPageInfoMonitor();
+				break;
+			case 'pageInfoStop':
+				stopPageInfoMonitor();
+				break;
+			case 'inPageLink':
+				findTarget(getMsgBody(9));
+				break;
+			case 'reset':
+				resetIFrame(messageData);
+				break;
+			case 'init':
+				resizeIFrame();
+				callback('initCallback',messageData.iframe);
+				callback('resizedCallback',messageData);
+				break;
+			default:
+				resizeIFrame();
+				callback('resizedCallback',messageData);
+			}
+		}
+
+		function hasSettings(iframeId){
+			var retBool = true;
+
+			if (!settings[iframeId]){
+				retBool = false;
+				warn(messageData.type + ' No settings for ' + iframeId + '. Message was: ' + msg);
+			}
+
+			return retBool;
+		}
+
+		function iFrameReadyMsgReceived(){
+			for (var iframeId in settings){
+				trigger('iFrame requested init',createOutgoingMsg(iframeId),document.getElementById(iframeId),iframeId);
+			}
+		}
+
+		function firstRun() {
+			settings[iframeId].firstRun = false;
+		}
+
+		var
+			msg = event.data,
+			messageData = {},
+			iframeId = null;
+
+		if('[iFrameResizerChild]Ready' === msg){
+			iFrameReadyMsgReceived();
+		} else if (isMessageForUs()){
+			messageData = processMsg();
+			iframeId    = logId = messageData.id;
+
+			if (!isMessageFromMetaParent() && hasSettings(iframeId)){
+				log(iframeId,'Received: '+msg);
+
+				if ( checkIFrameExists() && isMessageFromIFrame() ){
+					actionMsg();
+				}
+			}
+		} else {
+			info(iframeId,'Ignored: '+msg);
+		}
+
+	}
+
+
+	function chkCallback(iframeId,funcName,val){
+		var
+			func = null,
+			retVal = null;
+
+		if(settings[iframeId]){
+			func = settings[iframeId][funcName];
+
+			if( 'function' === typeof func){
+				retVal = func(val);
+			} else {
+				throw new TypeError(funcName+' on iFrame['+iframeId+'] is not a function');
+			}
+		}
+
+		return retVal;
+	}
+
+	function closeIFrame(iframe){
+		var iframeId = iframe.id;
+
+		log(iframeId,'Removing iFrame: '+iframeId);
+		iframe.parentNode.removeChild(iframe);
+		chkCallback(iframeId,'closedCallback',iframeId);
+		log(iframeId,'--');
+		delete settings[iframeId];
+	}
+
+	function getPagePosition(iframeId){
+		if(null === pagePosition){
+			pagePosition = {
+				x: (window.pageXOffset !== undefined) ? window.pageXOffset : document.documentElement.scrollLeft,
+				y: (window.pageYOffset !== undefined) ? window.pageYOffset : document.documentElement.scrollTop
+			};
+			log(iframeId,'Get page position: '+pagePosition.x+','+pagePosition.y);
+		}
+	}
+
+	function setPagePosition(iframeId){
+		if(null !== pagePosition){
+			window.scrollTo(pagePosition.x,pagePosition.y);
+			log(iframeId,'Set page position: '+pagePosition.x+','+pagePosition.y);
+			unsetPagePosition();
+		}
+	}
+
+	function unsetPagePosition(){
+		pagePosition = null;
+	}
+
+	function resetIFrame(messageData){
+		function reset(){
+			setSize(messageData);
+			trigger('reset','reset',messageData.iframe,messageData.id);
+		}
+
+		log(messageData.id,'Size reset requested by '+('init'===messageData.type?'host page':'iFrame'));
+		getPagePosition(messageData.id);
+		syncResize(reset,messageData,'reset');
+	}
+
+	function setSize(messageData){
+		function setDimension(dimension){
+			messageData.iframe.style[dimension] = messageData[dimension] + 'px';
+			log(
+				messageData.id,
+				'IFrame (' + iframeId +
+				') ' + dimension +
+				' set to ' + messageData[dimension] + 'px'
+			);
+		}
+
+		function chkZero(dimension){
+			//FireFox sets dimension of hidden iFrames to zero.
+			//So if we detect that set up an event to check for
+			//when iFrame becomes visible.
+
+			/* istanbul ignore next */  //Not testable in PhantomJS
+			if (!hiddenCheckEnabled && '0' === messageData[dimension]){
+				hiddenCheckEnabled = true;
+				log(iframeId,'Hidden iFrame detected, creating visibility listener');
+				fixHiddenIFrames();
+			}
+		}
+
+		function processDimension(dimension){
+			setDimension(dimension);
+			chkZero(dimension);
+		}
+
+		var iframeId = messageData.iframe.id;
+
+		if(settings[iframeId]){
+			if( settings[iframeId].sizeHeight) { processDimension('height'); }
+			if( settings[iframeId].sizeWidth ) { processDimension('width'); }
+		}
+	}
+
+	function syncResize(func,messageData,doNotSync){
+		/* istanbul ignore if */  //Not testable in PhantomJS
+		if(doNotSync!==messageData.type && requestAnimationFrame){
+			log(messageData.id,'Requesting animation frame');
+			requestAnimationFrame(func);
+		} else {
+			func();
+		}
+	}
+
+	function trigger(calleeMsg,msg,iframe,id){
+		function postMessageToIFrame(){
+			var target = settings[id].targetOrigin;
+			log(id,'[' + calleeMsg + '] Sending msg to iframe['+id+'] ('+msg+') targetOrigin: '+target);
+			iframe.contentWindow.postMessage( msgId + msg, target );
+		}
+
+		function iFrameNotFound(){
+			info(id,'[' + calleeMsg + '] IFrame('+id+') not found');
+			if(settings[id]) {
+				delete settings[id];
+			}
+		}
+
+		function chkAndSend(){
+			if(iframe && 'contentWindow' in iframe && (null !== iframe.contentWindow)){ //Null test for PhantomJS
+				postMessageToIFrame();
+			} else {
+				iFrameNotFound();
+			}
+		}
+
+		id = id || iframe.id;
+
+		if(settings[id]) {
+			chkAndSend();
+		}
+
+	}
+
+	function createOutgoingMsg(iframeId){
+		return iframeId +
+			':' + settings[iframeId].bodyMarginV1 +
+			':' + settings[iframeId].sizeWidth +
+			':' + settings[iframeId].log +
+			':' + settings[iframeId].interval +
+			':' + settings[iframeId].enablePublicMethods +
+			':' + settings[iframeId].autoResize +
+			':' + settings[iframeId].bodyMargin +
+			':' + settings[iframeId].heightCalculationMethod +
+			':' + settings[iframeId].bodyBackground +
+			':' + settings[iframeId].bodyPadding +
+			':' + settings[iframeId].tolerance +
+			':' + settings[iframeId].inPageLinks +
+			':' + settings[iframeId].resizeFrom +
+			':' + settings[iframeId].widthCalculationMethod;
+	}
+
+	function setupIFrame(iframe,options){
+		function setLimits(){
+			function addStyle(style){
+				if ((Infinity !== settings[iframeId][style]) && (0 !== settings[iframeId][style])){
+					iframe.style[style] = settings[iframeId][style] + 'px';
+					log(iframeId,'Set '+style+' = '+settings[iframeId][style]+'px');
+				}
+			}
+
+			function chkMinMax(dimension){
+				if (settings[iframeId]['min'+dimension]>settings[iframeId]['max'+dimension]){
+					throw new Error('Value for min'+dimension+' can not be greater than max'+dimension);
+				}
+			}
+
+			chkMinMax('Height');
+			chkMinMax('Width');
+
+			addStyle('maxHeight');
+			addStyle('minHeight');
+			addStyle('maxWidth');
+			addStyle('minWidth');
+		}
+
+		function newId(){
+			var id = ((options && options.id) || defaults.id + count++);
+			if  (null!==document.getElementById(id)){
+				id = id + count++;
+			}
+			return id;
+		}
+
+		function ensureHasId(iframeId){
+			logId=iframeId;
+			if (''===iframeId){
+				iframe.id = iframeId =  newId();
+				logEnabled = (options || {}).log;
+				logId=iframeId;
+				log(iframeId,'Added missing iframe ID: '+ iframeId +' (' + iframe.src + ')');
+			}
+
+
+			return iframeId;
+		}
+
+		function setScrolling(){
+			log(iframeId,'IFrame scrolling ' + (settings[iframeId].scrolling ? 'enabled' : 'disabled') + ' for ' + iframeId);
+			iframe.style.overflow = false === settings[iframeId].scrolling ? 'hidden' : 'auto';
+			iframe.scrolling      = false === settings[iframeId].scrolling ? 'no' : 'yes';
+		}
+
+		//The V1 iFrame script expects an int, where as in V2 expects a CSS
+		//string value such as '1px 3em', so if we have an int for V2, set V1=V2
+		//and then convert V2 to a string PX value.
+		function setupBodyMarginValues(){
+			if (('number'===typeof(settings[iframeId].bodyMargin)) || ('0'===settings[iframeId].bodyMargin)){
+				settings[iframeId].bodyMarginV1 = settings[iframeId].bodyMargin;
+				settings[iframeId].bodyMargin   = '' + settings[iframeId].bodyMargin + 'px';
+			}
+		}
+
+		function checkReset(){
+			// Reduce scope of firstRun to function, because IE8's JS execution
+			// context stack is borked and this value gets externally
+			// changed midway through running this function!!!
+			var
+				firstRun           = settings[iframeId].firstRun,
+				resetRequertMethod = settings[iframeId].heightCalculationMethod in resetRequiredMethods;
+
+			if (!firstRun && resetRequertMethod){
+				resetIFrame({iframe:iframe, height:0, width:0, type:'init'});
+			}
+		}
+
+		function setupIFrameObject(){
+			if(Function.prototype.bind){ //Ignore unpolyfilled IE8.
+				settings[iframeId].iframe.iFrameResizer = {
+
+					close        : closeIFrame.bind(null,settings[iframeId].iframe),
+
+					resize       : trigger.bind(null,'Window resize', 'resize', settings[iframeId].iframe),
+
+					moveToAnchor : function(anchor){
+						trigger('Move to anchor','inPageLink:'+anchor, settings[iframeId].iframe,iframeId);
+					},
+
+					sendMessage  : function(message){
+						message = JSON.stringify(message);
+						trigger('Send Message','message:'+message, settings[iframeId].iframe,iframeId);
+					}
+				};
+			}
+		}
+
+		//We have to call trigger twice, as we can not be sure if all
+		//iframes have completed loading when this code runs. The
+		//event listener also catches the page changing in the iFrame.
+		function init(msg){
+			function iFrameLoaded(){
+				trigger('iFrame.onload',msg,iframe);
+				checkReset();
+			}
+
+			addEventListener(iframe,'load',iFrameLoaded);
+			trigger('init',msg,iframe);
+		}
+
+		function checkOptions(options){
+			if ('object' !== typeof options){
+				throw new TypeError('Options is not an object');
+			}
+		}
+
+		function copyOptions(options){
+			for (var option in defaults) {
+				if (defaults.hasOwnProperty(option)){
+					settings[iframeId][option] = options.hasOwnProperty(option) ? options[option] : defaults[option];
+				}
+			}
+		}
+
+		function getTargetOrigin (remoteHost){
+			return ('' === remoteHost || 'file://' === remoteHost) ? '*' : remoteHost;
+		}
+
+		function processOptions(options){
+			options = options || {};
+			settings[iframeId] = {
+				firstRun	: true,
+				iframe		: iframe,
+				remoteHost	: iframe.src.split('/').slice(0,3).join('/')
+			};
+
+			checkOptions(options);
+			copyOptions(options);
+
+			settings[iframeId].targetOrigin = true === settings[iframeId].checkOrigin ? getTargetOrigin(settings[iframeId].remoteHost) : '*';
+		}
+
+		function beenHere(){
+			return (iframeId in settings && 'iFrameResizer' in iframe);
+		}
+
+		var iframeId = ensureHasId(iframe.id);
+
+		if (!beenHere()){
+			processOptions(options);
+			setScrolling();
+			setLimits();
+			setupBodyMarginValues();
+			init(createOutgoingMsg(iframeId));
+			setupIFrameObject();
+		} else {
+			warn(iframeId,'Ignored iFrame, already setup.');
+		}
+	}
+
+	function debouce(fn,time){
+		if (null === timer){
+			timer = setTimeout(function(){
+				timer = null;
+				fn();
+			}, time);
+		}
+	}
+
+	/* istanbul ignore next */  //Not testable in PhantomJS
+	function fixHiddenIFrames(){
+		function checkIFrames(){
+			function checkIFrame(settingId){
+				function chkDimension(dimension){
+					return '0px' === settings[settingId].iframe.style[dimension];
+				}
+
+				function isVisible(el) {
+					return (null !== el.offsetParent);
+				}
+
+				if (isVisible(settings[settingId].iframe) && (chkDimension('height') || chkDimension('width'))){
+					trigger('Visibility change', 'resize', settings[settingId].iframe,settingId);
+				}
+			}
+
+			for (var settingId in settings){
+				checkIFrame(settingId);
+			}
+		}
+
+		function mutationObserved(mutations){
+			log('window','Mutation observed: ' + mutations[0].target + ' ' + mutations[0].type);
+			debouce(checkIFrames,16);
+		}
+
+		function createMutationObserver(){
+			var
+				target = document.querySelector('body'),
+
+				config = {
+					attributes            : true,
+					attributeOldValue     : false,
+					characterData         : true,
+					characterDataOldValue : false,
+					childList             : true,
+					subtree               : true
+				},
+
+				observer = new MutationObserver(mutationObserved);
+
+			observer.observe(target, config);
+		}
+
+		var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+		if (MutationObserver) createMutationObserver();
+	}
+
+
+	function resizeIFrames(event){
+		function resize(){
+			sendTriggerMsg('Window '+event,'resize');
+		}
+
+		log('window','Trigger event: '+event);
+		debouce(resize,16);
+	}
+
+	/* istanbul ignore next */  //Not testable in PhantomJS
+	function tabVisible() {
+		function resize(){
+			sendTriggerMsg('Tab Visable','resize');
+		}
+
+		if('hidden' !== document.visibilityState) {
+			log('document','Trigger event: Visiblity change');
+			debouce(resize,16);
+		}
+	}
+
+	function sendTriggerMsg(eventName,event){
+		function isIFrameResizeEnabled(iframeId) {
+			return	'parent' === settings[iframeId].resizeFrom &&
+					settings[iframeId].autoResize &&
+					!settings[iframeId].firstRun;
+		}
+
+		for (var iframeId in settings){
+			if(isIFrameResizeEnabled(iframeId)){
+				trigger(eventName,event,document.getElementById(iframeId),iframeId);
+			}
+		}
+	}
+
+	function setupEventListeners(){
+		addEventListener(window,'message',iFrameListener);
+
+		addEventListener(window,'resize', function(){resizeIFrames('resize');});
+
+		addEventListener(document,'visibilitychange',tabVisible);
+		addEventListener(document,'-webkit-visibilitychange',tabVisible); //Andriod 4.4
+		addEventListener(window,'focusin',function(){resizeIFrames('focus');}); //IE8-9
+		addEventListener(window,'focus',function(){resizeIFrames('focus');});
+	}
+
+
+	function factory(){
+		function init(options,element){
+			function chkType(){
+				if(!element.tagName) {
+					throw new TypeError('Object is not a valid DOM element');
+				} else if ('IFRAME' !== element.tagName.toUpperCase()) {
+					throw new TypeError('Expected <IFRAME> tag, found <'+element.tagName+'>');
+				}
+			}
+
+			if(element) {
+				chkType();
+				setupIFrame(element, options);
+				iFrames.push(element);
+			}
+		}
+
+		var iFrames;
+
+		setupRequestAnimationFrame();
+		setupEventListeners();
+
+		return function iFrameResizeF(options,target){
+			iFrames = []; //Only return iFrames past in on this call
+
+			switch (typeof(target)){
+			case 'undefined':
+			case 'string':
+				Array.prototype.forEach.call(
+					document.querySelectorAll( target || 'iframe' ),
+					init.bind(undefined, options)
+				);
+				break;
+			case 'object':
+				init(options,target);
+				break;
+			default:
+				throw new TypeError('Unexpected data type ('+typeof(target)+')');
+			}
+
+			return iFrames;
+		};
+	}
+
+	function createJQueryPublicMethod($){
+		$.fn.iFrameResize = function $iFrameResizeF(options) {
+			return this.filter('iframe').each(function (index, element) {
+				setupIFrame(element, options);
+			}).end();
+		};
+	}
+
+	if (window.jQuery) { createJQueryPublicMethod(jQuery); }
+
+	if (typeof define === 'function' && define.amd) {
+		define([],factory);
+	} else if (typeof module === 'object' && typeof module.exports === 'object') { //Node for browserfy
+		module.exports = factory();
+	} else {
+		window.iFrameResize = window.iFrameResize || factory();
+	}
+
+})(window || {});
+
+}).apply(this, arguments);
+
+},{}],43:[function(require,module,exports){
+_hmr["websocket:null"].initModule("node_modules/iframe-resizer/js/index.js", module);
+(function(){
+exports.iframeResizer = require('./iframeResizer');
+exports.iframeResizerContentWindow = require('./iframeResizer.contentWindow');
+
+}).apply(this, arguments);
+
+},{"./iframeResizer":42,"./iframeResizer.contentWindow":41}],44:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/indexof/index.js", module);
 (function(){
 
@@ -4726,7 +8953,7 @@ module.exports = function(arr, obj){
 };
 }).apply(this, arguments);
 
-},{}],33:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/isarray/index.js", module);
 (function(){
 module.exports = Array.isArray || function (arr) {
@@ -4735,7 +8962,7 @@ module.exports = Array.isArray || function (arr) {
 
 }).apply(this, arguments);
 
-},{}],34:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/jquery/dist/jquery.js", module);
 (function(){
 /*!
@@ -14583,7 +18810,7 @@ return jQuery;
 
 }).apply(this, arguments);
 
-},{}],35:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/array/last.js", module);
 (function(){
 /**
@@ -14608,7 +18835,7 @@ module.exports = last;
 
 }).apply(this, arguments);
 
-},{}],36:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/array/zipObject.js", module);
 (function(){
 var isArray = require('../lang/isArray');
@@ -14657,7 +18884,7 @@ module.exports = zipObject;
 
 }).apply(this, arguments);
 
-},{"../lang/isArray":90}],37:[function(require,module,exports){
+},{"../lang/isArray":102}],49:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/collection/filter.js", module);
 (function(){
 var arrayFilter = require('../internal/arrayFilter'),
@@ -14724,7 +18951,7 @@ module.exports = filter;
 
 }).apply(this, arguments);
 
-},{"../internal/arrayFilter":43,"../internal/baseCallback":48,"../internal/baseFilter":51,"../lang/isArray":90}],38:[function(require,module,exports){
+},{"../internal/arrayFilter":55,"../internal/baseCallback":60,"../internal/baseFilter":63,"../lang/isArray":102}],50:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/collection/forEach.js", module);
 (function(){
 var arrayEach = require('../internal/arrayEach'),
@@ -14767,7 +18994,7 @@ module.exports = forEach;
 
 }).apply(this, arguments);
 
-},{"../internal/arrayEach":42,"../internal/baseEach":50,"../internal/createForEach":70}],39:[function(require,module,exports){
+},{"../internal/arrayEach":54,"../internal/baseEach":62,"../internal/createForEach":82}],51:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/collection/map.js", module);
 (function(){
 var arrayMap = require('../internal/arrayMap'),
@@ -14841,7 +19068,7 @@ module.exports = map;
 
 }).apply(this, arguments);
 
-},{"../internal/arrayMap":44,"../internal/baseCallback":48,"../internal/baseMap":58,"../lang/isArray":90}],40:[function(require,module,exports){
+},{"../internal/arrayMap":56,"../internal/baseCallback":60,"../internal/baseMap":70,"../lang/isArray":102}],52:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/collection/some.js", module);
 (function(){
 var arraySome = require('../internal/arraySome'),
@@ -14914,7 +19141,7 @@ module.exports = some;
 
 }).apply(this, arguments);
 
-},{"../internal/arraySome":45,"../internal/baseCallback":48,"../internal/baseSome":64,"../internal/isIterateeCall":81,"../lang/isArray":90}],41:[function(require,module,exports){
+},{"../internal/arraySome":57,"../internal/baseCallback":60,"../internal/baseSome":76,"../internal/isIterateeCall":93,"../lang/isArray":102}],53:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/function/restParam.js", module);
 (function(){
 /** Used as the `TypeError` message for "Functions" methods. */
@@ -14978,7 +19205,7 @@ module.exports = restParam;
 
 }).apply(this, arguments);
 
-},{}],42:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/arrayEach.js", module);
 (function(){
 /**
@@ -15006,7 +19233,7 @@ module.exports = arrayEach;
 
 }).apply(this, arguments);
 
-},{}],43:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/arrayFilter.js", module);
 (function(){
 /**
@@ -15037,7 +19264,7 @@ module.exports = arrayFilter;
 
 }).apply(this, arguments);
 
-},{}],44:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/arrayMap.js", module);
 (function(){
 /**
@@ -15064,7 +19291,7 @@ module.exports = arrayMap;
 
 }).apply(this, arguments);
 
-},{}],45:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/arraySome.js", module);
 (function(){
 /**
@@ -15093,7 +19320,7 @@ module.exports = arraySome;
 
 }).apply(this, arguments);
 
-},{}],46:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/assignWith.js", module);
 (function(){
 var keys = require('../object/keys');
@@ -15131,7 +19358,7 @@ module.exports = assignWith;
 
 }).apply(this, arguments);
 
-},{"../object/keys":97}],47:[function(require,module,exports){
+},{"../object/keys":109}],59:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseAssign.js", module);
 (function(){
 var baseCopy = require('./baseCopy'),
@@ -15156,7 +19383,7 @@ module.exports = baseAssign;
 
 }).apply(this, arguments);
 
-},{"../object/keys":97,"./baseCopy":49}],48:[function(require,module,exports){
+},{"../object/keys":109,"./baseCopy":61}],60:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseCallback.js", module);
 (function(){
 var baseMatches = require('./baseMatches'),
@@ -15197,7 +19424,7 @@ module.exports = baseCallback;
 
 }).apply(this, arguments);
 
-},{"../utility/identity":101,"../utility/property":102,"./baseMatches":59,"./baseMatchesProperty":60,"./bindCallback":66}],49:[function(require,module,exports){
+},{"../utility/identity":113,"../utility/property":114,"./baseMatches":71,"./baseMatchesProperty":72,"./bindCallback":78}],61:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseCopy.js", module);
 (function(){
 /**
@@ -15226,7 +19453,7 @@ module.exports = baseCopy;
 
 }).apply(this, arguments);
 
-},{}],50:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseEach.js", module);
 (function(){
 var baseForOwn = require('./baseForOwn'),
@@ -15247,7 +19474,7 @@ module.exports = baseEach;
 
 }).apply(this, arguments);
 
-},{"./baseForOwn":53,"./createBaseEach":68}],51:[function(require,module,exports){
+},{"./baseForOwn":65,"./createBaseEach":80}],63:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseFilter.js", module);
 (function(){
 var baseEach = require('./baseEach');
@@ -15275,7 +19502,7 @@ module.exports = baseFilter;
 
 }).apply(this, arguments);
 
-},{"./baseEach":50}],52:[function(require,module,exports){
+},{"./baseEach":62}],64:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseFor.js", module);
 (function(){
 var createBaseFor = require('./createBaseFor');
@@ -15298,7 +19525,7 @@ module.exports = baseFor;
 
 }).apply(this, arguments);
 
-},{"./createBaseFor":69}],53:[function(require,module,exports){
+},{"./createBaseFor":81}],65:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseForOwn.js", module);
 (function(){
 var baseFor = require('./baseFor'),
@@ -15321,7 +19548,7 @@ module.exports = baseForOwn;
 
 }).apply(this, arguments);
 
-},{"../object/keys":97,"./baseFor":52}],54:[function(require,module,exports){
+},{"../object/keys":109,"./baseFor":64}],66:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseGet.js", module);
 (function(){
 var toObject = require('./toObject');
@@ -15356,7 +19583,7 @@ module.exports = baseGet;
 
 }).apply(this, arguments);
 
-},{"./toObject":87}],55:[function(require,module,exports){
+},{"./toObject":99}],67:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseIsEqual.js", module);
 (function(){
 var baseIsEqualDeep = require('./baseIsEqualDeep'),
@@ -15390,7 +19617,7 @@ module.exports = baseIsEqual;
 
 }).apply(this, arguments);
 
-},{"../lang/isObject":93,"./baseIsEqualDeep":56,"./isObjectLike":84}],56:[function(require,module,exports){
+},{"../lang/isObject":105,"./baseIsEqualDeep":68,"./isObjectLike":96}],68:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseIsEqualDeep.js", module);
 (function(){
 var equalArrays = require('./equalArrays'),
@@ -15498,7 +19725,7 @@ module.exports = baseIsEqualDeep;
 
 }).apply(this, arguments);
 
-},{"../lang/isArray":90,"../lang/isTypedArray":94,"./equalArrays":73,"./equalByTag":74,"./equalObjects":75}],57:[function(require,module,exports){
+},{"../lang/isArray":102,"../lang/isTypedArray":106,"./equalArrays":85,"./equalByTag":86,"./equalObjects":87}],69:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseIsMatch.js", module);
 (function(){
 var baseIsEqual = require('./baseIsEqual'),
@@ -15556,7 +19783,7 @@ module.exports = baseIsMatch;
 
 }).apply(this, arguments);
 
-},{"./baseIsEqual":55,"./toObject":87}],58:[function(require,module,exports){
+},{"./baseIsEqual":67,"./toObject":99}],70:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseMap.js", module);
 (function(){
 var baseEach = require('./baseEach'),
@@ -15585,7 +19812,7 @@ module.exports = baseMap;
 
 }).apply(this, arguments);
 
-},{"./baseEach":50,"./isArrayLike":79}],59:[function(require,module,exports){
+},{"./baseEach":62,"./isArrayLike":91}],71:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseMatches.js", module);
 (function(){
 var baseIsMatch = require('./baseIsMatch'),
@@ -15621,7 +19848,7 @@ module.exports = baseMatches;
 
 }).apply(this, arguments);
 
-},{"./baseIsMatch":57,"./getMatchData":77,"./toObject":87}],60:[function(require,module,exports){
+},{"./baseIsMatch":69,"./getMatchData":89,"./toObject":99}],72:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseMatchesProperty.js", module);
 (function(){
 var baseGet = require('./baseGet'),
@@ -15672,7 +19899,7 @@ module.exports = baseMatchesProperty;
 
 }).apply(this, arguments);
 
-},{"../array/last":35,"../lang/isArray":90,"./baseGet":54,"./baseIsEqual":55,"./baseSlice":63,"./isKey":82,"./isStrictComparable":85,"./toObject":87,"./toPath":88}],61:[function(require,module,exports){
+},{"../array/last":47,"../lang/isArray":102,"./baseGet":66,"./baseIsEqual":67,"./baseSlice":75,"./isKey":94,"./isStrictComparable":97,"./toObject":99,"./toPath":100}],73:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseProperty.js", module);
 (function(){
 /**
@@ -15692,7 +19919,7 @@ module.exports = baseProperty;
 
 }).apply(this, arguments);
 
-},{}],62:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/basePropertyDeep.js", module);
 (function(){
 var baseGet = require('./baseGet'),
@@ -15717,7 +19944,7 @@ module.exports = basePropertyDeep;
 
 }).apply(this, arguments);
 
-},{"./baseGet":54,"./toPath":88}],63:[function(require,module,exports){
+},{"./baseGet":66,"./toPath":100}],75:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseSlice.js", module);
 (function(){
 /**
@@ -15755,7 +19982,7 @@ module.exports = baseSlice;
 
 }).apply(this, arguments);
 
-},{}],64:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseSome.js", module);
 (function(){
 var baseEach = require('./baseEach');
@@ -15784,7 +20011,7 @@ module.exports = baseSome;
 
 }).apply(this, arguments);
 
-},{"./baseEach":50}],65:[function(require,module,exports){
+},{"./baseEach":62}],77:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/baseToString.js", module);
 (function(){
 /**
@@ -15803,7 +20030,7 @@ module.exports = baseToString;
 
 }).apply(this, arguments);
 
-},{}],66:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/bindCallback.js", module);
 (function(){
 var identity = require('../utility/identity');
@@ -15848,7 +20075,7 @@ module.exports = bindCallback;
 
 }).apply(this, arguments);
 
-},{"../utility/identity":101}],67:[function(require,module,exports){
+},{"../utility/identity":113}],79:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/createAssigner.js", module);
 (function(){
 var bindCallback = require('./bindCallback'),
@@ -15895,7 +20122,7 @@ module.exports = createAssigner;
 
 }).apply(this, arguments);
 
-},{"../function/restParam":41,"./bindCallback":66,"./isIterateeCall":81}],68:[function(require,module,exports){
+},{"../function/restParam":53,"./bindCallback":78,"./isIterateeCall":93}],80:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/createBaseEach.js", module);
 (function(){
 var getLength = require('./getLength'),
@@ -15932,7 +20159,7 @@ module.exports = createBaseEach;
 
 }).apply(this, arguments);
 
-},{"./getLength":76,"./isLength":83,"./toObject":87}],69:[function(require,module,exports){
+},{"./getLength":88,"./isLength":95,"./toObject":99}],81:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/createBaseFor.js", module);
 (function(){
 var toObject = require('./toObject');
@@ -15965,7 +20192,7 @@ module.exports = createBaseFor;
 
 }).apply(this, arguments);
 
-},{"./toObject":87}],70:[function(require,module,exports){
+},{"./toObject":99}],82:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/createForEach.js", module);
 (function(){
 var bindCallback = require('./bindCallback'),
@@ -15991,7 +20218,7 @@ module.exports = createForEach;
 
 }).apply(this, arguments);
 
-},{"../lang/isArray":90,"./bindCallback":66}],71:[function(require,module,exports){
+},{"../lang/isArray":102,"./bindCallback":78}],83:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/createForOwn.js", module);
 (function(){
 var bindCallback = require('./bindCallback');
@@ -16016,7 +20243,7 @@ module.exports = createForOwn;
 
 }).apply(this, arguments);
 
-},{"./bindCallback":66}],72:[function(require,module,exports){
+},{"./bindCallback":78}],84:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/createObjectMapper.js", module);
 (function(){
 var baseCallback = require('./baseCallback'),
@@ -16048,7 +20275,7 @@ module.exports = createObjectMapper;
 
 }).apply(this, arguments);
 
-},{"./baseCallback":48,"./baseForOwn":53}],73:[function(require,module,exports){
+},{"./baseCallback":60,"./baseForOwn":65}],85:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/equalArrays.js", module);
 (function(){
 var arraySome = require('./arraySome');
@@ -16105,7 +20332,7 @@ module.exports = equalArrays;
 
 }).apply(this, arguments);
 
-},{"./arraySome":45}],74:[function(require,module,exports){
+},{"./arraySome":57}],86:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/equalByTag.js", module);
 (function(){
 /** `Object#toString` result references. */
@@ -16159,7 +20386,7 @@ module.exports = equalByTag;
 
 }).apply(this, arguments);
 
-},{}],75:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/equalObjects.js", module);
 (function(){
 var keys = require('../object/keys');
@@ -16232,7 +20459,7 @@ module.exports = equalObjects;
 
 }).apply(this, arguments);
 
-},{"../object/keys":97}],76:[function(require,module,exports){
+},{"../object/keys":109}],88:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/getLength.js", module);
 (function(){
 var baseProperty = require('./baseProperty');
@@ -16253,7 +20480,7 @@ module.exports = getLength;
 
 }).apply(this, arguments);
 
-},{"./baseProperty":61}],77:[function(require,module,exports){
+},{"./baseProperty":73}],89:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/getMatchData.js", module);
 (function(){
 var isStrictComparable = require('./isStrictComparable'),
@@ -16280,7 +20507,7 @@ module.exports = getMatchData;
 
 }).apply(this, arguments);
 
-},{"../object/pairs":100,"./isStrictComparable":85}],78:[function(require,module,exports){
+},{"../object/pairs":112,"./isStrictComparable":97}],90:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/getNative.js", module);
 (function(){
 var isNative = require('../lang/isNative');
@@ -16302,7 +20529,7 @@ module.exports = getNative;
 
 }).apply(this, arguments);
 
-},{"../lang/isNative":92}],79:[function(require,module,exports){
+},{"../lang/isNative":104}],91:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/isArrayLike.js", module);
 (function(){
 var getLength = require('./getLength'),
@@ -16323,7 +20550,7 @@ module.exports = isArrayLike;
 
 }).apply(this, arguments);
 
-},{"./getLength":76,"./isLength":83}],80:[function(require,module,exports){
+},{"./getLength":88,"./isLength":95}],92:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/isIndex.js", module);
 (function(){
 /** Used to detect unsigned integer values. */
@@ -16353,7 +20580,7 @@ module.exports = isIndex;
 
 }).apply(this, arguments);
 
-},{}],81:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/isIterateeCall.js", module);
 (function(){
 var isArrayLike = require('./isArrayLike'),
@@ -16387,7 +20614,7 @@ module.exports = isIterateeCall;
 
 }).apply(this, arguments);
 
-},{"../lang/isObject":93,"./isArrayLike":79,"./isIndex":80}],82:[function(require,module,exports){
+},{"../lang/isObject":105,"./isArrayLike":91,"./isIndex":92}],94:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/isKey.js", module);
 (function(){
 var isArray = require('../lang/isArray'),
@@ -16421,7 +20648,7 @@ module.exports = isKey;
 
 }).apply(this, arguments);
 
-},{"../lang/isArray":90,"./toObject":87}],83:[function(require,module,exports){
+},{"../lang/isArray":102,"./toObject":99}],95:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/isLength.js", module);
 (function(){
 /**
@@ -16447,7 +20674,7 @@ module.exports = isLength;
 
 }).apply(this, arguments);
 
-},{}],84:[function(require,module,exports){
+},{}],96:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/isObjectLike.js", module);
 (function(){
 /**
@@ -16465,7 +20692,7 @@ module.exports = isObjectLike;
 
 }).apply(this, arguments);
 
-},{}],85:[function(require,module,exports){
+},{}],97:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/isStrictComparable.js", module);
 (function(){
 var isObject = require('../lang/isObject');
@@ -16486,7 +20713,7 @@ module.exports = isStrictComparable;
 
 }).apply(this, arguments);
 
-},{"../lang/isObject":93}],86:[function(require,module,exports){
+},{"../lang/isObject":105}],98:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/shimKeys.js", module);
 (function(){
 var isArguments = require('../lang/isArguments'),
@@ -16533,7 +20760,7 @@ module.exports = shimKeys;
 
 }).apply(this, arguments);
 
-},{"../lang/isArguments":89,"../lang/isArray":90,"../object/keysIn":98,"./isIndex":80,"./isLength":83}],87:[function(require,module,exports){
+},{"../lang/isArguments":101,"../lang/isArray":102,"../object/keysIn":110,"./isIndex":92,"./isLength":95}],99:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/toObject.js", module);
 (function(){
 var isObject = require('../lang/isObject');
@@ -16553,7 +20780,7 @@ module.exports = toObject;
 
 }).apply(this, arguments);
 
-},{"../lang/isObject":93}],88:[function(require,module,exports){
+},{"../lang/isObject":105}],100:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/internal/toPath.js", module);
 (function(){
 var baseToString = require('./baseToString'),
@@ -16587,7 +20814,7 @@ module.exports = toPath;
 
 }).apply(this, arguments);
 
-},{"../lang/isArray":90,"./baseToString":65}],89:[function(require,module,exports){
+},{"../lang/isArray":102,"./baseToString":77}],101:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/lang/isArguments.js", module);
 (function(){
 var isArrayLike = require('../internal/isArrayLike'),
@@ -16627,7 +20854,7 @@ module.exports = isArguments;
 
 }).apply(this, arguments);
 
-},{"../internal/isArrayLike":79,"../internal/isObjectLike":84}],90:[function(require,module,exports){
+},{"../internal/isArrayLike":91,"../internal/isObjectLike":96}],102:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/lang/isArray.js", module);
 (function(){
 var getNative = require('../internal/getNative'),
@@ -16673,7 +20900,7 @@ module.exports = isArray;
 
 }).apply(this, arguments);
 
-},{"../internal/getNative":78,"../internal/isLength":83,"../internal/isObjectLike":84}],91:[function(require,module,exports){
+},{"../internal/getNative":90,"../internal/isLength":95,"../internal/isObjectLike":96}],103:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/lang/isFunction.js", module);
 (function(){
 var isObject = require('./isObject');
@@ -16717,7 +20944,7 @@ module.exports = isFunction;
 
 }).apply(this, arguments);
 
-},{"./isObject":93}],92:[function(require,module,exports){
+},{"./isObject":105}],104:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/lang/isNative.js", module);
 (function(){
 var isFunction = require('./isFunction'),
@@ -16771,7 +20998,7 @@ module.exports = isNative;
 
 }).apply(this, arguments);
 
-},{"../internal/isObjectLike":84,"./isFunction":91}],93:[function(require,module,exports){
+},{"../internal/isObjectLike":96,"./isFunction":103}],105:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/lang/isObject.js", module);
 (function(){
 /**
@@ -16805,7 +21032,7 @@ module.exports = isObject;
 
 }).apply(this, arguments);
 
-},{}],94:[function(require,module,exports){
+},{}],106:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/lang/isTypedArray.js", module);
 (function(){
 var isLength = require('../internal/isLength'),
@@ -16885,7 +21112,7 @@ module.exports = isTypedArray;
 
 }).apply(this, arguments);
 
-},{"../internal/isLength":83,"../internal/isObjectLike":84}],95:[function(require,module,exports){
+},{"../internal/isLength":95,"../internal/isObjectLike":96}],107:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/object/assign.js", module);
 (function(){
 var assignWith = require('../internal/assignWith'),
@@ -16934,7 +21161,7 @@ module.exports = assign;
 
 }).apply(this, arguments);
 
-},{"../internal/assignWith":46,"../internal/baseAssign":47,"../internal/createAssigner":67}],96:[function(require,module,exports){
+},{"../internal/assignWith":58,"../internal/baseAssign":59,"../internal/createAssigner":79}],108:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/object/forOwn.js", module);
 (function(){
 var baseForOwn = require('../internal/baseForOwn'),
@@ -16973,7 +21200,7 @@ module.exports = forOwn;
 
 }).apply(this, arguments);
 
-},{"../internal/baseForOwn":53,"../internal/createForOwn":71}],97:[function(require,module,exports){
+},{"../internal/baseForOwn":65,"../internal/createForOwn":83}],109:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/object/keys.js", module);
 (function(){
 var getNative = require('../internal/getNative'),
@@ -17024,7 +21251,7 @@ module.exports = keys;
 
 }).apply(this, arguments);
 
-},{"../internal/getNative":78,"../internal/isArrayLike":79,"../internal/shimKeys":86,"../lang/isObject":93}],98:[function(require,module,exports){
+},{"../internal/getNative":90,"../internal/isArrayLike":91,"../internal/shimKeys":98,"../lang/isObject":105}],110:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/object/keysIn.js", module);
 (function(){
 var isArguments = require('../lang/isArguments'),
@@ -17094,7 +21321,7 @@ module.exports = keysIn;
 
 }).apply(this, arguments);
 
-},{"../internal/isIndex":80,"../internal/isLength":83,"../lang/isArguments":89,"../lang/isArray":90,"../lang/isObject":93}],99:[function(require,module,exports){
+},{"../internal/isIndex":92,"../internal/isLength":95,"../lang/isArguments":101,"../lang/isArray":102,"../lang/isObject":105}],111:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/object/mapValues.js", module);
 (function(){
 var createObjectMapper = require('../internal/createObjectMapper');
@@ -17146,7 +21373,7 @@ module.exports = mapValues;
 
 }).apply(this, arguments);
 
-},{"../internal/createObjectMapper":72}],100:[function(require,module,exports){
+},{"../internal/createObjectMapper":84}],112:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/object/pairs.js", module);
 (function(){
 var keys = require('./keys'),
@@ -17185,7 +21412,7 @@ module.exports = pairs;
 
 }).apply(this, arguments);
 
-},{"../internal/toObject":87,"./keys":97}],101:[function(require,module,exports){
+},{"../internal/toObject":99,"./keys":109}],113:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/utility/identity.js", module);
 (function(){
 /**
@@ -17211,7 +21438,7 @@ module.exports = identity;
 
 }).apply(this, arguments);
 
-},{}],102:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/lodash/utility/property.js", module);
 (function(){
 var baseProperty = require('../internal/baseProperty'),
@@ -17248,7 +21475,7 @@ module.exports = property;
 
 }).apply(this, arguments);
 
-},{"../internal/baseProperty":61,"../internal/basePropertyDeep":62,"../internal/isKey":82}],103:[function(require,module,exports){
+},{"../internal/baseProperty":73,"../internal/basePropertyDeep":74,"../internal/isKey":94}],115:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/ms/index.js", module);
 (function(){
 /**
@@ -17379,7 +21606,7 @@ function plural(ms, n, name) {
 
 }).apply(this, arguments);
 
-},{}],104:[function(require,module,exports){
+},{}],116:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/parsejson/index.js", module);
 (function(){
 (function (global){
@@ -17418,7 +21645,7 @@ module.exports = function parsejson(data) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{}],105:[function(require,module,exports){
+},{}],117:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/parseqs/index.js", module);
 (function(){
 /**
@@ -17461,7 +21688,7 @@ exports.decode = function(qs){
 
 }).apply(this, arguments);
 
-},{}],106:[function(require,module,exports){
+},{}],118:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/parseuri/index.js", module);
 (function(){
 /**
@@ -17506,7 +21733,7 @@ module.exports = function parseuri(str) {
 
 }).apply(this, arguments);
 
-},{}],107:[function(require,module,exports){
+},{}],119:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/socket.io-client/lib/index.js", module);
 (function(){
 
@@ -17604,7 +21831,7 @@ exports.Socket = require('./socket');
 
 }).apply(this, arguments);
 
-},{"./manager":108,"./socket":110,"./url":111,"debug":15,"socket.io-parser":114}],108:[function(require,module,exports){
+},{"./manager":120,"./socket":122,"./url":123,"debug":23,"socket.io-parser":126}],120:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/socket.io-client/lib/manager.js", module);
 (function(){
 
@@ -18167,7 +22394,7 @@ Manager.prototype.onreconnect = function(){
 
 }).apply(this, arguments);
 
-},{"./on":109,"./socket":110,"backo2":5,"component-bind":12,"component-emitter":112,"debug":15,"engine.io-client":17,"indexof":32,"socket.io-parser":114}],109:[function(require,module,exports){
+},{"./on":121,"./socket":122,"backo2":13,"component-bind":20,"component-emitter":124,"debug":23,"engine.io-client":25,"indexof":44,"socket.io-parser":126}],121:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/socket.io-client/lib/on.js", module);
 (function(){
 
@@ -18197,7 +22424,7 @@ function on(obj, ev, fn) {
 
 }).apply(this, arguments);
 
-},{}],110:[function(require,module,exports){
+},{}],122:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/socket.io-client/lib/socket.js", module);
 (function(){
 
@@ -18615,7 +22842,7 @@ Socket.prototype.compress = function(compress){
 
 }).apply(this, arguments);
 
-},{"./on":109,"component-bind":12,"component-emitter":112,"debug":15,"has-binary":30,"socket.io-parser":114,"to-array":117}],111:[function(require,module,exports){
+},{"./on":121,"component-bind":20,"component-emitter":124,"debug":23,"has-binary":38,"socket.io-parser":126,"to-array":129}],123:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/socket.io-client/lib/url.js", module);
 (function(){
 (function (global){
@@ -18699,7 +22926,7 @@ function url(uri, loc){
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"debug":15,"parseuri":106}],112:[function(require,module,exports){
+},{"debug":23,"parseuri":118}],124:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/socket.io-client/node_modules/component-emitter/index.js", module);
 (function(){
 
@@ -18866,7 +23093,7 @@ Emitter.prototype.hasListeners = function(event){
 
 }).apply(this, arguments);
 
-},{}],113:[function(require,module,exports){
+},{}],125:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/socket.io-parser/binary.js", module);
 (function(){
 (function (global){
@@ -19015,7 +23242,7 @@ exports.removeBlobs = function(data, callback) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{"./is-buffer":115,"isarray":33}],114:[function(require,module,exports){
+},{"./is-buffer":127,"isarray":45}],126:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/socket.io-parser/index.js", module);
 (function(){
 
@@ -19421,7 +23648,7 @@ function error(data){
 
 }).apply(this, arguments);
 
-},{"./binary":113,"./is-buffer":115,"component-emitter":13,"debug":15,"isarray":33,"json3":116}],115:[function(require,module,exports){
+},{"./binary":125,"./is-buffer":127,"component-emitter":21,"debug":23,"isarray":45,"json3":128}],127:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/socket.io-parser/is-buffer.js", module);
 (function(){
 (function (global){
@@ -19442,7 +23669,7 @@ function isBuf(obj) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{}],116:[function(require,module,exports){
+},{}],128:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/socket.io-parser/node_modules/json3/lib/json3.js", module);
 (function(){
 (function (global){
@@ -20352,7 +24579,7 @@ _hmr["websocket:null"].initModule("node_modules/socket.io-parser/node_modules/js
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{}],117:[function(require,module,exports){
+},{}],129:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/to-array/index.js", module);
 (function(){
 module.exports = toArray
@@ -20371,7 +24598,7 @@ function toArray(list, index) {
 
 }).apply(this, arguments);
 
-},{}],118:[function(require,module,exports){
+},{}],130:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/utf8/utf8.js", module);
 (function(){
 (function (global){
@@ -20623,7 +24850,7 @@ _hmr["websocket:null"].initModule("node_modules/utf8/utf8.js", module);
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 }).apply(this, arguments);
 
-},{}],119:[function(require,module,exports){
+},{}],131:[function(require,module,exports){
 _hmr["websocket:null"].initModule("node_modules/yeast/index.js", module);
 (function(){
 'use strict';
@@ -20701,7 +24928,7 @@ module.exports = yeast;
 (function(global, _main, moduleDefs, cachedModules, _entries) {
   'use strict';
 
-  var moduleMeta = {"node_modules/browserify-hmr/lib/has.js":{"index":10,"hash":"Hky4QYVrU1+kFHIEuxPy","parents":["node_modules/browserify-hmr/lib/str-set.js","node_modules/browserify-hmr/inc/index.js"]},"node_modules/parseuri/index.js":{"index":106,"hash":"c/c7XftSI6ClFc9h2jOh","parents":["node_modules/socket.io-client/lib/url.js","node_modules/engine.io-client/lib/socket.js"]},"node_modules/socket.io-client/lib/url.js":{"index":111,"hash":"/o7EwzytoCiGybsA7pHf","parents":["node_modules/socket.io-client/lib/index.js"]},"node_modules/debug/browser.js":{"index":15,"hash":"S76q28f1VPJIcCtJn1eq","parents":["node_modules/socket.io-client/lib/url.js","node_modules/socket.io-client/lib/socket.js","node_modules/socket.io-parser/index.js","node_modules/engine.io-client/lib/transports/websocket.js","node_modules/engine.io-client/lib/transports/polling.js","node_modules/engine.io-client/lib/transports/polling-xhr.js","node_modules/engine.io-client/lib/socket.js","node_modules/socket.io-client/lib/manager.js","node_modules/socket.io-client/lib/index.js"]},"node_modules/socket.io-client/lib/on.js":{"index":109,"hash":"y5MOoFpTKKBHwE8q8jae","parents":["node_modules/socket.io-client/lib/socket.js","node_modules/socket.io-client/lib/manager.js"]},"node_modules/socket.io-client/node_modules/component-emitter/index.js":{"index":112,"hash":"asxNeKKEYmnxnAxICTS6","parents":["node_modules/socket.io-client/lib/socket.js","node_modules/socket.io-client/lib/manager.js"]},"node_modules/component-bind/index.js":{"index":12,"hash":"4yIcVw+afwUsnTQyI0a3","parents":["node_modules/socket.io-client/lib/socket.js","node_modules/socket.io-client/lib/manager.js"]},"node_modules/to-array/index.js":{"index":117,"hash":"2EoggafxX+GLXkXiaGjm","parents":["node_modules/socket.io-client/lib/socket.js"]},"node_modules/socket.io-parser/is-buffer.js":{"index":115,"hash":"UJBXKAfBg/BkigSZbc3Z","parents":["node_modules/socket.io-parser/binary.js","node_modules/socket.io-parser/index.js"]},"node_modules/isarray/index.js":{"index":33,"hash":"dKtews1S4sHvaZhZ+ceq","parents":["node_modules/has-binary/index.js","node_modules/socket.io-parser/binary.js","node_modules/socket.io-parser/index.js","node_modules/engine.io-parser/node_modules/has-binary/index.js"]},"node_modules/component-emitter/index.js":{"index":13,"hash":"0uL1LSa/mOj+Llu+HTZ7","parents":["node_modules/socket.io-parser/index.js","node_modules/engine.io-client/lib/transport.js","node_modules/engine.io-client/lib/transports/polling-xhr.js","node_modules/engine.io-client/lib/socket.js"]},"node_modules/socket.io-parser/node_modules/json3/lib/json3.js":{"index":116,"hash":"LXnegdmM3ELMiM4tQmqu","parents":["node_modules/socket.io-parser/index.js"]},"node_modules/indexof/index.js":{"index":32,"hash":"8zMGV0j0ID5bUIeT7r+M","parents":["node_modules/engine.io-client/lib/socket.js","node_modules/socket.io-client/lib/manager.js"]},"node_modules/backo2/index.js":{"index":5,"hash":"L5ry3mfVEw1wgmx9Sa+q","parents":["node_modules/socket.io-client/lib/manager.js"]},"node_modules/browserify-hmr/lib/str-set.js":{"index":11,"hash":"lcrDmQK4uaqOqN+FV4/9","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/lodash/internal/arrayMap.js":{"index":44,"hash":"xdr8c0JsUFapIHTuM5VE","parents":["node_modules/lodash/collection/map.js"]},"node_modules/lodash/internal/arrayEach.js":{"index":42,"hash":"eLxUBVsb8vpFbu0VN4KL","parents":["node_modules/lodash/collection/forEach.js"]},"node_modules/lodash/internal/arraySome.js":{"index":45,"hash":"GxeJPxJj2jUg5TzV5gLv","parents":["node_modules/lodash/collection/some.js","node_modules/lodash/internal/equalArrays.js"]},"node_modules/lodash/internal/arrayFilter.js":{"index":43,"hash":"BGunz0w1QzJXyqQSOdZb","parents":["node_modules/lodash/collection/filter.js"]},"node_modules/has-binary/index.js":{"index":30,"hash":"GofcXFXhXC0uVJvLAw+2","parents":["node_modules/socket.io-client/lib/socket.js"]},"node_modules/socket.io-client/lib/socket.js":{"index":110,"hash":"dZhwrF36uFIGbDZMhss6","parents":["node_modules/socket.io-client/lib/manager.js","node_modules/socket.io-client/lib/index.js"]},"node_modules/socket.io-parser/index.js":{"index":114,"hash":"7PrgORY9faIa3QvXeHjU","parents":["node_modules/socket.io-client/lib/socket.js","node_modules/socket.io-client/lib/manager.js","node_modules/socket.io-client/lib/index.js"]},"node_modules/ms/index.js":{"index":103,"hash":"HanVKm5AkV6MOdHRAMCT","parents":["node_modules/debug/debug.js"]},"node_modules/debug/debug.js":{"index":16,"hash":"yqdR7nJc7wxIHzFDNzG+","parents":["node_modules/debug/browser.js"]},"node_modules/socket.io-parser/binary.js":{"index":113,"hash":"bAee8RukaXwuD/OeGN6F","parents":["node_modules/socket.io-parser/index.js"]},"node_modules/lodash/internal/isLength.js":{"index":83,"hash":"DFIKI121VzeE+pBbx1Oa","parents":["node_modules/lodash/internal/createBaseEach.js","node_modules/lodash/internal/isArrayLike.js","node_modules/lodash/lang/isArray.js","node_modules/lodash/object/keysIn.js","node_modules/lodash/internal/shimKeys.js","node_modules/lodash/lang/isTypedArray.js"]},"node_modules/lodash/internal/isObjectLike.js":{"index":84,"hash":"qEGnAWJNoAetOIJ7YKiV","parents":["node_modules/lodash/lang/isNative.js","node_modules/lodash/lang/isArray.js","node_modules/lodash/lang/isArguments.js","node_modules/lodash/lang/isTypedArray.js","node_modules/lodash/internal/baseIsEqual.js"]},"node_modules/lodash/internal/createObjectMapper.js":{"index":72,"hash":"cp8s+Z6khiKdK5QCQ+Ms","parents":["node_modules/lodash/object/mapValues.js"]},"node_modules/lodash/internal/baseCallback.js":{"index":48,"hash":"FDEmxoh1cXY/hddgPNGW","parents":["node_modules/lodash/internal/createObjectMapper.js","node_modules/lodash/collection/some.js","node_modules/lodash/collection/filter.js","node_modules/lodash/collection/map.js"]},"node_modules/lodash/internal/baseForOwn.js":{"index":53,"hash":"sOLmHH2OosmeW92YaLK/","parents":["node_modules/lodash/internal/createObjectMapper.js","node_modules/lodash/internal/baseEach.js","node_modules/lodash/object/forOwn.js"]},"node_modules/lodash/object/mapValues.js":{"index":99,"hash":"2HfAmVuaVGfc8pd5zIaC","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/lodash/utility/identity.js":{"index":101,"hash":"A/cz5O4nnho2x2e5KIWS","parents":["node_modules/lodash/internal/bindCallback.js","node_modules/lodash/internal/baseCallback.js"]},"node_modules/lodash/internal/createForEach.js":{"index":70,"hash":"iJtWBCzx+bzzSLwlaaRv","parents":["node_modules/lodash/collection/forEach.js"]},"node_modules/lodash/lang/isArray.js":{"index":90,"hash":"rpMiE1Z199/XZCjno4KN","parents":["node_modules/lodash/internal/createForEach.js","node_modules/lodash/collection/some.js","node_modules/lodash/collection/filter.js","node_modules/lodash/internal/isKey.js","node_modules/lodash/internal/toPath.js","node_modules/lodash/array/zipObject.js","node_modules/lodash/object/keysIn.js","node_modules/lodash/internal/shimKeys.js","node_modules/lodash/internal/baseIsEqualDeep.js","node_modules/lodash/internal/baseMatchesProperty.js","node_modules/lodash/collection/map.js"]},"node_modules/lodash/internal/bindCallback.js":{"index":66,"hash":"S6iy1I+53IEzDLSGuW0j","parents":["node_modules/lodash/internal/createForEach.js","node_modules/lodash/internal/createForOwn.js","node_modules/lodash/internal/createAssigner.js","node_modules/lodash/internal/baseCallback.js"]},"node_modules/lodash/internal/baseSome.js":{"index":64,"hash":"lCW5AtHn9X2vSuPgS8pk","parents":["node_modules/lodash/collection/some.js"]},"node_modules/lodash/internal/baseEach.js":{"index":50,"hash":"Ji7NLCJhdzSBlpDI+qC3","parents":["node_modules/lodash/internal/baseSome.js","node_modules/lodash/internal/baseFilter.js","node_modules/lodash/collection/forEach.js","node_modules/lodash/internal/baseMap.js"]},"node_modules/lodash/internal/isIndex.js":{"index":80,"hash":"I8y5AsjL/lwDlORDOqqM","parents":["node_modules/lodash/internal/isIterateeCall.js","node_modules/lodash/object/keysIn.js","node_modules/lodash/internal/shimKeys.js"]},"node_modules/lodash/lang/isObject.js":{"index":93,"hash":"Go+dTLFqO1KJN+uQLb8s","parents":["node_modules/lodash/internal/isIterateeCall.js","node_modules/lodash/internal/toObject.js","node_modules/lodash/internal/isStrictComparable.js","node_modules/lodash/lang/isFunction.js","node_modules/lodash/object/keysIn.js","node_modules/lodash/object/keys.js","node_modules/lodash/internal/baseIsEqual.js"]},"node_modules/lodash/internal/isIterateeCall.js":{"index":81,"hash":"dXMnNRevAizOBisKCEes","parents":["node_modules/lodash/collection/some.js","node_modules/lodash/internal/createAssigner.js"]},"node_modules/lodash/internal/isArrayLike.js":{"index":79,"hash":"76Awthz8ChTgjGk0JZ6Y","parents":["node_modules/lodash/internal/isIterateeCall.js","node_modules/lodash/internal/baseMap.js","node_modules/lodash/lang/isArguments.js","node_modules/lodash/object/keys.js"]},"node_modules/lodash/collection/some.js":{"index":40,"hash":"9JyJFfdCx56pmR6fwM9q","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/lodash/internal/createForOwn.js":{"index":71,"hash":"KJqijjvJO7d1nU17Sz3c","parents":["node_modules/lodash/object/forOwn.js"]},"node_modules/lodash/internal/assignWith.js":{"index":46,"hash":"aKBKyfIKqZsNOHAbJTAI","parents":["node_modules/lodash/object/assign.js"]},"node_modules/lodash/object/keys.js":{"index":97,"hash":"BbXGNIcfatSp32uWOBAV","parents":["node_modules/lodash/internal/assignWith.js","node_modules/lodash/internal/baseAssign.js","node_modules/lodash/object/pairs.js","node_modules/lodash/internal/baseForOwn.js","node_modules/lodash/internal/equalObjects.js"]},"node_modules/lodash/function/restParam.js":{"index":41,"hash":"/RRH9MCtjArr1p3Qeh63","parents":["node_modules/lodash/internal/createAssigner.js"]},"node_modules/lodash/internal/createAssigner.js":{"index":67,"hash":"X8R81jvRCofY1BnG+A/L","parents":["node_modules/lodash/object/assign.js"]},"node_modules/lodash/internal/baseCopy.js":{"index":49,"hash":"WvGi8IywM6u7ZNXvztwg","parents":["node_modules/lodash/internal/baseAssign.js"]},"node_modules/lodash/internal/baseAssign.js":{"index":47,"hash":"6VX87YoeNgDvMUyiAc/7","parents":["node_modules/lodash/object/assign.js"]},"node_modules/lodash/object/assign.js":{"index":95,"hash":"9WOhJBREl8AO9Hs6Cr+Q","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/lodash/internal/baseFilter.js":{"index":51,"hash":"yyvQag4hw8sItBFf3/9T","parents":["node_modules/lodash/collection/filter.js"]},"node_modules/lodash/collection/filter.js":{"index":37,"hash":"XtU5zjCqSDlYcwOLUC13","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/lodash/internal/baseProperty.js":{"index":61,"hash":"Yuk2tpof21q0Xl2sQg89","parents":["node_modules/lodash/utility/property.js","node_modules/lodash/internal/getLength.js"]},"node_modules/lodash/internal/baseSlice.js":{"index":63,"hash":"OLgw9XVic1W0AKjehzHB","parents":["node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/array/last.js":{"index":35,"hash":"3oXXa2idWbKySVLcq3os","parents":["node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/internal/createBaseEach.js":{"index":68,"hash":"+5X3Ztm78NNPr9vQZ7fB","parents":["node_modules/lodash/internal/baseEach.js"]},"node_modules/lodash/internal/toObject.js":{"index":87,"hash":"8f3eulB97DddBRdcU+7v","parents":["node_modules/lodash/internal/createBaseEach.js","node_modules/lodash/internal/isKey.js","node_modules/lodash/internal/baseIsMatch.js","node_modules/lodash/internal/baseGet.js","node_modules/lodash/internal/createBaseFor.js","node_modules/lodash/object/pairs.js","node_modules/lodash/internal/baseMatches.js","node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/internal/getLength.js":{"index":76,"hash":"UiZ6F0+nXZ0fiKckTqnM","parents":["node_modules/lodash/internal/createBaseEach.js","node_modules/lodash/internal/isArrayLike.js"]},"node_modules/lodash/collection/forEach.js":{"index":38,"hash":"0Lo1RNt18PMo/HAKbHEu","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/engine.io-parser/lib/keys.js":{"index":28,"hash":"oFyKNTA0twlyQVhVzp9n","parents":["node_modules/engine.io-parser/lib/browser.js"]},"node_modules/utf8/utf8.js":{"index":118,"hash":"Mqm8G2xyYXmBOFrE+/6A","parents":["node_modules/engine.io-parser/lib/browser.js"]},"node_modules/arraybuffer.slice/index.js":{"index":4,"hash":"RSb5Zx9CgX3adjzbvf/k","parents":["node_modules/engine.io-parser/lib/browser.js"]},"node_modules/after/index.js":{"index":3,"hash":"NzPfXWECmM8rW/6fdkcj","parents":["node_modules/engine.io-parser/lib/browser.js"]},"node_modules/blob/index.js":{"index":7,"hash":"q7L6uHK9eN9yEvDVNxJw","parents":["node_modules/engine.io-parser/lib/browser.js"]},"node_modules/base64-arraybuffer/lib/base64-arraybuffer.js":{"index":6,"hash":"dW6cnktjBIyZ6bv9vRp2","parents":["node_modules/engine.io-parser/lib/browser.js"]},"node_modules/parsejson/index.js":{"index":104,"hash":"3RLuznQNKZiQ/toCXNir","parents":["node_modules/engine.io-client/lib/socket.js"]},"node_modules/parseqs/index.js":{"index":105,"hash":"FI4tRELwI5Itz+ckwR+m","parents":["node_modules/engine.io-client/lib/transports/websocket.js","node_modules/engine.io-client/lib/transports/polling.js","node_modules/engine.io-client/lib/socket.js"]},"node_modules/lodash/internal/isKey.js":{"index":82,"hash":"lDpw5crcRmTRExTLVTKc","parents":["node_modules/lodash/utility/property.js","node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/internal/basePropertyDeep.js":{"index":62,"hash":"mqX1OyYdndJ183lyl/sn","parents":["node_modules/lodash/utility/property.js"]},"node_modules/lodash/internal/baseGet.js":{"index":54,"hash":"H9EiMd3ullQpRkvooLgz","parents":["node_modules/lodash/internal/basePropertyDeep.js","node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/internal/toPath.js":{"index":88,"hash":"faVQvsb+LSLI4uaMgtrQ","parents":["node_modules/lodash/internal/basePropertyDeep.js","node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/utility/property.js":{"index":102,"hash":"7IoOI/uGZCxbcY23uQDK","parents":["node_modules/lodash/internal/baseCallback.js"]},"node_modules/lodash/internal/baseIsMatch.js":{"index":57,"hash":"EpuJzlg204aR35T4QKcS","parents":["node_modules/lodash/internal/baseMatches.js"]},"node_modules/lodash/internal/baseIsEqual.js":{"index":55,"hash":"dBgoFXnhj9KH6oX3dQwa","parents":["node_modules/lodash/internal/baseIsMatch.js","node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/internal/isStrictComparable.js":{"index":85,"hash":"ofNP4/nFrz5Rkb3kGOhn","parents":["node_modules/lodash/internal/getMatchData.js","node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/internal/baseToString.js":{"index":65,"hash":"ABFQFf14pRECi3sw8oKV","parents":["node_modules/lodash/internal/toPath.js"]},"node_modules/lodash/internal/baseMap.js":{"index":58,"hash":"ofv2jCE5QlahpynG4rkN","parents":["node_modules/lodash/collection/map.js"]},"node_modules/lodash/internal/createBaseFor.js":{"index":69,"hash":"9RWlFaBOuelvwgkhYgPG","parents":["node_modules/lodash/internal/baseFor.js"]},"node_modules/lodash/internal/baseFor.js":{"index":52,"hash":"NGxcZ0n01+w2G1PzyBlY","parents":["node_modules/lodash/internal/baseForOwn.js"]},"node_modules/engine.io-parser/node_modules/has-binary/index.js":{"index":29,"hash":"ZLLgu+QfLGB5FJs6P2Ow","parents":["node_modules/engine.io-parser/lib/browser.js"]},"node_modules/engine.io-parser/lib/browser.js":{"index":27,"hash":"6A2jdV+cDrzwkG+1P9xX","parents":["node_modules/engine.io-client/lib/transport.js","node_modules/engine.io-client/lib/transports/websocket.js","node_modules/engine.io-client/lib/transports/polling.js","node_modules/engine.io-client/lib/socket.js","node_modules/engine.io-client/lib/index.js"]},"node_modules/engine.io-client/lib/transport.js":{"index":20,"hash":"qAS1jC8gVTG4yb/AanoB","parents":["node_modules/engine.io-client/lib/transports/websocket.js","node_modules/engine.io-client/lib/transports/polling.js","node_modules/engine.io-client/lib/socket.js"]},"node_modules/browser-resolve/empty.js":{"index":8,"hash":"47DEQpj8HBSa+/TImW+5","parents":["node_modules/engine.io-client/lib/transports/websocket.js"]},"node_modules/lodash/lang/isFunction.js":{"index":91,"hash":"xkfzrZNZPGGOIf0kE8Y9","parents":["node_modules/lodash/lang/isNative.js"]},"node_modules/lodash/lang/isNative.js":{"index":92,"hash":"2rstaALy1DW0JSDdijps","parents":["node_modules/lodash/internal/getNative.js"]},"node_modules/lodash/internal/getNative.js":{"index":78,"hash":"7GRZ7115BSuoc/1bdaBK","parents":["node_modules/lodash/lang/isArray.js","node_modules/lodash/object/keys.js"]},"node_modules/lodash/array/zipObject.js":{"index":36,"hash":"fKfSwIzPo5SUx9d0DkgN","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/lodash/object/pairs.js":{"index":100,"hash":"x6Ilwx8encvg/BW5API2","parents":["node_modules/lodash/internal/getMatchData.js"]},"node_modules/lodash/internal/getMatchData.js":{"index":77,"hash":"n0PHWhNs6YZ+DzgYMHPx","parents":["node_modules/lodash/internal/baseMatches.js"]},"node_modules/lodash/internal/baseMatches.js":{"index":59,"hash":"Cwj5GSiQv9/E8nSFBoX2","parents":["node_modules/lodash/internal/baseCallback.js"]},"node_modules/lodash/internal/equalByTag.js":{"index":74,"hash":"+y++gesJpPvyM+2E8aNB","parents":["node_modules/lodash/internal/baseIsEqualDeep.js"]},"node_modules/lodash/lang/isArguments.js":{"index":89,"hash":"xQ4mqbsKQMCmtsPbfQc6","parents":["node_modules/lodash/object/keysIn.js","node_modules/lodash/internal/shimKeys.js"]},"node_modules/lodash/object/keysIn.js":{"index":98,"hash":"8POZiGR1fRHso579G46Z","parents":["node_modules/lodash/internal/shimKeys.js"]},"node_modules/lodash/internal/shimKeys.js":{"index":86,"hash":"oO4aKopmxRfPxyKgRX9F","parents":["node_modules/lodash/object/keys.js"]},"node_modules/lodash/object/forOwn.js":{"index":96,"hash":"LZ77PzuJW/wlgVPdvlGc","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/has-cors/index.js":{"index":31,"hash":"HwTb4UF/S089ZYA8hrRl","parents":["node_modules/engine.io-client/lib/xmlhttprequest.js"]},"node_modules/engine.io-client/lib/xmlhttprequest.js":{"index":26,"hash":"us0FsN5s7hiT3hqVV5lx","parents":["node_modules/engine.io-client/lib/transports/polling.js","node_modules/engine.io-client/lib/transports/polling-xhr.js","node_modules/engine.io-client/lib/transports/index.js"]},"node_modules/component-inherit/index.js":{"index":14,"hash":"T0Fqch4d4akvlr8bh7lc","parents":["node_modules/engine.io-client/lib/transports/websocket.js","node_modules/engine.io-client/lib/transports/polling-jsonp.js","node_modules/engine.io-client/lib/transports/polling.js","node_modules/engine.io-client/lib/transports/polling-xhr.js"]},"node_modules/yeast/index.js":{"index":119,"hash":"ZM3+5w4l/D2f6x7svySF","parents":["node_modules/engine.io-client/lib/transports/websocket.js","node_modules/engine.io-client/lib/transports/polling.js"]},"node_modules/engine.io-client/lib/transports/websocket.js":{"index":25,"hash":"HfpLTMBIovfNVzW2AUtb","parents":["node_modules/engine.io-client/lib/transports/index.js"]},"node_modules/engine.io-client/lib/transports/polling-jsonp.js":{"index":22,"hash":"Gb1vE1gV8jcH9l3Z6/bT","parents":["node_modules/engine.io-client/lib/transports/index.js"]},"node_modules/engine.io-client/lib/transports/polling.js":{"index":24,"hash":"vdgStJPJzZrXTQesqN8z","parents":["node_modules/engine.io-client/lib/transports/polling-jsonp.js","node_modules/engine.io-client/lib/transports/polling-xhr.js"]},"node_modules/lodash/internal/equalArrays.js":{"index":73,"hash":"OBJL6vuaOotu5flUeCnv","parents":["node_modules/lodash/internal/baseIsEqualDeep.js"]},"node_modules/lodash/internal/equalObjects.js":{"index":75,"hash":"44Iy49kDcaAZsykEdaH3","parents":["node_modules/lodash/internal/baseIsEqualDeep.js"]},"node_modules/lodash/lang/isTypedArray.js":{"index":94,"hash":"aVeZyIFGadrEh7EsaDRu","parents":["node_modules/lodash/internal/baseIsEqualDeep.js"]},"node_modules/lodash/internal/baseIsEqualDeep.js":{"index":56,"hash":"ltZZaMHmzp6d9jBltV3Y","parents":["node_modules/lodash/internal/baseIsEqual.js"]},"node_modules/lodash/internal/baseMatchesProperty.js":{"index":60,"hash":"OudnSoeq2A4ql5lg51kc","parents":["node_modules/lodash/internal/baseCallback.js"]},"node_modules/lodash/collection/map.js":{"index":39,"hash":"63n5x8GTiWPuxiZzm9TM","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/browserify-hmr/inc/index.js":{"index":9,"hash":"zTlNWZ14iIh89mO0UkaY","parents":[]},"node_modules/engine.io-client/lib/transports/polling-xhr.js":{"index":23,"hash":"jZ3ocO8rHG1K39sNZtMM","parents":["node_modules/engine.io-client/lib/transports/index.js"]},"node_modules/engine.io-client/lib/transports/index.js":{"index":21,"hash":"GTfOTTHr8n5FqdkZq1ur","parents":["node_modules/engine.io-client/lib/socket.js"]},"node_modules/engine.io-client/lib/socket.js":{"index":19,"hash":"z0/WXnl8azrUbogzuS5u","parents":["node_modules/engine.io-client/lib/index.js"]},"node_modules/engine.io-client/lib/index.js":{"index":18,"hash":"G6QYuSNu0EcS+G5tR9NE","parents":["node_modules/engine.io-client/index.js"]},"node_modules/engine.io-client/index.js":{"index":17,"hash":"HQau4MkD4lAynB9tt0Wl","parents":["node_modules/socket.io-client/lib/manager.js"]},"node_modules/socket.io-client/lib/manager.js":{"index":108,"hash":"ycazfyz0LQGPtd/P1Ih9","parents":["node_modules/socket.io-client/lib/index.js"]},"node_modules/socket.io-client/lib/index.js":{"index":107,"hash":"6O21Z/SJToLoAyfVkS1+","parents":[]},"node_modules/jquery/dist/jquery.js":{"index":34,"hash":"4/zUCqiq0kqxhZIyp4G0","parents":["javascript/index.js"]},"javascript/index.js":{"index":2,"hash":"w3nYMfsbmWalnQwjwOKr","parents":[]}};
+  var moduleMeta = {"node_modules/browserify-hmr/lib/has.js":{"index":18,"hash":"Hky4QYVrU1+kFHIEuxPy","parents":["node_modules/browserify-hmr/lib/str-set.js","node_modules/browserify-hmr/inc/index.js"]},"node_modules/parseuri/index.js":{"index":118,"hash":"c/c7XftSI6ClFc9h2jOh","parents":["node_modules/socket.io-client/lib/url.js","node_modules/engine.io-client/lib/socket.js"]},"node_modules/socket.io-client/lib/url.js":{"index":123,"hash":"/o7EwzytoCiGybsA7pHf","parents":["node_modules/socket.io-client/lib/index.js"]},"node_modules/debug/browser.js":{"index":23,"hash":"S76q28f1VPJIcCtJn1eq","parents":["node_modules/socket.io-client/lib/url.js","node_modules/socket.io-client/lib/socket.js","node_modules/socket.io-parser/index.js","node_modules/engine.io-client/lib/transports/websocket.js","node_modules/engine.io-client/lib/transports/polling.js","node_modules/engine.io-client/lib/transports/polling-xhr.js","node_modules/engine.io-client/lib/socket.js","node_modules/socket.io-client/lib/manager.js","node_modules/socket.io-client/lib/index.js"]},"node_modules/socket.io-client/lib/on.js":{"index":121,"hash":"y5MOoFpTKKBHwE8q8jae","parents":["node_modules/socket.io-client/lib/socket.js","node_modules/socket.io-client/lib/manager.js"]},"node_modules/socket.io-client/node_modules/component-emitter/index.js":{"index":124,"hash":"asxNeKKEYmnxnAxICTS6","parents":["node_modules/socket.io-client/lib/socket.js","node_modules/socket.io-client/lib/manager.js"]},"node_modules/to-array/index.js":{"index":129,"hash":"2EoggafxX+GLXkXiaGjm","parents":["node_modules/socket.io-client/lib/socket.js"]},"node_modules/component-bind/index.js":{"index":20,"hash":"4yIcVw+afwUsnTQyI0a3","parents":["node_modules/socket.io-client/lib/socket.js","node_modules/socket.io-client/lib/manager.js"]},"node_modules/socket.io-parser/is-buffer.js":{"index":127,"hash":"UJBXKAfBg/BkigSZbc3Z","parents":["node_modules/socket.io-parser/binary.js","node_modules/socket.io-parser/index.js"]},"node_modules/isarray/index.js":{"index":45,"hash":"dKtews1S4sHvaZhZ+ceq","parents":["node_modules/has-binary/index.js","node_modules/socket.io-parser/binary.js","node_modules/socket.io-parser/index.js","node_modules/engine.io-parser/node_modules/has-binary/index.js"]},"node_modules/component-emitter/index.js":{"index":21,"hash":"0uL1LSa/mOj+Llu+HTZ7","parents":["node_modules/socket.io-parser/index.js","node_modules/engine.io-client/lib/transport.js","node_modules/engine.io-client/lib/transports/polling-xhr.js","node_modules/engine.io-client/lib/socket.js"]},"node_modules/socket.io-parser/node_modules/json3/lib/json3.js":{"index":128,"hash":"LXnegdmM3ELMiM4tQmqu","parents":["node_modules/socket.io-parser/index.js"]},"node_modules/indexof/index.js":{"index":44,"hash":"8zMGV0j0ID5bUIeT7r+M","parents":["node_modules/engine.io-client/lib/socket.js","node_modules/socket.io-client/lib/manager.js"]},"node_modules/backo2/index.js":{"index":13,"hash":"L5ry3mfVEw1wgmx9Sa+q","parents":["node_modules/socket.io-client/lib/manager.js"]},"node_modules/browserify-hmr/lib/str-set.js":{"index":19,"hash":"lcrDmQK4uaqOqN+FV4/9","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/lodash/internal/arraySome.js":{"index":57,"hash":"GxeJPxJj2jUg5TzV5gLv","parents":["node_modules/lodash/internal/equalArrays.js","node_modules/lodash/collection/some.js"]},"node_modules/lodash/internal/arrayEach.js":{"index":54,"hash":"eLxUBVsb8vpFbu0VN4KL","parents":["node_modules/lodash/collection/forEach.js"]},"node_modules/lodash/internal/arrayMap.js":{"index":56,"hash":"xdr8c0JsUFapIHTuM5VE","parents":["node_modules/lodash/collection/map.js"]},"node_modules/lodash/array/zipObject.js":{"index":48,"hash":"fKfSwIzPo5SUx9d0DkgN","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/lodash/lang/isArray.js":{"index":102,"hash":"rpMiE1Z199/XZCjno4KN","parents":["node_modules/lodash/array/zipObject.js","node_modules/lodash/internal/createForEach.js","node_modules/lodash/collection/map.js","node_modules/lodash/collection/filter.js","node_modules/lodash/internal/isKey.js","node_modules/lodash/internal/toPath.js","node_modules/lodash/object/keysIn.js","node_modules/lodash/internal/shimKeys.js","node_modules/lodash/internal/baseIsEqualDeep.js","node_modules/lodash/internal/baseMatchesProperty.js","node_modules/lodash/collection/some.js"]},"node_modules/lodash/internal/arrayFilter.js":{"index":55,"hash":"BGunz0w1QzJXyqQSOdZb","parents":["node_modules/lodash/collection/filter.js"]},"node_modules/has-binary/index.js":{"index":38,"hash":"GofcXFXhXC0uVJvLAw+2","parents":["node_modules/socket.io-client/lib/socket.js"]},"node_modules/socket.io-client/lib/socket.js":{"index":122,"hash":"dZhwrF36uFIGbDZMhss6","parents":["node_modules/socket.io-client/lib/manager.js","node_modules/socket.io-client/lib/index.js"]},"node_modules/socket.io-parser/index.js":{"index":126,"hash":"7PrgORY9faIa3QvXeHjU","parents":["node_modules/socket.io-client/lib/socket.js","node_modules/socket.io-client/lib/manager.js","node_modules/socket.io-client/lib/index.js"]},"node_modules/ms/index.js":{"index":115,"hash":"HanVKm5AkV6MOdHRAMCT","parents":["node_modules/debug/debug.js"]},"node_modules/debug/debug.js":{"index":24,"hash":"yqdR7nJc7wxIHzFDNzG+","parents":["node_modules/debug/browser.js"]},"node_modules/socket.io-parser/binary.js":{"index":125,"hash":"bAee8RukaXwuD/OeGN6F","parents":["node_modules/socket.io-parser/index.js"]},"node_modules/lodash/internal/createObjectMapper.js":{"index":84,"hash":"cp8s+Z6khiKdK5QCQ+Ms","parents":["node_modules/lodash/object/mapValues.js"]},"node_modules/lodash/internal/baseCallback.js":{"index":60,"hash":"FDEmxoh1cXY/hddgPNGW","parents":["node_modules/lodash/internal/createObjectMapper.js","node_modules/lodash/collection/map.js","node_modules/lodash/collection/filter.js","node_modules/lodash/collection/some.js"]},"node_modules/lodash/internal/baseForOwn.js":{"index":65,"hash":"sOLmHH2OosmeW92YaLK/","parents":["node_modules/lodash/internal/createObjectMapper.js","node_modules/lodash/internal/baseEach.js","node_modules/lodash/object/forOwn.js"]},"node_modules/lodash/object/mapValues.js":{"index":111,"hash":"2HfAmVuaVGfc8pd5zIaC","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/lodash/function/restParam.js":{"index":53,"hash":"/RRH9MCtjArr1p3Qeh63","parents":["node_modules/lodash/internal/createAssigner.js"]},"node_modules/lodash/internal/baseCopy.js":{"index":61,"hash":"WvGi8IywM6u7ZNXvztwg","parents":["node_modules/lodash/internal/baseAssign.js"]},"node_modules/lodash/internal/baseAssign.js":{"index":59,"hash":"6VX87YoeNgDvMUyiAc/7","parents":["node_modules/lodash/object/assign.js"]},"node_modules/lodash/object/keys.js":{"index":109,"hash":"BbXGNIcfatSp32uWOBAV","parents":["node_modules/lodash/internal/baseAssign.js","node_modules/lodash/internal/baseForOwn.js","node_modules/lodash/internal/assignWith.js","node_modules/lodash/object/pairs.js","node_modules/lodash/internal/equalObjects.js"]},"node_modules/lodash/internal/isObjectLike.js":{"index":96,"hash":"qEGnAWJNoAetOIJ7YKiV","parents":["node_modules/lodash/lang/isArguments.js","node_modules/lodash/lang/isNative.js","node_modules/lodash/lang/isArray.js","node_modules/lodash/lang/isTypedArray.js","node_modules/lodash/internal/baseIsEqual.js"]},"node_modules/lodash/internal/isLength.js":{"index":95,"hash":"DFIKI121VzeE+pBbx1Oa","parents":["node_modules/lodash/internal/createBaseEach.js","node_modules/lodash/internal/isArrayLike.js","node_modules/lodash/object/keysIn.js","node_modules/lodash/internal/shimKeys.js","node_modules/lodash/lang/isArray.js","node_modules/lodash/lang/isTypedArray.js"]},"node_modules/lodash/utility/identity.js":{"index":113,"hash":"A/cz5O4nnho2x2e5KIWS","parents":["node_modules/lodash/internal/bindCallback.js","node_modules/lodash/internal/baseCallback.js"]},"node_modules/lodash/internal/baseSome.js":{"index":76,"hash":"lCW5AtHn9X2vSuPgS8pk","parents":["node_modules/lodash/collection/some.js"]},"node_modules/lodash/internal/baseEach.js":{"index":62,"hash":"Ji7NLCJhdzSBlpDI+qC3","parents":["node_modules/lodash/internal/baseSome.js","node_modules/lodash/internal/baseMap.js","node_modules/lodash/internal/baseFilter.js","node_modules/lodash/collection/forEach.js"]},"node_modules/lodash/internal/isIndex.js":{"index":92,"hash":"I8y5AsjL/lwDlORDOqqM","parents":["node_modules/lodash/internal/isIterateeCall.js","node_modules/lodash/object/keysIn.js","node_modules/lodash/internal/shimKeys.js"]},"node_modules/lodash/lang/isObject.js":{"index":105,"hash":"Go+dTLFqO1KJN+uQLb8s","parents":["node_modules/lodash/internal/toObject.js","node_modules/lodash/internal/isStrictComparable.js","node_modules/lodash/internal/isIterateeCall.js","node_modules/lodash/object/keysIn.js","node_modules/lodash/object/keys.js","node_modules/lodash/lang/isFunction.js","node_modules/lodash/internal/baseIsEqual.js"]},"node_modules/lodash/internal/createForEach.js":{"index":82,"hash":"iJtWBCzx+bzzSLwlaaRv","parents":["node_modules/lodash/collection/forEach.js"]},"node_modules/lodash/internal/bindCallback.js":{"index":78,"hash":"S6iy1I+53IEzDLSGuW0j","parents":["node_modules/lodash/internal/createForEach.js","node_modules/lodash/internal/createForOwn.js","node_modules/lodash/internal/createAssigner.js","node_modules/lodash/internal/baseCallback.js"]},"node_modules/lodash/internal/baseMap.js":{"index":70,"hash":"ofv2jCE5QlahpynG4rkN","parents":["node_modules/lodash/collection/map.js"]},"node_modules/lodash/internal/isArrayLike.js":{"index":91,"hash":"76Awthz8ChTgjGk0JZ6Y","parents":["node_modules/lodash/internal/baseMap.js","node_modules/lodash/internal/isIterateeCall.js","node_modules/lodash/lang/isArguments.js","node_modules/lodash/object/keys.js"]},"node_modules/lodash/collection/map.js":{"index":51,"hash":"63n5x8GTiWPuxiZzm9TM","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/lodash/internal/createForOwn.js":{"index":83,"hash":"KJqijjvJO7d1nU17Sz3c","parents":["node_modules/lodash/object/forOwn.js"]},"node_modules/lodash/internal/baseFilter.js":{"index":63,"hash":"yyvQag4hw8sItBFf3/9T","parents":["node_modules/lodash/collection/filter.js"]},"node_modules/lodash/collection/filter.js":{"index":49,"hash":"XtU5zjCqSDlYcwOLUC13","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/lodash/internal/createAssigner.js":{"index":79,"hash":"X8R81jvRCofY1BnG+A/L","parents":["node_modules/lodash/object/assign.js"]},"node_modules/lodash/internal/isIterateeCall.js":{"index":93,"hash":"dXMnNRevAizOBisKCEes","parents":["node_modules/lodash/internal/createAssigner.js","node_modules/lodash/collection/some.js"]},"node_modules/lodash/internal/baseProperty.js":{"index":73,"hash":"Yuk2tpof21q0Xl2sQg89","parents":["node_modules/lodash/utility/property.js","node_modules/lodash/internal/getLength.js"]},"node_modules/lodash/internal/baseSlice.js":{"index":75,"hash":"OLgw9XVic1W0AKjehzHB","parents":["node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/array/last.js":{"index":47,"hash":"3oXXa2idWbKySVLcq3os","parents":["node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/internal/createBaseEach.js":{"index":80,"hash":"+5X3Ztm78NNPr9vQZ7fB","parents":["node_modules/lodash/internal/baseEach.js"]},"node_modules/lodash/internal/toObject.js":{"index":99,"hash":"8f3eulB97DddBRdcU+7v","parents":["node_modules/lodash/internal/createBaseEach.js","node_modules/lodash/internal/isKey.js","node_modules/lodash/internal/baseIsMatch.js","node_modules/lodash/internal/baseGet.js","node_modules/lodash/internal/createBaseFor.js","node_modules/lodash/object/pairs.js","node_modules/lodash/internal/baseMatches.js","node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/internal/getLength.js":{"index":88,"hash":"UiZ6F0+nXZ0fiKckTqnM","parents":["node_modules/lodash/internal/createBaseEach.js","node_modules/lodash/internal/isArrayLike.js"]},"node_modules/lodash/collection/forEach.js":{"index":50,"hash":"0Lo1RNt18PMo/HAKbHEu","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/engine.io-parser/lib/keys.js":{"index":36,"hash":"oFyKNTA0twlyQVhVzp9n","parents":["node_modules/engine.io-parser/lib/browser.js"]},"node_modules/utf8/utf8.js":{"index":130,"hash":"Mqm8G2xyYXmBOFrE+/6A","parents":["node_modules/engine.io-parser/lib/browser.js"]},"node_modules/arraybuffer.slice/index.js":{"index":12,"hash":"RSb5Zx9CgX3adjzbvf/k","parents":["node_modules/engine.io-parser/lib/browser.js"]},"node_modules/after/index.js":{"index":11,"hash":"NzPfXWECmM8rW/6fdkcj","parents":["node_modules/engine.io-parser/lib/browser.js"]},"node_modules/blob/index.js":{"index":15,"hash":"q7L6uHK9eN9yEvDVNxJw","parents":["node_modules/engine.io-parser/lib/browser.js"]},"node_modules/base64-arraybuffer/lib/base64-arraybuffer.js":{"index":14,"hash":"dW6cnktjBIyZ6bv9vRp2","parents":["node_modules/engine.io-parser/lib/browser.js"]},"node_modules/parsejson/index.js":{"index":116,"hash":"3RLuznQNKZiQ/toCXNir","parents":["node_modules/engine.io-client/lib/socket.js"]},"node_modules/parseqs/index.js":{"index":117,"hash":"FI4tRELwI5Itz+ckwR+m","parents":["node_modules/engine.io-client/lib/transports/websocket.js","node_modules/engine.io-client/lib/transports/polling.js","node_modules/engine.io-client/lib/socket.js"]},"node_modules/lodash/internal/isKey.js":{"index":94,"hash":"lDpw5crcRmTRExTLVTKc","parents":["node_modules/lodash/utility/property.js","node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/internal/basePropertyDeep.js":{"index":74,"hash":"mqX1OyYdndJ183lyl/sn","parents":["node_modules/lodash/utility/property.js"]},"node_modules/lodash/internal/baseGet.js":{"index":66,"hash":"H9EiMd3ullQpRkvooLgz","parents":["node_modules/lodash/internal/basePropertyDeep.js","node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/internal/toPath.js":{"index":100,"hash":"faVQvsb+LSLI4uaMgtrQ","parents":["node_modules/lodash/internal/basePropertyDeep.js","node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/utility/property.js":{"index":114,"hash":"7IoOI/uGZCxbcY23uQDK","parents":["node_modules/lodash/internal/baseCallback.js"]},"node_modules/lodash/internal/baseIsMatch.js":{"index":69,"hash":"EpuJzlg204aR35T4QKcS","parents":["node_modules/lodash/internal/baseMatches.js"]},"node_modules/lodash/internal/baseIsEqual.js":{"index":67,"hash":"dBgoFXnhj9KH6oX3dQwa","parents":["node_modules/lodash/internal/baseIsMatch.js","node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/internal/isStrictComparable.js":{"index":97,"hash":"ofNP4/nFrz5Rkb3kGOhn","parents":["node_modules/lodash/internal/getMatchData.js","node_modules/lodash/internal/baseMatchesProperty.js"]},"node_modules/lodash/internal/baseToString.js":{"index":77,"hash":"ABFQFf14pRECi3sw8oKV","parents":["node_modules/lodash/internal/toPath.js"]},"node_modules/lodash/internal/createBaseFor.js":{"index":81,"hash":"9RWlFaBOuelvwgkhYgPG","parents":["node_modules/lodash/internal/baseFor.js"]},"node_modules/lodash/internal/baseFor.js":{"index":64,"hash":"NGxcZ0n01+w2G1PzyBlY","parents":["node_modules/lodash/internal/baseForOwn.js"]},"node_modules/lodash/object/forOwn.js":{"index":108,"hash":"LZ77PzuJW/wlgVPdvlGc","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/engine.io-parser/node_modules/has-binary/index.js":{"index":37,"hash":"ZLLgu+QfLGB5FJs6P2Ow","parents":["node_modules/engine.io-parser/lib/browser.js"]},"node_modules/engine.io-parser/lib/browser.js":{"index":35,"hash":"6A2jdV+cDrzwkG+1P9xX","parents":["node_modules/engine.io-client/lib/transport.js","node_modules/engine.io-client/lib/transports/websocket.js","node_modules/engine.io-client/lib/transports/polling.js","node_modules/engine.io-client/lib/socket.js","node_modules/engine.io-client/lib/index.js"]},"node_modules/engine.io-client/lib/transport.js":{"index":28,"hash":"qAS1jC8gVTG4yb/AanoB","parents":["node_modules/engine.io-client/lib/transports/websocket.js","node_modules/engine.io-client/lib/transports/polling.js","node_modules/engine.io-client/lib/socket.js"]},"node_modules/browser-resolve/empty.js":{"index":16,"hash":"47DEQpj8HBSa+/TImW+5","parents":["node_modules/engine.io-client/lib/transports/websocket.js"]},"node_modules/lodash/lang/isArguments.js":{"index":101,"hash":"xQ4mqbsKQMCmtsPbfQc6","parents":["node_modules/lodash/object/keysIn.js","node_modules/lodash/internal/shimKeys.js"]},"node_modules/lodash/object/keysIn.js":{"index":110,"hash":"8POZiGR1fRHso579G46Z","parents":["node_modules/lodash/internal/shimKeys.js"]},"node_modules/lodash/internal/shimKeys.js":{"index":98,"hash":"oO4aKopmxRfPxyKgRX9F","parents":["node_modules/lodash/object/keys.js"]},"node_modules/lodash/internal/getNative.js":{"index":90,"hash":"7GRZ7115BSuoc/1bdaBK","parents":["node_modules/lodash/object/keys.js","node_modules/lodash/lang/isArray.js"]},"node_modules/lodash/internal/assignWith.js":{"index":58,"hash":"aKBKyfIKqZsNOHAbJTAI","parents":["node_modules/lodash/object/assign.js"]},"node_modules/lodash/object/assign.js":{"index":107,"hash":"9WOhJBREl8AO9Hs6Cr+Q","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/lodash/lang/isFunction.js":{"index":103,"hash":"xkfzrZNZPGGOIf0kE8Y9","parents":["node_modules/lodash/lang/isNative.js"]},"node_modules/lodash/lang/isNative.js":{"index":104,"hash":"2rstaALy1DW0JSDdijps","parents":["node_modules/lodash/internal/getNative.js"]},"node_modules/lodash/object/pairs.js":{"index":112,"hash":"x6Ilwx8encvg/BW5API2","parents":["node_modules/lodash/internal/getMatchData.js"]},"node_modules/lodash/internal/getMatchData.js":{"index":89,"hash":"n0PHWhNs6YZ+DzgYMHPx","parents":["node_modules/lodash/internal/baseMatches.js"]},"node_modules/lodash/internal/baseMatches.js":{"index":71,"hash":"Cwj5GSiQv9/E8nSFBoX2","parents":["node_modules/lodash/internal/baseCallback.js"]},"node_modules/lodash/internal/equalByTag.js":{"index":86,"hash":"+y++gesJpPvyM+2E8aNB","parents":["node_modules/lodash/internal/baseIsEqualDeep.js"]},"node_modules/has-cors/index.js":{"index":39,"hash":"HwTb4UF/S089ZYA8hrRl","parents":["node_modules/engine.io-client/lib/xmlhttprequest.js"]},"node_modules/engine.io-client/lib/xmlhttprequest.js":{"index":34,"hash":"us0FsN5s7hiT3hqVV5lx","parents":["node_modules/engine.io-client/lib/transports/polling.js","node_modules/engine.io-client/lib/transports/polling-xhr.js","node_modules/engine.io-client/lib/transports/index.js"]},"node_modules/yeast/index.js":{"index":131,"hash":"ZM3+5w4l/D2f6x7svySF","parents":["node_modules/engine.io-client/lib/transports/websocket.js","node_modules/engine.io-client/lib/transports/polling.js"]},"node_modules/component-inherit/index.js":{"index":22,"hash":"T0Fqch4d4akvlr8bh7lc","parents":["node_modules/engine.io-client/lib/transports/websocket.js","node_modules/engine.io-client/lib/transports/polling-jsonp.js","node_modules/engine.io-client/lib/transports/polling.js","node_modules/engine.io-client/lib/transports/polling-xhr.js"]},"node_modules/engine.io-client/lib/transports/websocket.js":{"index":33,"hash":"HfpLTMBIovfNVzW2AUtb","parents":["node_modules/engine.io-client/lib/transports/index.js"]},"node_modules/engine.io-client/lib/transports/polling-jsonp.js":{"index":30,"hash":"Gb1vE1gV8jcH9l3Z6/bT","parents":["node_modules/engine.io-client/lib/transports/index.js"]},"node_modules/engine.io-client/lib/transports/polling.js":{"index":32,"hash":"vdgStJPJzZrXTQesqN8z","parents":["node_modules/engine.io-client/lib/transports/polling-jsonp.js","node_modules/engine.io-client/lib/transports/polling-xhr.js"]},"node_modules/lodash/internal/equalArrays.js":{"index":85,"hash":"OBJL6vuaOotu5flUeCnv","parents":["node_modules/lodash/internal/baseIsEqualDeep.js"]},"node_modules/lodash/internal/equalObjects.js":{"index":87,"hash":"44Iy49kDcaAZsykEdaH3","parents":["node_modules/lodash/internal/baseIsEqualDeep.js"]},"node_modules/lodash/lang/isTypedArray.js":{"index":106,"hash":"aVeZyIFGadrEh7EsaDRu","parents":["node_modules/lodash/internal/baseIsEqualDeep.js"]},"node_modules/lodash/internal/baseIsEqualDeep.js":{"index":68,"hash":"ltZZaMHmzp6d9jBltV3Y","parents":["node_modules/lodash/internal/baseIsEqual.js"]},"node_modules/lodash/internal/baseMatchesProperty.js":{"index":72,"hash":"OudnSoeq2A4ql5lg51kc","parents":["node_modules/lodash/internal/baseCallback.js"]},"node_modules/lodash/collection/some.js":{"index":52,"hash":"9JyJFfdCx56pmR6fwM9q","parents":["node_modules/browserify-hmr/inc/index.js"]},"node_modules/browserify-hmr/inc/index.js":{"index":17,"hash":"zTlNWZ14iIh89mO0UkaY","parents":[]},"node_modules/engine.io-client/lib/transports/polling-xhr.js":{"index":31,"hash":"jZ3ocO8rHG1K39sNZtMM","parents":["node_modules/engine.io-client/lib/transports/index.js"]},"node_modules/engine.io-client/lib/transports/index.js":{"index":29,"hash":"GTfOTTHr8n5FqdkZq1ur","parents":["node_modules/engine.io-client/lib/socket.js"]},"node_modules/engine.io-client/lib/socket.js":{"index":27,"hash":"z0/WXnl8azrUbogzuS5u","parents":["node_modules/engine.io-client/lib/index.js"]},"node_modules/engine.io-client/lib/index.js":{"index":26,"hash":"G6QYuSNu0EcS+G5tR9NE","parents":["node_modules/engine.io-client/index.js"]},"node_modules/engine.io-client/index.js":{"index":25,"hash":"HQau4MkD4lAynB9tt0Wl","parents":["node_modules/socket.io-client/lib/manager.js"]},"node_modules/socket.io-client/lib/manager.js":{"index":120,"hash":"ycazfyz0LQGPtd/P1Ih9","parents":["node_modules/socket.io-client/lib/index.js"]},"node_modules/socket.io-client/lib/index.js":{"index":119,"hash":"6O21Z/SJToLoAyfVkS1+","parents":[]},"javascript/vendor/modernizr.js":{"index":3,"hash":"Tx0iETMUX//lSTv6bA6I","parents":["javascript/index.js"]},"javascript/vendor/overthrow.js":{"index":4,"hash":"o+N3oSpHaq9JunUJ/U9M","parents":["javascript/index.js"]},"node_modules/jquery/dist/jquery.js":{"index":46,"hash":"4/zUCqiq0kqxhZIyp4G0","parents":["javascript/vendor/viewloader.js","javascript/views/layout.js","javascript/views/navigation.js","javascript/views/languageSwitcher.js","javascript/views/iframe.js","javascript/index.js"]},"javascript/vendor/viewloader.js":{"index":6,"hash":"1L36Da4qLYFohWjTn9RD","parents":["javascript/index.js"]},"javascript/views/layout.js":{"index":9,"hash":"+DyrnJeShRAE4b9Kb1w2","parents":["javascript/index.js"]},"javascript/vendor/tendina.js":{"index":5,"hash":"+gb81+dFU6IydcPfh0iZ","parents":["javascript/views/navigation.js"]},"javascript/views/navigation.js":{"index":10,"hash":"azEhJ15rEkRo2wuRxLCJ","parents":["javascript/index.js"]},"javascript/views/languageSwitcher.js":{"index":8,"hash":"+XjZuIOhTBxE2Wvnpxnt","parents":["javascript/index.js"]},"node_modules/iframe-resizer/js/iframeResizer.js":{"index":42,"hash":"79jXeNrkLm/Es8Ep2n4i","parents":["node_modules/iframe-resizer/js/index.js"]},"node_modules/iframe-resizer/js/iframeResizer.contentWindow.js":{"index":41,"hash":"lumOsLB3vik1iZadrM2L","parents":["node_modules/iframe-resizer/js/index.js"]},"node_modules/iframe-resizer/js/index.js":{"index":43,"hash":"NWHEPk9jaQt8jrozvQOZ","parents":["node_modules/iframe-resizer/index.js"]},"node_modules/iframe-resizer/index.js":{"index":40,"hash":"L738Vz7fqApSIFH4ohkB","parents":["javascript/views/iframe.js"]},"javascript/views/iframe.js":{"index":7,"hash":"uJTvomrqQht1nyvnQd2G","parents":["javascript/index.js"]},"javascript/index.js":{"index":2,"hash":"mlBT+nFtJjTlAEqR1Ed/","parents":[]}};
   var originalEntries = ["/Users/fraserxu/src/guide/javascript/index.js"];
   var updateUrl = null;
   var updateMode = "websocket";
@@ -20745,4 +24972,4 @@ module.exports = yeast;
   arguments[3], arguments[4], arguments[5], arguments[6]
 );
 
-},{"./node_modules/browserify-hmr/inc/index.js":9,"./node_modules/socket.io-client/lib/index.js":107,"/Users/fraserxu/src/guide/javascript/index.js":2}]},{},[1]);
+},{"./node_modules/browserify-hmr/inc/index.js":17,"./node_modules/socket.io-client/lib/index.js":119,"/Users/fraserxu/src/guide/javascript/index.js":2}]},{},[1]);

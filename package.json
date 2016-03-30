@@ -21,11 +21,13 @@
   },
   "homepage": "https://github.com/envato/guide#readme",
   "devDependencies": {
-    "browserify": "^13.0.0",
-    "browserify-hmr": "^0.3.1",
-    "watchify": "^3.7.0"
+    "browserify": "13.0.0",
+    "browserify-hmr": "0.3.1",
+    "watchify": "3.7.0"
   },
   "dependencies": {
-    "jquery": "^2.2.2"
+    "iframe-resizer": "3.5.3",
+    "jquery": "2.2.2",
+    "modernizr": "3.3.1"
   }
 }
