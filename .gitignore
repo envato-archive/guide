@@ -22,3 +22,5 @@
 /Gemfile.lock
 /.ruby-version
 /.ruby-gemset
+
+node_modules

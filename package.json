@@ -1,0 +1,31 @@
+{
+  "name": "guide",
+  "version": "1.0.0",
+  "description": "Document your application with a living component library and styleguide.",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify javascript/index.js -o app/assets/javascripts/guide/bundle.js",
+    "watch": "watchify -p browserify-hmr javascript/index.js -o app/assets/javascripts/guide/bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/envato/guide.git"
+  },
+  "keywords": [
+    "guide"
+  ],
+  "author": "Envato",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/envato/guide/issues"
+  },
+  "homepage": "https://github.com/envato/guide#readme",
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "browserify-hmr": "^0.3.1",
+    "watchify": "^3.7.0"
+  },
+  "dependencies": {
+    "jquery": "^2.2.2"
+  }
+}
