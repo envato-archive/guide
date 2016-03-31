@@ -1,0 +1,68 @@
+.t-body
+  +font-smoothing
+  font-family: $helvetica
+  font-size: 16px
+  font-weight: 400
+  line-height: 1.5
+  margin-bottom: 1em
+  padding: 0 // TODO: remove this when global typography styles are removed
+
+  a
+    color: $blue-bright
+    &:hover
+      color: $blue-bright-darker
+
+
+
+  // Size
+  // ------------------------------------------------
+  &.-size-xl
+    font-size: 20px
+
+  &.-size-l
+    font-size: 18px
+
+  // default size (16px)   TODO: rename so `m` is default
+
+  &.-size-m
+    font-size: 14px
+
+  &.-size-s
+    font-size: 12px
+
+
+  // Color
+  // ------------------------------------------------
+  &.-color-dark,
+  & // default
+    color: $e-color-ui--grey-40
+
+  &.-color-mid
+    color: $e-color-ui--grey-60
+
+  &.-color-light
+    color: $e-color-ui--white
+
+  &.-color-inherit
+    color: inherit
+
+  &.-color-danger
+    color: $e-color-ui--danger
+
+  &.-color-success
+    color: $e-color-ui--success
+
+  &.-color-warning
+    color: $e-color-ui--warning
+
+
+  // Style
+  // ------------------------------------------------
+  &.-style-italic
+    font-style: italic
+
+
+  // Weight
+  // ------------------------------------------------
+  &.-weight-bold
+    font-weight: 700

@@ -1,0 +1,36 @@
+// Envato UI Helpers: Margin
+//-------------------------------
+// This helper module creates the margin helper classes by incrementing a sass control directive for loop
+// To see how they work see the styleguide - http://market.styleguide.envato.dev/ui_library/core/helpers#spacing
+
+$spacing-margin-increments: 0, 1, 2, 3, 4
+
+
+@for $i from 1 through length($spacing-margin-increments)
+  $current-spacing: nth($spacing-margin-increments, $i) * $default-spacing
+  $current-increment: $i - 1
+
+  .h-m#{$current-increment}
+    margin: $current-spacing !important
+    
+  .h-mt#{$current-increment}
+    margin-top: $current-spacing !important
+    
+  .h-mr#{$current-increment}
+    margin-right: $current-spacing !important
+    
+  .h-mb#{$current-increment}
+    margin-bottom: $current-spacing !important
+  
+  .h-ml#{$current-increment}
+    margin-left: $current-spacing !important
+    
+  .h-mx#{$current-increment}
+    margin:
+      left: $current-spacing !important
+      right: $current-spacing !important
+      
+  .h-my#{$current-increment}
+    margin:
+      top: $current-spacing !important
+      bottom: $current-spacing !important

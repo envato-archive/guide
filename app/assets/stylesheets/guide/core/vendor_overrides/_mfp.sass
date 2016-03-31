@@ -1,0 +1,57 @@
+//---------------------------------
+// MagnificPopup Vendor Overrides
+//---------------------------------
+.mfp-bg
+  background: $e-color-ui--grey-20
+  opacity: 0.85
+
+.mfp-close
+  width: 40px
+  height: 40px
+  margin-right: 3px
+  color: $e-color-ui--grey-60
+
+  &:hover
+    color: $e-color-ui--grey-47
+
+img.mfp-img
+  max-height: none !important
+
+/* overlay at start */
+.mfp-fade.mfp-bg
+  opacity: 0
+
+  -webkit-transition: all 0.15s ease-out
+  -moz-transition: all 0.15s ease-out
+  transition: all 0.15s ease-out
+
+/* overlay animate in */
+.mfp-fade.mfp-bg.mfp-ready
+  opacity: 0.8
+
+/* overlay animate out */
+.mfp-fade.mfp-bg.mfp-removing
+  opacity: 0
+
+/* content at start */
+.mfp-fade.mfp-wrap .mfp-content
+  opacity: 0
+
+  -webkit-transition: all 0.15s ease-out
+  -moz-transition: all 0.15s ease-out
+  transition: all 0.15s ease-out
+
+.mfp-image-holder .mfp-content
+  max-width: 85%
+
+/* content animate it */
+.mfp-fade.mfp-wrap.mfp-ready .mfp-content
+  opacity: 1
+
+/* content animate out */
+.mfp-fade.mfp-wrap.mfp-removing .mfp-content
+  opacity: 0
+
+/* Don't scroll the arrows when showing images taller than the viewport */
+.mfp-arrow
+  position: fixed

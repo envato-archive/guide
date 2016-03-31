@@ -1,0 +1,221 @@
+// Modals (LEGACY). Use new `e-modal`
+
+$modal-divider-color: $e-color-ui--grey-87
+
+//---------------------------------
+// Base Styles
+//---------------------------------
+.modal
+  +text-size-adjust(none)
+  position: relative
+  background-color: $e-color-ui--white
+  border-radius: 4px
+  padding: 0
+  width: auto
+  max-width: 600px
+  margin: 20px auto
+  overflow: auto
+  border: 1px solid $modal-divider-color
+
+  h2
+    font-size: 24px
+    line-height: 30px
+    font-weight: bold
+    padding: 0 0 spacing(0.5)
+
+  h3
+    font-size: 18px
+    line-height: 22px
+    font-weight: bold
+    padding: 0
+
+  h1, h2, h3, h4, h5
+    color: $e-color-ui--grey-27
+
+
+  //---------------------------------
+  // Widths
+  //---------------------------------
+  &.-width-narrow
+    max-width: 450px
+
+
+  &.-width-wide
+    max-width: 970px
+
+
+//---------------------------------
+// Error
+//---------------------------------
+.modal--error
+  max-width: 350px
+  padding: 50px 20px
+  font-size: 16px
+  text-align: center
+
+
+//---------------------------------
+// Header
+//---------------------------------
+.modal__header
+  display: block
+  padding: 12px spacing(4) 12px spacing(2)
+
+  h5
+    color: $e-color-ui--grey-40
+    padding-bottom: 5px
+    font-size: 13px
+
+  p
+    font-size: 14px
+    line-height: 1.5
+    padding: spacing(0.5) 0 0
+
+    // Remove this when typography stuff is cleaned up
+    &.-no-padding
+      padding: 0
+
+  span
+    font-weight: normal
+
+  h2, h3, h4, h5, p
+    &:last-child
+      margin-bottom: 0
+      padding-bottom: 0
+
+
+//---------------------------------
+// Body
+//---------------------------------
+.modal__body
+  overflow: auto
+  border-top: 1px solid $modal-divider-color
+  padding: spacing(2)
+
+  > p
+    font-size: 14px
+
+  p:first-of-type
+    padding-top: 0
+
+  p:last-of-type
+    padding-bottom: 0
+
+
+  // Padding
+  &.-padding-none
+    padding: 0
+
+  &.-padding-m
+    padding-top: spacing(3)
+    padding-bottom: spacing(3)
+
+
+  // Background
+  &.-background-mid
+    background-color: $e-color-ui--grey-96
+
+
+  // Border
+  &.-border-above
+    border-top: 1px solid $modal-divider-color
+
+  &.-border-below
+    border-bottom: 1px solid $modal-divider-color
+
+
+  // Height
+  &.-height-scroll
+    +scrollbar
+    overflow-y: auto
+    overflow-x: hidden
+    max-height: 250px
+
+    @media screen and ( min-height: 700px )
+      max-height: 400px
+
+
+//---------------------------------
+// Headings
+//---------------------------------
+.modal__heading--highlight
+  h2, h3, h4, h5
+    color: $green-pop
+
+
+//---------------------------------
+// Footnote
+//---------------------------------
+.modal__footnote
+  display: block
+  margin-top: spacing(1)
+  color: $e-color-ui--grey-60
+  font-size: 14px
+  line-height: 1.5
+
+
+.modal__footnote--small
+  @extend .modal__footnote
+  font-size: 13px
+  color: $e-color-ui--grey-73
+
+
+//---------------------------------
+// Footer
+//---------------------------------
+.modal__footer
+  padding: spacing(2)
+  overflow: auto
+  border-top: 1px solid $modal-divider-color
+  font-size: 13px
+  font-weight: normal
+  line-height: 18px
+  color: $e-color-ui--grey-33
+
+  +at-breakpoint($tablet-and-above)
+    text-align: right
+
+  form
+    display: inline-block
+
+  > a,
+  button,
+  input
+    margin: spacing(1.5) 0 0 0
+
+    +at-breakpoint($tablet-and-above)
+      margin: 0 0 0 spacing(1.5)
+
+
+.modal__footer-link
+  line-height: 35px
+  color: $blue-bright
+  text-decoration: none
+  &:hover,
+  &:focus
+    text-decoration: underline
+
+
+.modal__footer-actions--left
+  float: left
+  text-align: left
+  line-height: 35px
+  width: 100%
+
+  +at-breakpoint($tablet-and-above)
+    width: auto
+
+  > a
+    margin: 0 spacing(1.5) 0 0
+
+  i
+    position: relative
+    top: 1px
+    margin-right: 2px
+
+//---------------------------------
+// Helpers
+//---------------------------------
+.modal__visible--phone-only
+  +at-breakpoint($tablet-and-above)
+    display: none

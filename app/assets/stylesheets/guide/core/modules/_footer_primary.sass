@@ -1,0 +1,25 @@
+// NOTE:
+// The footer is styled 'mobile-first' and the desktop styles have been moved into
+// a mixin to allow re-use between the responsive/non-responsive stylesheets.
+
+// Full width wrapper
+.footer-primary
+  background-color: $e-color-ui--grey-20
+  padding-top: 15px
+
+  +at-breakpoint($desktop-and-above)
+    padding-top: 30px
+    padding-bottom: 30px
+
+.footer-primary__group--first
+  +at-breakpoint($desktop-and-above)
+    +span-columns(4,18)
+
+.footer-primary__group--second
+  +at-breakpoint($desktop-and-above)
+    +span-columns(5,18)
+
+.footer-primary__group--third
+  +at-breakpoint($desktop-and-above)
+    +span-columns(9,18)
+    +omega

@@ -1,0 +1,63 @@
+// Globally applicable state styles only!
+// Module-specific states belong with their module as a regular modifier class.
+// e.g .my-module--is-loading
+
+.is-visually-hidden,
+.js .is-visually-hidden--js
+  +visually-hidden
+
+
+// .hidden is for legacy purposes
+.hidden,
+.is-hidden
+  display: none !important
+
+.no-js .is-hidden--no-js
+  display: none !important
+
+.js .is-hidden--js
+  display: none !important
+
+
+// Give an empty element a horizontally centered loading spinner
+.is-loading
+  +loading-background-spinner
+  height: 30px
+
+
+.is-pjax-loading
+  opacity: 0.4
+
+
+// Add an opaque overlay and disable any interaction with element
+%is-disabled
+  position: relative
+  &:before
+    content: ""
+    background-color: $e-color-ui--white
+    opacity: 0.4
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    z-index: 2
+
+.is-disabled-interaction
+  @extend %is-disabled
+  cursor: default
+
+.is-disabled-loading
+  @extend %is-disabled
+  cursor: wait
+
+
+
+// SVG fallback support for greater control
+.no-svg .is-hidden--no-svg,
+.svg .is-hidden--svg
+  display: none
+
+.svg .is-hidden--no-svg,
+.no-svg .is-hidden--svg
+  display: inline

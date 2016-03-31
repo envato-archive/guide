@@ -1,0 +1,104 @@
+// This is the old way to add icons to buttons. Don't use it.
+
+.btn-icon
+  &:after
+    content: ""
+    float: right
+    height: 17px
+    margin: 1px 0 0 15px
+    width: 17px
+
+  &.bookmark:after
+    +sprite-image($sprite-common-button-bookmark)
+    +sprite-position($sprite-common-button-bookmark)
+
+  &.delete:after
+    +sprite-image($sprite-common-button-delete)
+    +sprite-position($sprite-common-button-delete)
+
+  &.download:after
+    +sprite-image($sprite-common-button-download)
+    +sprite-position($sprite-common-button-download)
+
+  &.external:after
+    +sprite-image($sprite-common-button-external)
+    +sprite-position($sprite-common-button-external)
+
+  &.get-hosting:after
+    +sprite-image($sprite-common-button-get-hosting)
+    +sprite-position($sprite-common-button-get-hosting)
+
+  &.grid-view:after
+    +sprite-image($sprite-common-button-grid-view)
+    +sprite-position($sprite-common-button-grid-view)
+
+  &.help:after
+    +sprite-image($sprite-common-button-help)
+    +sprite-position($sprite-common-button-help)
+
+  &.list-view:after
+    +sprite-image($sprite-common-button-list-view)
+    +sprite-position($sprite-common-button-list-view)
+
+  &.live-preview:after
+    +sprite-image($sprite-common-button-live-preview)
+    +sprite-position($sprite-common-button-live-preview)
+
+  &.new-thread:after
+    +sprite-image($sprite-common-button-new-thread)
+    +sprite-position($sprite-common-button-new-thread)
+
+  &.post-reply:after
+    +sprite-image($sprite-common-button-post-reply)
+    +sprite-position($sprite-common-button-post-reply)
+
+  &.process:after
+    +sprite-image($sprite-common-button-process)
+    +sprite-position($sprite-common-button-process)
+
+  &.purchase:after
+    +sprite-image($sprite-common-button-purchase)
+    +sprite-position($sprite-common-button-purchase)
+
+  &.regenerate:after
+    +sprite-image($sprite-common-button-regenerate)
+    +sprite-position($sprite-common-button-regenerate)
+
+  &.save:after
+    +sprite-image($sprite-common-button-save)
+    +sprite-position($sprite-common-button-save)
+
+  &.screenshots:after
+    +sprite-image($sprite-common-button-screenshots)
+    +sprite-position($sprite-common-button-screenshots)
+
+  &.search-text:after
+    +sprite-image($sprite-common-button-search)
+    +sprite-position($sprite-common-button-search)
+
+  &.submit:after
+    +sprite-image($sprite-common-button-submit)
+    +sprite-position($sprite-common-button-submit)
+
+  &.subscribe-mail:after
+    +sprite-image($sprite-common-button-subscribe-mail)
+    +sprite-position($sprite-common-button-subscribe-mail)
+
+  &.subscribe-rss:after
+    +sprite-image($sprite-common-button-subscribe-rss)
+    +sprite-position($sprite-common-button-subscribe-rss)
+
+  &.update:after
+    +sprite-image($sprite-common-button-update)
+    +sprite-position($sprite-common-button-update)
+
+  &.upload:after
+    +sprite-image($sprite-common-button-upload)
+    +sprite-position($sprite-common-button-upload)
+
+  &.video-preview:after
+    +sprite-image($sprite-common-button-video-preview)
+    +sprite-position($sprite-common-button-video-preview)
+
+  &.waiting:after
+    background: image-url('common/small_loader_white.gif') 0 0 no-repeat

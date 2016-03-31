@@ -1,0 +1,76 @@
+// Layout helpers
+// ------------------------------------------------
+$responsive: true !default
+$hub: false !default
+
+
+// Compass cross-browser support configuration
+// http://compass-style.org/reference/compass/support/
+$legacy-support-for-ie6: false
+$legacy-support-for-ie7: false
+$legacy-support-for-ie8: false
+
+
+// Fonts
+// -------------------------
+$helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif
+$code: "Source Code Pro", Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace
+$icon-font: marketplace-glyphs
+$monospace: Consolas, Monaco, "Lucida Console", monospace
+
+// Spacing
+
+$default-spacing: 10px
+
+$spacing-1: $default-spacing
+$spacing-2: 2 * $default-spacing
+$spacing-3: 3 * $default-spacing
+$spacing-4: 4 * $default-spacing
+
+
+// Lists
+// -------------------------
+$sites: (audiojungle, themeforest, videohive, graphicriver, 3docean, codecanyon, photodune)
+$site-colors: (("3docean", $e-color-brand--3docean), ("audiojungle", $e-color-brand--audiojungle), ("codecanyon", $e-color-brand--codecanyon), ("graphicriver", $e-color-brand--graphicriver), ("photodune", $e-color-brand--photodune), ("themeforest", $e-color-brand--themeforest), ("videohive", $e-color-brand--videohive))
+$themed-background-colors: (("3docean", $e-color-brand-background--3docean), ("audiojungle", $e-color-brand-background--audiojungle), ("codecanyon", $e-color-brand-background--codecanyon), ("graphicriver", $e-color-brand-background--graphicriver), ("photodune", $e-color-brand-background--photodune), ("themeforest", $e-color-brand-background--themeforest), ("videohive", $e-color-brand-background--videohive), ("envato", $e-color-brand-background--envato))
+
+// Susy
+// ------------------------
+// Grid settings
+$container-width: 1004px
+@if $responsive
+  $container-style: magic
+@else
+  $container-style: static
+$total-columns: 4
+$column-width: 65px
+$gutter-width: 20px
+$grid-padding: 10px
+
+// Debugging grids
+$show-grid-columns: false !default
+
+// Breakpoints
+$phone-only: 4 568px
+$tablet-and-above: 569px 8 fixed-layout
+$tablet-only: 569px 8 1024px
+$tablet-and-below: 8 1024px
+$desktop-and-above: 1025px 12 fixed-layout
+
+// Where `at-breakpoint` is used with one of the `fixed-layout` breakpoints above,
+// the block will be scoped to a `fixed-layout` class instead of being scoped to
+// media queries.
+//
+// This is a Susy helper for old IE versions (hence the variable names) but we're
+// also using it to get rid of media queries on non-responsive pages.
+//
+// The `fixed-layout` class will be present on <html> on pages without
+// layout_options.responsive = true set in their controller.
+$breakpoint-media-output: $responsive
+$breakpoint-ie-output: not $responsive
+
+
+// Page Off Canvas
+// -------------------------
+$page-off-canvas-width: 260px
+$page-off-canvas-gutter: 20px

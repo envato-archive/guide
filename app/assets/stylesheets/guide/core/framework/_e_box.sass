@@ -1,0 +1,46 @@
+// Envato UI Library: Boxes
+// Modular box containers
+// ------------------------------------------------
+// Please do not make any changes without consulting #mp-frontend
+
+.e-box
+  background-color: $e-color-ui--white
+  border: 1px solid $e-color-ui--box-border
+  color: $e-color-ui--grey-40
+
+  // Color
+  //-------------------------------
+  &.-background-light
+    background: $e-color-ui--grey-96
+
+  &.-background-mid
+    background-color: $e-color-ui--grey-93
+    color: $e-color-ui--grey-27
+
+  &.-background-dark
+    background-color: $e-color-ui--grey-27
+    color: $e-color-ui--white
+    border: none
+
+  // Radius
+  //-------------------------------
+  &.-radius-all,
+  & // Default
+    border-radius: 4px
+
+  &.-radius-top
+    border-radius: 4px 4px 0 0
+
+  &.-radius-bottom
+    border-radius: 0 0 4px 4px
+
+  &.-radius-none
+    border-radius: 0
+
+
+  // Stacked
+  //-------------------------------
+  &.-stacked
+    margin-bottom: -1px
+    position: relative
+    z-index: 1

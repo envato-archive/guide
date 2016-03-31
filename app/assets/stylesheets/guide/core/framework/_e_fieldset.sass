@@ -1,0 +1,155 @@
+// Envato UI Library: Fieldset
+// Nice way to present forms
+// ------------------------------------------------
+// Please do not make any changes without consulting #mp-frontend
+
+.e-fieldset
+  border: $e-color-ui--box-border 1px solid
+  margin-bottom: 30px
+  background-color: $e-color-ui--white
+
+  &.is-disabled
+    opacity: 0.6
+    cursor: not-allowed
+
+  &.-color-dark
+    background-color: $e-color-ui--grey-98
+
+
+  // Border Radius
+  //-------------------------------
+  &.-border-radius-all,
+  &, // Default
+    border-radius: 4px
+
+  &.-border-radius-none
+    border-radius: 0
+
+  &.-border-radius-top
+    border-radius: 4px 4px 0 0
+
+  &.-border-radius-bottom
+    border-radius: 0 0 4px 4px
+
+
+// --------------------------------
+// Header
+// --------------------------------
+.e-fieldset__header
+  display: flex
+  flex-flow: row wrap
+  align-items: baseline
+  margin: 15px
+
+  &.-divider-bottom
+    border-bottom: $e-color-ui--box-border 1px solid
+    padding-bottom: 10px
+    margin-bottom: 15px
+
+
+.e-fieldset__prefix
+  flex: 0 0 40px
+  order: 1
+
+  > span
+    position: relative
+    display: block
+    width: 26px
+    height: 26px
+    line-height: 26px
+    text-align: center
+    border-radius: 15px
+    background-color: $e-color-ui--grey-27
+    font-size: 16px
+    color: $e-color-ui--white
+    top: -1px
+
+
+.e-fieldset__title
+  flex: 2 0 auto
+  order: 2
+  max-width: 100%
+
+
+.e-fieldset__subtitle
+  margin: 5px 0
+
+
+.e-fieldset__action
+  flex: 0 0 auto
+  order: 3
+  text-align: right
+
+
+// --------------------------------
+// Body
+// --------------------------------
+.e-fieldset__body
+  +pie-clearfix
+
+  // Spacing
+  //-------------------------------
+  &.-spacing-s,
+  & // default
+    margin: spacing(1.5)
+
+  &.-spacing-m
+    margin-top: spacing(3)
+    margin-bottom: spacing(3)
+
+  &.-spacing-l
+    margin-top: spacing(5)
+    margin-bottom: spacing(5)
+
+  &.-spacing-none
+    margin: 0
+
+
+  // Borders
+  //-------------------------------
+  &.-divider-top
+    border-top: $e-color-ui--box-border 1px solid
+    padding-top: 15px
+    margin-top: 10px
+
+
+// --------------------------------
+// Footer
+// --------------------------------
+.e-fieldset__footer
+  background-color: $e-color-ui--grey-98
+  border-top: $e-color-ui--grey-88 1px solid
+  padding: spacing(1.5)
+  text-align: right
+
+  +at-breakpoint($tablet-and-above)
+    padding: spacing(2.5) spacing(1.5)
+
+
+// --------------------------------
+// Helpers
+// --------------------------------
+.e-fieldset__divider
+  border: none
+  display: block
+  background-color: $e-color-ui--box-border
+  height: 1px
+  margin-top: spacing(2)
+  margin-bottom: spacing(2)
+
+
+///////////////////////////////
+// No Flexbox Support (<= IE9)
+///////////////////////////////
+.no-flexbox
+  .e-fieldset__header
+    +pie-clearfix
+    display: block
+
+  .e-fieldset__prefix,
+  .e-fieldset__title
+    float: left
+    margin-right: 10px
+
+  .e-fieldset__action
+    float: right

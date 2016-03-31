@@ -1,0 +1,54 @@
+.sg-grid
+  +pie-clearfix
+  margin: 30px 0
+
+
+.sg-grid__item
+  margin-bottom: 20px
+
+  +at-breakpoint($tablet-only)
+    +span-columns(3, 9)
+    &:nth-child(3n)
+      margin-right: 0
+      clear: right
+
+    &:nth-child(3n+1)
+      clear: left
+
+
+
+  +at-breakpoint($desktop-and-above)
+    +span-columns(3, 12)
+    &:nth-child(4n)
+      margin-right: 0
+      clear: right
+
+    &:nth-child(4n+1)
+      clear: left
+
+
+.sg-grid__cell
+  background-color: $e-color-ui--yellow-mid
+  margin-bottom: spacing(1)
+  min-height: 20px
+
+  +at-breakpoint($tablet-only)
+    background-color: $e-color-ui--orange-mid
+
+  +at-breakpoint($desktop-and-above)
+    background-color: $e-color-ui--salmon-mid
+
+
+  $heights-list: 40, 50, 60, 70, 40, 50, 60, 70, 40, 50, 60, 70, 40, 50, 60, 70, 40, 50, 60, 70, 40, 50, 60, 70, 40, 50, 60, 70
+
+  @for $i from 1 through length($heights-list)
+    $height: nth($heights-list, $i)
+    &.-height-#{$i}
+      min-height: #{$height}px
+
+    &:nth-child(#{$i})
+      &:before
+        content: "#{$i}"
+        color: $e-color-ui--white
+        padding: 5px 10px
+        display: block

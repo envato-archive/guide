@@ -1,0 +1,69 @@
+%form-input
+  border: none
+  height: 66px
+  &:focus
+    outline: none
+
+
+.marketplace-search__heading
+  display: inline-block
+  margin-right: 0.5em
+  position: relative
+  top: 2px
+
+  // These are just hardcoded to match the standard h3 styles on the hub
+  // TODO: Refactor once Tom & Jordan's new typography classes are on the hub
+  font-size: 22px
+  margin-bottom: 22px
+
+  &.-theme-dark
+    color: lighten($e-color-brand--themeforest, 80%)
+
+  +at-breakpoint($tablet-and-below)
+    display: none
+
+  +at-breakpoint($desktop-and-above)
+    +span-columns(12)
+
+
+.marketplace-search__custom-select
+  +at-breakpoint($desktop-and-above)
+    float: left
+    margin-left: 15px
+
+.marketplace-search__custom-select__heading
+  @extend .marketplace-search__heading
+
+  +at-breakpoint($tablet-only)
+    display: inline
+
+  +at-breakpoint($desktop-and-above)
+    display: none
+
+
+.marketplace-search__custom-select__select
+  position: relative
+
+  +at-breakpoint($phone-only)
+    width: 100%
+
+  +at-breakpoint($tablet-and-above)
+    display: inline-block
+    width: 314px
+
+
+.marketplace-search__inputs
+  position: relative
+
+  +at-breakpoint($phone-only)
+    +leader(1)
+    +span-columns(4)
+
+  +at-breakpoint($tablet-only)
+    +leader(1)
+    +span-columns(6)
+    +pre(1)
+
+  +at-breakpoint($desktop-and-above)
+    +span-columns(8)
+    +omega

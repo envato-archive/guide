@@ -1,0 +1,38 @@
+.sg-swatch
+  font-family: $font-family-code
+  font-size: 13px
+  text-align: center
+
+
+.sg-swatch__header
+  padding: 20px 10px
+  border-radius: 4px 4px 0 0
+  border: 1px solid $e-color-ui--grey-90
+
+  &.-color-dark
+    color: $e-color-ui--grey-40
+    border: 1px solid $e-color-ui--grey-90
+    border-bottom: 1px solid $e-color-ui--grey-96
+
+  &.-color-light
+    color: $e-color-ui--white
+    border: none
+
+  &.-background-dark
+    background-color: $e-color-ui--grey-40
+
+  &.-size-large
+    +at-breakpoint($tablet-and-below)
+      min-height: 105px
+
+
+.sg-swatch__body
+  background-color: $e-color-ui--grey-96
+  padding: 10px
+  color: $e-color-ui--grey-40
+  border: 1px solid $e-color-ui--grey-90
+  border-top: none
+  border-radius: 0 0 4px 4px
+
+  &.-color-light
+    background-color: $e-color-ui--white

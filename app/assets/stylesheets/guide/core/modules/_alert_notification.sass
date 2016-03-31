@@ -1,0 +1,94 @@
+.alert-notification
+  +text-size-adjust
+  background-color: $yellow-light
+  border-radius: 4px
+  clear: both
+  color: $e-color-ui--grey-27
+  margin: spacing(2) 0
+  padding: spacing(1)
+  font-size: 13px
+
+  > code
+    border: 1px solid $e-color-ui--grey-90
+    background-color: $e-color-ui--grey-96
+    line-height: 20px
+    padding: 4px
+
+  p
+    color: $e-color-ui--grey-27
+    padding-top: 0px
+
+  h5
+    font-size: 15px
+    padding: 0
+
+  ul, ol
+    list-style-position: inside
+    margin: 0 0 0 16px
+    li
+      padding-left: 8px
+      margin-bottom: 2px
+  ul
+    list-style-type: square
+  ol
+    list-style-type: decimal
+  a
+    font-weight: bold
+
+  & > p:last-child
+    margin-bottom: 0
+    padding-bottom: 0
+
+  &:before
+    +glyphs-base
+    float: left
+    margin-right: 10px
+
+
+.alert-notification--success
+  @extend .alert-notification
+  background-color: $green-medium-light
+
+.alert-notification--error
+  @extend .alert-notification
+  background-color: $red-very-light
+
+.alert-notification__stack
+  list-style: none
+  margin: 0 0 spacing(2)
+
+
+
+.alert-notification--no-margin-top
+  margin: 0 0 spacing(2) 0
+
+.alert-notification--no-margin-bottom
+  margin: spacing(2) 0 0 0
+
+.alert-notification--no-margin
+  margin: 0
+
+
+
+.note
+  @extend .alert-notification
+  padding: 20px
+
+.tip
+  @extend .alert-notification
+  padding: 20px
+
+.notice
+  @extend .alert-notification
+  padding: 20px
+
+.error
+  @extend .alert-notification
+  background-color: $red-very-light
+  padding: 20px
+
+.success
+  @extend .alert-notification
+  background-color: $green-medium-light
+  padding: 20px
+

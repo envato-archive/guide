@@ -1,0 +1,77 @@
+$header-categories__height: 48px
+$header-categories__padding: 7px
+$header-categories__item-height: $header-categories__height - (2 * $header-categories__padding)
+$header-categories__item-padding: 10px
+
+.header-categories
+  background-color: $e-color-ui--grey-96
+  border-bottom: 1px solid $e-color-ui--box-border
+  height: $header-categories__height
+
+  a, a:hover
+    line-height: 1.2
+    text-decoration: none
+
+.header-categories__links
+  font-size: 12px
+  float: left
+  list-style: none
+  padding: $header-categories__padding 0 0
+  margin: 0
+
+.header-categories__links-item
+  float: left
+  position: relative
+
+.header-categories__links-separator
+  float: left
+  position: relative
+  border-left: 1px solid $e-color-ui--grey-87
+  margin: 6px 10px 6px 10px
+  min-height: 24px
+
+.header-categories__main-link
+  border-radius: 4px 4px 0 0
+  color: $e-color-ui--grey-40
+  display: block
+  padding: $header-categories__item-padding
+
+  // Safari needs this to stop the string "Source Files" wrapping. "Dource Files" is fine tho. Not kidding.
+  white-space: nowrap
+
+  &:hover, &:focus
+    text-decoration: none
+
+  .touch .header-categories__links-item:hover &
+    background-color: inherit
+    color: $e-color-ui--grey-40
+
+  .touch .header-categories__links-item &.is-open,
+  .header-categories__links-item:hover > &
+    background-color: $e-color-ui--grey-60
+    color: $e-color-ui--white
+
+.header-categories__main-link--empty
+  @extend .header-categories__main-link
+  border-radius: 4px
+  &.header-categories__main-link--new_label
+    padding-bottom: 7px
+
+.header-categories__main-link--new_label
+  padding-top: 8px
+
+.header-categories__links-dropdown
+  display: none
+  left: 0
+  position: absolute
+  top: $header-categories__item-height
+  width: 210px
+
+  &.touch-only-dropdown-is-ready,
+  .header-categories__links-item:hover > &
+    display: block
+
+.header-categories__search
+  float: right
+  padding-top: $header-categories__padding
+  width: 170px

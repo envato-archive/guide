@@ -1,0 +1,15 @@
+@mixin animate($name, $duration: 1s, $timing-function: ease, $iteration-count: 1)
+  -webkit-animation-fill-mode: both
+  animation-fill-mode: both
+
+  -webkit-animation-duration: $duration
+  animation-duration: $duration
+
+  -webkit-animation-timing-function: $timing-function
+  animation-timing-function: $timing-function
+
+  -webkit-animation-iteration-count: $iteration-count
+  animation-iteration-count: $iteration-count
+
+  -webkit-animation-name: $name
+  animation-name: $name

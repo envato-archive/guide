@@ -1,0 +1,186 @@
+$header-logo-account__height: 55px
+$header-logo-account__padding: 15px
+$header-logo-account__item-height: 32px
+$header-logo-account__item-padding: 10px
+$header-logo-account__item-inner-height: $header-logo-account__item-height - (2 * $header-logo-account__item-padding)
+
+.header-logo-account
+  background-color: $e-color-ui--grey-15
+  height: 48px
+  position: relative
+
+.header-logo-account__container
+  position: relative
+
+
+// Logo
+// *******************************************
+.header-logo-account__logo
+  position: absolute
+  height: $header-logo-account__height
+
+  > span
+    display: block
+    position: relative
+    text-indent: -9999px
+    height: 18px
+    width: 152px
+    top: 18px
+
+    .svg &
+      background: image-url("logos/envato_market.svg")
+      background-size: 152px 18px
+
+    .no-svg &
+      +sprite-image($sprite-logos-envato_market_logo)
+      +sprite-position($sprite-logos-envato_market_logo)
+
+
+.header-logo-account__right
+  font-size: 12px
+  line-height: 17px
+  padding-top: $header-logo-account__padding
+  position: absolute
+  right: 0
+
+
+// User nav
+// *******************************************
+.header-logo-account__user-nav
+  float: left
+
+
+.header-logo-account__user-nav-item
+  float: left
+  height: $header-logo-account__item-height
+  position: relative
+
+
+%header-logo-account__user-nav-main-link
+  background-color: $e-color-ui--grey-20
+  display: block
+  height: 32px
+  line-height: 31px
+  padding: 0 15px 0
+  text-decoration: none
+
+  &:hover, &:focus
+    text-decoration: none
+
+  .touch .header-logo-account__user-nav-item:hover &
+    background-color: transparent
+
+  .touch .header-logo-account__user-nav-item &.is-open,
+  .header-logo-account__user-nav-item:hover &
+    background-color: $e-color-ui--black
+
+
+// Alpha link
+.header-logo-account__user-nav-main-link--alpha
+  @extend %header-logo-account__user-nav-main-link
+  border-radius: 4px 0 0 4px
+  color: $e-color-ui--white
+
+
+.header-logo-account__user-nav-main-link--alpha-with-dropdown
+  @extend .header-logo-account__user-nav-main-link--alpha
+
+  .header-logo-account__user-nav-item:hover &
+    border-radius: 4px 0 0
+
+
+.header-logo-account__user-nav
+  .hub-header-dropdown
+    min-width: 125px
+    margin: 0
+
+
+// Shopping Cart link
+.header-logo-account__user-nav-main-link--cart
+  @extend %header-logo-account__user-nav-main-link
+  border-left: 1px solid $e-color-ui--grey-15
+  padding: 0 10px
+  color: $e-color-ui--grey-60
+
+
+// Omega link
+.header-logo-account__user-nav-main-link--omega
+  @extend %header-logo-account__user-nav-main-link
+  border-radius: 0 4px 4px 0
+  border-left: 1px solid $e-color-ui--grey-15
+  color: $e-color-ui--grey-87
+
+
+.header-logo-account__balance
+  margin-left: 5px
+
+
+.header-logo-account__user-nav-dropdown
+  display: none
+  left: 0
+  position: absolute
+  top: $header-logo-account__item-height
+  min-width: 150px
+  width: 100%
+
+  .header-logo-account__user-nav-item:hover > &
+    display: block
+
+  &.touch-only-dropdown-is-ready
+    display: block
+
+
+@if not $hub
+  // Sundry Links
+  // *******************************************
+  .header-logo-account__sundry
+    float: left
+    list-style: none
+    margin: 0 20px 0 0
+
+  .header-logo-account__sundry-item
+    float: left
+    position: relative
+
+  .header-logo-account__sundry-main-link
+    border-radius: 4px 4px 0 0
+    color: $e-color-ui--grey-60
+    display: block
+    padding: 8px 9px
+    text-decoration: none
+
+    &.-rounded-corners
+      border-radius: 4px
+
+    &:hover, &:focus
+      text-decoration: none
+
+    .touch .header-logo-account__sundry-item:hover &
+      background-color: inherit
+      color: $e-color-ui--grey-60
+
+    .touch .header-logo-account__sundry-item &.is-open,
+    .header-logo-account__sundry-item:hover > &
+      background-color: $e-color-ui--black
+      color: $e-color-ui--white
+
+  .header-logo-account__sundry-main-link--brand-color
+    @extend .header-logo-account__sundry-main-link
+    color: $e-color-brand--envato
+    opacity: 0.7
+
+    .touch .header-logo-account__sundry-item &.is-open,
+    .header-logo-account__sundry-item:hover > &
+      color: $e-color-brand--envato
+      opacity: 1
+
+  .header-logo-account__sundry-dropdown
+    display: none
+    left: 0
+    position: absolute
+    top: $header-logo-account__item-height
+    width: 210px
+
+    &.touch-only-dropdown-is-ready,
+    .header-logo-account__sundry-item:hover > &
+      display: block

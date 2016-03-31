@@ -1,0 +1,41 @@
+.footer-subscribe
+  padding-right: spacing(1.5)
+
+// `input` is needed to override the harsh form reset/defaults
+input[type=text].footer-subscribe__input
+  display: block
+  width: 100%
+  height: auto
+  background-color: $e-color-ui--grey-15
+  border: none
+  border-radius: 0
+  margin-bottom: 15px
+  padding: 10px 15px
+  color: $e-color-ui--grey-50
+  font-size: 14px
+  line-height: 16px
+  outline: none
+
+  +input-placeholder
+    color: $e-color-ui--grey-50
+
+  &:focus
+    +input-placeholder
+      color: transparent
+
+  +at-breakpoint($desktop-and-above)
+    width: 100%
+    background-color: $e-color-ui--grey-15
+    border-radius: 4px
+    margin-bottom: 8px
+    color: $e-color-hex--7e7e7e
+    line-height: 1\9  // Dirty IE9 hack to stop tailing letters being cut off
+
+
+input[type=text].footer-subscribe__input--short
+  @extend .footer-subscribe__input
+
+  +at-breakpoint($desktop-and-above)
+    display: inline-block
+    width: 90px
+    margin-right: 5px

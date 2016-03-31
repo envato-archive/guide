@@ -1,0 +1,69 @@
+$shadow-color: rgba(0,0,0,0.3)
+
+.flyout
+  cursor: pointer
+
+.flyout__body
+  +visually-hidden
+  +font-smoothing
+  color: $e-color-ui--grey-40
+  background: $e-color-ui--white
+  box-shadow: 0 0 3px 0 $shadow-color
+  padding: 7px 10px
+  z-index: 2
+  border-radius: 4px
+
+  .ie9 &
+    box-shadow: 0 0 6px 0 $shadow-color // renders differently
+
+  .touch &
+    padding: 10px
+
+  &.-padding-side-removed
+    padding:
+      left: 0
+      right: 0
+
+  &[data-show="true"]
+    width: auto
+    height: auto
+    clip: auto
+    margin: auto
+    opacity: 1
+    overflow: visible
+    margin-top: spacing(4)
+    animation-name: fade-in-down
+    animation-duration: 0.2s
+
+    +at-breakpoint($desktop-and-above)
+      animation-name: fade-in-down-desktop
+
+    +at-breakpoint($phone-only)
+      max-width: 94%
+      width: 94%
+      left: 10px !important // without important JS needs to know about media queries
+
+
+.flyout__triangle
+  position: absolute
+  top: 2px
+  left: 45px // Possibly add this as dynamic through JS at a later date.
+
+
+  &::after
+    content: ""
+    position: absolute
+    width: 0
+    height: 0
+    box-sizing: border-box
+    border: 10px solid black
+    border-color: transparent transparent $e-color-ui--white $e-color-ui--white
+    transform-origin: 0 0
+    transform: rotate(135deg)
+    box-shadow: -3px 3px 3px -3px $shadow-color
+
+
+
+.flyout__link
+  padding: 10px 0 7px
+  text-align: center

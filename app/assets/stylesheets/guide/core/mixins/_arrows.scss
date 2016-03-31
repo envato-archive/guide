@@ -1,0 +1,40 @@
+// CSS arrows! via http://css-tricks.com/snippets/css/css-triangle/
+// CSS triangle generator: http://apps.eky.hk/css-triangle-generator/
+// If you're adding arrows to :before and :after pseudo elements,
+// make sure to include 'content:""' so the arrow is rendered properly
+
+@mixin arrow-up ($size: 10px, $color: $e-color-ui--grey-27) {
+  border-left: $size solid transparent;
+  border-right: $size solid transparent;
+  border-bottom: $size solid $color;
+  border-top: none;
+  height: 0;
+  width: 0;
+}
+
+@mixin arrow-down ($size: 10px, $color: $e-color-ui--grey-27) {
+  border-left: $size solid transparent;
+  border-right: $size solid transparent;
+  border-top: $size solid $color;
+  border-bottom: none;
+  height: 0;
+  width: 0;
+}
+
+@mixin arrow-left ($size: 10px, $color: $e-color-ui--grey-27) {
+  border-left: none;
+  border-right: $size solid $color;
+  border-top: $size solid transparent;
+  border-bottom: $size solid transparent;
+  height: 0;
+  width: 0;
+}
+
+@mixin arrow-right ($size: 10px, $color: $e-color-ui--grey-27) {
+  border-right: none;
+  border-left: $size solid $color;
+  border-top: $size solid transparent;
+  border-bottom: $size solid transparent;
+  height: 0;
+  width: 0;
+}

@@ -1,0 +1,151 @@
+// Envato UI Library: Text Labels
+// ------------------------------------------------
+// Please do not make any changes without consulting #mp-frontend
+
+.e-text-label
+  +font-smoothing
+  display: inline-block
+  text-align: center
+  text-decoration: none
+
+  &:hover, &:active, &:focus
+    text-decoration: none
+
+
+  // Size
+  //-------------------------------
+  &.-size-m,
+  & // Default
+    padding: 7px 10px
+    border-radius: 5px
+    font-size: 12px
+    line-height: 12px
+
+  &.-size-s
+    padding: 4px 4px 3px
+    border-radius: 3px
+    font-size: 9px
+    font-weight: bold
+    text-transform: uppercase
+
+
+  // Color
+  // ------------------------------
+  &.-color-grey,
+  & // Default
+    background-color: $e-color-ui--grey-60
+    color: $e-color-ui--white
+
+  &.-color-grey-light
+    background-color: $e-color-ui--grey-87
+    color: $e-color-ui--grey-33
+
+  &.-color-grey-medium
+    background-color: $e-color-ui--grey-40
+
+  &.-color-grey-dark
+    background-color: $e-color-ui--grey-15
+
+  &.-color-blue
+    background-color: $blue-bright
+
+  &.-color-green
+    background-color: $e-color-brand--envato
+
+  &.-color-green-bright
+    background-color: $green-bright
+
+  &.-color-green-dark
+    background-color: $green-dark
+
+  &.-color-orange
+    background-color: $bright-orange
+
+  &.-color-red
+    background-color: $red-slightly-dark
+
+  &.-color-salmon
+    background-color: $salmon
+
+
+  // Width
+  //-------------------------------
+  &.-width-medium
+    min-width: 70px
+
+  &.-width-full
+    +box-sizing(border-box)
+    width: 100%
+
+
+  // Position
+  //-------------------------------
+  &.-position-top
+    vertical-align: top
+
+
+  // Margin
+  //-------------------------------
+  &.-margin-right
+    margin-right: 5px
+
+  &.-margin-left
+    margin-left: 5px
+
+
+  // Fade
+  //-------------------------------
+  // TODO: MOVE TO HELPERS?
+  &.-fade-in-out
+    +animate(fade-in-out, 3s)
+
+    .no-cssanimations &
+      display: none
+
+  // Legacy (from status indicator)
+  //-------------------------------
+  &.is-muted
+    +opacity(0.5)
+
+
+// Reversed
+// ------------------------------------------------
+.e-text-label--reversed
+  @extend .e-text-label
+
+  &.-color-grey,
+  & // Default
+    background-color: $e-color-ui--white !important
+    color: $e-color-ui--grey-60
+    border: currentColor 1px solid
+
+  &.-color-grey-light
+    border-color: $e-color-ui--grey-87
+    color: $e-color-ui--grey-33
+
+  &.-color-grey-medium
+    color: $e-color-ui--grey-40
+
+  &.-color-grey-dark
+    color: $e-color-ui--grey-15
+
+  &.-color-blue
+    color: $blue-bright
+
+  &.-color-green
+    color: $e-color-brand--envato
+
+  &.-color-green-bright
+    color: $green-bright
+
+  &.-color-green-dark
+    color: $green-dark
+
+  &.-color-orange
+    color: $bright-orange
+
+  &.-color-red
+    color: $red-slightly-dark
+
+  &.-color-salmon
+    color: $salmon

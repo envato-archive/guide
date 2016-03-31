@@ -1,0 +1,107 @@
+=box-radius-top()
+  border-radius: 4px 4px 0 0
+
+=box-radius-bottom()
+  border-radius: 0 0 4px 4px
+
+.box
+  background-color: $e-color-ui--grey-98
+  border: 1px solid $e-color-ui--box-border
+  padding: 15px
+  margin-bottom: 20px
+
+  // Color
+  //-------------------------------
+  &.-color-light
+    background: $e-color-ui--grey-96
+    color: $e-color-ui--grey-40
+
+  &.-color-mid
+    background-color: $e-color-ui--grey-93
+    color: $e-color-ui--grey-27
+
+  &.-color-dark
+    background-color: $e-color-ui--grey-27
+    color: $e-color-ui--white
+
+  &.-color-yellow
+    background-color: $yellow-light
+    color: $e-color-ui--grey-27
+
+  &.-color-green
+    background-color: $green-pop
+    color: $e-color-ui--white
+
+
+  // Border
+  //-------------------------------
+  &.-border-gray
+    border: 1px solid $e-color-ui--grey-88
+
+
+  // Radius
+  //-------------------------------
+  &.-radius-all
+    border-radius: 4px
+
+  &.-radius-top
+    //border-radius: 4px 4px 0 0
+    +box-radius-top
+
+  &.-radius-bottom
+    //border-radius: 0 0 4px 4px
+    +box-radius-bottom
+
+  &.-radius-none
+    border-radius: 0
+
+  // Size
+  //-------------------------------
+  &.-size-m
+    padding: 40px
+
+
+  // Helpers
+  //-------------------------------
+  &.-stacked,
+  &.-stacked-radius
+    margin-bottom: -1px
+    position: relative
+    z-index: 1
+
+  &.-stacked-radius
+    &:first-child
+      +box-radius-top
+
+    &:last-child
+      +box-radius-bottom
+
+  &.-spacing-small
+    margin-bottom: 10px
+  &.-drop-shadow
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3)
+
+
+.box__strike
+  margin-top: spacing(2)
+  position: relative
+  text-align: center
+  text-transform: uppercase
+  z-index: 1
+
+  span
+    background: $e-color-ui--grey-98
+    padding: 0 10px
+
+
+  &:before
+    border-top: 1px solid $e-color-ui--box-border
+    content: ""
+    margin: 0 auto
+    position: absolute
+    top: 12px
+    left: 0
+    right: 0
+    bottom: 0
+    width: 95%
+    z-index: -1

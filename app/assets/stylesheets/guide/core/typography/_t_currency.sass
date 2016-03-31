@@ -1,0 +1,20 @@
+.t-currency
+  +font-smoothing
+  display: inline-block
+  font-weight: inherit
+  line-height: 1
+
+  &::first-letter
+    margin-right: 0.05em
+    font-size: 0.7em
+    line-height: 1.25em
+    font-weight: normal
+    vertical-align: top
+
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=385615
+// Firefox has lots of troubles with ::first-letter pseudo class
+@-moz-document url-prefix()
+  .t-currency
+    &::first-letter
+      float: left

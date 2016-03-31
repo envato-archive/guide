@@ -1,0 +1,7 @@
+=button-3d-dropshadow($background: $e-color-ui--grey-73, $size: 2px)
+  box-shadow: 0 $size 0 darken($background, 7%)
+  position: relative
+
+  &:active
+    top: 1px
+    box-shadow: 0 ($size - 1px) 0 darken($background, 7%)

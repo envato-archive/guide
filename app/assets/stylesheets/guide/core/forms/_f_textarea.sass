@@ -1,0 +1,57 @@
+// Textarea - Inputs
+//-------------------------------
+.f-textarea
+  +f-defaults
+  line-height: 1.25
+  border-radius: 4px
+  color: $e-color-ui--grey-50
+  background: $e-color-ui--white
+  border: 1px solid $e-color-ui--grey-73
+  padding: 5px 8px
+  font-size: 14px
+  width: 100%
+  height: 150px
+
+
+  // --------------------------------
+  // Psuedo States
+  // --------------------------------
+  &:focus,
+  &.is-focussed
+    transition: box-shadow 0.30s ease-in-out
+    box-shadow: 0 0 5px $system-blue
+    border-color: $system-blue
+
+
+  // --------------------------------
+  // Validation
+  // --------------------------------
+
+  // Invalid
+  &.is-invalid,
+  &.is-error
+    color: $e-color-ui--danger
+    border: currentColor 1px solid
+
+    &:focus,
+    &.is-focussed
+      box-shadow: 0 0 5px currentColor
+
+
+  //-------------------------------
+  // Type
+  //-------------------------------
+  &.-type-autosize
+    // A textarea that looks like a full-width text input.
+    // Use with $.fn.autosize and it will expand vertically as you type.
+    display: block
+    height: 30px
+    max-height: 150px
+    max-width: 100%
+    -webkit-appearance: none
+
+    +at-breakpoint($desktop-and-above)
+      max-height: none
+
+    .no-js &
+      height: 150px

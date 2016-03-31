@@ -1,0 +1,95 @@
+// Page
+//--------------------------
+.page
+  @if $responsive
+    height: 100%  // Needed to strech height of canvas
+    position: relative
+
+    +at-breakpoint($desktop-and-above)
+      min-width: $container-width
+  @else
+    min-width: $container-width
+
+
+.page--is-off-canvas
+  +at-breakpoint($tablet-and-below)
+    // Stop body scrolling when Off-Canvas nav is active
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    position: absolute
+    overflow: hidden
+
+// Page Canvas
+//--------------------------
+
+// Note: left/right is used for positioning `.page__canvas` whilst we aren't animating the off-canvas nav. This prevents a bunch of backface flickering issues. This can be swapped for 'transform+translate' if we ever go down the animated sliding off-canvas navs.
+
+.page__canvas
+  +box-shadow(0 0 15px -1px hsla(0, 0%, 0%, 0.40))
+  position: relative
+  z-index: 2
+  min-height: 100%
+
+  +at-breakpoint($desktop-and-above)
+    +box-shadow(none)
+
+  %page__canvas--is-off-canvas
+    +at-breakpoint($desktop-and-above)
+      left: 0
+      right: 0
+
+.page__canvas--is-off-canvas-right
+  @extend %page__canvas--is-off-canvas
+  +at-breakpoint($tablet-and-below)
+    right: $page-off-canvas-width
+
+.page__canvas--is-off-canvas-left
+  @extend %page__canvas--is-off-canvas
+  +at-breakpoint($tablet-and-below)
+    left: $page-off-canvas-width
+
+// Page Off Canvas
+//--------------------------
+%page__off-canvas
+  +scrollbar
+  display: none // Hide when not being used. This solves a lot of iOS performance bugs and also swaps the target/focus to the canvas after nav is shut (iOS - iPhone)
+  width: $page-off-canvas-width
+  z-index: 3
+
+  +at-breakpoint($tablet-and-below) // Only style off-canvas nav when it is needed
+    min-height: 100%
+    overflow-x: hidden
+    overflow-y: auto
+    position: fixed
+    top: 0
+    bottom: 0
+    background-color: $e-color-ui--grey-15
+
+.page__off-canvas--left
+  @extend %page__off-canvas
+  left: 0
+
+.page__off-canvas--right
+  @extend %page__off-canvas
+  right: 0
+
+.page__off-canvas--is-active
+  display: block
+  +at-breakpoint($desktop-and-above)
+    display: none  // Auto collapse off-canvas nav if user resizes screen
+
+
+// Page Overlay
+//----------------------------
+.page__overlay--is-active
+  position: absolute
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  z-index: 2
+  cursor: pointer
+  +at-breakpoint($desktop-and-above)
+    display: none // Disable page overlay nav close button if user resizes screen

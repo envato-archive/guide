@@ -1,0 +1,73 @@
+$totalLogoWidth: $sprite-logos-logo_3d-width + $sprite-logos-logo_aj-width + $sprite-logos-logo_cc-width + $sprite-logos-logo_gr-width + $sprite-logos-logo_pd-width + $sprite-logos-logo_tf-width + $sprite-logos-logo_vh-width
+$remainingWidth: 984 - $totalLogoWidth
+$logoMargin: $remainingWidth / 6
+
+.header-sites
+  background-color: $e-color-ui--grey-15
+
+  a
+    +sprite-2x-image($sprite-logos-logo_3d, $sprite-logos_2x-logo_3d)
+    +sprite-height($sprite-logos-logo_3d)
+    float: left
+    opacity: 0.4
+    position: relative
+    text-indent: -9999px
+
+    &:hover,
+    &:focus
+      opacity: 1
+
+    &.is-active
+      opacity: 1
+
+      &:after
+        +arrow-up(6px, $e-color-ui--grey-96)
+        bottom: 0
+        content: ""
+        left: 50%
+        margin-left: -5px
+        position: absolute
+
+
+.header-sites__container
+  overflow: auto
+
+.header-sites__site--3docean
+  +sprite-position($sprite-logos-logo_3d)
+  +sprite-width($sprite-logos-logo_3d)
+  margin:
+    left: $logoMargin
+
+.header-sites__site--audiojungle
+  +sprite-position($sprite-logos-logo_aj)
+  +sprite-width($sprite-logos-logo_aj)
+  margin:
+    left: $logoMargin
+
+.header-sites__site--codecanyon
+  +sprite-position($sprite-logos-logo_cc)
+  +sprite-width($sprite-logos-logo_cc)
+  margin:
+    left: $logoMargin
+
+.header-sites__site--graphicriver
+  +sprite-position($sprite-logos-logo_gr)
+  +sprite-width($sprite-logos-logo_gr)
+  margin:
+    left: $logoMargin
+
+.header-sites__site--photodune
+  +sprite-position($sprite-logos-logo_pd)
+  +sprite-width($sprite-logos-logo_pd)
+  margin:
+    left: $logoMargin
+
+.header-sites__site--themeforest
+  +sprite-position($sprite-logos-logo_tf)
+  +sprite-width($sprite-logos-logo_tf)
+
+.header-sites__site--videohive
+  +sprite-position($sprite-logos-logo_vh)
+  +sprite-width($sprite-logos-logo_vh)
+  margin:
+    left: $logoMargin

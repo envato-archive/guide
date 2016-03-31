@@ -1,0 +1,181 @@
+// Centered container & wrapper
+//----------------------------------
+
+.banner__background
+  background: $pale-yellow
+
+.banner__contents
+  +flexbox
+  +flex-flow(row nowrap)
+  +align-items(center)
+  padding: 10px 0
+
+
+// Banner link (for promo banners)
+//----------------------------------
+
+.banner__link
+  +flex(1 auto)
+  text-decoration: none
+
+  &:hover
+    text-decoration: none
+
+
+// Close button
+//----------------------------------
+
+.banner__dismiss
+  +flex(0 0 25px)
+  +font-smoothing
+  text-align: center
+
+  color: $e-color-ui--grey-27
+  font-size: 15px
+  text-decoration: none
+  transition: all 0.1s $transition-easeInQuad
+  transition-property: color, transform
+
+  &:hover
+    color: $e-color-ui--black
+    transform: scale(1.25)
+    text-decoration: none
+
+
+// Banner text
+//----------------------------------
+
+.banner__text
+  +flex(1 auto)
+  +font-smoothing
+
+  a
+    font-weight: 500
+
+
+///////////////////////////////
+// No Flexbox Support (≤IE9)
+///////////////////////////////
+
+.no-flexbox
+  .banner
+    +pie-clearfix
+
+  .banner__contents
+    display: block
+
+  .banner__link
+    float: left
+    width: 97%
+
+  .banner__text
+    float: left
+    padding-top: 5px
+    max-width: 65%
+
+    +at-breakpoint-if-responsive($desktop-and-above)
+      display: inline-block
+      height: 35px
+      width: 65%
+      padding-top: 15px
+
+  .banner__dismiss
+    float: right
+    margin-top: 15px
+    width: 3%
+
+// Default promo banner
+.banner__background
+  &.-promo
+    background: $blue-deep-sky
+    text-align: center
+
+    .banner__text
+      color: $e-color-ui--white
+      display: block
+      font-weight: 400
+      margin: 0 auto
+      padding: 5px 0
+      text-shadow: 1px 1px 1px darken($blue-deep-sky, 7%)
+
+    .banner__dismiss
+      background: transparent
+      color: rgba($e-color-ui--white, 0.8)
+      text-shadow: none
+
+      &:hover
+        color: $e-color-ui--white
+
+/////////////////////////////////////////////
+// Custom Banners
+/////////////////////////////////////////////
+
+// Envato Studio Audio category launch
+// Date: 2016/03/24 13:00
+
+// Custom font for this banner
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:600&text=NEW%20Professional%20Audio%20Editing%20%26%20Sound%20Creation%20from%20%2440%20on%20Envato%20Studio%20Browse%20Audio%20Freelancers')
+
+$e-color-banner--blue-mudkip: rgb(60, 151, 191)
+$e-color-banner--blue-squirtle: rgb(119, 182, 210)
+
+.banner__background
+  // Add custom styles here
+  &.-studio-audio-launch
+    background: $e-color-banner--blue-mudkip
+
+    .banner__text
+      color: $e-color-ui--white
+      font:
+        family: 'Open Sans', $helvetica
+        size: 17px
+        weight: 600
+
+      +at-breakpoint($phone-only)
+        font-size: 15px
+
+    .grid-container
+      +at-breakpoint($tablet-and-above)
+        background: image-url('header-footer/header--studio-audio-launch-bg.png') right center / 50% no-repeat
+
+    .banner__dismiss
+      color: $e-color-ui--white
+      font-size: 11px
+
+    .banner__btn
+      box-sizing: border-box
+      display: inline-block
+      margin: 0 10px 0 0
+      border: none
+      border-radius: 2px
+      float: right
+      text-align: center
+      background-color: $e-color-banner--blue-squirtle
+      color: $e-color-ui--white
+      font:
+        family: 'Open Sans', $helvetica
+        size: 12px
+        weight: 600
+      padding: 8px 15px
+      line-height: 1
+      +at-breakpoint($tablet-and-below)
+        display: none
+
+.no-flexbox
+  .banner__background
+    // Add custom flexbox fixes here
+    &.-studio-audio-launch
+      .grid-container
+        position: relative
+
+      .banner__text
+        padding: 0
+        height: 34px
+        font-size: 15px
+
+      .banner__dismiss
+        margin-top: 5px
+
+      .banner__btn
+        position: absolute
+        right: 40px

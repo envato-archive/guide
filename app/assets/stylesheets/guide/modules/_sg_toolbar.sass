@@ -1,0 +1,47 @@
+.sg-toolbar
+  +flexbox
+  +align-items(baseline)
+  +font-smoothing
+  width: 100%
+  margin-bottom: 20px
+  padding: 10px 15px
+  border-radius: 4px
+  text-align: left
+
+
+  // --------------------------------
+  // Visbility Status
+  // -------------------------------
+  &,
+  &.-status-public
+    background-color: $e-color-ui--grey-96
+    border: 1px solid $e-color-ui--box-border
+    color: $e-color-ui--grey-40
+
+  &.-status-unpublished
+    background-color: $sg-orange
+    border: none
+    color: $e-color-ui--white
+
+    .sg-toolbar__action-icon
+      color: $e-color-ui--white
+
+  &.-status-financial
+    background-color: $sg-red
+    border: none
+    color: $e-color-ui--white
+
+    .sg-toolbar__action-icon
+      color: $e-color-ui--white
+
+
+.sg-toolbar__visibility
+  padding-right: 10px
+
+.sg-toolbar__title
+  +flex(1 0)
+
+
+.sg-toolbar__controls
+  +flex(0 0 auto)
+  text-align: right

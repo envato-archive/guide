@@ -1,0 +1,25 @@
+=license-bubble
+  +font-smoothing
+  background-color: $e-color-ui--grey-96
+  border: 1px solid $e-color-ui--grey-96
+  color: $e-color-ui--grey-47
+  font-size: 14px
+  border-radius: 5px
+  padding: 10px 20px
+  margin: 10px 0
+
+=license-bubble--below
+  +license-bubble
+  display: block
+  position: relative
+  margin-bottom: 15px
+
+  &:before
+    @include arrow-up(7px, $e-color-ui--grey-96)
+    content: ''
+    left: 20px
+    position: absolute
+    top: -8px
+
+  br
+    margin-bottom: 10px

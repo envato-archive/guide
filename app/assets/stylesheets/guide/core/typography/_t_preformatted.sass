@@ -1,0 +1,75 @@
+// Vartiables have been taken from existing user-html. Perhaps we should use existing variables
+$preformatted-grey: $e-color-hex--909090
+$blockquote-color: $e-color-hex--777
+
+.t-preformatted
+  +font-smoothing
+
+  p
+    color: $e-color-ui--grey-40
+    font-family: $helvetica
+    font-size: 14px
+    font-weight: 400
+    line-height: 1.5
+    margin-bottom: 1em
+    padding: 0 // TODO: remove this when global typography styles are removed
+
+    a
+      +typography-link
+
+  // Old rule that we need to keep.
+  h1
+    display: none
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6
+    font-family: $helvetica
+    font-weight: 700
+    line-height: 1.2
+    color: $e-color-ui--grey-27
+    margin-bottom: 0.5em
+    padding: 0 // TODO: remove this when global typography styles are removed
+
+    a
+      +typography-link
+
+  small
+    color: $preformatted-grey
+    font-size: 12px
+
+  ol, ul
+    font-size: 14px
+    margin-bottom: 20px
+    padding-left: 25px
+
+    &:last-child
+      margin-bottom: 0
+
+  ol
+    list-style-type: decimal
+
+  ul
+    list-style: disc
+
+  table
+    margin-bottom: 20px
+    max-width: 100%
+    overflow: auto
+
+  img
+    max-width: 100%
+
+  blockquote
+    border-left: 1px solid $e-color-ui--grey-27
+    color: $blockquote-color
+    font-size: 14px
+    font-style: italic
+    margin-bottom: 20px
+    padding-left: 20px
+
+  pre
+    font-size: 14px
+    margin-bottom: 20px

@@ -1,0 +1,36 @@
+.slt-custom
+  position: relative
+  border: 1px solid $e-color-ui--grey-83
+  border-radius: 4px
+  background: $e-color-ui--grey-96
+  &:after,
+  &:before
+    content: ''
+    pointer-events: none
+    position: absolute
+    right: 10px
+  &:after
+    +arrow-down(5px, $e-color-ui--grey-40)
+    top: 47%
+  > select
+    box-sizing: border-box
+    width: 100%
+    padding: 0 25px 0 10px
+    background: none
+    border: 0
+    font-size: 14px
+    font-family: $helvetica
+    height: 38px
+    line-height: 38px
+    color: $e-color-ui--grey-40
+    -moz-appearance: none
+    -webkit-appearance: none
+    &::-ms-expand
+      display: none
+
+  &.-arrows-double
+    &:before
+      +arrow-up(5px, $e-color-ui--grey-40)
+      top: 33%
+    &:after
+      top: 53%

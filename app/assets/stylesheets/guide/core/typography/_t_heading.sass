@@ -1,0 +1,71 @@
+.t-heading
+  +font-smoothing
+  font-family: $helvetica
+  font-weight: 700
+  line-height: 1.2
+  margin-bottom: 0.5em
+  padding: 0 // TODO: remove this when global typography styles are removed
+
+  a
+    +typography-link
+
+
+  // Size
+  // ------------------------------------------------
+  &.-size-xxl
+    font-size: 36px
+
+  &.-size-xl
+    font-size: 32px
+
+  &.-size-l
+    font-size: 28px
+
+  &.-size-m
+    font-size: 24px
+
+  &.-size-s
+    font-size: 20px
+
+  &.-size-xs
+    font-size: 18px
+
+  &.-size-xxs
+    font-size: 14px
+
+  &.-size-inherit
+    font-size: inherit
+
+
+  // Color
+  // ------------------------------------------------
+  &.-color-dark,
+  & // default
+    color: $e-color-ui--grey-27
+
+  &.-color-mid
+    color: $e-color-ui--grey-33
+
+  &.-color-light
+    color: $e-color-ui--white
+
+  &.-color-inherit
+    color: inherit
+
+  &.-color-highlight
+    color: $green-pop
+
+
+  // Weight
+  // ------------------------------------------------
+  &.-weight-normal
+    font-weight: 400
+
+  &.-weight-light
+    font-weight: 300
+
+
+  // Spacing
+  // ------------------------------------------------
+  &.-margin-none
+    margin: 0

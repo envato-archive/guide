@@ -1,0 +1,104 @@
+.sg-navigation
+  +font-smoothing
+  +scrollbar
+  position: absolute
+  overflow: auto
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+
+  ul
+    list-style: none
+    display: none
+    .no-js &
+      display: block
+
+    ul
+      padding: 20px 0 0 10px
+
+
+  // Regular Nodes
+  li
+    padding-bottom: 15px
+    display: block
+    line-height: 1.2
+    color: $e-color-ui--grey-67
+    font-size: 14px
+
+  a
+    display: block
+    text-decoration: none
+    color: currentColor
+
+    &.is-active,
+    &:hover
+      color: $e-color-ui--white
+
+  h5
+    font-size: 15px
+    font-weight: 500
+    color: $e-color-ui--white
+    position: relative
+
+    &:after
+      +glyphs-base
+      content: $icon-arrow-fill-right
+      position: absolute
+      top: 5px
+      right: 0
+      font-size: 0.5em
+      color: $e-color-ui--grey-67
+
+
+  // Top level nodes
+  > li
+    border-bottom: 1px solid $e-color-ui--grey-27
+    padding-bottom: 0
+    > a
+      height: 60px
+      padding: 20px
+    > ul
+      background-color: $e-color-ui--grey-27
+      padding: 20px
+      margin: 0
+
+
+  // Active nodes
+  .selected
+    > a
+      h5
+        &:after
+          content: $icon-arrow-fill-down
+
+.sg-navigation__section
+  position: relative
+
+.sg-navigation__section-title
+  width: 100%
+  display: block
+  padding: 20px
+  margin: 0
+
+  h4
+    font-size: 16px
+    color: $e-color-ui--white
+
+
+.sg-navigation__section-expander
+  position: absolute
+  top: 0
+  right: 0
+  border-left: 1px solid $e-color-ui--grey-27
+
+  &:after
+    +glyphs-base
+    content: $icon-arrow-fill-right
+    font-size: 0.7em
+    color: $e-color-ui--grey-67
+
+.sg-navigation__section
+  &.selected
+    .sg-navigation__section-expander
+      &:after
+        content: $icon-arrow-fill-down

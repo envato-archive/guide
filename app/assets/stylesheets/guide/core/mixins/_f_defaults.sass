@@ -1,0 +1,28 @@
+=f-defaults
+  font-size: 13px
+  font-weight: normal
+  outline: 0
+
+
+  // --------------------------------
+  // States
+  // - There is no state for `pending`, `warning` or `valid`
+  // - Class states are applied by validation plugins.
+  // - Data-attributes are prefered when manually udpating validation states
+  // --------------------------------
+  &.is-invalid,
+  &.is-error
+    color: $e-color-ui--danger
+    border: currentColor 1px solid
+
+
+  // Pseudo Classes
+  &[disabled]
+    background: $e-color-ui--grey-93
+    cursor: not-allowed
+
+  &.is-read-only
+    // Do not apply styles to `:read-only` psuedo-class
+    // Many inputs + elements are `read-only` even if the psuedo-class is not added
+    cursor: text
+    border-style: dashed

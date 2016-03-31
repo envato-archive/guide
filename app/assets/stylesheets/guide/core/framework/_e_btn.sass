@@ -1,0 +1,145 @@
+// Envato UI Library: Buttons
+// ------------------------------------------------
+// Please do not make any changes without consulting #mp-frontend
+
+.e-btn
+  +font-smoothing
+  box-sizing: border-box
+  display: inline-block
+  margin: 0
+  border: none
+  border-radius: 4px
+  font-family: $helvetica
+  text-align: center
+  text-decoration: none
+  cursor: pointer
+
+  &:hover,
+  &:focus
+    text-decoration: none
+    outline: none
+
+  &[disabled]
+  &[data-state=disabled],
+  &.is-disabled
+    background-color: $e-color-ui--grey-73 !important
+    box-shadow: none !important
+    color: $e-color-ui--grey-87 !important
+    cursor: not-allowed !important
+
+
+  // Colors
+  // ------------------------------------------------
+
+  &.-color-default
+  & // Default
+    background-color: $e-color-ui--grey-50
+    color: $e-color-ui--white
+    &:hover, &:focus, &:active
+      background-color: $e-color-ui--grey-47
+
+  &.-color-primary
+    background-color: $green-pop
+    &:hover, &:focus, &:active
+      background-color: $green-pop-dark
+
+  &.-color-secondary
+    background-color: $blue-bright
+    &:hover, &:focus, &:active
+      background-color: $blue-bright-darker
+
+  &.-color-warning
+    background-color: $orange
+    &:hover, &:focus, &:active
+      background-color: $orange-slightly-dark
+
+  &.-color-destructive
+    background-color: $red
+    &:hover, &:focus, &:active
+      background-color: $red-slightly-dark
+
+  &.-color-light
+    background-color: $e-color-ui--grey-90
+    border: 1px solid $e-color-ui--grey-87
+    color: $e-color-ui--grey-40
+    &:hover, &:focus, &:active
+      background-color: $e-color-ui--grey-88
+
+  &.-color-dark
+    background-color: $e-color-ui--grey-20
+    &:hover, &:focus, &:active
+      background-color: $e-color-ui--grey-15
+
+  &.-color-muted
+    background-color: $e-color-ui--grey-67
+
+  // TODO: See if can be deprecated
+  &.-color-transparent
+    background-color: transparent
+    color: $e-color-ui--grey-27
+    &:hover, &:focus, &:active,
+    &.is-active
+      background-color: transparent
+      color: $blue-bright
+
+
+  // Width
+  // ------------------------------------------------
+  &.-width-full
+    +box-sizing(border-box)
+    width: 100%
+
+
+  // Sizes
+  // ------------------------------------------------
+  &.-size-xs
+    font-size: 12px
+    padding: 7px 10px
+    line-height: 1
+
+  &.-size-s,
+  & // Default
+    font-size: 14px
+    padding: 5px 20px
+    line-height: 1.5
+
+  &.-size-m
+    font-size: 16px
+    padding: 10px 20px
+
+  &.-size-l
+    font-size: 18px
+    padding: 14px 20px
+
+  &.-size-xl
+    font-size: 24px
+    padding: 24px 36px
+
+
+  // Border
+  // ------------------------------------------------
+  &.-border-none
+    border: none
+
+
+// 3D
+// ------------------------------------------------
+.e-btn--3d
+  @extend .e-btn
+  +button-3d-dropshadow($e-color-ui--grey-40)
+
+  &.-color-primary
+    +button-3d-dropshadow($green-pop)
+
+  &.-color-warning
+    +button-3d-dropshadow($orange-dark)
+
+  &.-color-destructive
+    +button-3d-dropshadow($red-dark)
+
+  &.-color-secondary
+    +button-3d-dropshadow($blue-bright)
+
+  &.-color-light
+    +button-3d-dropshadow($e-color-ui--grey-73)
+    border: none

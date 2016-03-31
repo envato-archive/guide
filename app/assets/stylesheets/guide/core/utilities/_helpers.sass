@@ -1,0 +1,290 @@
+// Globally applicable helper styles only!
+// These helpers are to reduce repetitive css throughout our modules when they are not always needed
+// Helpers can break the MP law of chaining non-related classes.
+// e.g `.box.h-clearfix`
+
+.h-clearfix
+  +pie-clearfix
+
+.h-clear
+  clear: both
+
+.h-clickable
+  cursor: pointer
+
+.h-no-bullet
+  list-style: none
+
+.h-hr
+  border: none
+  display: block
+  background-color: $e-color-ui--grey-87
+  height: 1px
+  margin-top: spacing(2)
+  margin-bottom: spacing(2)
+
+
+//-------------------------------
+// Flow
+//-------------------------------
+.h-pull-right
+  float: right
+
+.h-pull-left
+  float: left
+
+.h-pull-none
+  float: none !important
+
+.h-display-inlineblock
+  display: inline-block !important
+
+//-------------------------------
+// Positioning
+//-------------------------------
+
+.h-position-absolute
+  position: absolute
+
+.h-position-relative
+  position: relative
+
+.h-position-fixed
+  position: fixed
+
+//-------------------------------
+// Spacing - Margins
+//-------------------------------
+// New spacing classes
+
+
+.h-ml-auto
+  margin-left: auto !important
+
+.h-mr-auto
+  margin-right: auto !important
+
+.h-mx-auto
+  margin-left: auto !important
+  margin-right: auto !important
+
+//-------------------------------
+// Spacing - Paddings
+//-------------------------------
+
+.h-p0
+  padding: 0 !important
+
+.h-pt0
+  padding-top: 0 !important
+
+.h-pr0
+  padding-right: 0 !important
+
+.h-pb0
+  padding-bottom: 0 !important
+
+.h-pl0
+  padding-left: 0 !important
+
+.h-px0
+  padding-left: 0 !important
+  padding-right: 0 !important
+
+.h-py0
+  padding-top: 0 !important
+  padding-bottom: 0 !important
+
+.h-p1
+  padding: $spacing-1 !important
+
+.h-pt1
+  padding-top: $spacing-1 !important
+
+.h-pr1
+  margin-right: $spacing-1 !important
+
+.h-pb1
+  padding-bottom: $spacing-1 !important
+
+.h-pl1
+  padding-left: $spacing-1 !important
+
+.h-px1
+  padding-left: $spacing-1 !important
+  padding-right: $spacing-1 !important
+
+.h-py1
+  padding-top: $spacing-1 !important
+  padding-bottom: $spacing-1 !important
+
+.h-p2
+  padding: $spacing-2 !important
+
+.h-pt2
+  padding-top: $spacing-2 !important
+
+.h-pr2
+  padding-right: $spacing-2 !important
+
+.h-pb2
+  padding-bottom: $spacing-2 !important
+
+.h-pl2
+  padding-left: $spacing-2 !important
+
+.h-px2
+  padding-left: $spacing-2 !important
+  padding-right: $spacing-2 !important
+
+.h-py2
+  padding-top: $spacing-2 !important
+  padding-bottom: $spacing-2 !important
+
+.h-p3
+  padding: $spacing-3 !important
+
+  +at-breakpoint($tablet-and-below)
+    padding: $spacing-3 * 0.5 !important
+
+.h-pt3
+  padding-top: $spacing-3 !important
+
+  +at-breakpoint($tablet-and-below)
+    padding-top: $spacing-3 * 0.5 !important
+
+.h-pr3
+  padding-right: $spacing-3 !important
+
+  +at-breakpoint($tablet-and-below)
+    padding-right: $spacing-3 * 0.5 !important
+
+.h-pb3
+  padding-bottom: $spacing-3 !important
+
+  +at-breakpoint($tablet-and-below)
+    padding-bottom: $spacing-3 * 0.5 !important
+
+.h-pl3
+  padding-left: $spacing-3 !important
+
+  +at-breakpoint($tablet-and-below)
+    padding-left: $spacing-3 * 0.5 !important
+
+.h-px3
+  padding-left: $spacing-3 !important
+  padding-right: $spacing-3 !important
+
+  +at-breakpoint($tablet-and-below)
+    padding-left: $spacing-3 * 0.5 !important
+    padding-right: $spacing-3 * 0.5 !important
+
+.h-py3
+  padding-top: $spacing-3 !important
+  padding-bottom: $spacing-3 !important
+
+  +at-breakpoint($tablet-and-below)
+    padding-top: $spacing-3 * 0.5 !important
+    padding-bottom: $spacing-3 * 0.5 !important
+
+.h-p4
+  padding: $spacing-4 !important
+
+  +at-breakpoint($tablet-and-below)
+    padding: $spacing-2 !important
+
+.h-pt4
+  padding-top: $spacing-4 !important
+
+  +at-breakpoint($tablet-and-below)
+    padding-top: $spacing-2 !important
+
+.h-pr4
+  padding-right: $spacing-4 !important
+
+  +at-breakpoint($tablet-and-below)
+    padding-right: $spacing-2 !important
+
+.h-pb4
+  padding-bottom: $spacing-4 !important
+
+  +at-breakpoint($tablet-and-below)
+    padding-bottom: $spacing-2 !important
+
+.h-pl4
+  padding-left: $spacing-4 !important
+
+  +at-breakpoint($tablet-and-below)
+    padding-left: $spacing-2 !important
+
+.h-px4
+  padding-left: $spacing-4 !important
+  padding-right: $spacing-4 !important
+
+  +at-breakpoint($tablet-and-below)
+    padding-left: $spacing-2 !important
+    padding-right: $spacing-2 !important
+
+.h-py4
+  padding-top: $spacing-4 !important
+  padding-bottom: $spacing-4 !important
+
+  +at-breakpoint($tablet-and-below)
+    padding-top: $spacing-2 !important
+    padding-bottom: $spacing-2 !important
+
+//-------------------------------
+// Text
+//-------------------------------
+
+.h-text-align-center
+  text-align: center
+
+.h-text-align-left
+  text-align: left
+
+.h-text-align-right
+  text-align: right
+
+.h-word-wrap
+  word-wrap: break-word
+
+.h-strikethrough
+  text-decoration: line-through
+
+
+//-------------------------------
+// Width
+//-------------------------------
+
+.h-full-width
+  width: 100%
+
+.h-flexible
+  max-width: 100%
+
+//-------------------------------
+// Images
+//-------------------------------
+
+.h-image-svg
+  line-height: 0
+  display: block
+
+
+//-------------------------------
+// Responsive iFrame / Video
+//-------------------------------
+
+.h-flex-video
+  height: 0
+  overflow: hidden
+  padding-bottom: 56.2%
+  position: relative
+
+  iframe,
+  video
+    height: 100%
+    position: absolute
+    top: 0
+    width: 100%

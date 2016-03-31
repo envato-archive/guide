@@ -1,0 +1,85 @@
+// http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/
+// & http://wfendler.com/blog/perfecting-the-media-object
+
+
+// The module positions the thumbnail on the left of the description and makes the row fluid
+// No styles, just layout positioning
+// 'List' layout by default, can be extended to handle 'grid'
+
+// This is taken from item-result and still needs finishing.
+
+
+///////////////////////////
+// List view
+///////////////////////////
+
+.media
+  +flexbox
+  +flex-flow(row wrap)
+
+  +at-breakpoint($tablet-and-above)
+    +flex-flow(nowrap)
+
+  > div:first-child
+    margin-right: 1em
+
+  &.-wrap-none
+    +flex-flow(row nowrap)
+
+
+.media__item
+  +flex(0 auto)
+
+  > a
+    display: block
+    line-height: 0
+
+  img
+    display: block
+
+
+.media__body
+  flex: 1 0
+  // Here be dragons: Adding flexbasis breaks desktop Safari, but fixes mobile Safari :( Still need a better solution
+  align-self: flex-start
+
+  // Alignment
+  // -----------------------------------------------
+  &.-align-center
+    +align-self(center)
+
+  &.-align-bottom
+    +align-self(flex-end)
+
+  // Width
+  // -----------------------------------------------
+  &.-basis-40
+    flex-basis: 40%
+
+  &.-basis-30
+    flex-basis: 30%
+
+
+///////////////////////////////
+// No Flexbox Support (<= IE9)
+///////////////////////////////
+.no-flexbox
+  .media
+    display: table
+    width: 100%
+
+
+  .media__item
+    +table-cell-fill-smallest-width
+    display: table-cell
+    padding-right: 1em
+
+  .media__body
+    display: table-cell
+    vertical-align: top
+
+    &.-align-center
+      vertical-align: middle
+
+    &.-align-bottom
+      vertical-align: bottom

@@ -1,0 +1,97 @@
+// Custom button presets for specific use cases.
+//
+// These should be used with .btn alone, not with other modifier classes, eg
+// Good: <a class="btn btn--primary">
+// Bad:  <a class="btn btn--size-l btn--primary">
+//
+// If you need to customise a button, chain modifier classes in HTML instead of using these presets.
+//
+// Check the styleguide for usage examples.
+
+%btn--square-base
+  font-size: 14px
+  line-height: 1
+  padding: 6px
+
+.btn--square
+  @extend %btn--square-base
+  background-color: $e-color-ui--grey-20
+
+.btn--square-default
+  @extend %btn--square-base
+  background-color: $e-color-ui--grey-50
+
+.btn--square-muted
+  @extend %btn--square-base
+  @extend .btn--color-muted
+
+.btn--primary
+  @extend .btn--color-green-3d
+
+.btn--primary-full
+  @extend .btn--color-green-3d
+  @extend .btn--dimensions-full-width
+  font-weight: bold
+
+.btn--primary-large-full
+  @extend .btn--size-l-slim
+  @extend .btn--color-green-3d
+  @extend .btn--dimensions-full-width
+  font-weight: bold
+
+.btn--secondary
+  @extend .btn--color-base-3d
+
+.btn--tertiary
+  @extend .btn--color-light-3d
+
+.btn--destructive
+  @extend .btn--color-red-3d
+
+.btn--purchase
+  @extend .btn--size-l
+  @extend .btn--color-green-3d
+  @extend .btn--dimensions-full-width
+  margin-bottom: 4px
+
+.btn--label
+  &:hover
+    background: $e-color-ui--grey-50
+    cursor: default
+
+// One in a horizontal set of buttons.
+// The entire set should be isolated in a parent container so first-child/last-child works
+.btn--set
+  background-color: $e-color-ui--grey-96
+  color: $e-color-ui--grey-60
+  &:hover, &:focus
+    background-color: $e-color-ui--grey-98
+  &:active, &.is-active
+    background-color: $e-color-ui--grey-27
+    color: $e-color-ui--white
+
+  border-radius: 0
+  margin-right: -3px
+  padding: 5px 10px
+
+  &:first-child
+    border-radius: 4px 0 0 4px
+
+  &:last-child
+    border-radius: 0 4px 4px 0
+
+.btn-group
+  display: inline-block
+  font-size: 0
+
+.btn--group-item
+  border-radius: 0
+  padding: 5px 10px
+  margin-right: 1px
+
+  &:first-child
+    border-radius: 4px 0 0 4px
+
+  &:last-child
+    border-radius: 0 4px 4px 0
+    margin-right: 0

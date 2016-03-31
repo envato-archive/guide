@@ -1,0 +1,143 @@
+// Envato UI Library: Modals
+// Includes no inner content styling
+// ------------------------------------------------
+// Please do not make any changes without consulting #mp-frontend
+
+.e-modal
+  position: relative
+  margin: 20px auto
+
+  // Width
+  //-------------------------------
+  &.-width-xs
+    max-width: 360px
+
+  &.-width-s
+    max-width: 490px
+
+  &.-width-m,
+  & // default
+    max-width: 600px
+
+  &.-width-l
+    max-width: 970px
+
+
+// --------------------------------
+// Section
+// --------------------------------
+.e-modal__section
+  overflow: auto
+  margin-top: -1px // Offset double borders
+
+  // Background
+  //-------------------------------
+  &.-background-light,
+  & // default
+    background-color: $e-color-ui--white
+    border: 1px solid $e-color-ui--grey-87
+
+  &.-background-mid
+    background-color: $e-color-ui--grey-96
+    border: 1px solid $e-color-ui--grey-87
+
+  &.-background-dark
+    background-color: $e-color-ui--grey-15
+    border: none
+    color: $e-color-ui--white
+
+
+  // Padding
+  //-------------------------------
+  &.-padding-s,
+  & // default
+    padding: spacing(2)
+
+  &.-padding-m
+    padding-top: spacing(3)
+    padding-bottom: spacing(3)
+
+  &.-padding-l
+    padding-top: spacing(5)
+    padding-bottom: spacing(5)
+
+  &.-padding-none
+    padding: 0
+
+
+  // Border Radius
+  //-------------------------------
+  &.-radius-none
+    border-radius: 0
+
+  &.-radius-all
+    border-radius: 4px
+
+  &.-radius-top
+    border-radius: 4px 4px 0 0
+
+  &.-radius-bottom
+    border-radius: 0 0 4px 4px
+
+
+  // Height
+  //-------------------------------
+  &.-height-scroll
+    +scrollbar
+    overflow-y: auto
+    overflow-x: hidden
+    max-height: 250px
+
+    @media screen and ( min-height: 700px )
+      max-height: 400px
+
+
+// --------------------------------
+// Header
+// --------------------------------
+.e-modal__header
+  @extend .e-modal__section
+  padding-top: 0.8em
+  padding-bottom: 0.8em
+  border-radius: 4px 4px 0 0
+
+
+// --------------------------------
+// Footer
+// --------------------------------
+.e-modal__footer
+  @extend .e-modal__section
+  +flexbox
+  +justify-content(space-between)
+  width: 100%
+  border-radius: 0 0 4px 4px
+
+
+.e-modal__footer-cta
+  +flex(1 100px)
+
+  // Alignment
+  //-------------------------------
+  &.-align-left,
+  & // default
+    text-align: left
+
+  &.-align-right
+    text-align: right
+
+  &.-align-center
+    text-align: center
+
+
+///////////////////////////////
+// No Flexbox Support (<= IE9)
+///////////////////////////////
+.no-flexbox
+  .e-modal__footer
+    display: block
+
+  .e-modal__footer-cta
+    float: left
+
+    &.-align-right
+      float: right

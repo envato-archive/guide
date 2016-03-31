@@ -1,0 +1,69 @@
+// Select - Inputs
+//-------------------------------
+.f-select
+  +f-defaults
+  width: auto
+  height: 30px
+  padding: 5px 8px
+  border-radius: 4px
+  background: $e-color-ui--white
+  color: $e-color-ui--grey-20
+  border: 1px solid $e-color-ui--grey-73
+
+
+  // Pseudo Classes
+  &:focus,
+  &.is-focussed
+    transition: box-shadow 0.30s ease-in-out
+    box-shadow: 0 0 5px $system-blue
+    border-color: $system-blue
+
+
+  // Type
+  &.-type-multi
+    height: 100px
+
+
+  // Size
+  &.-size-l
+    height: 50px
+    font-size: 25px
+
+
+  // Width
+  &.-width-full
+    width: 100%
+
+
+  // --------------------------------
+  // Valid
+  // --------------------------------
+  // No visual difference for 'valid'
+
+
+  // --------------------------------
+  // Invalid
+  // --------------------------------
+  &[data-status="invalid"],
+  &[data-status="error"],
+  &.is-error,
+  &.is-invalid
+    color: $e-color-ui--danger
+    border: currentColor 1px solid
+
+    &:focus,
+    &.is-focussed
+      box-shadow: 0 0 5px currentColor
+
+
+  // --------------------------------
+  // Warning
+  // --------------------------------
+  &[data-status="warning"],
+  &.is-warning
+    color: $e-color-ui--warning
+    border: currentColor 1px solid
+
+    &:focus,
+    &.is-focussed
+      box-shadow: 0 0 5px currentColor

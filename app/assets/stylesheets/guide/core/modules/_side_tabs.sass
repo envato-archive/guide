@@ -1,0 +1,48 @@
+.side-tabs
+  border: 1px solid $e-color-ui--box-border
+  border-radius: 4px
+  list-style: none
+  width: 345px
+
+  li:first-child a
+    border-radius: 4px 4px 0 0
+
+  li:last-child a
+    border-bottom: none
+    border-radius: 0 0 4px 4px
+
+  a
+    background: $e-color-ui--grey-98
+    border-bottom: 1px solid $e-color-ui--box-border
+    color: $e-color-ui--grey-40
+    cursor: pointer
+    display: block
+    line-height: 13px
+    padding: 15px 0 16px 15px
+    position: relative
+    transition: all 0.2s
+    text-decoration: none
+    font-size: 15px
+
+    &:before
+      padding-right: 5px
+
+    &:hover,
+    &:focus
+      background: $e-color-ui--white
+      text-decoration: none
+      transition: all 0s
+
+    &.active
+      background: $blue-bright
+      color: $e-color-ui--white
+      transition: all 0.3s
+
+      &:before, i
+        color: $e-color-ui--white
+
+.side-tabs__icon
+  margin-right: 5px
+  position: relative
+  top: 1px
+  color: $e-color-ui--grey-60

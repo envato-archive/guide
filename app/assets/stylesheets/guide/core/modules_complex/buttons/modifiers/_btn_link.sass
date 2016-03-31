@@ -1,0 +1,58 @@
+// Display a button as a text-link
+
+//-------------------------------
+// Base
+//-------------------------------
+.btn-link
+  background-color: transparent
+  padding: 0
+  text-decoration: none
+  line-height: 1.1
+  color: $blue-bright
+  border-radius: 0
+
+  &:hover, &:active, &:focus
+    background-color: transparent
+    text-decoration: underline
+    cursor: pointer
+
+
+  //-------------------------------
+  // Disabled
+  //-------------------------------
+  // Double selector hack to increase specificity so disabled styles always override .modifier:pseudoclass styles
+  &[disabled][disabled],
+    background: none
+    color: $e-color-ui--grey-73
+    &:hover
+      color: $e-color-ui--grey-73
+
+
+  //-------------------------------
+  // Colour presets
+  //-------------------------------
+  &.-color-green
+    color: $green-pop-dark
+    &:hover, &:active, &:focus
+      color: $green-pop-very-dark
+
+  &.-color-red
+    color: $red
+    &:hover, &:active, &:focus
+      color: $red-dark
+
+
+  //-------------------------------
+  // Size presets
+  //-------------------------------
+  &.-size-medium
+    font-size: 1.2em
+
+  &.-pad
+    margin-bottom: 5px
+    padding: 5px
+
+  &.is-active
+    background: $e-color-ui--grey-90
+    border-radius: 4px
+    text-decoration: none

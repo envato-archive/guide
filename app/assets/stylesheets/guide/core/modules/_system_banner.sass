@@ -1,0 +1,12 @@
+// System banners that generally require user confirmation
+
+.system-banner
+  display: none
+  margin-bottom: spacing(2)
+
+  &:first-child
+    display: block
+    margin-top: spacing(2)
+
+  +at-breakpoint($tablet-and-above)
+    display: block

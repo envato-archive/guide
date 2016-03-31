@@ -1,0 +1,52 @@
+[am-Grid]
+  +pie-clearfix
+  float: left
+  width: 100%
+
+
+  +at-breakpoint($phone-only)
+    @for $column-span from 1 through $total-columns
+      [am-Grid-Col~="s:#{$column-span}"]
+        +span-columns($column-span, $total-columns)
+
+      [am-Grid-Col~="s:pre#{$column-span}"]
+        +pre($column-span, $total-columns)
+
+    [am-Grid-Row~="s:end"]
+      margin-right: 0
+      clear: right
+
+    [am-Grid-Row~="s:start"]
+      clear: left
+
+
+  +at-breakpoint($tablet-only)
+    @for $column-span from 1 through $total-columns
+      [am-Grid-Col~="m:#{$column-span}"]
+        +span-columns($column-span, $total-columns)
+
+      [am-Grid-Col~="m:pre#{$column-span}"]
+        +pre($column-span, $total-columns)
+
+    [am-Grid-Row~="m:end"]
+      margin-right: 0
+      clear: right
+
+    [am-Grid-Row~="m:start"]
+      clear: left
+
+
+  +at-breakpoint($desktop-and-above)
+    @for $column-span from 1 through $total-columns
+      [am-Grid-Col~="l:#{$column-span}"]
+        +span-columns($column-span, $total-columns)
+
+      [am-Grid-Col~="l:pre#{$column-span}"]
+        +pre($column-span, $total-columns)
+
+    [am-Grid-Row~="l:end"]
+      margin-right: 0
+      clear: right
+
+    [am-Grid-Row~="l:start"]
+      clear: left

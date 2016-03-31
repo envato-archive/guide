@@ -1,0 +1,10 @@
+// Hardcoded -webkit- rather than using a mixin to avoid Compass outputting non-webkit prefixes 
+// under the webkit keyframes.
+
+@-webkit-keyframes spin
+  to
+    -webkit-transform: rotate(1turn)
+
+@keyframes spin
+  to
+    transform: rotate(1turn)
