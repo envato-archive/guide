@@ -1,4 +1,4 @@
-module Guide::AuthorisationSpecHelper
+module Guide::Authorisation
   RSpec.shared_context "the user is allowed to see the active node" do
     before do
       allow(Guide::AuthorisationSystem).to receive(:new).

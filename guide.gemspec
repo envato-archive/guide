@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["luke@arndt.io", "jordan@lewis.io", "hjx500@gmail.com"]
   s.homepage    = "https://github.com/envato/guide"
   s.summary     = "Living documentation for your Rails application"
-  s.description = "Document your Rails application with a living component library and styleguide"
+  s.description = "Document your Rails application with a living styleguide and component library"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.rdoc"]
