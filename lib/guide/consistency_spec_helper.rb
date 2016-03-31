@@ -1,5 +1,5 @@
-module Guide::Consistency
-  RSpec.shared_examples_for "a styleguide structure and a real view model" do
+module Guide::ConsistencySpecHelper
+  RSpec.shared_examples_for "a guide structure and a real view model" do
     described_class.new.scenarios.first.tap do |id, scenario|
       context "\n\n  for scenario #{scenario.name}\n    " do
         let(:guide_view_model) { scenario.view_model }
