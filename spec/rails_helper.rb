@@ -21,7 +21,9 @@ require 'guide'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-Dir[Rails.root.join('../support/guide/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('../../support/guide/**/*.rb')].each { |f| require f }
+require 'guide/authorisation_spec_helper'
+require 'guide/consistency_spec_helper'
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -51,6 +53,6 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  config.include(Guide::Consistency, :type => :guide)
-  config.include(Guide::Authorisation, :type => :controller)
+  config.include(Guide::ConsistencySpecHelper, :type => :guide)
+  config.include(Guide::AuthorisationSpecHelper, :type => :controller)
 end
