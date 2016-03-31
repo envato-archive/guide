@@ -19,17 +19,16 @@ class Guide::Bouncer
   private
 
   def visibile_to_user?(label, visibility)
-    case visibility
-    when nil
-      true
-    when :unpublished
-      @authorisation_system.allow?(:view_guide_unpublished)
-    when :restricted
-      @authorisation_system.allow?(:view_guide_restricted)
+    return true unless visibility
+    if Guide.configuration.access_level_keys.include?(visibility)
+      @authorisation_system.allow?(:"view_guide_#{visibility}")
     else
-      raise Guide::Errors::InvalidVisibilityLevel.new(
-        "You tried to give :#{label} a visibility of :#{visibility}, but :#{visibility} is not a valid selection. Valid visibility options include: #{valid_visibility_levels.join(", :")}.".gsub(" ,", ' nil,')
-      )
+      raise Guide::Errors::InvalidVisibilityLevel, <<-EOS.gsub(' ,', ' nil,').squish
+        You tried to give :#{label} a visibility of :#{visibility},
+        but :#{visibility} is not a valid selection.
+        Valid visibility options include:
+        #{valid_visibility_levels.join(', :')}.
+      EOS
     end
   end
 
