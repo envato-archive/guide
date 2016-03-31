@@ -1,4 +1,5 @@
 var $ = window.jQuery = require('jquery')
+require('prismjs')
 
 require('./vendor/modernizr')
 require('./vendor/overthrow')
