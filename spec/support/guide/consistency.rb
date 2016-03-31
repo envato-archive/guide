@@ -1,15 +1,15 @@
 module Guide::Consistency
-  RSpec.shared_examples_for "a styleguide component and a real presenter" do
+  RSpec.shared_examples_for "a styleguide structure and a real view model" do
     described_class.new.scenarios.first.tap do |id, scenario|
       context "\n\n  for scenario #{scenario.name}\n    " do
-        let(:styleguide_presenter) { scenario.presenter }
+        let(:guide_view_model) { scenario.view_model }
 
-        it "the Guide::OpenPresenter implements the view model (presenter)'s interface\n" do
-          expect_implemented_interface(styleguide_presenter, real_presenter)
+        it "the Guide::ViewModel implements the real view model's interface\n" do
+          expect_implemented_interface(guide_view_model, real_view_model)
         end
 
-        it "the view model (presenter) implements the Guide::OpenPresenter's interface\n" do
-          expect_implemented_interface(real_presenter, styleguide_presenter)
+        it "the real view model implements the Guide::ViewModel's interface\n" do
+          expect_implemented_interface(real_view_model, guide_view_model)
         end
       end
     end
@@ -24,12 +24,10 @@ module Guide::Consistency
   end
 
   def accessor_methods_defined_on(object)
-    if object.instance_of? OpenStruct
-      fail "[DEPRECATION] using OpenStruct is deprecated. Please use Guide::OpenPresenter instead."
-    elsif object.instance_of?(Guide::OpenPresenter) || object.class < Guide::OpenPresenter
-      methods_defined_on_openstruct(object)
-    elsif object.respond_to?(:attribute_names)
-      methods_defined_on_finerstruct(object)
+    if object.instance_of?(OpenStruct)
+      fail "[DEPRECATION] using OpenStruct is deprecated. Please use Guide::ViewModel instead."
+    elsif object.instance_of?(Guide::ViewModel) || object.class < Guide::ViewModel
+      methods_defined_on_view_model(object)
     else
       methods_defined_on(object)
     end.sort
@@ -39,15 +37,11 @@ module Guide::Consistency
     object.methods - Module.instance_methods
   end
 
-  def methods_defined_on_openstruct(openstruct)
-    methods_defined_on(openstruct)
-    .select  { |method| mutator?(method) } # why do our presenters have mutators??
-    .collect { |method| matching_accessor(method) }
-    .reject  { |method| method == :[] } # ruby 2.x defines a `[]` accessor and mutator method on OpenStruct. Ignore it.
-  end
-
-  def methods_defined_on_finerstruct(finerstruct)
-    finerstruct.attribute_names
+  def methods_defined_on_view_model(view_model)
+    methods_defined_on(view_model).
+      select  { |method| mutator?(method) }.
+      collect { |method| matching_accessor(method) }.
+      reject  { |method| method == :[] }
   end
 
   def mutator?(method)

@@ -1,13 +1,8 @@
 class Guide::NodesController < Guide::BaseController
-  # To be migrated across in a less Envato-Market-Specific form
-  # layout 'guide'
-
   def show
     expose_layout
     expose_navigation
     expose_node
-  rescue Guide::Errors::Base => error
-    raise_error_in_dev_else_404(error)
   end
 
   private
@@ -15,6 +10,7 @@ class Guide::NodesController < Guide::BaseController
   def expose_layout
     @layout_view = Guide::LayoutView.new(
       bouncer: bouncer,
+      diplomat: diplomat,
       content_node: content,
       active_node: active_node,
       active_node_heritage: nobilizer.bestow_heritage(node_path),
@@ -35,6 +31,7 @@ class Guide::NodesController < Guide::BaseController
     @node_view = Guide::NodeView.new(
       node: active_node,
       bouncer: bouncer,
+      diplomat: diplomat,
       node_path: node_path,
     )
   end

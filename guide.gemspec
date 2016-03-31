@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Luke Arndt", "Jordan Lewis", "Jiexin Huang"]
   s.email       = ["luke@arndt.io", "jordan@lewis.io", "hjx500@gmail.com"]
   s.homepage    = "https://github.com/envato/guide"
-  s.summary     = "Living styleguide for your Rails application"
+  s.summary     = "Living documentation for your Rails application"
   s.description = "Document your Rails application with a living styleguide and component library"
   s.license     = "MIT"
 

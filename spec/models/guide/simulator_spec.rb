@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Guide::Simulator do
-  let(:simulator) { described_class.new(component, bouncer) }
+  let(:simulator) { described_class.new(structure, bouncer) }
   let(:bouncer) do
     instance_double(Guide::Bouncer,
                     :user_can_access? => true)
   end
-  let(:component) do
-    instance_double(Guide::Component,
+  let(:structure) do
+    instance_double(Guide::Structure,
                     :scenarios => scenarios)
   end
   let(:scenarios) do
@@ -53,6 +53,5 @@ RSpec.describe Guide::Simulator do
           to raise_error(Guide::Errors::InvalidScenario)
       end
     end
-
   end
 end

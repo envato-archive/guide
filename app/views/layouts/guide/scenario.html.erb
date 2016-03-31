@@ -21,16 +21,16 @@
   </head>
 
   <body class="e-guide">
-    <% if @layout_view.format == 'html' %>
-      <%= render  @layout_view.node_layout_template,
-                  :presenter => @layout_view.node_layout_view_model %>
-    <% else %>
-      <%= render  "#{@layout_view.node_layout_template}.#{@layout_view.format}",
-                  :presenter => @layout_view.node_layout_view_model %>
-    <% end %>
+    <%= render  :template => @layout_view.node_layout_template,
+                :formats => [@layout_view.format],
+                :locals => {
+                  Guide.configuration.local_variable_for_view_model => @layout_view.node_layout_view
+                } %>
 
     <% @layout_view.node_javascripts.each do |javascript|%>
       <%= javascript_include_tag(javascript) %>
     <% end %>
+
+    <script>$(function(){viewloader.execute(Views);});</script>
   </body>
 </html>

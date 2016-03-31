@@ -1,3 +1,3 @@
 class Guide::Content::Structures < Guide::Node
-  contains :purchase_flow
+  contains :friendly
 end

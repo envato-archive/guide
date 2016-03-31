@@ -5,14 +5,14 @@
         <%= cell(view.cell, view.view_model).call %>
       <% else %>
         <% if view.format == 'text' %>
-          <pre><%= render  "#{view.template}.#{view.format}",
-                    :presenter => view.view_model %></pre>
+          <pre><%= render "#{view.template}.#{view.format}",
+                          Guide.configuration.local_variable_for_view_model => view.view_model %></pre>
         <% elsif view.format == 'html' %>
           <%= render  view.template,
-                      :presenter => view.view_model %>
+                      Guide.configuration.local_variable_for_view_model => view.view_model %>
         <% else %>
           <%= render  "#{view.template}.#{view.format}",
-                      :presenter => view.view_model %>
+                      Guide.configuration.local_variable_for_view_model => view.view_model %>
         <% end %>
       <% end %>
     </div>

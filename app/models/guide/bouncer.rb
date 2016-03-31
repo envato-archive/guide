@@ -8,8 +8,8 @@ class Guide::Bouncer
   end
 
   def user_is_staff?
-    @authorisation_system.allow?(:view_styleguide_unpublished) ||
-      @authorisation_system.allow?(:view_styleguide_restricted)
+    @authorisation_system.allow?(:view_guide_unpublished) ||
+      @authorisation_system.allow?(:view_guide_restricted)
   end
 
   def user_signed_in?
@@ -23,9 +23,9 @@ class Guide::Bouncer
     when nil
       true
     when :unpublished
-      @authorisation_system.allow?(:view_styleguide_unpublished)
+      @authorisation_system.allow?(:view_guide_unpublished)
     when :restricted
-      @authorisation_system.allow?(:view_styleguide_restricted)
+      @authorisation_system.allow?(:view_guide_restricted)
     else
       raise Guide::Errors::InvalidVisibilityLevel.new(
         "You tried to give :#{label} a visibility of :#{visibility}, but :#{visibility} is not a valid selection. Valid visibility options include: #{valid_visibility_levels.join(", :")}.".gsub(" ,", ' nil,')

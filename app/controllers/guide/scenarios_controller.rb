@@ -4,8 +4,6 @@ class Guide::ScenariosController < Guide::BaseController
   def show
     expose_layout
     expose_scenario
-  rescue Guide::Errors::Base => error
-    raise_error_in_dev_else_404(error)
   end
 
   private
@@ -28,7 +26,11 @@ class Guide::ScenariosController < Guide::BaseController
   end
 
   def scenario
-    @scenario ||= active_node.scenarios[scenario_id]
+    @scenario ||= simulator.fetch_scenario(scenario_id)
+  end
+
+  def simulator
+    @simulator ||= Guide::Simulator.new(active_node, bouncer)
   end
 
   def scenario_id

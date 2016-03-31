@@ -4,19 +4,19 @@ RSpec.describe Guide::NodesController, :type => :controller do
   routes { Guide::Engine.routes }
 
   describe '#show' do
-    let(:show) { get :show, :node_path => 'structures/purchase_flow/checkout' }
+    let(:show) { get :show, :node_path => node_path }
+    let(:node_path) { 'structures/friendly/example' }
 
     context "given the node_path points to a valid node" do
-      context "given the bouncer says that the user can see this node" do
+      context "the user is allowed to see the active node" do
         include_context description do
           before { show }
 
           it "renders the show template" do
-            expect(response).to render_template(:show)
-          end
-
-          it "returns an ok response status" do
-            expect(response).to have_http_status(:ok)
+            aggregate_failures do
+              expect(response).to have_http_status(:ok)
+              expect(response).to render_template(:show)
+            end
           end
 
           it "exposes a NavigationView to the template as @navigation_view" do
@@ -39,7 +39,7 @@ RSpec.describe Guide::NodesController, :type => :controller do
       context "given the node_path doesn't point to a valid node" do
         let(:show) { get :show, :node_path => 'totally/bogus/node' }
 
-        context "given that we are not in a development environment" do
+        context "we are not in a development environment" do
           include_context description do
             before { show }
 
@@ -53,7 +53,7 @@ RSpec.describe Guide::NodesController, :type => :controller do
           end
         end
 
-        context "given that we are in a development environment" do
+        context "we are in a development environment" do
           include_context description do
             it "raises an InvalidNode error so that we can see what went wrong" do
               expect { show }.
@@ -64,9 +64,9 @@ RSpec.describe Guide::NodesController, :type => :controller do
       end
     end
 
-    context "given the bouncer says that the user cannot see this node" do
+    context "the user is not allowed to see the active node" do
       include_context description do
-        context "given that we are not in a development environment" do
+        context "we are not in a development environment" do
           include_context description do
             before { show }
 
@@ -80,7 +80,7 @@ RSpec.describe Guide::NodesController, :type => :controller do
           end
         end
 
-        context "given that we are in a development environment" do
+        context "we are in a development environment" do
           include_context description do
             it "raises an Guide::PermissionDenied error so that we can see what went wrong" do
               expect { show }.

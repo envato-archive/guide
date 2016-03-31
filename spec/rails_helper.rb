@@ -51,6 +51,6 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  config.include(Guide::Consistency, :type => :styleguide)
+  config.include(Guide::Consistency, :type => :guide)
   config.include(Guide::Authorisation, :type => :controller)
 end

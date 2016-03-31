@@ -6,8 +6,8 @@ RSpec.describe Guide::Scout do
   describe '#visibility_along_path' do
     subject(:visibility_along_path) { scout.visibility_along_path(node_path) }
 
-    context 'given a valid tree of styleguide content' do
-      let(:node_path) { 'structures/checkout/page' }
+    context 'given a valid tree of guide content' do
+      let(:node_path) { 'structures/friendly/example' }
       let(:starting_node) do
         instance_double(Guide::Node,
                         :id => :content,
@@ -16,15 +16,15 @@ RSpec.describe Guide::Scout do
                         },
                         :child_nodes => child_nodes)
       end
-      let(:red_herring) do
+      let(:not_the_node_you_are_looking_for) do
         instance_double(Guide::Node,
                         :options => {},
-                        :id => :red_herring)
+                        :id => :not_the_node_you_are_looking_for)
       end
       let(:child_nodes) do
         {
           :structures => child_node,
-          :ui_library => red_herring,
+          :ui_library => not_the_node_you_are_looking_for,
         }
       end
       let(:child_node) do
@@ -37,14 +37,14 @@ RSpec.describe Guide::Scout do
       end
       let(:grand_child_nodes) do
         {
-          :shopping_cart => red_herring,
-          :checkout => grand_child_node,
-          :search_results => red_herring,
+          :less_friendly => not_the_node_you_are_looking_for,
+          :friendly => grand_child_node,
+          :too_friendly => not_the_node_you_are_looking_for,
         }
       end
       let(:grand_child_node) do
         instance_double(Guide::Node,
-                        :id => :checkout,
+                        :id => :friendly,
                         :options => {
                           :visibility => grand_child_node_visibility,
                         },
@@ -52,9 +52,9 @@ RSpec.describe Guide::Scout do
       end
       let(:leaf_nodes) do
         {
-          :payment_method => red_herring,
-          :order_summary => red_herring,
-          :page => leaf_node,
+          :payment_method => not_the_node_you_are_looking_for,
+          :order_summary => not_the_node_you_are_looking_for,
+          :example => leaf_node,
         }
       end
       let(:leaf_node) do
@@ -62,7 +62,7 @@ RSpec.describe Guide::Scout do
                         :options => {
                           :visibility => leaf_node_visibility,
                         },
-                        :id => :page)
+                        :id => :example)
       end
 
       let(:starting_node_visibility) { nil }
@@ -155,7 +155,7 @@ RSpec.describe Guide::Scout do
       end
     end
 
-    context 'given an invalid tree of styleguide content' do
+    context 'given an invalid tree of guide content' do
       let(:starting_node) do
         instance_double(Guide::Node,
                         :id => :content,
@@ -178,7 +178,7 @@ RSpec.describe Guide::Scout do
       end
 
       context 'because a node along the path does not exist' do
-        let(:node_path) { 'structures/brick/page' }
+        let(:node_path) { 'structures/brick/example' }
 
         it "raises an InvalidNode error and tries to explain what happened" do
           expect { visibility_along_path }.to raise_error(
