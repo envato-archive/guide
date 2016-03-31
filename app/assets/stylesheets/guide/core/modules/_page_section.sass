@@ -1,0 +1,95 @@
+//-------------------------------
+// Page section
+//-------------------------------
+.page-section
+  padding: spacing(3) 0
+
+  +at-breakpoint($tablet-and-above)
+    padding: spacing(4) 0
+
+  //-------------------------------
+  // Colour
+  //-------------------------------
+  &.-color-white
+    background: $e-color-ui--white
+
+  &.-color-grey
+    background: $e-color-ui--grey-96
+
+  &.-color-grey-mid
+    background: $e-color-ui--grey-93
+
+  &.-color-grey-dark
+    background: $e-color-ui--grey-83
+
+  &.-color-grey-very-dark
+    background: $e-color-ui--grey-27
+    color: $e-color-ui--grey-87
+
+  //-------------------------------
+  // Borders
+  //-------------------------------
+  &.-border-top
+    border-top: 1px solid $e-color-ui--box-border
+
+  &.-border-bottom
+    border-bottom: 1px solid $e-color-ui--box-border
+
+  //-------------------------------
+  // Size
+  //-------------------------------
+  &.-size-compact
+    padding: spacing(2) 0
+
+  &.-size-xcompact
+    padding: 0
+
+  //-------------------------------
+  // Custom
+  //-------------------------------
+  &.-custom-research
+    background: $e-color-ui--grey-27 image-url("community-research/bg-community-research.jpg") no-repeat center 100%
+    color: $e-color-ui--white
+    padding-top: 200px
+
+  &.-custom-badges
+    background: $e-color-ui--grey-40 image-url("badges/bg-badges.jpg") no-repeat center 100%
+    padding-bottom: 80px
+
+  //-------------------------------
+  // Themes
+  //-------------------------------
+  &[class*='-theme-']
+    color: $e-color-ui--white
+    overflow: hidden
+    position: relative
+
+.page-section__background
+  background:
+    color: inherit
+    blend-mode: overlay
+    image: image-url('common/bg-page-section.png')
+    size: 480px
+  height: 200%
+  left: 0
+  position: absolute
+  right: 0
+  top: -100%
+  z-index: -10
+
+  @each $site-and-color in $themed-background-colors
+    $site-name: nth($site-and-color, 1)
+    $site-color: nth($site-and-color, 2)
+
+    .-theme-#{$site-name} &
+      background-color: $site-color
+
+  // `multiply` blend mode works better than `overlay` with these colors
+  .-theme-3docean &,
+  .-theme-photodune &
+    background-blend-mode: multiply
+
+  // Fallback for 'browsers' not supporting `background-blend-mode`
+  // http://caniuse.com/#search=background-blend-mode
+  .no-backgroundblendmode &
+    background-image: image-url('common/bg-page-section--light.png')

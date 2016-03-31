@@ -1,0 +1,153 @@
+// This mixin exists to handle the subtle differences between core and admin tables
+// and allow us to style license tables without extending outside of a module.
+
+=table-general
+  clear: both
+  font-size: 12px
+  line-height: 1.4
+  margin: 0 0 20px
+  width: 100%
+
+  /* Head */
+  thead
+    td, th
+      text-align: left
+      background-color: $e-color-ui--grey-27
+      color: $e-color-ui--white
+      padding: 12px 10px
+      vertical-align: bottom
+
+      a
+        color: $e-color-ui--white
+
+      &:first-child
+        border-top-left-radius: 4px
+
+      &:last-child
+        border-top-right-radius: 4px
+
+    th.number
+      text-align: right
+
+    th.sortable
+      cursor: pointer
+
+  /* Footer */
+  tfoot
+    td
+      background: $e-color-ui--grey-50
+      color: $e-color-ui--white
+      font-size: 12px
+      font-weight: bold
+      padding: 12px 10px
+      &:first-child
+        border-radius: 0 0 0 4px
+      &:last-child
+        border-radius: 0 0 4px 0
+
+    td.number
+      text-align: right
+
+  /* Body */
+  tbody
+    tr:last-child
+      td
+        &:first-child
+          border-radius: 0 0 0 4px
+
+        &:last-child
+          border-radius: 0 0 4px 0
+
+    td, th
+      padding: 10px
+      background-color: $e-color-ui--grey-96
+      vertical-align: text-top
+
+    td.number
+      text-align: right
+
+  /* Helpers (Needs cleaning up) */
+  td,th
+    &.no-wrap
+      white-space: nowrap
+
+
+  /* Chainable Modifiers */
+  &.-has-footer
+    tbody
+      tr:last-child
+        td
+          &:first-child
+            border-radius: 0px
+          &:last-child
+            border-radius: 0px
+
+
+  &.-striped
+    tbody
+      tr:nth-child(odd)
+        td
+          background-color: $e-color-ui--grey-93
+
+      tr.js-hover
+        td
+          background-color: $e-color-ui--white
+      tr.js-selected
+        td
+          background-color: $green-pastel
+
+
+  &.-highlight-row
+    tbody
+      tr
+        &:hover td
+          background-color: $e-color-ui--white
+
+
+  &.-bordered-h
+    tbody
+      td, th
+        border-bottom: 1px solid $e-color-ui--grey-83
+      > tr:last-child td
+        border-bottom-width: 0
+
+
+  &.-bordered-v
+    td, th
+      border-left: 1px solid $e-color-ui--grey-83
+
+      &:first-child
+        border-left: none
+
+    tbody > tr:last-child td
+      border-bottom-width: 0
+
+
+  &.-comparison-table
+    thead
+      th
+        text-align: center
+    tbody
+      td
+        min-width: 120px
+        text-align: center
+        vertical-align: middle
+
+        &:first-child
+          font-weight: bold
+          min-width: 250px
+          text-align: left
+
+
+  &.-width-three-col-equal
+    td
+      width: 33%
+
+
+  &.-statement-table
+    .statement__marketplace
+      width: 20px
+      padding: 0 10px
+
+    .statement__type
+      padding-left: 5px

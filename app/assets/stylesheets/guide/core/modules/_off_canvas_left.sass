@@ -1,0 +1,105 @@
+.off-canvas-left
+  ul
+    list-style: none
+    margin: 0
+    padding: 0
+
+  a
+    font-size: 13px
+    text-decoration: none
+
+.off-canvas-left__top
+  padding: 15px 0 17px
+
+  > a
+    display: block
+    height: 15px
+    margin: 0 auto
+    text-indent: -9999px
+    width: 177px
+
+    .svg &
+      background: image-url("logos/envato_market.svg")
+      background-size: 177px 15px
+
+    .no-svg &
+      +sprite-image($sprite-logos-envato_market_logo)
+      +sprite-position($sprite-logos-envato_market_logo)
+
+.off-canvas-left__site
+  background-color: $e-color-ui--grey-20
+  overflow: hidden
+  padding-left: 2px
+  display: block
+
+  > i
+    color: $e-color-ui--white
+    float: right
+    font-size: 12px
+    padding-right: 5px
+    padding-top: 13px
+
+%off-canvas-left__site-logo
+  float: left
+  text-indent: -9999px
+
+.off-canvas-left__site-logo--3docean
+  @extend %off-canvas-left__site-logo
+  +sprite-2x($sprite-logos-larger_logo_3d, $sprite-logos_2x-larger_logo_3d)
+
+.off-canvas-left__site-logo--audiojungle
+  @extend %off-canvas-left__site-logo
+  +sprite-2x($sprite-logos-larger_logo_aj, $sprite-logos_2x-larger_logo_aj)
+
+.off-canvas-left__site-logo--codecanyon
+  @extend %off-canvas-left__site-logo
+  +sprite-2x($sprite-logos-larger_logo_cc, $sprite-logos_2x-larger_logo_cc)
+
+.off-canvas-left__site-logo--graphicriver
+  @extend %off-canvas-left__site-logo
+  +sprite-2x($sprite-logos-larger_logo_gr, $sprite-logos_2x-larger_logo_gr)
+
+.off-canvas-left__site-logo--photodune
+  @extend %off-canvas-left__site-logo
+  +sprite-2x($sprite-logos-larger_logo_pd, $sprite-logos_2x-larger_logo_pd)
+
+.off-canvas-left__site-logo--themeforest
+  @extend %off-canvas-left__site-logo
+  +sprite-2x($sprite-logos-larger_logo_tf, $sprite-logos_2x-larger_logo_tf)
+
+.off-canvas-left__site-logo--videohive
+  @extend %off-canvas-left__site-logo
+  +sprite-2x($sprite-logos-larger_logo_vh, $sprite-logos_2x-larger_logo_vh)
+
+.off-canvas-left__current-site
+  overflow: hidden
+  padding-left: 3px
+
+  @each $color in $site-colors
+    &.-color-#{nth($color, 1)}
+      background-color: nth($color, 2)
+
+.off-canvas-left__current-site-toggle
+  +button-3d-dropshadow($e-color-ui--grey-73)
+  background-color: $e-color-ui--grey-87
+  border-radius: 4px
+  color: $e-color-ui--grey-27
+  float: right
+  margin: 5px 10px 0
+  padding: 5px 7px
+  font-size: 13px
+
+  &:hover
+    text-decoration: none
+
+  &:after
+    +glyphs-base
+    content: $icon-arrow-fill-down
+
+  &.is-open
+    &:after
+      content: $icon-arrow-fill-up
+
+.off-canvas-left__search
+  margin: 15px
+  overflow: hidden

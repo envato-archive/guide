@@ -1,0 +1,110 @@
+// Input - Inputs
+//-------------------------------
+
+.f-input
+  +f-defaults
+  height: 30px
+  line-height: 1
+  border-radius: 4px
+  color: $e-color-ui--grey-50
+  background: $e-color-ui--white
+  border: 1px solid $e-color-ui--grey-73
+  padding: 5px 8px
+
+
+  // Pseudo Classes
+  &:focus,
+  &.is-focussed
+    transition: box-shadow 0.30s ease-in-out
+    box-shadow: 0 0 5px $system-blue
+    border-color: $system-blue
+
+  // Font
+  &.-font-monospace
+    font-family: $monospace
+
+  // Size (TODO: remove this)
+  &.-size-m
+    height: 40px
+    font-size: 20px
+
+  // Width
+  &.-width-full
+    width: 100%
+
+
+  // --------------------------------
+  // Validation
+  // --------------------------------
+
+  // SVG EXPORT PROTIP: http://stackoverflow.com/questions/21840551/background-size-with-svg-squished-in-ie9-10
+  &[data-icon="true"]
+    background-repeat: no-repeat
+    background-size: 20px 20px
+    background-position: right 5px center
+
+
+  // --------------------------------
+  // Valid
+  // --------------------------------
+  &[data-status="valid"],
+  &.is-valid
+    // No visual difference for 'valid'
+
+    &[data-icon="true"]
+      background-image: image-url('common/input-validation__valid.svg')
+
+
+  // --------------------------------
+  // Invalid
+  // --------------------------------
+  &[data-status="invalid"],
+  &[data-status="error"],
+  &.is-error,
+  &.is-invalid
+    color: $e-color-ui--danger
+    border: currentColor 1px solid
+
+    &:focus,
+    &.is-focussed
+      box-shadow: 0 0 5px currentColor
+
+    &[data-icon="true"]
+      background-image: image-url('common/input-validation__invalid.svg')
+
+
+  // --------------------------------
+  // Warning
+  // --------------------------------
+  &[data-status="warning"],
+  &.is-warning
+    color: $e-color-ui--warning
+    border: currentColor 1px solid
+
+    &:focus,
+    &.is-focussed
+      box-shadow: 0 0 5px currentColor
+
+    &[data-icon="true"]
+      background-image: image-url('common/input-validation__warning.svg')
+
+
+  // --------------------------------
+  // Pending
+  // --------------------------------
+  &[data-status="pending"],
+  &.is-pending
+    // No visual difference for 'pending'
+    &[data-icon="true"]
+      background-image: image-url('common/input-validation__pending.gif')
+
+
+  // --------------------------------
+  // Crossbrowser fixes
+  // --------------------------------
+  // IE10
+  // http://stackoverflow.com/questions/14007655/remove-ie10s-clear-field-x-button-on-certain-inputs/14739092#14739092
+  &::-ms-clear,
+  &::-ms-reveal
+    width : 0
+    height: 0

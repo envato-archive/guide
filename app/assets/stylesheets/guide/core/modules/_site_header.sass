@@ -1,0 +1,17 @@
+// This class exists purely to create a new stacking context and arrange z-indices so
+// dropdown menus appear above things that come after them in HTML source.
+
+.site-header
+  position: relative
+
+  > div
+    position: relative
+
+.site-header__logo-and-account
+  z-index: 3
+
+.site-header__sites
+  z-index: 2
+
+.site-header__categories
+  z-index: 1

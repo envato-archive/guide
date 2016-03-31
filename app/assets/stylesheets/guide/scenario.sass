@@ -1,0 +1,129 @@
+@charset "UTF-8"
+
+// Customise these scenario layouts based on you app's layout
+
+// Vendor
+// ------------------------------------------------
+@import sass-flex-mixin/index
+
+// TODO: remove depenency
+@import compass
+@import susy
+
+// Config (no CSS output)
+// ------------------------------------------------
+@import config/variables
+@import config/mixins
+
+
+html
+  height: auto !important
+
+
+
+// JavaScript Hooks in use
+// (Selectors which also double as JS Hooks)
+// ----------------------------------------------
+// .js-
+//   &.e-guide__translation-missing,
+//   &.e-guide__component
+
+
+.e-guide__translation-missing
+  box-sizing: content-box
+  border: 1px dashed $e-color-brand--codecanyon
+  position: relative
+  background-color: $sg-modal-bg
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  padding: 5%
+
+  +font-smoothing
+  color: $e-color-ui--white
+
+  h3
+    font-size: 30px
+    margin-bottom: 10px
+
+  ul
+    list-style: disc
+    margin-left: 20px
+
+  li
+    font-size: 16px
+
+
+.e-guide__scenario
+  +clearfix
+  +box-sizing(content-box)
+  border: 1px dashed $e-color-brand--codecanyon
+
+  // --------------------------------
+  // Visbility Status
+  // --------------------------------
+  &.-status-secret
+    border-color: $sg-red
+
+
+  // --------------------------------
+  // Layout
+  // --------------------------------
+  &.-layout-page-static
+    width: 1004px
+    margin: 0 auto
+
+
+  &.-layout-grid-container
+    max-width: 1004px
+    margin: 0 auto
+    padding-left: 10px
+    padding-right: 10px
+
+
+  &.-layout-main-content
+    max-width: 1004px
+    box-sizing: content-box
+    padding: 10px
+
+    +at-breakpoint($desktop-and-above)
+      +span-columns(10,14)
+
+  &.-layout-sidebar
+    box-sizing: content-box
+    padding: 10px
+
+    +at-breakpoint($desktop-and-above)
+      +span-columns(4,14)
+
+  &.-layout-sidebar-legacy
+    width: 350px
+
+  &.-layout-modal
+    +at-breakpoint($desktop-and-above)
+      padding: 20px 0
+      background-color: $sg-modal-bg
+
+  &.-layout-item-result
+    +box-sizing(content-box)
+    padding: 10px
+
+    +at-breakpoint($desktop-and-above)
+      width: 766px
+
+  &.-layout-inline
+    display: inline-block
+
+  &.-layout-financial-document
+    +box-sizing(content-box)
+    margin: 0 auto
+    width: 900px
+    padding: 10px
+
+  // ---------------------
+  // Other overrides
+  //----------------------
+  &.-override-recaptcha
+    .recaptcha
+      background: image-url("styleguide/recaptcha-sample.png") 0 0 no-repeat

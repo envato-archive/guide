@@ -1,0 +1,79 @@
+.off-canvas-right
+  background-color: $e-color-ui--grey-15
+
+  > ul
+    list-style: none
+    margin: 0
+    padding: 0
+
+    a
+      text-decoration: none
+
+.off-canvas-right__top
+  padding: 10px
+  position: relative
+
+.off-canvas-right__avatar
+  border-radius: 25px
+  display: block
+  width: 45px
+
+.off-canvas-right__username
+  color: $e-color-ui--white
+  display: inline-block
+  font-size: 13px
+  line-height: 15px
+  font-weight: bold
+  margin-bottom: 5px
+  text-decoration: none
+  &:hover
+    text-decoration: underline
+
+.off-canvas-right__balance
+  background-color: $e-color-ui--grey-20
+  border-radius: 4px
+  color: $e-color-ui--grey-83
+  display: inline-block
+  font-size: 11px
+  line-height: 12px
+  padding: 4px 7px
+
+.off-canvas-right__cart
+  position: absolute
+  right: 10px
+  top: 10px
+
+.off-canvas-right__section-heading
+  background-color: $e-color-ui--grey-87
+  color: $e-color-ui--grey-15
+  display: block
+  padding: 15px 10px
+  text-transform: capitalize
+
+.off-canvas-right__link
+  background-color: $e-color-ui--grey-20
+  border-bottom: 1px solid $e-color-ui--grey-27
+  color: $e-color-ui--grey-87
+  display: block
+  font-size: 13px
+  line-height: 15px
+  padding: 15px 10px
+  text-decoration: none
+
+  > i
+    float: right
+
+
+.off-canvas-right__link--cart
+  @extend .off-canvas-right__link
+  background-color: $e-color-ui--grey-15
+  border-bottom: none
+
+  > div
+    float: right
+
+.off-canvas-right__link--logout
+  @extend .off-canvas-right__link
+  background-color: $red
+  color: $e-color-ui--white
+  border-bottom: none

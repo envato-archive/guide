@@ -1,0 +1,50 @@
+.t-link
+  +typography-link
+  text-decoration: underline // Remove when typography global resets are cleaned
+
+  &:hover
+    text-decoration: none
+
+  // Color
+  // ------------------------------------------------
+  &.-color-dark
+    color: $e-color-ui--grey-27
+    &:hover
+      color: $e-color-ui--grey-47
+
+  &.-color-light
+    color: $e-color-ui--white
+    &:hover
+      color: $e-color-ui--grey-96
+
+  &.-color-default
+    color: $blue-bright
+    &:hover
+      color: $blue-bright-darker
+
+  &.-color-inherit
+    color: currentColor
+
+  // Decorarion
+  // ------------------------------------------------
+  &.-decoration-reversed
+    text-decoration: none
+    &:hover
+      text-decoration: underline
+
+  &.-decoration-none
+    text-decoration: none
+    &:hover
+      text-decoration: none
+
+
+  //  Weight
+  // ------------------------------------------------
+  &.-weight-bold
+    font-weight: 700
+
+  &.-weight-normal
+    font-weight: 400
+
+  &.-weight-light
+    font-weight: 300

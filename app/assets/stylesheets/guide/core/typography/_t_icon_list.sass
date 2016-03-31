@@ -1,0 +1,87 @@
+.t-icon-list
+  list-style: none
+  margin: 0 0 spacing(1) spacing(1)
+  +font-smoothing
+
+  a
+    +typography-link
+
+  // Margin
+  //-------------------------------
+  // is not 0 due to the negative positioning of the icon on .t-icon-list__item
+  &.-offset-flush
+    margin-left: spacing(0.5)
+
+  // Font Size
+  //-------------------------------
+  &.-font-size-s,
+    font-size: 14px
+
+  &.-font-size-m,
+  & // default
+    font-size: 16px
+
+
+// Icon Size
+//-------------------------------
+.t-icon-list
+  &.-icon-size-s
+    .t-icon-list__item
+      &:before
+        font-size: 11px
+
+  &.-icon-size-m,
+  & // default
+    .t-icon-list__item
+      &:before
+        font-size: 14px
+
+
+// --------------------------------
+// Icon List Item
+// --------------------------------
+.t-icon-list__item
+  position: relative
+  padding-left: spacing(2)
+
+  &:before
+    +glyphs-base
+    position: relative
+    left: -23px
+    margin-right: -15px
+
+
+  // Icons
+  //-------------------------------
+  &.-icon-ok
+    &:before
+      content: $icon-ok
+
+  &.-icon-cancel
+    &:before
+      content: $icon-cancel
+
+  &.-icon-caret
+    &:before
+      content: $icon-arrow-fill-right
+
+
+  // Icon Colours
+  //-------------------------------
+  &.-color-mid,
+  & // default
+    &:before
+      color: $e-color-ui--grey-50
+
+
+  &.-color-dark
+    &:before
+      color: $e-color-ui--black
+
+  &.-color-light
+    &:before
+      color: $e-color-ui--white
+
+  &.-color-primary
+    &:before
+      color: $green-pop

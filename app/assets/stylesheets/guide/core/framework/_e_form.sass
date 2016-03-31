@@ -1,0 +1,178 @@
+// Envato UI Library: Forms
+// Form layout only. Inputs styled separately
+// ------------------------------------------------
+
+
+.e-form
+  +align-items(baseline)
+  font-size: 13px
+
+// --------------------------------
+// Layouts
+// --------------------------------
+.e-form
+  &.-layout-vertical
+  &, // Default
+    .e-form__label
+      +order(1)
+      +flex(1 100%)
+      margin-bottom: 2px
+
+    .e-form__group
+      +flexbox
+      +flex-flow(row wrap)
+      width: 100%
+      position: relative
+      margin-bottom: 7px
+
+    .e-form__input
+      +flex(1 100%)
+      +order(2)
+      margin-bottom: 5px
+
+    .e-form__response
+      +flex(1 100%)
+      +order(3)
+      margin-bottom: 5px
+      &:empty
+        display: none !important
+
+
+  &.-layout-vertical-inline
+    .e-form__label
+      +order(1)
+      +flex(0 auto)
+      margin: 0 10px 2px 0
+
+    .e-form__hint
+      +order(2)
+      +flex(auto)
+
+    .e-form__input
+      +order(3)
+
+    .e-form__response
+      +order(4)
+
+
+  &.-layout-horizontal
+    +at-breakpoint($tablet-and-above)
+      position: relative
+
+      .e-form__group
+        padding-left: 200px
+
+        .e-form__label
+          position: absolute
+          left: 0
+          width: 190px
+
+
+// --------------------------------
+// UX Rules
+// --------------------------------
+
+// # Rule 1: Hide hint if there is an error
+.e-form
+  &.-layout-vertical,
+  &.-layout-horizontal
+    .e-form__response:not(:empty) + .e-form__hint:not(:empty)
+      display: none
+
+
+// --------------------------------
+// Styling
+// --------------------------------
+.e-form__base-errors
+  width: 100%
+  color: $e-color-ui--danger
+  margin-bottom: 15px
+  margin-top: 15px
+
+  &:empty
+    display: none !important
+
+  a
+    color: currentColor
+    text-decoration: underline
+    &:hover
+      text-decoration: none
+
+  li
+    list-style-type: disc
+    margin-left: 20px
+
+    &:only-child
+      list-style-type: none
+      margin-left: 0
+
+
+
+.e-form__label
+  font-weight: bold
+
+  label
+    // TODO: Kill global label styles so we can do this better
+    font-family: $helvetica
+
+    &.is-required
+      &:after
+        content: " *"
+        color: $e-color-ui--danger
+
+  // TODO: Migrate all forms from `<abbr>` to `.is-required` to apply the requiredness UX
+  abbr
+    border-bottom: none
+    color: $e-color-ui--danger
+
+
+.e-form__response
+  color: $e-color-ui--danger
+
+  a
+    color: currentColor
+    &:hover
+      text-decoration: none
+
+  // --------------------------------
+  // Validation States
+  // --------------------------------
+  &.is-invalid,
+  &[data-status="invalid"]
+
+  &.is-valid,
+  &[data-status="valid"]
+    color: $e-color-ui--success
+
+
+  &.is-warning,
+  &[data-status="warning"]
+    color: $e-color-ui--warning
+
+
+  &.is-pending,
+  &[data-status="pending"]
+    color: $e-color-ui--grey-60
+
+
+.e-form__hint
+  +order(4)
+  +flex(1 100%)
+  margin-bottom: 5px
+  color: $e-color-ui--grey-47
+
+  a
+    +typography-link
+
+
+// --------------------------------
+// No Flexbox Support (<= IE9)
+// --------------------------------
+.no-flexbox
+  .e-form__group,
+  .e-form__label,
+  .e-form__input,
+  .e-form__hint,
+  .e-form__response
+    display: block
+    width: 100%

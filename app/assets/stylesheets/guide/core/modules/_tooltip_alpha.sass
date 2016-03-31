@@ -1,0 +1,67 @@
+.tooltip-alpha
+  display: inline-block
+  cursor: pointer
+  font-weight: 400
+
+  .touch &
+    padding: 5px
+
+// Size
+//-------------------------------
+.tooltip-alpha
+  & // default
+    font-size: inherit
+
+  &.-size-m
+    font-size: 15px
+
+.tooltip-alpha__body
+  +visually-hidden
+  +font-smoothing
+  color: $e-color-ui--white
+  background: $e-color-ui--grey-20
+  font-size: 14px
+  line-height: 1.4
+  padding: 7px 10px
+  max-width: 200px
+  z-index: 2
+  border-radius: 4px
+
+  .touch &
+    padding: 10px
+
+  &[data-show="true"]
+    width: auto
+    height: auto
+    clip: auto
+    margin: auto
+    opacity: 1
+    overflow: visible
+    margin-top: spacing(3)
+    animation-name: fade-in-up
+    animation-duration: 0.25s
+
+    +at-breakpoint($desktop-and-above)
+      animation-name: fade-in-up-desktop
+
+    +at-breakpoint($phone-only)
+      max-width: 94%
+      width: 94%
+      left: 10px
+
+    +at-breakpoint($tablet-only)
+      max-width: 50%
+      width: 50%
+      left: 20px
+
+.tooltip-alpha__action
+  border-bottom: 1px dashed $e-color-ui--grey-50
+
+.tooltip-alpha__triangle
+  +arrow-up (5px, $e-color-ui--grey-20)
+  position: absolute
+  top: -5px
+  left: 5px
+
+  +at-breakpoint($tablet-and-below)
+    display: none

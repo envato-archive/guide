@@ -1,0 +1,81 @@
+// Color modifiers can set these properties:
+// - color
+// - background-color
+//
+// Additionally, 3D color modifiers can set these properties:
+// - box-shadow
+// - position (sets to relative)
+// - top (when :active, to simulate a "pressed" state)
+//
+// Remember to add :hover & :active styles unless you're happy with the defaults.
+
+.btn--color-green
+  background-color: $green-pop
+  &:hover, &:focus, &:active
+    background-color: $green-pop-dark
+
+.btn--color-blue
+  background-color: $blue-bright
+  &:hover, &:focus, &:active
+    background-color: $blue-bright-darker
+
+.btn--color-muted
+  background-color: $e-color-ui--grey-67
+
+.btn--color-light
+  background-color: $e-color-ui--grey-90
+  border: 1px solid $e-color-ui--grey-87
+  color: $e-color-ui--grey-40
+  &:hover, &:focus, &:active, &.is-active
+    background-color: $e-color-ui--grey-88
+
+.btn--color-red
+  background-color: $red
+  &:hover, &:focus, &:active
+    background-color: $red-slightly-dark
+
+.btn--color-orange
+  background-color: $orange
+  &:hover, &:focus, &:active
+    background-color: $orange-slightly-dark
+
+.btn--color-dark
+  background-color: $e-color-ui--grey-20
+  &:hover, &:focus, &:active
+    background-color: $e-color-ui--grey-15
+
+.btn--color-transparent
+  background-color: transparent
+  color: $e-color-ui--grey-27
+  &:hover, &:focus, &:active,
+  &.is-active
+    background-color: transparent
+    color: $blue-bright
+
+
+// 3D color modifiers
+.btn--color-base-3d
+  +button-3d-dropshadow($e-color-ui--grey-40)
+  &:hover, &:focus, &:active
+    background-color: $e-color-ui--grey-47
+
+.btn--color-green-3d
+  @extend .btn--color-green
+  +button-3d-dropshadow($green-pop)
+
+.btn--color-blue-3d
+  @extend .btn--color-blue
+  +button-3d-dropshadow($blue-bright)
+
+.btn--color-red-3d
+  @extend .btn--color-red
+  +button-3d-dropshadow($red-dark)
+
+.btn--color-orange-3d
+  @extend .btn--color-orange
+  +button-3d-dropshadow($orange-dark)
+
+.btn--color-light-3d
+  @extend .btn--color-light
+  +button-3d-dropshadow($e-color-ui--grey-73)
+  border: none

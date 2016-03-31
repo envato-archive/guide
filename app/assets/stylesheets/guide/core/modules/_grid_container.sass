@@ -1,0 +1,27 @@
+// This module is a top-level Susy grid container.
+//
+// You can use Susy's at-breakpoint() in modules that are placed inside this container.
+//
+// Throw +susy-grid-background in at each breakpoint to see a visual representation of the grid.
+//
+// http://susy.oddbird.net/guides/reference/
+
+.grid-container
+  +container
+
+  @if $show-grid-columns
+    +susy-grid-background
+
+    +at-breakpoint($tablet-and-above)
+      +susy-grid-background
+
+    +at-breakpoint($desktop-and-above)
+      +susy-grid-background
+
+  +at-breakpoint($desktop-and-above)
+    &.-layout-wide
+      max-width: 95%
+
+  +at-breakpoint(1350px 12 fixed-layout)
+    &.-layout-wide
+      max-width: 1400px

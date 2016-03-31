@@ -1,0 +1,85 @@
+.sg-search
+  +flexbox
+  +justify-content(flex-end)
+  +align-items(center)
+
+  +at-breakpoint($desktop-and-above)
+    +justify-content(flex-start)
+
+
+.sg-search__input
+  +flex(0 0 auto)
+  display: none
+
+  [data-search="true"] &
+    display: block
+
+  +at-breakpoint($desktop-and-above)
+    display: block
+    transition: width 0.3s $transition-easeInOutExpo 0.2s
+    width: 0
+    overflow: hidden
+    height: 45px // height of Selectize input
+
+    [data-search="true"] &
+      transition: width 0.3s $transition-easeInOutExpo 0s
+      width: 100%
+      overflow: inherit
+
+
+.sg-search__toggle
+  +flex(0 0 auto)
+  cursor: pointer
+
+  +at-breakpoint($desktop-and-above)
+    opacity: 0.5
+    transition: margin-left 0.2s 0.3s
+    margin-left: 0
+
+    &:hover
+      opacity: 1
+
+  > a
+    +font-smoothing
+    display: block
+    padding: 2px
+
+  [data-search="true"] &
+    opacity: 1
+    margin-left: 10px
+    position: relative
+
+    // Disable button interaction. JS will automatically close onBlur
+    &:before
+      content: ""
+      display: block
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+
+
+
+// Vendor Overrides
+// TODO: Workout where to put this
+@import selectize_css
+
+.selectize-control
+  +at-breakpoint($desktop-and-above)
+    transition: opacity 0.3s 0s
+    opacity: 0
+
+    [data-search="true"] &
+      transition: opacity 0.3s 0.3s
+      opacity: 1
+
+
+.selectize-input
+  border-color: transparent
+  box-shadow: none !important
+  line-height: 1.4
+  &,
+  input
+    font-size: 16px
+    color: $e-color-ui--grey-20

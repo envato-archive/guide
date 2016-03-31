@@ -1,0 +1,24 @@
+// This mixin is useful to flatten media-queries in combination with checking a Modernizr class on the <HTML>
+// ** Can be removed when we drop IE8 support **
+
+// Usage
+// ```
+// .no-flexbox
+//   .item-result
+//     +at-breakpoint-if-responsive($tablet-and-above)
+//       display: block
+// ```
+
+// Result
+// `.no-flexbox .item-result`                 (We don't need `.fixed-layout` anyways as we are skipping the breakpoints)
+
+// Result with regular `at-breakpoint()` mixin instead
+// `.fixed-layout .no-flexbox .item-result`   (both the first two selectors should applied to the <HTML>, therefore the cascade fails)
+
+
+=at-breakpoint-if-responsive($breakpoint)
+  @if $responsive
+    +at-breakpoint($breakpoint)
+      @content
+  @else
+    @content

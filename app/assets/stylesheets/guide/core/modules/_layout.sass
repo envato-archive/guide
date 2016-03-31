@@ -1,0 +1,66 @@
+.layout__main-content
+  +at-breakpoint($desktop-and-above)
+    +span-columns(10,14)
+
+.layout__sidebar
+  +at-breakpoint($desktop-and-above)
+    +span-columns(4,14)
+    +omega
+
+
+//////////////////////////////////////////////
+/// Legacy (TODO: replace or refactor)
+/////////////////////////////////////////////
+.sidebar-s
+  +at-breakpoint($desktop-and-above)
+    float: left
+    margin-right: 18px
+    width: 200px
+  &.-size-fixed-tablet
+    +at-breakpoint($tablet-and-above)
+      float: left
+      margin-right: 18px
+      width: 200px
+
+.sidebar-l
+  +at-breakpoint($desktop-and-above)
+    float: left
+    margin-right: 18px
+    width: 350px
+  &.-size-fixed-tablet
+    float: left
+    margin-right: 18px
+    width: 350px
+
+.sidebar-right
+  +at-breakpoint($desktop-and-above)
+    float: right
+    margin-left: 18px
+    margin-right: 0
+
+.content-s
+  +at-breakpoint($desktop-and-above)
+    float: left
+    width: 616px
+
+.content-l
+  +at-breakpoint($desktop-and-above)
+    float: left
+    width: 766px
+  &.-size-scale-tablet
+    +at-breakpoint($tablet-and-above)
+      float: left
+      width: 350px
+      width: calc(100% - 218px) //218 sidebar width
+
+.content-right
+  +at-breakpoint($desktop-and-above)
+    float: right
+
+
+.content-centre
+  +at-breakpoint($desktop-and-above)
+    margin: 0 auto
+  &.-size-scale-tablet
+    +at-breakpoint($tablet-and-above)
+      float: none

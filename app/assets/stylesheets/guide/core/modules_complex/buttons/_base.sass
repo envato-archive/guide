@@ -1,0 +1,78 @@
+.btn
+  +font-smoothing
+  box-sizing: border-box
+  background-color: $e-color-ui--grey-50
+  border: none
+  border-radius: 4px
+  color: $e-color-ui--white
+  cursor: pointer
+  display: inline-block
+  font-family: $helvetica
+  font-size: 14px
+  line-height: 1.5
+  margin: 0
+  padding: 5px 20px
+  text-align: center
+  text-decoration: none
+
+  &:hover,
+  &:focus
+    background-color: $blue-bright
+    text-decoration: none
+    outline: none
+
+  &:active
+    background-color: $blue-bright-darker
+
+  // Double selector hack to increase specificity so disabled styles always override .modifier:pseudoclass styles
+  &[disabled][disabled],
+  &[data-state=disabled][data-state=disabled],
+  &.btn--is-disabled.btn--is-disabled
+    background-color: $e-color-ui--grey-73
+    box-shadow: none
+    color: $e-color-ui--grey-87
+    cursor: not-allowed
+
+.btn__tagline
+  display: block
+  font-size: 13px
+  font-weight: normal
+  line-height: 18px
+  opacity: 0.7
+
+// LEGACY BUTTON SHIM
+// ------------------------------------------------------------------
+// Our legacy buttons picked up these base styles by default.
+// TODO: Find all buttons in the app & scope them to .btn
+//       so this can be deleted.
+button,
+[role=button],
+[type=submit]
+  @extend .btn
+
+  // Legacy colors
+  &.good
+    background-color: $green-dark
+
+  &.important
+    background-color: $orange
+
+  &.warning
+    background-color: $red-dark
+
+  &.muted
+    background-color: $e-color-ui--grey-67
+
+  // Legacy spacing
+  &.vertical-space
+    margin-bottom: 5px
+    margin-top: 5px
+
+  &.no-margin
+    margin: 0
+
+  // Legacy disabled styles
+  &.disabled
+    background-color: $e-color-ui--grey-73
+    color: $e-color-ui--grey-87
+    cursor: not-allowed

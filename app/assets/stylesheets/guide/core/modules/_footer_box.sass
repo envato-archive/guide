@@ -1,0 +1,127 @@
+.footer-box
+  background-color: $e-color-ui--grey-15
+  margin: 0 0 15px
+
+  +at-breakpoint($desktop-and-above)
+    background-color: transparent
+    padding-top: 30px
+    margin: 0
+
+
+.footer-box__header
+  display: block
+  font-weight: normal
+  position: relative
+  background-color: $e-color-ui--grey-15
+  margin: 0
+  padding: 15px
+  cursor: pointer
+  font-size: 18px
+  line-height: 18px
+  color: $e-color-ui--white
+
+  &:hover,
+  &:active
+    background-color: $e-color-ui--grey-10
+
+  &:after
+    +glyphs-base
+    content: $icon-right-open
+    display: block
+    height: 20px
+    position: absolute
+    right: 15px
+    top: 15px
+    font-size: 14px
+    line-height: 20px
+
+  > h4
+    +font-smoothing
+    font-family: $helvetica
+    font-size: 20px
+    font-weight: 700
+    line-height: 1.2
+    color: $e-color-ui--white
+    padding: 0
+    margin: 0
+
+  +at-breakpoint($desktop-and-above)
+    background-color: transparent
+    padding: 0 0 10px
+    cursor: default
+    &:hover,
+    &:active
+      background-color: transparent
+    &:after
+      display: none
+    > h4
+      color: $e-color-ui--grey-60
+
+.footer-box__header--is-active
+  background-color: $e-color-ui--grey-10
+  &:after
+    transform: rotate(90deg)
+
+  +at-breakpoint($desktop-and-above)
+    background-color: transparent
+
+
+.footer-box__content
+  color: $e-color-ui--grey-87
+  padding: 15px
+  display: none
+  p
+    padding: 0
+    margin: 0 0 1em 0
+    font-size: 14px
+    line-height: 28px
+    text-size-adjust: none
+
+    > a
+      color: $e-color-ui--white
+      text-decoration: none
+      &:hover
+        text-decoration: underline
+
+
+  +at-breakpoint($desktop-and-above)
+    display: block
+    padding: 0
+
+    p
+      padding: 0
+      line-height: 21px
+      color: $e-color-ui--grey-60
+
+.footer-box__content--is-active
+  display: block
+
+
+.footer-box__list
+  a
+    color: $e-color-ui--grey-87
+    display: block
+    font-size: 14px
+    line-height: 28px
+    text-decoration: none
+
+    &:hover
+      text-decoration: underline
+      color: $e-color-ui--grey-87
+
+    +at-breakpoint($desktop-and-above)
+      display: inline-block
+      line-height: 21px
+      color: $e-color-ui--white
+
+      &:hover
+        color: $e-color-ui--white
+
+.footer-box__external-link
+  display: block
+  margin-top: 10px
+  color: $e-color-ui--grey-60
+  font-size: 12px
+  text-decoration: none
+  &:hover
+    text-decoration: underline

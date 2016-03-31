@@ -1,0 +1,70 @@
+.header-mini
+  background-color: $e-color-ui--grey-15
+  height: 40px
+  position: relative
+  text-align: center
+
+%header-mini__button
+  font-size: 13px
+  position: absolute
+  top: 5px
+
+  > a
+    text-decoration: none
+
+.header-mini__button--categories
+  @extend %header-mini__button
+  left: 10px
+
+.header-mini__button--account
+  @extend %header-mini__button
+  right: 10px
+
+%header-mini__logo
+  display: inline-block
+  text-indent: -9999px
+
+
+.header-mini__logo--envato-market
+  @extend %header-mini__logo
+  height: 40px
+  width: 192px
+
+  .header-mini__logo &
+    width: 152px
+
+    .svg &
+      background: image-url("logos/envato_market.svg") 0 10px no-repeat
+      background-size: 152px 18px
+
+    .no-svg &
+      +sprite-image($sprite-logos-envato_market_logo)
+      +sprite-position($sprite-logos-envato_market_logo, 0, 10px)
+
+.header-mini__logo--3docean
+  @extend %header-mini__logo
+  +sprite-2x($sprite-logos-larger_logo_3d, $sprite-logos_2x-larger_logo_3d)
+
+.header-mini__logo--audiojungle
+  @extend %header-mini__logo
+  +sprite-2x($sprite-logos-larger_logo_aj, $sprite-logos_2x-larger_logo_aj)
+
+.header-mini__logo--codecanyon
+  @extend %header-mini__logo
+  +sprite-2x($sprite-logos-larger_logo_cc, $sprite-logos_2x-larger_logo_cc)
+
+.header-mini__logo--graphicriver
+  @extend %header-mini__logo
+  +sprite-2x($sprite-logos-larger_logo_gr, $sprite-logos_2x-larger_logo_gr)
+
+.header-mini__logo--photodune
+  @extend %header-mini__logo
+  +sprite-2x($sprite-logos-larger_logo_pd, $sprite-logos_2x-larger_logo_pd)
+
+.header-mini__logo--themeforest
+  @extend %header-mini__logo
+  +sprite-2x($sprite-logos-larger_logo_tf, $sprite-logos_2x-larger_logo_tf)
+
+.header-mini__logo--videohive
+  @extend %header-mini__logo
+  +sprite-2x($sprite-logos-larger_logo_vh, $sprite-logos_2x-larger_logo_vh)

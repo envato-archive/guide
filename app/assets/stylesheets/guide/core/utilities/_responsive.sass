@@ -1,0 +1,16 @@
+@if $responsive
+  +at-breakpoint($tablet-and-below)
+    .is-hidden-tablet-and-below
+      display: none !important
+
+  +at-breakpoint($phone-only)
+    .is-hidden-phone
+      display: none !important
+
+.is-hidden-tablet-and-above
+  +at-breakpoint($tablet-and-above)
+    display: none !important
+
+.is-hidden-desktop
+  +at-breakpoint($desktop-and-above)
+    display: none !important

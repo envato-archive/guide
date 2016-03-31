@@ -1,0 +1,18 @@
+=scrollbar
+  &::-webkit-scrollbar
+    -webkit-appearance: none
+
+  &::-webkit-scrollbar:vertical
+    width: 11px
+
+  &::-webkit-scrollbar:horizontal
+    height: 11px
+
+  &::-webkit-scrollbar-thumb
+    border: 2px solid $e-color-ui--grey-96
+    background-color: rgba(0, 0, 0, .4)
+    &:hover
+      background-color: rgba(0, 0, 0, .6)
+
+  &::-webkit-scrollbar-track
+    background-color: $e-color-ui--grey-96

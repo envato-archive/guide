@@ -1,0 +1,33 @@
+.footer-top
+  +pie-clearfix
+  padding-bottom: 20px
+  +at-breakpoint($desktop-and-above)
+    border-bottom: 1px solid $e-color-ui--grey-27
+
+.footer-top__market-logo
+  display: block
+  margin: 10px auto 5px
+  text-indent: -9999px
+  height: 18px
+  width: 152px
+
+  +at-breakpoint($desktop-and-above)
+    margin: 0
+
+  .svg &
+    background: image-url("logos/envato_market.svg")
+    background-size: 152px 18px
+
+  .no-svg &
+    +sprite-image($sprite-logos-envato_market_logo)
+    +sprite-position($sprite-logos-envato_market_logo)
+
+
+.footer-top__left
+  +at-breakpoint($desktop-and-above)
+    +span-columns(6)
+
+.footer-top__right
+  +at-breakpoint($desktop-and-above)
+    +span-columns(6)
+    +omega

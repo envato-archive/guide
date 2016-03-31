@@ -1,0 +1,52 @@
+.sg-controls
+  +flexbox
+  +flex-flow(row nowrap)
+  +align-items(center)
+  max-width: $container-width
+  padding-top: 5px
+  padding-bottom: 5px
+
+
+.sg-controls__hamburger
+  +flex(0 0 auto)
+  +order(1)
+  padding-right: 3vw
+  text-align: left
+
+  > a
+    display: block
+    color: $e-color-ui--white
+    cursor: pointer
+    font-size: 20px
+
+  +at-breakpoint($desktop-and-above)
+    display: none
+
+
+.sg-controls__category
+  +flex(1 1 auto)
+  +order(2)
+
+  +at-breakpoint($desktop-and-above)
+    display: none
+
+  h2
+    +font-smoothing
+    font:
+      family: $font-family-helvetica
+      size: 20px
+      weight: 500
+    color: $e-color-ui--white
+    line-height: 1.2
+
+
+.sg-controls__search
+  +flex(0 0 auto)
+  +order(3)
+
+  +at-breakpoint($tablet-and-below)
+    // TODO: Implement a proper mobile solutio
+    display: none
+
+  +at-breakpoint($desktop-and-above)
+    +flex(1 1 auto)

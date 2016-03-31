@@ -1,0 +1,31 @@
+.off-canvas-category-link--empty
+  background-color: $e-color-ui--grey-20
+  color: $e-color-ui--white
+  display: block
+  padding: 15px
+
+  &:hover
+    text-decoration: none
+
+.off-canvas-category-link
+  @extend .off-canvas-category-link--empty
+  &:after
+    +glyphs-base
+    color: $e-color-ui--grey-60
+    content: $icon-arrow-fill-down
+    float: right
+
+  &.is-open
+    &:after
+      content: $icon-arrow-fill-up
+
+.off-canvas-category-link--sub
+  color: $e-color-ui--white
+  display: block
+  padding: 15px 15px 15px 25px
+
+  &:hover
+    text-decoration: none
+
+.off-canvas-category-spacer
+  min-height: 6px

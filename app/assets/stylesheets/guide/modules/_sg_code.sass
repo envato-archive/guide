@@ -1,0 +1,40 @@
+.sg-code
+  display: inline-block
+  margin: 0
+  border: 1px solid $e-color-ui--grey-87
+  background-color: $e-color-ui--grey-96
+  border-radius: 3px
+  padding: 3px 5px 2px
+  max-width: 100%
+  overflow: auto
+  vertical-align: middle
+  font-family: $font-family-code
+  font-size: 13px
+  line-height: normal
+  white-space: nowrap
+
+  &.-color-light
+    background-color: $e-color-ui--white
+
+
+.sg-code--inline
+  float: left
+  padding: 10px 10px 0 0
+
+
+.sg-code--block
+  float: left
+  width: 100%
+  padding: 10px 0
+
+  &[data-heading]
+    position: relative
+    &::before
+      content: attr(data-heading)
+      font-size: 16px
+      line-height: 1.2
+      font-weight: 700
+      color: $e-color-ui--grey-50
+      margin: 0.7em 0 0.5em
+      display: block
+      width: 100%

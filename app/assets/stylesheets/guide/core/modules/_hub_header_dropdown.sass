@@ -1,0 +1,35 @@
+.hub-header-dropdown
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3)
+  list-style: none
+  padding: 0
+
+  &:nth-child(2n)
+    border-top: 1px solid $e-color-ui--grey-90
+
+  a
+    background-color: $e-color-ui--white
+    color: $e-color-ui--grey-40
+    display: block
+    padding: 8px
+    text-decoration: none
+
+    &:hover, &:focus
+      background-color: $e-color-ui--grey-90
+      text-decoration: none
+
+    > i
+      float: right
+      opacity: 0.5
+
+.hub-header-dropdown__top
+  border-bottom: 1px solid $e-color-ui--grey-90
+
+.hub-header-dropdown__bottom
+  border-top: 1px solid $e-color-ui--grey-90
+
+.hub-header-dropdown__all-items
+  display: none
+
+.hub-header-dropdown__all-items
+  .touch &
+    display: block

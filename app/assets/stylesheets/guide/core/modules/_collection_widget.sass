@@ -1,0 +1,130 @@
+.collection-widget
+  position: relative
+
+.collection-widget__list
+  list-style-type: none
+  margin: 0
+  padding: 0
+  min-height: 100px
+  overflow-y: visible
+  position: relative
+
+  +at-breakpoint($phone-only)
+    max-height: 100%
+
+  > li
+    margin-bottom: 5px
+    position: relative
+
+.collection-widget__command
+  display: block
+  position: relative
+  padding: spacing(0.5) spacing(5)
+  margin-bottom: spacing(0.5)
+  font-size: 14px
+  line-height: 22px
+  text-align: left
+  text-decoration: none
+
+  &:first-of-type
+    margin-top: spacing(0.5)
+
+  // Arrow Icon
+  &:before
+    +glyphs-base
+    content: $icon-arrow-fill-right
+    position: absolute
+    left: 20px
+    top: 5px
+    color: $e-color-ui--grey-67
+    font-size: 12px
+    line-height: 22px
+
+
+.collection-widget__item
+  display: block
+  position: relative
+  padding: spacing(0.5) spacing(5)
+  margin-bottom: spacing(0.5)
+  font-size: 14px
+  font-weight: bold
+  line-height: 22px
+  color: $e-color-ui--grey-40
+  text-align: left
+  text-decoration: none
+
+  &:first-of-type
+    margin-top: spacing(0.5)
+
+  // Status Icon
+  &:before
+    +glyphs-base
+    content: $icon-plus
+    position: absolute
+    left: 20px
+    top: 5px
+    color: $e-color-ui--grey-67
+    font-size: 12px
+    line-height: 22px
+
+  &:hover,
+  &:active
+    text-decoration: none
+    &:before
+      color: $e-color-ui--grey-50
+      text-decoration: none
+
+  // Updating + In Collection
+  &.is-updating,
+  &.is-added
+    background-color: $blue-bright-really-light
+    &:before
+      content: $icon-ok
+      color: $blue-bright
+
+    &:hover
+      &:before
+        +glyphs-base
+        content: $icon-cancel
+        color: $blue-bright
+
+  // Error
+  &.is-error
+    +animate(shake, 0.5s)
+    opacity: 0.5
+    cursor: not-allowed
+
+  // New Collection
+  &.is-new
+    &:after
+      content: 'new'
+      position: relative
+      top: -1px
+      left: 10px
+      background: $blue-bright
+      color: $e-color-ui--white
+      font-weight: normal
+      padding: 1px 4px 3px
+      border-radius: 3px
+      font-size: 10px
+      line-height: 12px
+
+.collection-widget__item--empty
+  margin-top: 40px
+  text-align: center
+  font-size: 13px
+  line-height: 20px
+  color: $e-color-ui--grey-60
+
+
+.collection-widget__flash-message
+  display: none
+
+  .cssanimations &
+    +animate(fade-in-out, 1s)
+    display: inline
+    color: $e-color-ui--grey-73
+    position: absolute
+    right: 20px
+    font-size: 12px
+    color: $blue-bright

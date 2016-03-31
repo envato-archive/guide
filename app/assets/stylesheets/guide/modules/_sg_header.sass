@@ -1,0 +1,68 @@
+.sg-header
+  +flexbox
+  +flex-flow(row wrap)
+  background: $e-color-ui--grey-10 image-url('styleguide/banner.png')
+  position: relative
+
+
+%header-section
+  +flex(1 100%)
+  width: 100%
+  padding: 0.7em 2vw
+
+  +at-breakpoint($desktop-and-above)
+    padding: 1em 2vw 1em 5vw
+
+
+.sg-header__summary
+  @extend %header-section
+  +order(4)
+  +align-self(flex-end)
+  background-color: $e-color-ui--grey-93
+
+  +at-breakpoint($tablet-and-below)
+    h1
+      display: none
+
+    h3
+      font-size: 18px !important // TODO: fix this with better responsive typography helpers
+      color: $e-color-ui--grey-40
+
+  +at-breakpoint($desktop-and-above)
+    +order(3)
+    background-color: transparent
+    color: $e-color-ui--white
+    padding-bottom: 30px
+
+    h1
+      display: block
+
+    h3
+      color: $e-color-ui--white
+
+
+.sg-header__controls
+  @extend %header-section
+  +order(2)
+
+  +at-breakpoint($desktop-and-above)
+    +order(1)
+    padding-bottom: 0
+
+
+.sg-header__visibility
+  @extend %header-section
+  +order(1)
+  +align-self(flex-end)
+
+  +at-breakpoint($desktop-and-above)
+    +order(4)
+
+  &.-status-restricted
+    background-color: $sg-red
+
+  &.-status-unpublished
+    background-color: $sg-orange
+
+  &.-status-public
+    background-color: $sg-blue

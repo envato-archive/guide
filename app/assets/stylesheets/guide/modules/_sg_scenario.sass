@@ -1,0 +1,29 @@
+.sg-scenario
+  +pie-clearfix
+  margin-bottom: 8vh
+
+
+.sg-scenario__header
+  margin-bottom: 20px
+
+
+.sg-scenario__container
+  +pie-clearfix
+
+
+.sg-scenario__iframe
+  background-color: $e-color-ui--white
+
+  > iframe
+    display: block
+
+
+  &.is-loading
+    min-height: 100px
+    background-color: $e-color-ui--grey-96
+    background-image: image-url('common/pagination_loader.gif')
+    background-position: center center
+    background-repeat: no-repeat
+
+    > iframe
+      display: none

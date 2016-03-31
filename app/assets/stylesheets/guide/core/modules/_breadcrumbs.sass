@@ -1,0 +1,116 @@
+.breadcrumbs
+  +font-smoothing
+  margin: 0 0 spacing(1) 0
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+  a
+    position: relative
+    color: $e-color-ui--grey-40
+    font-size: 14px
+    font-weight: bold
+    line-height: 1
+    text-decoration: none
+
+    &:hover
+      text-decoration: none
+      color: $e-color-ui--grey-27
+
+    // Caret
+    &:after
+      +glyphs-base
+      content: $icon-right-open
+      display: inline-block
+      font-size: 9px
+      color: $e-color-ui--grey-73
+      margin: 0 4px 0 8px
+      cursor: default
+
+    // Hide caret on last breadcrumb
+    &:last-of-type
+      &:after
+        display: none
+
+    // Single breadcrumb to always have caret
+    &:only-of-type
+      &:after
+        display: inline-block
+
+    // Icon
+    &.is-complete
+      &:before
+        +glyphs-base
+        content: $icon-ok
+        display: inline-block
+        margin-right: 5px
+        color: $e-color-brand--envato
+        font-size: 1em
+
+        &:hover
+          color: $e-color-brand--envato
+
+    // Last Element
+    &.is-last
+      cursor: default
+
+    // Active
+    &.is-active
+      color: $e-color-ui--grey-27
+
+      &:hover
+        color: $e-color-ui--grey-27
+        cursor: default
+
+    // Disabled
+    &.is-disabled
+      &:hover
+        color: $e-color-ui--grey-73
+        cursor: default
+
+
+  // Color
+  //-------------------------------
+  &.-color-light
+    a
+      color: $e-color-ui--white
+      opacity: 0.8
+      &:hover
+        opacity: 1
+      &:after
+        color: $e-color-ui--white
+        opacity: 0.3
+
+  &.-color-dark
+    a
+      color: $e-color-ui--black
+      &:after
+        color: $e-color-ui--grey-47
+
+  // Size
+  //-------------------------------
+  &.-size-s
+    a
+      font-size: 12px
+
+
+  // Line Wrap
+  //-------------------------------
+  &.-line-wrap
+    overflow: visible
+    white-space: normal
+    a
+      line-height: 1.5
+
+  // Icon
+  //-------------------------------
+  &.-icon-fill
+    a
+      &:after
+        content: $icon-arrow-fill-right
+        position: relative
+        top: -2px
+
+.breadcrumbs__count
+  padding-left: 5px
+  color: $e-color-ui--grey-83

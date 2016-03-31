@@ -1,0 +1,85 @@
+// Envato UI Library: Alert Box
+// ------------------------------------------------
+// Please do not make any changes without consulting #mp-frontend
+
+.e-alert-box
+  +flexbox
+  +flex-flow(row nowrap)
+  +align-items(baseline)
+  margin-bottom: 20px
+  padding: 15px
+  background-color: $e-color-ui--grey-96
+  border-left: 6px solid $e-color-ui--warning
+  border-radius: 4px
+  color: $e-color-ui--grey-27
+  text-align: left
+
+
+.e-alert-box__icon
+  display: none
+
+  +at-breakpoint($tablet-and-above)
+    +flex(0 0 30px)
+    display: block
+    text-align: left
+    color: $e-color-ui--warning
+    font-size: 14px
+
+
+.e-alert-box__message
+  +flex(1 0)
+
+
+.e-alert-box__dismiss
+  +flex(0 0 25px auto)
+  text-align: right
+  padding-left: 2%
+
+
+.e-alert-box__dismiss-icon
+  display: block
+  color: $e-color-ui--grey-73
+  font-size: 10px
+  line-height: 20px
+  text-decoration: none
+
+  &:hover
+    color: $e-color-ui--grey-50
+
+
+
+// Presets
+//-------------------------------
+.e-alert-box
+  &.-type-success
+    border-color: $e-color-ui--success
+    .e-alert-box__icon
+      color: $e-color-ui--success
+
+  &.-type-alert
+    border-color: $e-color-ui--danger
+    .e-alert-box__icon
+      color: $e-color-ui--danger
+
+
+
+///////////////////////////////
+// No Flexbox Support (<= IE9)
+///////////////////////////////
+.no-flexbox
+  .e-alert-box
+    display: table
+    width: 100%
+
+  .e-alert-box__icon
+    +table-cell-fill-smallest-width
+    display: table-cell
+    padding-right: 15px
+
+  .e-alert-box__message
+    display: table-cell
+
+  .e-alert-box__dismiss
+    +table-cell-fill-smallest-width
+    display: table-cell
+    min-width: 25px

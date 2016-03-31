@@ -1,0 +1,96 @@
+@import base
+@import licenses
+
+
+.e-icon
+
+  &:before
+    // Base Glyph stylings
+    @include glyphs-base
+    display: inline-block
+
+  //  Icon Glyphs
+  // Multidimensional list that contains the name and value of the glyph
+  @each $glyph in $icon-glyphs
+    &.-icon-#{nth($glyph, 1)}:before
+      content : "#{nth($glyph, 2)}"
+
+
+  // Colours
+  &.-color-inherit
+    color: inherit
+
+  &.-color-green
+    color: $e-color-brand--envato
+
+  &.-color-red
+    color: $red-dark
+
+  &.-color-white
+    color: $e-color-ui--white
+
+  &.-color-grey-dark
+    color: $e-color-ui--grey-33
+
+  &.-color-grey-medium
+    color: $e-color-ui--grey-60
+
+
+  // Margin
+  &.-margin-right
+    margin-right: 0.4em
+
+  &.-margin-left
+    margin-left: 0.4em
+
+  // Line Height
+  &.-line-height-small
+    line-height: 0.9
+
+
+  // Sizes
+  &.-size-small
+    font-size: 14px
+
+  &.-size-medium
+    font-size: 20px
+
+  &.-size-large
+    font-size: 30px
+
+  &.-size-jumbo
+    font-size: 40px
+
+  &.-size-enormous
+    font-size: 100px
+
+
+  // Rotation
+  &.-rotate-90:before
+    transform: rotate(90deg)
+
+  &.-rotate-180:before
+    transform: rotate(180deg)
+
+  &.-rotate-270:before
+    transform: rotate(270deg)
+
+
+  // Spin
+  &.-spin-clockwise
+    &:before
+      animation: spin 1s linear infinite
+
+
+  // Flips
+  &.-flip-horizontal:before
+    transform: scale(-1, 1)
+
+  &.-flip-vertical:before
+    transform: scale(1, -1)
+
+
+
+// Alt content for users who can't see icons
+.e-icon__alt
+  @include visually-hidden

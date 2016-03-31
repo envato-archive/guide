@@ -1,0 +1,184 @@
+$animation-time: 0.2s
+$default-size-height: 30px
+$height-m: 40px
+$height-l: 50px
+$height-xl: 60px
+$responsive-button-basis: 45px
+$border-radius-amount: 7px
+
+.search-field
+  +flexbox
+
+  &.-size-xl
+    font-size: 16px
+    height: $height-xl
+
+  &.-size-l
+    font-size: 16px
+    height: $height-l
+
+  &.-size-m
+    font-size: 14px
+    height: $height-m
+
+  &,
+  &.-size-s // default
+    font-size: 16px // Prevent iOS zoom on focus 14px and below.
+    height: $default-size-height
+
+    +at-breakpoint($desktop-and-above)
+      font-size: 13px
+
+// --- Input and Input-field --- //
+
+// Firefox issue - https://bugzilla.mozilla.org/show_bug.cgi?id=1088586
+// As per flexbox spec there is a min-width: auto applied to flex items
+// They refuse to shrink below their min-width (other browsers have no implemented)
+// Workaround is to apply min-width: 0
+
+.search-field__input
+  +flex(1 auto)
+  +flexbox
+  min-width: 0
+
+
+// input element needed because of modernizr styling for `-webkit-appearance`
+input.search-field__input-field
+  +flex(1)
+  +font-smoothing
+  +box-sizing(border-box)
+  padding: 5px 8px 6px
+  border: 1px solid $e-color-ui--grey-73
+  border-radius: $border-radius-amount 0 0 $border-radius-amount
+  border-right: 0
+  color: $e-color-ui--grey-50
+  -webkit-appearance: none // original huge-search this wasn't applied (overidden by input[type])
+  outline: none
+  min-width: 0
+
+  // Sizes
+  .-size-xl &
+    +at-breakpoint($desktop-and-above)
+      padding: 5px 20px
+
+  .-size-l &
+    +at-breakpoint($desktop-and-above)
+      padding: 5px 15px
+
+  // Borders
+  .-border-none &
+    border: none
+
+  .-border-light &
+    border-color: $e-color-ui--grey-87
+
+
+  +at-breakpoint($desktop-and-above)
+    &.is-autosuggest-visible
+      border-bottom-left-radius: 0
+
+
+// --- Button --- //
+
+// Remove `button` scope when old inputs are removed
+button.search-field__button
+  +flex(0 0 30px)
+  padding: 3px 0 2px
+  background-color: $e-color-ui--white
+  color: $e-color-ui--grey-60
+  border-radius: 0 $border-radius-amount $border-radius-amount 0
+  border: 1px solid $e-color-ui--grey-73
+  border-left: none
+  font-size: 14px
+  transition: background-color $animation-time
+  &:hover
+    background-color: $e-color-ui--grey-96
+    &:before
+      color: $e-color-ui--grey-20
+
+  &:focus
+    background-color: $e-color-ui--white
+  &:active
+    background-color: $e-color-ui--grey-93
+
+  // Themed buttons
+  @each $color-and-site in $site-colors
+    $site-key: nth($color-and-site, 1)
+    $site-color: nth($color-and-site, 2)
+
+    .-theme-#{$site-key} &
+      &:hover
+        color: #{$site-color}
+
+  // Size modifiers
+  .-size-l &
+    +flex-basis($responsive-button-basis)
+    font-size: 20px
+
+    +at-breakpoint($tablet-and-above)
+      +flex-basis(70px)
+      font-size: 24px
+
+  .-size-xl &
+    +flex-basis($responsive-button-basis)
+    font-size: 20px
+
+    +at-breakpoint($tablet-and-above)
+      +flex-basis(80px)
+      font-size: 26px
+
+  // Borders
+  .-border-none &
+    border: none
+
+  .-border-light &
+    border-color: $e-color-ui--grey-87
+
+
+
+///////////////////////////////
+// No Flexbox Support (<= IE9)
+///////////////////////////////
+.no-flexbox
+  .search-field
+    display: block
+    width: 100%
+    +pie-clearfix
+
+    &.-size-l
+      .search-field__button
+        width: 18%
+        max-width: 70px
+        font-size: 24px
+
+    &.-size-xl
+      .search-field__button
+        width: 18%
+        max-width: 80px
+        font-size: 26px
+
+  // Using floats over table-cell as has issues in Safari 5 / Android browser
+  .search-field__input
+    display: block
+    float: left
+    width: 85%
+    height: 100%
+
+    +at-breakpoint($phone-only)
+      width: 82%
+
+  // Removes the X button from the input element in IE9-10
+  // Doesn't work when directly applied to the class for some reason
+  input[type='search']::-ms-clear
+    height: 0
+    width: 0
+
+  .search-field__input-field
+    width: 100%
+    height: 100%
+
+  .search-field__button
+    display: block
+    float: left
+    height: 100%
+    width: 15%

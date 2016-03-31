@@ -1,0 +1,67 @@
+// This is a temp hack until hackfrot March 2016
+$default-spacing: 10px
+$spacing-1: $default-spacing
+$spacing-2: 2 * $default-spacing
+$spacing-3: 3 * $default-spacing
+$spacing-4: 4 * $default-spacing
+@import ../core/utilities/margin
+// End hack
+
+
+// -------------------------------------
+// Temp copy and paste from core
+// -------------------------------------
+
+=at-breakpoint-if-responsive($breakpoint)
+  @if $responsive
+    +at-breakpoint($breakpoint)
+      @content
+  @else
+    @content
+
+
+// -------------------------------------
+// Visibility
+// -------------------------------------
+.is-hidden
+  display: none !important
+
+.no-js .is-hidden--no-js
+  display: none !important
+
+.js .is-hidden--js
+  display: none !important
+
+
+// -------------------------------------
+// Text
+// -------------------------------------
+.h-text-align-center
+  text-align: center
+
+.h-text-align-left
+  text-align: left
+
+.h-text-align-right
+  text-align: right
+
+
+// -------------------------------------
+// Responsive
+// -------------------------------------
+
+// +at-breakpoint($tablet-and-below)
+  // .is-hidden-tablet-and-below
+    // display: none
+
+// +at-breakpoint($phone-only)
+  // .is-hidden-phone
+    // display: none
+
+// .is-hidden-tablet-and-above
+  // +at-breakpoint($tablet-and-above)
+    // display: none
+
+// .is-hidden-desktop
+  // +at-breakpoint($desktop-and-above)
+    // display: none

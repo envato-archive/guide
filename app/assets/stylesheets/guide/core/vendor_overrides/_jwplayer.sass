@@ -1,0 +1,16 @@
+.jwplayer
+  // HTML5 Player controls are inheriting our button styles
+  button
+    border-radius: 0 !important
+    box-shadow: none !important
+    min-width: 0 !important
+    margin-right: auto !important
+
+// The custom right-click menu in the HTML5 player is fugly & useless.
+.jwclick
+  display: none !important
+
+// Video players inside fancyboxes sometimes don't get the correct height
+#inline-video-preview_wrapper,
+.fancybox-inner #inline-video-preview
+  height: 100% !important
