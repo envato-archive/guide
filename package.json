@@ -2,10 +2,13 @@
   "name": "guide",
   "version": "1.0.0",
   "description": "Document your application with a living component library and styleguide.",
-  "main": "index.js",
   "scripts": {
-    "build": "browserify javascript/index.js -o app/assets/javascripts/guide/bundle.js",
-    "watch": "watchify -p browserify-hmr javascript/index.js -o app/assets/javascripts/guide/bundle.js"
+    "build-application-js": "browserify javascript/application.js -o app/assets/javascripts/guide/application.js",
+    "build-scenario-js": "browserify javascript/scenario.js -o app/assets/javascripts/guide/scenario.js",
+    "build": "npm run build-application-js && npm run build-scenario-js",
+    "watch-application-js": "watchify -p browserify-hmr javascript/application.js -o app/assets/javascripts/guide/application.js",
+    "watch-scenario-js": "watchify -p [ browserify-hmr -p 3124] javascript/scenario.js -o app/assets/javascripts/guide/scenario.js",
+    "watch": "npm run watch-application-js & npm run watch-scenario-js"
   },
   "repository": {
     "type": "git",
