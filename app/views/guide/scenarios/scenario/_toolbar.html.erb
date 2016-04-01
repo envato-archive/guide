@@ -29,10 +29,11 @@
           <%= link_to Guide::Engine.routes.url_helpers.scenario_path(
                         :scenario_id => scenario_id,
                         :node_path => view.node_path,
-                        :scenario_format => "html",
+                        :scenario_format => view.formats.first,
                       ),
                       :class =>"sg-actions__icon",
-                      :target => "_blank" do %>
+                      :target => "_blank",
+                      :alt => "Open this scenario in a new tab" do %>
             <i class="e-icon -icon-link-ext -color-inherit -size-medium"><span class="e-icon__alt">Open in new tab</span></i>
           <% end %>
         </div>
