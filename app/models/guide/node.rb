@@ -50,6 +50,10 @@ class Guide::Node
     false
   end
 
+  def view_model
+    Guide::ViewModel.new
+  end
+
   private
 
   def infer_id_from_class_name
