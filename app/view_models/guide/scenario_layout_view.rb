@@ -15,7 +15,7 @@ class Guide::ScenarioLayoutView
   end
 
   def node_layout_template
-    @node.layout_template
+    @node.layout_templates[format] || Guide.configuration.default_layout_for_scenarios
   end
 
   def node_layout_view
