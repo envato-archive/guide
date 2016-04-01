@@ -53,8 +53,10 @@ class Guide::Structure < Guide::Node
     end
   end
 
-  def layout_template
-    layout_template_default
+  def layout_templates
+    {
+      :html => default_layout_template
+    }
   end
 
   def layout_view_model
@@ -71,7 +73,7 @@ class Guide::Structure < Guide::Node
     Guide::Photographer.new(image_name, extension).image_path
   end
 
-  def layout_template_default
-    'layouts/guide/scenario/default'
+  def default_layout_template
+    Guide.configuration.default_layout_for_scenarios
   end
 end

@@ -1,8 +1,9 @@
 class Guide::Configuration
-  attr_accessor :authorisation_system_class,
+  attr_accessor :access_level_keys,
+    :authorisation_system_class,
     :company_name,
     :controller_class_to_inherit,
-    :access_level_keys,
+    :default_layout_for_scenarios,
     :default_javascripts_for_documents,
     :default_javascripts_for_structures,
     :default_stylesheets_for_documents,
@@ -12,10 +13,11 @@ class Guide::Configuration
     :supported_locales
 
   def initialize
+    @access_level_keys = [:unpublished, :restricted]
     @authorisation_system_class = 'Guide::AuthorisationSystem::Default'
     @company_name = 'Your Awesome Company'
     @controller_class_to_inherit = 'ApplicationController'
-    @access_level_keys = [:unpublished, :restricted]
+    @default_layout_for_scenarios = 'layouts/guide/scenario/default'
     @default_javascripts_for_documents = []
     @default_javascripts_for_structures = []
     @default_stylesheets_for_documents = []
