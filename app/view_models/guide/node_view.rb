@@ -7,7 +7,8 @@ class Guide::NodeView
     :template,
     :layout_css_classes,
     :node_type,
-    :can_be_rendered?, :to => :@node
+    :can_be_rendered?,
+    :view_model, :to => :@node
 
   attr_reader :node_path
 
