@@ -1,5 +1,5 @@
 class Guide::Bouncer
-  def initialize(authorisation_system)
+  def initialize(authorisation_system:)
     @authorisation_system = authorisation_system
   end
 
@@ -7,13 +7,9 @@ class Guide::Bouncer
     visibile_to_user?(node.id, node.options[:visibility])
   end
 
-  def user_is_staff?
+  def user_is_privileged?
     @authorisation_system.allow?(:view_guide_unpublished) ||
       @authorisation_system.allow?(:view_guide_restricted)
-  end
-
-  def user_signed_in?
-    @authorisation_system.user_signed_in?
   end
 
   private

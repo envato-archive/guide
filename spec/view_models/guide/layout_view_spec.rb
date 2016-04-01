@@ -8,7 +8,9 @@ RSpec.describe Guide::LayoutView do
                         active_node: active_node,
                         active_node_heritage: active_node_heritage,
                         active_node_visibility: active_node_visibility,
-                        active_node_title: active_node_title)
+                        active_node_title: active_node_title,
+                        authentication_system: authentication_system,
+                        injected_html: injected_html)
   end
   let(:bouncer) { instance_double(Guide::Bouncer) }
   let(:diplomat) { instance_double(Guide::Diplomat) }
@@ -17,6 +19,8 @@ RSpec.describe Guide::LayoutView do
   let(:active_node_heritage) { 'Such » Node' }
   let(:active_node_visibility) { nil }
   let(:active_node_title) { 'Such » Node » Wow'}
+  let(:authentication_system) { instance_double(Guide::DefaultAuthenticationSystem) }
+  let(:injected_html) { 'such injection very powerful much danger wow' }
 
   describe '#paths_to_visible_renderable_nodes' do
     let(:paths_to_visible_renderable_nodes) do

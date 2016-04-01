@@ -14,6 +14,7 @@ class Guide::ScenariosController < Guide::BaseController
       node_title: nobilizer.bestow_title(node_path),
       scenario: scenario,
       format: scenario_format,
+      injected_html: injected_html,
     )
   end
 

@@ -1,9 +1,10 @@
 class Guide::ScenarioLayoutView
-  def initialize(node:, node_title:, scenario:, format:)
+  def initialize(node:, node_title:, scenario:, format:, injected_html:)
     @node = node
     @node_title = node_title
     @scenario = scenario
     @format = format
+    @injected_html = injected_html
   end
 
   def node_title
@@ -34,7 +35,7 @@ class Guide::ScenarioLayoutView
     @node.javascripts
   end
 
-  def optional_tracking_header
-    # Override this with any html injections that are used for tracking e.g. NewRelic
+  def injected_html
+    @injected_html.html_safe
   end
 end

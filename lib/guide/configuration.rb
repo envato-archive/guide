@@ -1,7 +1,6 @@
 class Guide::Configuration
   attr_accessor :access_level_keys,
     :asset_path_for_logo,
-    :authorisation_system_class,
     :company_name,
     :controller_class_to_inherit,
     :default_layout_for_scenarios,
@@ -17,7 +16,6 @@ class Guide::Configuration
   def initialize
     @access_level_keys = [:unpublished, :restricted]
     @asset_path_for_logo = ''
-    @authorisation_system_class = 'Guide::AuthorisationSystem::Default'
     @company_name = 'Your Awesome Company'
     @controller_class_to_inherit = 'ApplicationController'
     @default_layout_for_scenarios = 'layouts/guide/scenario/default'

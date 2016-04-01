@@ -1,4 +1,4 @@
-<% if view.user_is_staff? %>
+<% if view.user_is_privileged? %>
   <% case view.active_node_visibility %>
   <% when :restricted %>
     <div class="sg-header__visibility -status-restricted">

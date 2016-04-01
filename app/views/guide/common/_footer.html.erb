@@ -12,4 +12,10 @@
   <p class="t-body -size-m h-m0">
     &copy; <%= Time.now.year %> <%= Guide.configuration.company_name %>
   </p>
+
+  <% if view.user_signed_in? && view.url_for_sign_out.present? %>
+    <%= link_to "Sign Out", view.url_for_sign_out, :class => "t-link -decoration-reversed -color-dark -size-s" %>
+  <% elsif view.url_for_sign_in.present? %>
+    <%= link_to "Sign In", view.url_for_sign_in, :class => "t-link -decoration-reversed -color-dark -size-s" %>
+  <% end %>
 </footer>

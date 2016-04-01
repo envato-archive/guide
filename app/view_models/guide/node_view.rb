@@ -37,8 +37,8 @@ class Guide::NodeView
     template || cell
   end
 
-  def user_is_staff?
-    @bouncer.user_is_staff?
+  def user_is_privileged?
+    @bouncer.user_is_privileged?
   end
 
   def supported_locales
@@ -46,7 +46,7 @@ class Guide::NodeView
   end
 
   def show_locale_switcher?
-    @bouncer.user_is_staff? && @diplomat.multiple_supported_locales?
+    @bouncer.user_is_privileged? && @diplomat.multiple_supported_locales?
   end
 
   def current_locale
