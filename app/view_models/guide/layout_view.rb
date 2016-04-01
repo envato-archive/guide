@@ -57,6 +57,10 @@ class Guide::LayoutView
     'locale'
   end
 
+  def show_image_logo?
+    Guide.configuration.asset_path_for_logo.present?
+  end
+
   private
 
   def cartographer

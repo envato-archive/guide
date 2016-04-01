@@ -25,7 +25,18 @@
       <aside class="js-layout__sidebar sg-layout__sidebar">
         <div class="sg-drawer">
           <div class="sg-drawer__logo">
-            <h2 class="t-heading -color-light -size-m"><%= Guide.configuration.guide_name %></h2>
+            <% if @layout_view.show_image_logo? %>
+              <%= link_to(image_tag(Guide.configuration.asset_path_for_logo,
+                                    :alt => Guide.configuration.guide_name),
+                          root_path,
+                          :class => "sg-header__logo") %>
+            <% else %>
+              <h2 class="t-heading -size-m">
+                <%= link_to(Guide.configuration.guide_name,
+                            root_path,
+                            :class => "t-link -color-light -decoration-none") %>
+              </h2>
+            <% end %>
           </div>
           <div class="sg-drawer__nav">
             <%= yield :sidebar %>
