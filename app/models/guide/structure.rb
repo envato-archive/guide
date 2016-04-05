@@ -1,6 +1,6 @@
 class Guide::Structure < Guide::Node
   def template
-    partial || raise(NotImplementedError)
+    partial
   end
 
   def partial
