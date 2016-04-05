@@ -16,6 +16,16 @@ TBD
 
 Guide uses the MIT license. See [LICENSE.txt](https://github.com/envato/guide/blob/master/LICENSE.txt) for details.
 
+## Contact
+
+- [github project](https://github.com/envato/guide)
+- Bug reports and feature requests are via [github issues](https://github.com/envato/guide/issues)
+
+## Code of conduct
+
+We welcome contribution from everyone. Read more about it in
+[`CODE_OF_CONDUCT.md`](https://github.com/envato/guide/blob/master/CODE_OF_CONDUCT.md)
+
 ## Contributing
 
 1. Fork it ( http://github.com/envato/guide/fork )
@@ -23,6 +33,8 @@ Guide uses the MIT license. See [LICENSE.txt](https://github.com/envato/guide/bl
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+For larger new features: Do everything as above, but first also make contact with the project maintainers to be sure your change fits with the project direction and you won't be wasting effort going in the wrong direction
 
 ### Running test app
 **Terminal**
