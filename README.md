@@ -1,5 +1,28 @@
-# guide-gem
-Document your application with a living component library and styleguide.
+# Guide gem
+Document your entire Rails application, not just its styles.
+
+## Installation
+TBD
+
+## Configuration
+TBD
+
+## Maintainers
+
+- [Luke Arndt](https://github.com/lukearndt)
+- [Jordan Lewis](https://github.com/jordanlewiz)
+
+## License
+
+Guide uses the MIT license. See [LICENSE.txt](https://github.com/envato/guide/blob/master/LICENSE.txt) for details.
+
+## Contributing
+
+1. Fork it ( http://github.com/envato/guide/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
 
 ### Running test app
 **Terminal**
