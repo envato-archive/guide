@@ -27,8 +27,8 @@ var Scenario = function ($el) {
    * Event Listeners
    */
   this.dom.$phone.on('click', this.resizePhone.bind(this))
-  this.dom.$tablet.on('click',  this.resizeTablet.bind(this))
-  this.dom.$desktop.on('click',  this.resizeDesktop.bind(this))
+  this.dom.$tablet.on('click', this.resizeTablet.bind(this))
+  this.dom.$desktop.on('click', this.resizeDesktop.bind(this))
   this.dom.$language.on('change', this.updateLanguage.bind(this))
 }
 
@@ -57,8 +57,7 @@ Scenario.prototype.updateLanguage = function (e) {
 
   var uri = new URI(src)
   var newUrl = uri.search({
-    temp_locale: temp_locale,
-    locale: locale
+    temp_locale: locale
   })
 
   $iframe.attr('src', newUrl)
