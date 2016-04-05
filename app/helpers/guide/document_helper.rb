@@ -13,8 +13,8 @@ module Guide::DocumentHelper
     capture do
       concat content_tag(:div, code_stream, :class => "sg-content__demo") if show_rendered_element
       concat content_tag(:pre, content_tag(:code, code_string),
-                           :class => "sg-content__code language-#{language} line-numbers",
-                           :"data-language" => language)
+                         :class => "sg-content__code language-#{language} line-numbers",
+                         :"data-language" => language)
     end
   end
 end

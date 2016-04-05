@@ -12,7 +12,7 @@ Document your application with a living component library and styleguide.
 
 ### JavaScript Assets
 
-This app use `browserify` to bundle client-side JavaScript files.
+This app uses `browserify` to bundle client-side JavaScript files.
 
 To start adding new JavaScript file to the project, simply add it to `javascript/application.js`. Source code will be compiled to `app/assets/javascripts/guide/application` and load through `<%= javascript_include_tag "guide/application" %>`.
 
