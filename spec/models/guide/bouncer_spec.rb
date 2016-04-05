@@ -10,10 +10,12 @@ RSpec.describe Guide::Bouncer do
 
   before do
     allow(authorisation_system).to receive(:allow?).
-      with(:view_guide_unpublished).and_return(false)
+      with(:view_guide_unpublished).and_return(view_guide_unpublished)
     allow(authorisation_system).to receive(:allow?).
-      with(:view_guide_restricted).and_return(false)
+      with(:view_guide_restricted).and_return(view_guide_restricted)
   end
+  let(:view_guide_unpublished) { false }
+  let(:view_guide_restricted) { false }
 
   describe '#user_can_access?' do
     subject(:user_can_access?) { bouncer.user_can_access?(node) }
@@ -116,6 +118,32 @@ RSpec.describe Guide::Bouncer do
           Guide::Errors::InvalidVisibilityLevel,
           "You tried to give :checkout a visibility of :explode_after_reading, but :explode_after_reading is not a valid selection. Valid visibility options include: nil, :unpublished, :restricted."
         )
+      end
+    end
+  end
+
+  describe "#user_is_privileged?" do
+    subject(:user_is_privileged?) { bouncer.user_is_privileged? }
+
+    context "when authorization system allows user to view unpublished nodes" do
+      let(:view_guide_unpublished) { true }
+
+      it { is_expected.to be true }
+    end
+
+    context "when authorization system prevents user from viewing unpublished nodes" do
+      let(:view_guide_unpublished) { false }
+
+      context "but it allows user to view restricted nodes" do
+        let(:view_guide_restricted) { true }
+
+        it { is_expected.to be true }
+      end
+
+      context "and it prevents user from viewing restricted nodes" do
+        let(:view_guide_restricted) { false }
+
+        it { is_expected.to be false }
       end
     end
   end
