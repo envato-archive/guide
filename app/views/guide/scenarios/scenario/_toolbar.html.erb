@@ -1,6 +1,6 @@
 <header class="sg-scenario__header">
   <div class="sg-toolbar -status-<%= scenario.options[:visibility] || :public %>">
-    <% if view.user_is_staff? %>
+    <% if view.user_is_privileged? %>
       <%= render  'guide/scenarios/scenario/visibility',
                   :visibility => scenario.options[:visibility] %>
     <% end %>

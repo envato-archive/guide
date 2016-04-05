@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Guide::Bouncer do
-  let(:bouncer) { described_class.new(authorisation_system) }
+  let(:bouncer) do
+    described_class.new(authorisation_system: authorisation_system)
+  end
   let(:authorisation_system) do
-    instance_double(Guide::AuthorisationSystem)
+    instance_double(Guide::DefaultAuthorisationSystem)
   end
 
   before do

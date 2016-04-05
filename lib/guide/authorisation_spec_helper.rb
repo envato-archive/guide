@@ -1,15 +1,19 @@
 module Guide::AuthorisationSpecHelper
   RSpec.shared_context "the user is allowed to see the active node" do
     before do
-      allow(Guide::AuthorisationSystem).to receive(:new).
+      allow(controller).to receive(:injected_authorisation_system).
         and_return(authorisation_system)
-      allow(Guide::Bouncer).to receive(:new).
-        with(authorisation_system).and_return(bouncer)
+      allow(controller).to receive(:injected_authentication_system).
+        and_return(authentication_system)
+      allow(Guide::Bouncer).to receive(:new).with(
+        authorisation_system: authorisation_system
+      ).and_return(bouncer)
       allow(bouncer).to receive(:user_can_access?).
         with(active_node).and_return(true)
     end
 
-    let(:authorisation_system) { double(Guide::AuthorisationSystem) }
+    let(:authentication_system) { instance_double(Guide::DefaultAuthenticationSystem) }
+    let(:authorisation_system) { instance_double(Guide::DefaultAuthorisationSystem) }
     let(:content_node) { Guide::Content.new }
     let(:active_node) do
       Guide::Monkey.new(content_node, bouncer).fetch_node(node_path)
@@ -17,21 +21,25 @@ module Guide::AuthorisationSpecHelper
     let(:bouncer) do
       instance_double(Guide::Bouncer,
                       :user_can_access? => true,
-                      :user_is_staff? => false)
+                      :user_is_privileged? => false)
     end
   end
 
   RSpec.shared_context "the user is not allowed to see the active node" do
     before do
-      allow(Guide::AuthorisationSystem).to receive(:new).
+      allow(controller).to receive(:injected_authorisation_system).
         and_return(authorisation_system)
-      allow(Guide::Bouncer).to receive(:new).
-        with(authorisation_system).and_return(bouncer)
+      allow(controller).to receive(:injected_authentication_system).
+        and_return(authentication_system)
+      allow(Guide::Bouncer).to receive(:new).with(
+        authorisation_system: authorisation_system
+      ).and_return(bouncer)
       allow(bouncer).to receive(:user_can_access?).
         with(active_node).and_return(false)
     end
 
-    let(:authorisation_system) { double(Guide::AuthorisationSystem) }
+    let(:authentication_system) { instance_double(Guide::DefaultAuthenticationSystem) }
+    let(:authorisation_system) { instance_double(Guide::DefaultAuthorisationSystem) }
     let(:content_node) { Guide::Content.new }
     let(:active_node) do
       Guide::Monkey.new(content_node, bouncer).fetch_node(node_path)
@@ -39,7 +47,7 @@ module Guide::AuthorisationSpecHelper
     let(:bouncer) do
       instance_double(Guide::Bouncer,
                       :user_can_access? => true,
-                      :user_is_staff? => false)
+                      :user_is_privileged? => false)
     end
   end
 

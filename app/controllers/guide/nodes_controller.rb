@@ -16,6 +16,8 @@ class Guide::NodesController < Guide::BaseController
       active_node_heritage: nobilizer.bestow_heritage(node_path),
       active_node_visibility: active_node_visibility,
       active_node_title: nobilizer.bestow_title(node_path),
+      authentication_system: injected_authentication_system,
+      injected_html: injected_html,
     )
   end
 

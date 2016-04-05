@@ -30,13 +30,31 @@ class Guide::BaseController < Guide.configuration.controller_class_to_inherit.co
   end
 
   def bouncer
-    @bouncer ||= Guide::Bouncer.new(authorisation_system)
+    @bouncer ||= Guide::Bouncer.new(authorisation_system: injected_authorisation_system)
   end
 
-  def authorisation_system
-    # Override this method if you need to pass arguments into whatever
-    # implementation of Guide::AuthorisationSystem works for your application
-    @authorisation_system ||= Guide::AuthorisationSystem.new
+  def injected_authorisation_system
+    if defined?(authorisation_system)
+      authorisation_system
+    else
+      Guide::DefaultAuthorisationSystem.new
+    end
+  end
+
+  def injected_authentication_system
+    if defined?(authentication_system)
+      authentication_system
+    else
+      Guide::DefaultAuthenticationSystem.new
+    end
+  end
+
+  def injected_html
+    if defined?(html_injection)
+      html_injection
+    else
+      ''
+    end
   end
 
   def content
