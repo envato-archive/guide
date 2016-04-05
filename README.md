@@ -14,7 +14,7 @@ Document your application with a living component library and styleguide.
 
 This app use `browserify` to bundle client-side JavaScript files.
 
-To start add new JavaScript file to the project, simply add it to `javascript/index.js`. Source code will be compiled to `app/assets/javascripts/guide/bundle.js` and load throug `<%= javascript_include_tag "guide/application" %>`.
+To start adding new JavaScript file to the project, simply add it to `javascript/application.js`. Source code will be compiled to `app/assets/javascripts/guide/application` and load through `<%= javascript_include_tag "guide/application" %>`.
 
 * `npm install` to install dependencies
 * `npm run watch` to start live-reload watchify serer
