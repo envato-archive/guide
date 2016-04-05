@@ -22,7 +22,7 @@ class Guide::Content < Guide::Document
   #
   # app/<whatever_you_want>/guide/content.rb
   #
-  # The convention for the subdirectory in app/ is "guide",
+  # The convention for the subdirectory in app/ is "documentation",
   # but if you don't like that, you can use something else (even "models"!).
   # You probably shouldn't use any other standard rails directories though.
 end
