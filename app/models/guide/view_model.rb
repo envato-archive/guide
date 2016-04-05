@@ -11,6 +11,8 @@ class Guide::ViewModel < OpenStruct
       )
     end
 
+    @guide_view_model_interface_methods = defaults.keys
+
     super(defaults.merge(overrides))
   end
 
@@ -23,6 +25,10 @@ class Guide::ViewModel < OpenStruct
         "but it does not exist on the #{self.class.name} in your Structure."
       )
     end
+  end
+
+  def guide_view_model_interface_methods
+    @guide_view_model_interface_methods
   end
 
   def to_ary
