@@ -54,6 +54,10 @@ class Guide::Node
     Guide::ViewModel.new
   end
 
+  def image_path(image_name, extension = "png")
+    Guide::Photographer.new(image_name, extension).image_path
+  end
+
   private
 
   def infer_id_from_class_name

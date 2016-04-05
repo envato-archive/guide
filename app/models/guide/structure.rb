@@ -69,10 +69,6 @@ class Guide::Structure < Guide::Node
 
   private
 
-  def image_path(image_name, extension = "png")
-    Guide::Photographer.new(image_name, extension).image_path
-  end
-
   def default_layout_template
     Guide.configuration.default_layout_for_scenarios
   end
