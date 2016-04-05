@@ -1,8 +1,6 @@
 /**
  * Guide: Language Switcher
  */
-var $ = require('jquery')
-
 var LanguageSwitcher = function ($el) {
   this.$el = $el
 

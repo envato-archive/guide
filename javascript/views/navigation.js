@@ -1,7 +1,6 @@
 /**
  * Guide: Navigation
  */
-var $ = require('jquery')
 require('../vendor/tendina')
 
 var Navigation = function ($el) {

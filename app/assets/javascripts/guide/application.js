@@ -2049,8 +2049,6 @@ module.exports = Iframe
 /**
  * Guide: Language Switcher
  */
-var $ = require('jquery')
-
 var LanguageSwitcher = function ($el) {
   this.$el = $el
 
@@ -2064,7 +2062,7 @@ LanguageSwitcher.prototype.handleChange = function () {
 
 module.exports = LanguageSwitcher
 
-},{"jquery":16}],8:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /**
  * Guide: Layout
  */
@@ -2097,7 +2095,6 @@ module.exports = Layout
 /**
  * Guide: Navigation
  */
-var $ = require('jquery')
 require('../vendor/tendina')
 
 var Navigation = function ($el) {
@@ -2109,7 +2106,7 @@ var Navigation = function ($el) {
 
 module.exports = Navigation
 
-},{"../vendor/tendina":4,"jquery":16}],10:[function(require,module,exports){
+},{"../vendor/tendina":4}],10:[function(require,module,exports){
 /**
  * Guide: Scenario
  */
@@ -2139,8 +2136,8 @@ var Scenario = function ($el) {
    * Event Listeners
    */
   this.dom.$phone.on('click', this.resizePhone.bind(this))
-  this.dom.$tablet.on('click',  this.resizeTablet.bind(this))
-  this.dom.$desktop.on('click',  this.resizeDesktop.bind(this))
+  this.dom.$tablet.on('click', this.resizeTablet.bind(this))
+  this.dom.$desktop.on('click', this.resizeDesktop.bind(this))
   this.dom.$language.on('change', this.updateLanguage.bind(this))
 }
 
@@ -2169,8 +2166,7 @@ Scenario.prototype.updateLanguage = function (e) {
 
   var uri = new URI(src)
   var newUrl = uri.search({
-    temp_locale: temp_locale,
-    locale: locale
+    temp_locale: locale
   })
 
   $iframe.attr('src', newUrl)
