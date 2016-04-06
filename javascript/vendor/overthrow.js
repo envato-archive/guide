@@ -3,16 +3,16 @@ This is a modified version of overthrow because the original one does not suppor
  */
 
 /*! Overthrow. An overflow:auto polyfill for responsive design. (c) 2012: Scott Jehl, Filament Group, Inc. http://filamentgroup.github.com/Overthrow/license.txt */
-let doc = window.document
-let docElem = doc.documentElement
-let enabledClassName = 'overthrow-enabled'
+var doc = window.document
+var docElem = doc.documentElement
+var enabledClassName = 'overthrow-enabled'
 
 // Touch events are used in the polyfill, and thus are a prerequisite
-let canBeFilledWithPoly = 'ontouchmove' in doc
+var canBeFilledWithPoly = 'ontouchmove' in doc
 
 // The following attempts to determine whether the browser has native overflow support
 // so we can enable it but not polyfill
-let nativeOverflow =
+var nativeOverflow =
   // Features-first. iOS5 overflow scrolling property check - no UA needed here. thanks Apple :)
   'WebkitOverflowScrolling' in docElem.style ||
   // Test the windows scrolling property as well
@@ -25,11 +25,11 @@ let nativeOverflow =
   // Whitelist some popular, overflow-supporting mobile browsers for now and the future
   // These browsers are known to get overlow support right, but give us no way of detecting it.
   (function () {
-    let ua = window.navigator.userAgent
+    var ua = window.navigator.userAgent
     // Webkit crosses platforms, and the browsers on our list run at least version 534
-    let webkit = ua.match(/AppleWebKit\/([0-9]+)/)
-    let wkversion = webkit && webkit[1]
-    let wkLte534 = webkit && wkversion >= 534
+    var webkit = ua.match(/AppleWebKit\/([0-9]+)/)
+    var wkversion = webkit && webkit[1]
+    var wkLte534 = webkit && wkversion >= 534
 
     return (
       /* Android 3+ with webkit gte 534
@@ -55,22 +55,22 @@ let nativeOverflow =
   })()
 
 // Expose overthrow API
-let overthrow = {}
+var overthrow = {}
 
 overthrow.enabledClassName = enabledClassName
 
-overthrow.addClass = () => {
+overthrow.addClass = function () {
   if (docElem.className.indexOf(overthrow.enabledClassName) === -1) {
     docElem.className += ' ' + overthrow.enabledClassName
   }
 }
 
-overthrow.removeClass = () => {
+overthrow.removeClass = function () {
   docElem.className = docElem.className.replace(overthrow.enabledClassName, '')
 }
 
 // Enable and potentially polyfill overflow
-overthrow.set = () => {
+overthrow.set = function () {
   // If nativeOverflow or at least the element canBeFilledWithPoly, add a class to cue CSS that assumes overflow scrolling will work (setting height on elements and such)
   if (nativeOverflow) {
     overthrow.addClass()
@@ -81,7 +81,7 @@ overthrow.set = () => {
 overthrow.canBeFilledWithPoly = canBeFilledWithPoly
 
 // Destroy everything later. If you want to.
-overthrow.forget = () => {
+overthrow.forget = function () {
   overthrow.removeClass()
 }
 

@@ -23,7 +23,7 @@ Views.LanguageSwitcher = LanguageSwitcher
 
 viewloader.execute(Views)
 
-},{"./vendor/modernizr":2,"./vendor/overthrow":3,"./vendor/viewloader":5,"./views/iframe":6,"./views/languageSwitcher":7,"./views/layout":8,"./views/navigation":9,"./views/scenario":10,"./views/search":11,"jquery":16,"prismjs":18}],2:[function(require,module,exports){
+},{"./vendor/modernizr":2,"./vendor/overthrow":3,"./vendor/viewloader":5,"./views/iframe":6,"./views/languageSwitcher":7,"./views/layout":8,"./views/navigation":9,"./views/scenario":10,"./views/search":11,"jquery":16,"prismjs":17}],2:[function(require,module,exports){
 /*!
  * modernizr v3.2.0
  * Build http://modernizr.com/download?-audio-cors-cssanimations-flexbox-input-inputtypes-localstorage-placeholder-svg-xhr2-domprefixes-mq-prefixes-shiv-testallprops-testprop-teststyles-dontmin
@@ -1706,16 +1706,16 @@ This is a modified version of overthrow because the original one does not suppor
  */
 
 /*! Overthrow. An overflow:auto polyfill for responsive design. (c) 2012: Scott Jehl, Filament Group, Inc. http://filamentgroup.github.com/Overthrow/license.txt */
-let doc = window.document
-let docElem = doc.documentElement
-let enabledClassName = 'overthrow-enabled'
+var doc = window.document
+var docElem = doc.documentElement
+var enabledClassName = 'overthrow-enabled'
 
 // Touch events are used in the polyfill, and thus are a prerequisite
-let canBeFilledWithPoly = 'ontouchmove' in doc
+var canBeFilledWithPoly = 'ontouchmove' in doc
 
 // The following attempts to determine whether the browser has native overflow support
 // so we can enable it but not polyfill
-let nativeOverflow =
+var nativeOverflow =
   // Features-first. iOS5 overflow scrolling property check - no UA needed here. thanks Apple :)
   'WebkitOverflowScrolling' in docElem.style ||
   // Test the windows scrolling property as well
@@ -1728,11 +1728,11 @@ let nativeOverflow =
   // Whitelist some popular, overflow-supporting mobile browsers for now and the future
   // These browsers are known to get overlow support right, but give us no way of detecting it.
   (function () {
-    let ua = window.navigator.userAgent
+    var ua = window.navigator.userAgent
     // Webkit crosses platforms, and the browsers on our list run at least version 534
-    let webkit = ua.match(/AppleWebKit\/([0-9]+)/)
-    let wkversion = webkit && webkit[1]
-    let wkLte534 = webkit && wkversion >= 534
+    var webkit = ua.match(/AppleWebKit\/([0-9]+)/)
+    var wkversion = webkit && webkit[1]
+    var wkLte534 = webkit && wkversion >= 534
 
     return (
       /* Android 3+ with webkit gte 534
@@ -1758,22 +1758,22 @@ let nativeOverflow =
   })()
 
 // Expose overthrow API
-let overthrow = {}
+var overthrow = {}
 
 overthrow.enabledClassName = enabledClassName
 
-overthrow.addClass = () => {
+overthrow.addClass = function () {
   if (docElem.className.indexOf(overthrow.enabledClassName) === -1) {
     docElem.className += ' ' + overthrow.enabledClassName
   }
 }
 
-overthrow.removeClass = () => {
+overthrow.removeClass = function () {
   docElem.className = docElem.className.replace(overthrow.enabledClassName, '')
 }
 
 // Enable and potentially polyfill overflow
-overthrow.set = () => {
+overthrow.set = function () {
   // If nativeOverflow or at least the element canBeFilledWithPoly, add a class to cue CSS that assumes overflow scrolling will work (setting height on elements and such)
   if (nativeOverflow) {
     overthrow.addClass()
@@ -1784,7 +1784,7 @@ overthrow.set = () => {
 overthrow.canBeFilledWithPoly = canBeFilledWithPoly
 
 // Destroy everything later. If you want to.
-overthrow.forget = () => {
+overthrow.forget = function () {
   overthrow.removeClass()
 }
 
@@ -2260,7 +2260,7 @@ Search.prototype.toggleSearch = function () {
 
 module.exports = Search
 
-},{"jquery":16,"selectize":19}],12:[function(require,module,exports){
+},{"jquery":16,"selectize":18}],12:[function(require,module,exports){
 
 'use strict';
 
@@ -14183,142 +14183,6 @@ return jQuery;
 }));
 
 },{}],17:[function(require,module,exports){
-/**
- * microplugin.js
- * Copyright (c) 2013 Brian Reavis & contributors
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
- * file except in compliance with the License. You may obtain a copy of the License at:
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
- * ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- *
- * @author Brian Reavis <brian@thirdroute.com>
- */
-
-(function(root, factory) {
-	if (typeof define === 'function' && define.amd) {
-		define(factory);
-	} else if (typeof exports === 'object') {
-		module.exports = factory();
-	} else {
-		root.MicroPlugin = factory();
-	}
-}(this, function() {
-	var MicroPlugin = {};
-
-	MicroPlugin.mixin = function(Interface) {
-		Interface.plugins = {};
-
-		/**
-		 * Initializes the listed plugins (with options).
-		 * Acceptable formats:
-		 *
-		 * List (without options):
-		 *   ['a', 'b', 'c']
-		 *
-		 * List (with options):
-		 *   [{'name': 'a', options: {}}, {'name': 'b', options: {}}]
-		 *
-		 * Hash (with options):
-		 *   {'a': { ... }, 'b': { ... }, 'c': { ... }}
-		 *
-		 * @param {mixed} plugins
-		 */
-		Interface.prototype.initializePlugins = function(plugins) {
-			var i, n, key;
-			var self  = this;
-			var queue = [];
-
-			self.plugins = {
-				names     : [],
-				settings  : {},
-				requested : {},
-				loaded    : {}
-			};
-
-			if (utils.isArray(plugins)) {
-				for (i = 0, n = plugins.length; i < n; i++) {
-					if (typeof plugins[i] === 'string') {
-						queue.push(plugins[i]);
-					} else {
-						self.plugins.settings[plugins[i].name] = plugins[i].options;
-						queue.push(plugins[i].name);
-					}
-				}
-			} else if (plugins) {
-				for (key in plugins) {
-					if (plugins.hasOwnProperty(key)) {
-						self.plugins.settings[key] = plugins[key];
-						queue.push(key);
-					}
-				}
-			}
-
-			while (queue.length) {
-				self.require(queue.shift());
-			}
-		};
-
-		Interface.prototype.loadPlugin = function(name) {
-			var self    = this;
-			var plugins = self.plugins;
-			var plugin  = Interface.plugins[name];
-
-			if (!Interface.plugins.hasOwnProperty(name)) {
-				throw new Error('Unable to find "' +  name + '" plugin');
-			}
-
-			plugins.requested[name] = true;
-			plugins.loaded[name] = plugin.fn.apply(self, [self.plugins.settings[name] || {}]);
-			plugins.names.push(name);
-		};
-
-		/**
-		 * Initializes a plugin.
-		 *
-		 * @param {string} name
-		 */
-		Interface.prototype.require = function(name) {
-			var self = this;
-			var plugins = self.plugins;
-
-			if (!self.plugins.loaded.hasOwnProperty(name)) {
-				if (plugins.requested[name]) {
-					throw new Error('Plugin has circular dependency ("' + name + '")');
-				}
-				self.loadPlugin(name);
-			}
-
-			return plugins.loaded[name];
-		};
-
-		/**
-		 * Registers a plugin.
-		 *
-		 * @param {string} name
-		 * @param {function} fn
-		 */
-		Interface.define = function(name, fn) {
-			Interface.plugins[name] = {
-				'name' : name,
-				'fn'   : fn
-			};
-		};
-	};
-
-	var utils = {
-		isArray: Array.isArray || function(vArg) {
-			return Object.prototype.toString.call(vArg) === '[object Array]';
-		}
-	};
-
-	return MicroPlugin;
-}));
-},{}],18:[function(require,module,exports){
 (function (global){
 
 /* **********************************************
@@ -15039,7 +14903,7 @@ Prism.languages.js = Prism.languages.javascript;
 })();
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],19:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 /**
  * selectize.js (v0.12.1)
  * Copyright (c) 2013–2015 Brian Reavis & contributors
@@ -18098,7 +17962,143 @@ Prism.languages.js = Prism.languages.javascript;
 
 	return Selectize;
 }));
-},{"jquery":16,"microplugin":17,"sifter":20}],20:[function(require,module,exports){
+},{"jquery":16,"microplugin":19,"sifter":20}],19:[function(require,module,exports){
+/**
+ * microplugin.js
+ * Copyright (c) 2013 Brian Reavis & contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
+ * file except in compliance with the License. You may obtain a copy of the License at:
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
+ * ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ *
+ * @author Brian Reavis <brian@thirdroute.com>
+ */
+
+(function(root, factory) {
+	if (typeof define === 'function' && define.amd) {
+		define(factory);
+	} else if (typeof exports === 'object') {
+		module.exports = factory();
+	} else {
+		root.MicroPlugin = factory();
+	}
+}(this, function() {
+	var MicroPlugin = {};
+
+	MicroPlugin.mixin = function(Interface) {
+		Interface.plugins = {};
+
+		/**
+		 * Initializes the listed plugins (with options).
+		 * Acceptable formats:
+		 *
+		 * List (without options):
+		 *   ['a', 'b', 'c']
+		 *
+		 * List (with options):
+		 *   [{'name': 'a', options: {}}, {'name': 'b', options: {}}]
+		 *
+		 * Hash (with options):
+		 *   {'a': { ... }, 'b': { ... }, 'c': { ... }}
+		 *
+		 * @param {mixed} plugins
+		 */
+		Interface.prototype.initializePlugins = function(plugins) {
+			var i, n, key;
+			var self  = this;
+			var queue = [];
+
+			self.plugins = {
+				names     : [],
+				settings  : {},
+				requested : {},
+				loaded    : {}
+			};
+
+			if (utils.isArray(plugins)) {
+				for (i = 0, n = plugins.length; i < n; i++) {
+					if (typeof plugins[i] === 'string') {
+						queue.push(plugins[i]);
+					} else {
+						self.plugins.settings[plugins[i].name] = plugins[i].options;
+						queue.push(plugins[i].name);
+					}
+				}
+			} else if (plugins) {
+				for (key in plugins) {
+					if (plugins.hasOwnProperty(key)) {
+						self.plugins.settings[key] = plugins[key];
+						queue.push(key);
+					}
+				}
+			}
+
+			while (queue.length) {
+				self.require(queue.shift());
+			}
+		};
+
+		Interface.prototype.loadPlugin = function(name) {
+			var self    = this;
+			var plugins = self.plugins;
+			var plugin  = Interface.plugins[name];
+
+			if (!Interface.plugins.hasOwnProperty(name)) {
+				throw new Error('Unable to find "' +  name + '" plugin');
+			}
+
+			plugins.requested[name] = true;
+			plugins.loaded[name] = plugin.fn.apply(self, [self.plugins.settings[name] || {}]);
+			plugins.names.push(name);
+		};
+
+		/**
+		 * Initializes a plugin.
+		 *
+		 * @param {string} name
+		 */
+		Interface.prototype.require = function(name) {
+			var self = this;
+			var plugins = self.plugins;
+
+			if (!self.plugins.loaded.hasOwnProperty(name)) {
+				if (plugins.requested[name]) {
+					throw new Error('Plugin has circular dependency ("' + name + '")');
+				}
+				self.loadPlugin(name);
+			}
+
+			return plugins.loaded[name];
+		};
+
+		/**
+		 * Registers a plugin.
+		 *
+		 * @param {string} name
+		 * @param {function} fn
+		 */
+		Interface.define = function(name, fn) {
+			Interface.plugins[name] = {
+				'name' : name,
+				'fn'   : fn
+			};
+		};
+	};
+
+	var utils = {
+		isArray: Array.isArray || function(vArg) {
+			return Object.prototype.toString.call(vArg) === '[object Array]';
+		}
+	};
+
+	return MicroPlugin;
+}));
+},{}],20:[function(require,module,exports){
 /**
  * sifter.js
  * Copyright (c) 2013 Brian Reavis & contributors
