@@ -211,7 +211,19 @@ These specs ensure that your fake view models (Guide::ViewModel) in Guide have t
 `spec/documentation/guide/content`
 
 ### Step 3: Access your Guide(s)
-TODO
+When you mount the gem in your routes file, you can specify a route to mount it to. If you want it mounted at the root of your application, you'd use:
+
+```ruby
+mount Guide::Engine => "/"
+```
+
+Or if you want it at, say, `/guide/`, you could use:
+
+```ruby
+mount Guide::Engine => '/guide/'
+```
+
+Any routes defined by the Guide gem will be prefixed with the path you specify when you mount it.
 
 ## Maintainers
 - [Luke Arndt](https://github.com/lukearndt)
