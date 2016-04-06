@@ -30,7 +30,7 @@ Guide.configure do |config|
   config.default_stylesheets_for_structures = ['market/core/index', 'market/pages/default/index']
   config.guide_name = "Envato Market Guide"
   config.helper_module_to_globally_include = 'Guide::HelperInjection'
-  config.local_variable_for_view_model = :presenter
+  config.local_variable_for_view_model = :view_model
   config.supported_locales = {
     "English" => "en",
     "Portuguese" => "pt",
@@ -90,7 +90,7 @@ end
 
 `app/documentation/guide/content/ui_library/typography/heading.html`
 ```HTML
-<div>what ever you like</div>
+<div>whatever you like</div>
 ```
 
 ##### Structure
@@ -118,7 +118,7 @@ class Guide::Content::Structures::Account::SignInModal < Guide::Structure
 
   private
 
-  def presenter(options = {})
+  def view_model(options = {})
     Guide::ViewModel.new(
       {
         :form => Guide::FormObject.new,
@@ -130,13 +130,13 @@ class Guide::Content::Structures::Account::SignInModal < Guide::Structure
   # Scenarios
 
   scenario :user_clicks_sign_in do
-    presenter(
+    view_model(
       :user_action => :direct
     )
   end
 
   scenario :user_wants_to_checkout do
-    presenter(
+    view_model(
       :user_action => :checkout
     )
   end
@@ -164,7 +164,7 @@ Example
 # app/documentation/guide/fixtures/common.rb
 
 class Guide::Fixtures::Common < Guide::Fixture
-  def self.alert_box_presenter(options = {})
+  def self.alert_box_view_model(options = {})
     Guide::ViewModel.new(
       {
         :type => :notice,
@@ -185,7 +185,7 @@ Injections can be used to supply app specific code
 `html_injection.rb`
 
 ### Permissions
-It is possible to restrict access to a Structure, Component or even at the Scenario level.
+It is possible to restrict access to a Document, Structure or even at the Scenario level.
 The 3 types of access are `public`, `unpublished` and `restricted`. Access depends on setting up your authorisation and authentication system.
 
 Example
@@ -210,6 +210,8 @@ TODO
 These specs ensure that your fake view models (Guide::ViewModel) in Guide have the same public interfaces as the real view models in your application
 `spec/documentation/guide/content`
 
+### Step 3: Access your Guide(s)
+TODO
 
 ## Maintainers
 - [Luke Arndt](https://github.com/lukearndt)
