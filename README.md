@@ -18,8 +18,12 @@ $ bundle install
 
 ## Configuration
 
-### Step 1: Add config file
+### Step 1: Add configs
 Add `/config/initializers/guide.rb`
+
+Add the following to `config/application.rb`
+`config.assets.precompile += ['guide/application.js', 'guide/scenario.js', 'guide/application.css', 'guide/scenario.css']`
+
 
 Example
 ```Ruby
