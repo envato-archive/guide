@@ -1,1 +1,17 @@
-<%= link_to "Structures", Guide::Engine.routes.url_helpers.node_path('structures') %>
+<h1 class="t-heading -size-l">Welcome to the Guide gem example app</h1>
+<p class="t-body">For full instructions, please visit Guide's <%= link_to "GitHub wiki", "https://github.com/envato/guide/wiki" %></p>
+
+<div class="h-my4">
+  <h3 class="t-heading -size-m">Example links</h3>
+  <ul class="t-list">
+    <li class="t-body h-m0"><%= link_to "Structures", Guide::Engine.routes.url_helpers.node_path('structures') %></li>
+    <li class="t-body h-m0">
+      <%= link_to "Documents", Guide::Engine.routes.url_helpers.node_path('documents') %>
+      <ul class="t-list">
+        <li class="t-body h-m0"><%= link_to "Public access example", Guide::Engine.routes.url_helpers.node_path('documents/public') %></li>
+        <li class="t-body h-m0"><%= link_to "Unpublished access example", Guide::Engine.routes.url_helpers.node_path('documents/unpublished') %></li>
+        <li class="t-body"><%= link_to "Restricted access example", Guide::Engine.routes.url_helpers.node_path('documents/restricted') %></li>
+      </ul>
+    </li>
+  </ul>
+</div>
