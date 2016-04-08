@@ -128,7 +128,7 @@ end
 **Supported format**
 - `html`
 - `text`
-- `markdown` (coming soon)
+- `markdown`
 
 ```Ruby
 # app/documentation/guide/content/ui_library/typography/heading.rb
