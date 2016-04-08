@@ -1,5 +1,5 @@
 # Guide gem
-Document your entire Rails application, not just its styles.
+Document your entire Design System, not just your UI styles.
 
 ## Development Status [![Build status](https://badge.buildkite.com/277fd82c44a19eb19ac9a25a71df482cb7711c63ddf9bca3d3.svg)](https://buildkite.com/envato-marketplaces/guide)
 Guide is extracted from production code in use at Envato. However, it is undergoing early development, and APIs and features are almost certain to be in flux.
@@ -17,8 +17,6 @@ $ bundle install
 ```
 
 ## Configuration
-
-### Step 1: Add configs
 Add `/config/initializers/guide.rb`
 
 ```Ruby
@@ -54,10 +52,38 @@ config.assets.precompile += [
 ```
 
 
-### Step 2: Build your Guide(s)
-All your Guides and content will live in `app/documenation/guide/content`
+## Build your Guide(s)
 
-For now these folders and files will need to be created manually
+### Architecture & Navigation
+
+A Guide's navgivation is essentially a tree of nodes with pages that are either a `Document` or a `Structure`.
+
+- `Node` for organising things in the tree without adding pages
+- `Document` for static pages
+- `Structure` for dynamic pages with scenarios
+
+`content.rb` is the root node of that tree and defines your top level navigation structure.
+To add child nodes, use the following DSL:
+
+`contains :child_node_name`
+
+This example declares that the tree contains a child node named:
+
+`Guide::Content::ChildNodeName`
+
+You will still need to create a class for it.
+
+It is highly recommended that all of your content lives in the
+`Guide::Content` namespace or Guide will have trouble finding it!
+
+Feel free to redeclare this class in your system at the following path:
+
+`app/<whatever_you_want>/guide/content.rb`
+
+The convention for the subdirectory in app/ is `documentation`,
+but if you don't like that, you can use something else (even "models"!).
+You probably shouldn't use any other standard rails directories though.
+
 
 Add `app/documenation/guide/content.rb` and define your Guide.
 
@@ -71,14 +97,15 @@ class Guide::Content < Guide::Document
 end
 ```
 
-#### Navigation
-A Guide's navgivation is essentially a tree of nodes with pages that are either a `Document` or a `Structure`.
+To specify options such as visibility, append them to the declaration:
 
-- `Guide::Node` for organising things in the tree without adding pages
-- `Guide::Document` for static pages
-- `Guide::Structure` for dynamic pages with scenarios
+```Ruby
+contains :child_node_name_1  # public by default
+contains :child_node_name_2, :visibility => :unpublished
+contains :child_node_name_3, :visibility => :restricted
+```
 
-##### Node
+### Node
 > A node is a point on the content tree. Everything in the content folder is a node.
 
 ```Ruby
@@ -94,8 +121,13 @@ class Guide::Content::UILibrary::Typography < Guide::Node
 end
 ```
 
-##### Document
+### Document
 > This type of node has no scenarios, but is still renderable. It corresponds to a static template, usually with the same name, in the same folder.
+
+**Supported format**
+- `html`
+- `text`
+- `markdown` (coming soon)
 
 ```Ruby
 # app/documentation/guide/content/ui_library/typography/heading.rb
@@ -109,57 +141,21 @@ end
 <div>whatever you like</div>
 ```
 
-##### Structure
+### Structure
 > This type of node can manage a list of scenarios, so that we can render a piece of the UI as it would look in lots of different situations.
 
-**Supported format**
-- `html`
-- `text`
-- `markdown` (coming soon)
+For more info on how to add Structures and Scenarios, see the [wiki](https://github.com/envato/guide/wiki/Adding-Structures)
 
-```Ruby
-# app/documentation/guide/content/structures/account/sign_in_modal.rb
+### Scenarios
+TODO: Elaborate
 
-class Guide::Content::Structures::Account::SignInModal < Guide::Structure
-  def partial
-    'sso/sign_in/modal'
-  end
+### Homepage
+The homepage of your Guide is a special snowflake. Edit the contents here.
+`app/documenation/guide/_content.html.erb`
 
-  def layout_css_classes
-    {
-      :parent => 'js',
-      :scenario => '-layout-modal'
-    }
-  end
 
-  private
-
-  def view_model(options = {})
-    Guide::ViewModel.new(
-      {
-        :form => Guide::FormObject.new,
-        :user_action => :checkout,
-      }, options
-    )
-  end
-
-  # Scenarios
-
-  scenario :user_clicks_sign_in do
-    view_model(
-      :user_action => :direct
-    )
-  end
-
-  scenario :user_wants_to_checkout do
-    view_model(
-      :user_action => :checkout
-    )
-  end
-end
-```
-
-#### Linking
+## Advanced setup
+### Linking
 
 In order to link to other Guide pages in your `document` pages you will need to use these special route helpers.
 
@@ -168,16 +164,7 @@ In order to link to other Guide pages in your `document` pages you will need to 
 <%= link_to "nested link", Guide::Engine.routes.url_helpers.node_path('documents/restricted') %>
 ```
 
-
-#### Scenarios
-TODO: Elaborate
-
-#### Homepage
-The homepage of your Guide is a special snowflake. Edit the contents here.
-`app/documenation/guide/_content.html.erb`
-
-
-#### Fixtures
+### Fixtures
 Fxitures are reusable data for your Components. They can be defined once and then reused and overrided in different components and scenarios.
 
 Tip: Try to folder your fixtures to match your models.
