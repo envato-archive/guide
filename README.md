@@ -40,7 +40,7 @@ Guide.configure do |config|
 end
 ```
 
-**Note:** If you are having compiling assets you may need to add Guide's assets to your asset precompile config e.g.
+**Note:** If you are having asset compiling issues you may need to add Guide's assets to your asset precompile config e.g.
 
 ```Ruby
 # config/application.rb
