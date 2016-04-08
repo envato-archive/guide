@@ -21,12 +21,9 @@ $ bundle install
 ### Step 1: Add configs
 Add `/config/initializers/guide.rb`
 
-Add the following to `config/application.rb`
-`config.assets.precompile += ['guide/application.js', 'guide/scenario.js', 'guide/application.css', 'guide/scenario.css']`
-
-
-Example
 ```Ruby
+# Available options
+
 Guide.configure do |config|
   config.asset_path_for_logo = "guide/envato-market-styleguide.svg"
   config.company_name = "Envato"
@@ -43,6 +40,20 @@ Guide.configure do |config|
 end
 ```
 
+**Note:** If you are having compiling assets you may need to add Guide's assets to your asset precompile config e.g.
+
+```Ruby
+# config/application.rb
+
+config.assets.precompile += [
+  'guide/application.js',
+  'guide/scenario.js',
+  'guide/application.css',
+  'guide/scenario.css'
+]
+```
+
+
 ### Step 2: Build your Guide(s)
 All your Guides and content will live in `app/documenation/guide/content`
 
@@ -50,8 +61,9 @@ For now these folders and files will need to be created manually
 
 Add `app/documenation/guide/content.rb` and define your Guide.
 
-Example
 ``` Ruby
+# app/documenation/guide/content.rb
+
 class Guide::Content < Guide::Document
   contains :ui_library
   contains :structures
@@ -69,8 +81,9 @@ A Guide's navgivation is essentially a tree of nodes with pages that are either 
 ##### Node
 > A node is a point on the content tree. Everything in the content folder is a node.
 
-Example
 ```Ruby
+# app/documentation/guide/ui_library/typography
+
 class Guide::Content::UILibrary::Typography < Guide::Node
   contains :body
   contains :currency
@@ -84,10 +97,9 @@ end
 ##### Document
 > This type of node has no scenarios, but is still renderable. It corresponds to a static template, usually with the same name, in the same folder.
 
-Example
-
-`app/documentation/guide/content/ui_library/typography/heading.rb`
 ```Ruby
+# app/documentation/guide/content/ui_library/typography/heading.rb
+
 class Guide::Content::UILibrary::Typography::Heading < Guide::Document
 end
 ```
@@ -105,9 +117,9 @@ end
 - `text`
 - `markdown` (coming soon)
 
-Example
-`app/documentation/guide/content/structures/account/sign_in_modal.rb`
 ```Ruby
+# app/documentation/guide/content/structures/account/sign_in_modal.rb
+
 class Guide::Content::Structures::Account::SignInModal < Guide::Structure
   def partial
     'sso/sign_in/modal'
@@ -147,6 +159,16 @@ class Guide::Content::Structures::Account::SignInModal < Guide::Structure
 end
 ```
 
+#### Linking
+
+In order to link to other Guide pages in your `document` pages you will need to use these special route helpers.
+
+```Ruby
+<%= link_to "root level link", Guide::Engine.routes.url_helpers.node_path('documents') %>
+<%= link_to "nested link", Guide::Engine.routes.url_helpers.node_path('documents/restricted') %>
+```
+
+
 #### Scenarios
 TODO: Elaborate
 
@@ -163,7 +185,6 @@ Tip: Try to folder your fixtures to match your models.
 `app/documenation/guide/fixtures.rb` (required if you want to use fixtures)
 `app/documenation/guide/fixtures/` (all fixtures go in here)
 
-Example
 ```Ruby
 # app/documentation/guide/fixtures/common.rb
 
@@ -192,7 +213,6 @@ Injections can be used to supply app specific code
 It is possible to restrict access to a Document, Structure or even at the Scenario level.
 The 3 types of access are `public`, `unpublished` and `restricted`. Access depends on setting up your authorisation and authentication system.
 
-Example
 ``` Ruby
 class Guide::Content < Guide::Document
   contains :structures # public by default
