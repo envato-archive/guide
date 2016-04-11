@@ -1,2 +1,4 @@
-class Guide::Content::Documents::Restricted < Guide::Document
+module Guide
+  class Content::Documents::Restricted < Document
+  end
 end

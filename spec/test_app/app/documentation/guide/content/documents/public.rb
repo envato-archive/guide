@@ -1,2 +1,4 @@
-class Guide::Content::Documents::Public < Guide::Document
+module Guide
+  class Content::Documents::Public < Document
+  end
 end

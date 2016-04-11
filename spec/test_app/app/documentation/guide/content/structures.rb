@@ -1,3 +1,5 @@
-class Guide::Content::Structures < Guide::Document
-  contains :friendly
+module Guide
+  class Content::Structures < Document
+    contains :friendly
+  end
 end

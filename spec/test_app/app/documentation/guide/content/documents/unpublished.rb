@@ -1,4 +1,4 @@
 module Guide
-  class Content::Documents::Unpublished < Guide::Document
+  class Content::Documents::Unpublished < Document
   end
 end

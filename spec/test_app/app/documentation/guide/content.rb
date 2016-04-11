@@ -1,5 +1,7 @@
-class Guide::Content < Guide::Document
-  # Tip: Ordering determines the nav position
-  contains :documents
-  contains :structures
+module Guide
+  class Content < Document
+    # Tip: Ordering determines the nav position
+    contains :documents
+    contains :structures
+  end
 end
