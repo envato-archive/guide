@@ -166,7 +166,7 @@ In order to link to other Guide pages in your `document` pages you will need to 
 ```
 
 ### Fixtures
-Fxitures are reusable data for your Components. They can be defined once and then reused and overrided in different components and scenarios.
+Fixtures are reusable data for your Structures. They can be defined once and then reused and overrided in different structures and scenarios.
 
 Tip: Try to folder your fixtures to match your models.
 
