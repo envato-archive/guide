@@ -6,12 +6,15 @@
   "scripts": {
     "build-application-js": "browserify javascript/application.js -o app/assets/javascripts/guide/application.js",
     "build-scenario-js": "browserify javascript/scenario.js -o app/assets/javascripts/guide/scenario.js",
-    "build": "npm run build-application-js && npm run build-scenario-js",
+    "build-js": "npm run build-application-js && npm run build-scenario-js",
     "watch-application-js": "watchify -p browserify-hmr javascript/application.js -o app/assets/javascripts/guide/application.js",
     "watch-scenario-js": "watchify -p [ browserify-hmr -p 3124] javascript/scenario.js -o app/assets/javascripts/guide/scenario.js",
     "watch": "npm run watch-application-js & npm run watch-scenario-js",
     "lint": "standard javascript/**/*.js | snazzy",
-    "test": "npm run lint && browserify javascript/tests/*.test.js | tape-run"
+    "test": "npm run lint && browserify javascript/tests/*.test.js | tape-run",
+    "build-css": "postcss -u postcss-cssnext -o app/assets/stylesheets/guide/application.css styles/application.css",
+    "watch-css": "postcss -w -u postcss-cssnext -o app/assets/stylesheets/guide/application.css styles/application.css",
+    "build": "npm run build-js && npm run build-css"
   },
   "repository": {
     "type": "git",
@@ -34,6 +37,9 @@
   "devDependencies": {
     "browserify": "13.0.0",
     "browserify-hmr": "0.3.1",
+    "postcss": "^5.0.19",
+    "postcss-cli": "^2.5.1",
+    "postcss-cssnext": "^2.5.2",
     "snazzy": "^3.0.0",
     "standard": "^6.0.8",
     "tape": "^4.5.1",
