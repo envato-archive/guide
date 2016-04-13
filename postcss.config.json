@@ -4,6 +4,7 @@
     "postcss-url",
     "postcss-cssnext",
     "postcss-browser-reporter",
-    "postcss-reporter"
+    "postcss-reporter",
+    "postcss-simple-vars"
   ]
 }
