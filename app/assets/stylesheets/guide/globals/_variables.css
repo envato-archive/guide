@@ -1,0 +1,17 @@
+/*-----------------------------------------------------------------------------
+
+  _variables.css
+  Reusable variables for the Guide
+
+------------------------------------------------------------------------------*/
+
+/*-----------------------------------------------------------------------------
+  Font families
+------------------------------------------------------------------------------*/
+
+$font-family-helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-code: "Source Code Pro", Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+
+body {
+  background-color: red;
+}
