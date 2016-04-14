@@ -13,3 +13,9 @@
 
 @import 'globals/_colors.css';
 @import 'globals/_typography.css';
+
+/*-----------------------------------------------------------------------------
+  Components
+------------------------------------------------------------------------------*/
+
+@import 'components/typography.css'

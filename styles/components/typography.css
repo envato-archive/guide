@@ -1,0 +1,27 @@
+/*-----------------------------------------------------------------------------
+
+  typography.css
+  Font families, weights and sizes.
+
+------------------------------------------------------------------------------*/
+
+html {
+  font-family: $helvetica;
+  font-size: 16px;
+  line-height: $lh-base;
+  color: $grey;
+}
+
+h1, h2, h3, h4, h5 {
+  color: $grey-dark;
+  font-weight: $weight-bold;
+  line-height: $lh-condensed;
+}
+
+strong {
+  font-weight: $weight-bold;
+}
+
+em {
+  font-weight: italic;
+}

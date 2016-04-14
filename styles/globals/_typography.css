@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------
 
   _typography.css
-  Font families, weights and sizes.
+  Reusable variables related to typography.
 
 ------------------------------------------------------------------------------*/
 
@@ -9,5 +9,31 @@
   Font families
 ------------------------------------------------------------------------------*/
 
-$font-family-helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-family-code: "Source Code Pro", Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+$helvetica     : "Helvetica Neue", Helvetica, Arial, sans-serif;
+$source-code   : "Source Code Pro", Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+
+/*-----------------------------------------------------------------------------
+  Font sizes
+------------------------------------------------------------------------------*/
+
+$size-xxl      : 36px;
+$size-xl       : 32px;
+$size-l        : 28px;
+$size-m        : 24px;
+$size-s        : 20px;
+$size-xs       : 18px;
+$size-xxs      : 14px;
+
+/*-----------------------------------------------------------------------------
+  Font weights
+------------------------------------------------------------------------------*/
+
+$weight-bold   : 700;
+$weight-regular: 500;
+
+/*-----------------------------------------------------------------------------
+  Line height
+------------------------------------------------------------------------------*/
+
+$lh-base       : 1.5;
+$lh-condensed  : 1.2;
