@@ -5,6 +5,7 @@
     "postcss-cssnext",
     "postcss-browser-reporter",
     "postcss-reporter",
-    "postcss-simple-vars"
+    "postcss-simple-vars",
+    "cssnano"
   ]
 }

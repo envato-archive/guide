@@ -12,8 +12,8 @@
     "watch": "npm run watch-application-js & npm run watch-scenario-js & npm run watch-css",
     "lint": "standard javascript/**/*.js | snazzy",
     "test": "npm run lint && browserify javascript/tests/*.test.js | tape-run",
-    "build-css": "postcss -c postcss.config.json -o app/assets/stylesheets/guide/application.css styles/application.css",
-    "watch-css": "postcss -w -c postcss.config.json -o app/assets/stylesheets/guide/application.css styles/application.css",
+    "build-css": "postcss -c postcss.config.json -o app/assets/stylesheets/guide/application.min.css styles/application.css",
+    "watch-css": "postcss -w -c postcss.config.json -o app/assets/stylesheets/guide/application.min.css styles/application.css",
     "build": "npm run build-js && npm run build-css"
   },
   "repository": {
@@ -37,6 +37,7 @@
   "devDependencies": {
     "browserify": "13.0.0",
     "browserify-hmr": "0.3.1",
+    "cssnano": "^3.5.2",
     "postcss": "^5.0.19",
     "postcss-browser-reporter": "^0.4.0",
     "postcss-cli": "^2.5.1",
