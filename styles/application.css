@@ -11,4 +11,5 @@
   Globals
 ------------------------------------------------------------------------------*/
 
-@import 'globals/_variables.css';
+@import 'globals/_colors.css';
+@import 'globals/_typography.css';
