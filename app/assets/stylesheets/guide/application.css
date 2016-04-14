@@ -62,18 +62,73 @@
 
 ------------------------------------------------------------------------------*/
 
+/* Global styles */
+
 html {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
+  font-weight: 400;
   line-height: 1.5;
   color: #666;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5 {
+/*-----------------------------------------------------------------------------
+  Headings
+------------------------------------------------------------------------------*/
+
+/* Global styles */
+
+h1, h2, h3, h4, h5, h6 {
   color: #454545;
   font-weight: 700;
   line-height: 1.2;
 }
+
+/* Scoped heading sizes */
+
+.t-heading {
+
+}
+
+.t-heading.-size-xxl {
+  font-size: 36px;
+}
+
+.t-heading.-size-xl {
+  font-size: 32px;
+}
+
+.t-heading.-size-l {
+  font-size: 28px;
+}
+
+.t-heading.-size-m {
+  font-size: 24px;
+}
+
+.t-heading.-size-s {
+  font-size: 20px;
+}
+
+.t-heading.-size-xs {
+  font-size: 18px;
+}
+
+.t-heading.-size-xs {
+  font-size: 18px;
+}
+
+.t-heading.-size-default {
+  font-size: 16px;
+}
+
+/*-----------------------------------------------------------------------------
+  Decorations
+------------------------------------------------------------------------------*/
+
+/* Global styles */
 
 strong {
   font-weight: 700;

@@ -5,19 +5,70 @@
 
 ------------------------------------------------------------------------------*/
 
+/* Global styles */
 html {
   font-family: $helvetica;
-  font-size: 16px;
+  font-size: $size-default;
+  font-weight: $weight-regular;
   line-height: $lh-base;
   color: $grey;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5 {
+/*-----------------------------------------------------------------------------
+  Headings
+------------------------------------------------------------------------------*/
+
+/* Global styles */
+h1, h2, h3, h4, h5, h6 {
   color: $grey-dark;
   font-weight: $weight-bold;
   line-height: $lh-condensed;
 }
 
+/* Scoped heading sizes */
+.t-heading {
+
+  &.-size-xxl {
+    font-size: $size-xxl;
+  }
+
+  &.-size-xl {
+    font-size: $size-xl;
+  }
+
+  &.-size-l {
+    font-size: $size-l;
+  }
+
+  &.-size-m {
+    font-size: $size-m;
+  }
+
+  &.-size-s {
+    font-size: $size-s;
+  }
+
+  &.-size-xs {
+    font-size: $size-xs;
+  }
+
+  &.-size-xs {
+    font-size: $size-xs;
+  }
+
+  &.-size-default {
+    font-size: $size-default;
+  }
+
+}
+
+/*-----------------------------------------------------------------------------
+  Decorations
+------------------------------------------------------------------------------*/
+
+/* Global styles */
 strong {
   font-weight: $weight-bold;
 }
