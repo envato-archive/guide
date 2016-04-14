@@ -11,7 +11,7 @@
 
 /*@import 'prism.css';*/
 @import 'normalize.css';
-@import 'flexboxgrid.css';
+@import 'flexboxgrid';
 
 /*-----------------------------------------------------------------------------
   Globals
@@ -24,4 +24,4 @@
   Components
 ------------------------------------------------------------------------------*/
 
-@import 'components/typography.css'
+/*@import 'components/typography.css'*/
