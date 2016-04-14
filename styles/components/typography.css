@@ -5,7 +5,6 @@
 
 ------------------------------------------------------------------------------*/
 
-/* Global styles */
 html {
   font-family: $helvetica;
   font-size: $size-default;
@@ -20,55 +19,40 @@ html {
   Headings
 ------------------------------------------------------------------------------*/
 
-/* Global styles */
 h1, h2, h3, h4, h5, h6 {
   color: $grey-dark;
   font-weight: $weight-bold;
   line-height: $lh-condensed;
 }
 
-/* Scoped heading sizes */
-.t-heading {
+h1 {
+  font-size: $size-xxl;
+}
 
-  &.-size-xxl {
-    font-size: $size-xxl;
-  }
+h2 {
+  font-size: $size-xl;
+}
 
-  &.-size-xl {
-    font-size: $size-xl;
-  }
+h3 {
+  font-size: $size-l;
+}
 
-  &.-size-l {
-    font-size: $size-l;
-  }
+h4 {
+  font-size: $size-m;
+}
 
-  &.-size-m {
-    font-size: $size-m;
-  }
+h5 {
+  font-size: $size-s;
+}
 
-  &.-size-s {
-    font-size: $size-s;
-  }
-
-  &.-size-xs {
-    font-size: $size-xs;
-  }
-
-  &.-size-xs {
-    font-size: $size-xs;
-  }
-
-  &.-size-default {
-    font-size: $size-default;
-  }
-
+h6 {
+  font-size: $size-xs;
 }
 
 /*-----------------------------------------------------------------------------
   Decorations
 ------------------------------------------------------------------------------*/
 
-/* Global styles */
 strong {
   font-weight: $weight-bold;
 }
