@@ -10,18 +10,19 @@
 ------------------------------------------------------------------------------*/
 
 /*@import 'prism.css';*/
-@import 'normalize.css';
-@import 'flexboxgrid.css';
+@import 'normalize';
+@import 'flexboxgrid';
 
 /*-----------------------------------------------------------------------------
   Globals
 ------------------------------------------------------------------------------*/
 
-@import 'globals/_colors.css';
-@import 'globals/_typography.css';
+@import 'globals/_colors';
+@import 'globals/_typography';
+@import 'globals/_spacing';
 
 /*-----------------------------------------------------------------------------
   Components
 ------------------------------------------------------------------------------*/
 
-@import 'components/typography.css'
+@import 'components/typography'
