@@ -1,0 +1,14 @@
+/*-----------------------------------------------------------------------------
+
+  _spacing.css
+  Reusable spacing variables.
+
+------------------------------------------------------------------------------*/
+
+$spacing-default: 10px;
+
+$spacing-s      : $spacing-default / 2; /* 5px */
+$spacing        : $spacing-default; /* 10px */
+$spacing-m      : $spacing-default * 2; /* 20px */
+$spacing-l      : $spacing-default * 3; /* 30px */
+$spacing-xl     : $spacing-default * 4; /* 40px */
