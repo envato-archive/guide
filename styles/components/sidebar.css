@@ -6,14 +6,14 @@
 ------------------------------------------------------------------------------*/
 
 .sg-drawer {
-  /*+flexbox;*/
-  /*+flex-direction(column);*/
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
 
 .sg-drawer__logo {
-  /*+flexbox;*/
-  /*+flex(0 1 80px);*/
+  display: flex;
+  flex: 0 1 80px;
   width: 100%;
   background-color: $black;
 
@@ -25,20 +25,42 @@
 }
 
 .sg-drawer__nav {
-  /*+flex(1 0);*/
+  flex: 1 0;
   width: 100%;
   position: relative;
 }
 
 .sg-navigation {
-  /*+font-smoothing;*/
-  /*+scrollbar;*/
   position: absolute;
   overflow: auto;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+  }
+
+  &::-webkit-scrollbar:vertical {
+    width: 11px;
+  }
+
+  &::-webkit-scrollbar:horizontal {
+    height: 11px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: 2px solid $grey;
+    background-color: rgba(0, 0, 0, .4);
+    &:hover {
+      background-color: rgba(0, 0, 0, .6);
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $grey;
+  }
 
   ul {
     list-style: none;
@@ -159,11 +181,11 @@
   top: 0;
   left: 0;
   bottom: 0;
-  /*min-width: $sg-sidebar-width;*/
+  min-width: 260px;
   max-width: 10vw;
   z-index: 2;
   background-color: $grey;
-  /*transform: translate3d(-$sg-sidebar-width,0,0);*/
+  transform: translate3d(260px,0,0);
   transition: transform .3s;
 /*
   +at-breakpoint($desktop-and-above)
@@ -182,7 +204,7 @@
 }
 
 .sg-layout__content {
-  /*max-width: $container-width;*/
+  max-width: 1025px;
   margin: 2vh 0.7em;
 /*
   +at-breakpoint($tablet-only)
