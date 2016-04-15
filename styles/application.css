@@ -25,4 +25,5 @@
   Components
 ------------------------------------------------------------------------------*/
 
-@import 'components/typography'
+@import 'components/typography';
+@import 'components/sidebar';
