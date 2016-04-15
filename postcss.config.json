@@ -6,6 +6,7 @@
     "postcss-browser-reporter",
     "postcss-reporter",
     "postcss-simple-vars",
+    "postcss-calc",
     "cssnano"
   ],
   "postcss-cssnext": {

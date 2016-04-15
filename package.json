@@ -42,6 +42,7 @@
     "normalize.css": "^4.1.1",
     "postcss": "^5.0.19",
     "postcss-browser-reporter": "^0.4.0",
+    "postcss-calc": "^5.2.1",
     "postcss-cli": "^2.5.1",
     "postcss-cssnext": "^2.5.2",
     "postcss-import": "^8.1.0",

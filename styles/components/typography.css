@@ -7,7 +7,6 @@
 
 html {
   font-family: $helvetica;
-  font-size: $size-default;
   font-weight: $weight-regular;
   line-height: $lh-base;
   color: $grey;
@@ -15,11 +14,17 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  font-size: $size-default;
+}
+
 /*-----------------------------------------------------------------------------
   Headings
 ------------------------------------------------------------------------------*/
 
 h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: $spacing-m;
   color: $grey-dark;
   font-weight: $weight-bold;
   line-height: $lh-condensed;
