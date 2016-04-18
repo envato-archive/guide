@@ -1,0 +1,12 @@
+/*-----------------------------------------------------------------------------
+
+  _responsive.css
+  Reusable responsive breakpoints variables.
+
+------------------------------------------------------------------------------*/
+
+@custom-media --phone-only (max-width: 568px);
+@custom-media --tablet-and-above (min-width: 598px);
+@custom-media --tablet-only (width >= 569px) and (width <= 1024px);
+@custom-media --tablet-and-above (max-width: 1024px);
+@custom-media --desktop-and-above (min-width: 1025px);
