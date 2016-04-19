@@ -232,13 +232,6 @@
   cursor: pointer;
 }
 
-.sg-layout__footer {
-  padding: 1vw 10px;
-
-  /*+at-breakpoint($desktop-and-above)
-    padding: 0*/
-}
-
 [data-off-canvas="enabled"] {
   .sg-layout {
     overflow: hidden;
