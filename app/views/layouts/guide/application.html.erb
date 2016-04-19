@@ -19,22 +19,39 @@
   </head>
 
   <body>
-    <div data-view="layout" class="container">
-      <aside class="js-layout__sidebar sidebar" role="complementary">
-        <div class="sidebar-inner">
-          <div class="sg-drawer__logo">
+    <div data-view="layout">
+
+      <header class="header" role="banner">
+        <div class="container-fluid">
+          <div class="header__logo-container">
             <% if @layout_view.show_image_logo? %>
               <%= link_to(image_tag(Guide.configuration.asset_path_for_logo,
                                     :alt => Guide.configuration.guide_name),
                           root_path,
-                          :class => "header-logo") %>
+                          :class => "header__logo") %>
             <% else %>
               <h2>
                 <%= link_to(Guide.configuration.guide_name,
-                            root_path) %>
+                            root_path, :class => "link -color-white") %>
               </h2>
             <% end %>
           </div>
+          <!-- header logo container -->
+
+          <nav class="header__navigation" role="navigation">
+            <ul>
+              <li><a href="#" class="link -color-white">Documentation</a></li>
+              <li><a href="#" class="link -color-white">Components</a></li>
+              <li><a href="#" class="link -color-white">Brand</a></li>
+            </ul>
+          </nav>
+          <!-- header navigation -->
+        </div>
+        <!-- container fluid -->
+      </header>
+
+      <!-- <aside class="js-layout__sidebar sidebar" role="complementary">
+        <div class="sidebar-inner">
           <div class="sidebar-nav">
             <%= yield :sidebar %>
           </div>
@@ -66,9 +83,9 @@
           <%= render 'guide/common/footer', :view => @layout_view %>
         </div>
         <div class="js-layout__nav-overlay overlay"></div>
-      </main>
+      </main> -->
     </div>
-
+    <!-- container -->
     <%= javascript_include_tag "guide/application" %>
   </body>
 </html>

@@ -28,3 +28,6 @@
 
 @import 'components/typography';
 @import 'components/sidebar';
+@import 'components/header';
+@import 'components/helpers';
+@import 'components/links';
