@@ -19,36 +19,36 @@
   </head>
 
   <body>
-    <div data-view="layout" class="sg-layout">
-      <aside class="js-layout__sidebar sg-layout__sidebar">
-        <div class="sg-drawer">
+    <div data-view="layout" class="container">
+      <aside class="js-layout__sidebar sidebar" role="complementary">
+        <div class="sidebar-inner">
           <div class="sg-drawer__logo">
             <% if @layout_view.show_image_logo? %>
               <%= link_to(image_tag(Guide.configuration.asset_path_for_logo,
                                     :alt => Guide.configuration.guide_name),
                           root_path,
-                          :class => "sg-header__logo") %>
+                          :class => "header-logo") %>
             <% else %>
-              <h2 class="t-heading -size-m">
+              <h2>
                 <%= link_to(Guide.configuration.guide_name,
-                            root_path,
-                            :class => "t-link -color-light -decoration-none") %>
+                            root_path) %>
               </h2>
             <% end %>
           </div>
-          <div class="sg-drawer__nav">
+          <div class="sidebar-nav">
             <%= yield :sidebar %>
           </div>
         </div>
       </aside>
-      <main class="js-layout__content sg-layout__main">
-        <header class="sg-header">
+
+      <main class="js-layout__content main" role="main">
+        <header class="header" role="banner">
           <%= render 'guide/common/page_title', :view => @layout_view %>
 
-          <div class="sg-header__controls">
-            <div class="sg-controls">
-              <div class="sg-controls__hamburger">
-                <a class="js-layout__nav-toggle">
+          <div class="header-controls">
+            <div class="nav-controls">
+              <div class="nav-hamburger">
+                <a class="nav-toggle">
                   <i class="e-icon -icon-hamburger -size-medium"><span class="e-icon__alt">Nav</span></i>
                 </a>
               </div>
@@ -61,11 +61,11 @@
           <%= render 'guide/common/visibility_banner', :view => @layout_view %>
         </header>
 
-        <div class="sg-layout__content">
+        <div class="content">
           <%= yield %>
           <%= render 'guide/common/footer', :view => @layout_view %>
         </div>
-        <div class="js-layout__nav-overlay sg-layout__overlay"></div>
+        <div class="js-layout__nav-overlay overlay"></div>
       </main>
     </div>
 
