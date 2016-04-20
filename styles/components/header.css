@@ -6,5 +6,37 @@
 ------------------------------------------------------------------------------*/
 
 .header {
+  display: table;
+  width: 100%;
   background-color: $black;
+
+  & .link {
+    font-weight: bold;
+
+    &.-is-active {
+      color: $brand-main;
+      border-bottom: 5px solid $brand-main;
+    }
+
+    &:hover {
+      color: $brand-main;
+    }
+  }
+}
+
+.header__logo-container,
+.header__navigation {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.header__logo-container {
+  max-width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.header__navigation {
+  text-align: right;
 }

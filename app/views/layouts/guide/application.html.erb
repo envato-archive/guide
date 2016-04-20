@@ -22,32 +22,28 @@
     <div data-view="layout">
 
       <header class="header" role="banner">
-        <div class="container-fluid">
-          <div class="header__logo-container">
-            <% if @layout_view.show_image_logo? %>
-              <%= link_to(image_tag(Guide.configuration.asset_path_for_logo,
-                                    :alt => Guide.configuration.guide_name),
+        <div class="header__logo-container p2">
+          <% if @layout_view.show_image_logo? %>
+            <%= link_to(image_tag(Guide.configuration.asset_path_for_logo,
+                        :alt => Guide.configuration.guide_name),
+                        root_path,
+                        :class => "header__logo") %>
+          <% else %>
+            <h4 class="m0">
+              <%= link_to(Guide.configuration.guide_name,
                           root_path,
-                          :class => "header__logo") %>
-            <% else %>
-              <h2>
-                <%= link_to(Guide.configuration.guide_name,
-                            root_path, :class => "link -color-white") %>
-              </h2>
-            <% end %>
-          </div>
-          <!-- header logo container -->
-
-          <nav class="header__navigation" role="navigation">
-            <ul>
-              <li><a href="#" class="link -color-white">Documentation</a></li>
-              <li><a href="#" class="link -color-white">Components</a></li>
-              <li><a href="#" class="link -color-white">Brand</a></li>
-            </ul>
-          </nav>
-          <!-- header navigation -->
+                          :class => "link -color-white") %>
+            </h4>
+          <% end %>
         </div>
-        <!-- container fluid -->
+        <!-- header logo container -->
+
+        <nav class="header__navigation" role="navigation">
+          <a href="#" class="link -color-white -is-active dib p2">Documentation</a>
+          <a href="#" class="link -color-white dib p2">Components</a>
+          <a href="#" class="link -color-white dib p2">Brand</a>
+        </nav>
+        <!-- header navigation -->
       </header>
 
       <!-- <aside class="js-layout__sidebar sidebar" role="complementary">
