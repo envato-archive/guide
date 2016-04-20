@@ -31,12 +31,8 @@
 }
 
 .header__logo-container {
-  max-width: 250px;
+  width: 15%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.header__navigation {
-  text-align: right;
 }
