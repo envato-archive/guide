@@ -25,11 +25,11 @@
                       ] %>
         <% else %>
           <%= link_to '#', :class => "sidebar-nav__header link" do %>
-            <h5 class="m0"><%= child_node_view.name %></h5>
+            <strong><%= child_node_view.name %></strong>
           <% end %>
         <% end %>
 
-        <ul class="sidebar__sub-group">
+        <ul class="sidebar__sub-group p0">
           <%= render  'guide/common/navigation_node',
                       :node_path => if node_path.present?
                         "#{node_path}/#{child_node_view.id}"

@@ -42,24 +42,41 @@
     display: block;
   }
 
-  & li {
-    padding: $spacing-m;
-    border-bottom: 1px solid $blue-lighter;
+  & ul {
+    list-style: none;
   }
 
   & a {
     display: block;
     color: $grey;
 
-    &.is-active,
     &:hover {
       color: $grey-dark;
     }
   }
 }
 
+.link.is-active {
+  color: $brand-main;
+  border-left: 5px solid $brand-main;
+}
+
+.sidebar__sub-group {
+
+  & .link {
+    padding: $spacing-s $spacing $spacing $spacing-l;
+  }
+
+  & .sidebar__sub-group {
+    & .link {
+      padding-left: $spacing-xl;
+    }
+  }
+}
+
 .sidebar-nav__section {
   position: relative;
+  border-bottom: 1px solid $blue-lighter;
 }
 
 .sidebar-nav__section-title {
