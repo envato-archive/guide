@@ -1,4 +1,4 @@
-<footer role="contentinfo">
+<footer class="p3 t-sm" role="contentinfo">
   <p>This guide uses the latest CSS3 features and is best viewed with modern browsers (for now).</p>
 
   <% if view.show_locale_switcher? %>
@@ -7,7 +7,7 @@
     </div>
   <% end %>
 
-  <p>&copy; <%= Time.now.year %> <%= Guide.configuration.company_name %></p>
+  <p class="mb0">&copy; <%= Time.now.year %> <%= Guide.configuration.company_name %></p>
 
   <% if view.user_signed_in? && view.url_for_sign_out.present? %>
     <%= link_to "Sign Out", view.url_for_sign_out %>

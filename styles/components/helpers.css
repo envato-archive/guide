@@ -48,3 +48,17 @@
 .p4 {
   padding: $spacing-xl;
 }
+
+/*-----------------------------------------------------------------------------
+  Vertical padding helpers
+------------------------------------------------------------------------------*/
+
+.px2 {
+  padding-left: $spacing-m;
+  padding-right: $spacing-m;
+}
+
+.px3 {
+  padding-left: $spacing-l;
+  padding-right: $spacing-l;
+}
