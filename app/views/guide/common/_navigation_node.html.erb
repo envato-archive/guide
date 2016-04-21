@@ -1,7 +1,7 @@
 <% view.child_node_views.each do |child_node_view| %>
   <% if child_node_view.visible_to_user? %>
     <%= content_tag :li,
-                    :class => top_level_node ? 'sg-navigation__section' : nil do %>
+                    :class => top_level_node ? 'sidebar-nav__section' : nil do %>
       <% if child_node_view.leaf_node? %>
         <%= link_to child_node_view.name,
                     Guide::Engine.routes.url_helpers.node_path(
@@ -14,22 +14,22 @@
                     :class => child_node_view.active? ? 'is-active link' : 'link' %>
       <% else %>
         <% if top_level_node %>
-          <div class="sg-navigation__section-title">
+          <div class="sidebar-nav__section-title">
             <%= link_to Guide::Engine.routes.url_helpers.node_path(child_node_view.id), :class => "link" do %>
               <h6 class="m0"><%= child_node_view.name %></h6>
             <% end %>
           </div>
           <%= link_to '', '#', :class => [
-                        "sg-navigation__section-expander link",
+                        "sidebar-nav__section-expander link",
                         ('is-active' if child_node_view.active?),
                       ] %>
         <% else %>
-          <%= link_to '#', :class => "sg-navigation__header link" do %>
+          <%= link_to '#', :class => "sidebar-nav__header link" do %>
             <h5 class="m0"><%= child_node_view.name %></h5>
           <% end %>
         <% end %>
 
-        <ul class="sg-navigation__sub-group">
+        <ul class="sidebar__sub-group">
           <%= render  'guide/common/navigation_node',
                       :node_path => if node_path.present?
                         "#{node_path}/#{child_node_view.id}"
