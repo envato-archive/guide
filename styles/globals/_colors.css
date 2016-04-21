@@ -6,18 +6,20 @@
 ------------------------------------------------------------------------------*/
 
 /* Envato green */
-$brand-main : #82b541;
+$brand-main   : #82b541;
 
 /* Blacks */
-$black      : #000;
+$black        : #000;
 
 /* Whites */
-$white      : #fff;
+$white        : #fff;
+$white-offset : #FBFBFB;
 
 /* Greys */
-$grey-dark  : #454545;
-$grey       : #666;
-$grey-light : #999;
+$grey-dark    : #454545;
+$grey         : #666;
+$grey-light   : #999;
 
 /* Blues */
-$blue       : #0084b4;
+$blue         : #0084b4;
+$blue-lighter : #E5EBEF;

@@ -9,6 +9,7 @@
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  background-color: $white-offset;
 
   @media (--desktop-and-above) {
     padding-left: 260px;

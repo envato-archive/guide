@@ -11,21 +11,21 @@
                         "#{child_node_view.id}"
                       end
                     ),
-                    :class => child_node_view.active? ? 'is-active' : nil %>
+                    :class => child_node_view.active? ? 'is-active link' : 'link' %>
       <% else %>
         <% if top_level_node %>
           <div class="sg-navigation__section-title">
-            <%= link_to Guide::Engine.routes.url_helpers.node_path(child_node_view.id) do %>
-              <h4><%= child_node_view.name %></h4>
+            <%= link_to Guide::Engine.routes.url_helpers.node_path(child_node_view.id), :class => "link" do %>
+              <h6 class="m0"><%= child_node_view.name %></h6>
             <% end %>
           </div>
           <%= link_to '', '#', :class => [
-                        "sg-navigation__section-expander",
+                        "sg-navigation__section-expander link",
                         ('is-active' if child_node_view.active?),
                       ] %>
         <% else %>
-          <%= link_to '#', :class => "sg-navigation__header" do %>
-            <h5><%= child_node_view.name %></h5>
+          <%= link_to '#', :class => "sg-navigation__header link" do %>
+            <h5 class="m0"><%= child_node_view.name %></h5>
           <% end %>
         <% end %>
 
