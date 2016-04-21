@@ -1,0 +1,20 @@
+/*-----------------------------------------------------------------------------
+
+  layout.css
+  Layout styling
+
+------------------------------------------------------------------------------*/
+
+.main-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+
+  @media (--desktop-and-above) {
+    padding-left: 260px;
+  }
+}
+
+.content {
+  flex: 1;
+}

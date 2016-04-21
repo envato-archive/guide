@@ -21,32 +21,7 @@
   <body>
     <div data-view="layout">
 
-      <header class="header" role="banner">
-        <div class="header__logo-container p2">
-          <% if @layout_view.show_image_logo? %>
-            <%= link_to(image_tag(Guide.configuration.asset_path_for_logo,
-                        :alt => Guide.configuration.guide_name),
-                        root_path,
-                        :class => "header__logo") %>
-          <% else %>
-            <h4 class="m0">
-              <%= link_to(Guide.configuration.guide_name,
-                          root_path,
-                          :class => "link -color-white") %>
-            </h4>
-          <% end %>
-        </div>
-        <!-- header logo container -->
-
-        <nav class="header__navigation" role="navigation">
-          <a href="#" class="link -color-white -is-active dib p2">Documentation</a>
-          <a href="#" class="link -color-white dib p2">Components</a>
-          <a href="#" class="link -color-white dib p2">Brand</a>
-        </nav>
-        <!-- header navigation -->
-      </header>
-
-      <!-- <aside class="js-layout__sidebar sidebar" role="complementary">
+      <aside class="js-layout__sidebar sidebar" role="complementary">
         <div class="sidebar-inner">
           <div class="sidebar-nav">
             <%= yield :sidebar %>
@@ -54,8 +29,33 @@
         </div>
       </aside>
 
-      <main class="js-layout__content main" role="main">
+      <main class="js-layout__content main-container" role="main">
         <header class="header" role="banner">
+          <div class="header__logo-container p2">
+            <% if @layout_view.show_image_logo? %>
+              <%= link_to(image_tag(Guide.configuration.asset_path_for_logo,
+                          :alt => Guide.configuration.guide_name),
+                          root_path,
+                          :class => "header__logo") %>
+            <% else %>
+              <h4 class="m0">
+                <%= link_to(Guide.configuration.guide_name,
+                            root_path,
+                            :class => "link -color-white") %>
+              </h4>
+            <% end %>
+          </div>
+          <!-- header logo container -->
+
+          <nav class="header__navigation" role="navigation">
+            <a href="#" class="link -color-white -is-active dib p2">Documentation</a>
+            <a href="#" class="link -color-white dib p2">Components</a>
+            <a href="#" class="link -color-white dib p2">Brand</a>
+          </nav>
+          <!-- header navigation -->
+        </header>
+
+        <header class="header-inner" role="banner">
           <%= render 'guide/common/page_title', :view => @layout_view %>
 
           <div class="header-controls">
@@ -76,10 +76,14 @@
 
         <div class="content">
           <%= yield %>
-          <%= render 'guide/common/footer', :view => @layout_view %>
         </div>
+        <!-- content -->
+
+        <%= render 'guide/common/footer', :view => @layout_view %>
+
         <div class="js-layout__nav-overlay overlay"></div>
-      </main> -->
+      </main>
+
     </div>
     <!-- container -->
     <%= javascript_include_tag "guide/application" %>

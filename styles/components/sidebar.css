@@ -14,7 +14,7 @@
   max-width: 10vw;
   z-index: 2;
   background-color: $grey-dark;
-  transform: translate3d(260px,0,0);
+  transform: translate3d(-260px,0,0);
   transition: transform .3s;
 
   @media (--desktop-and-above) {
