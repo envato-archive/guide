@@ -14,9 +14,11 @@
     <%= javascript_include_tag "guide/scenario" %>
     <%= stylesheet_link_tag("https://dmypbau5frl9g.cloudfront.net/assets/guide/scenario-0850d15390e6ad5383256d43d3473da2.css", :media => "all") %>
 
-    <% # Application specific stylesheets to render template %>
-    <% @layout_view.node_stylesheets.each do |styleheet|%>
-      <%= stylesheet_link_tag(styleheet, :media => "all") %>
+    <% # Application specific stylesheets with which to render the template %>
+    <% if @layout_view.inject_stylesheets? %>
+      <% @layout_view.node_stylesheets.each do |styleheet|%>
+        <%= stylesheet_link_tag(styleheet, :media => "all") %>
+      <% end %>
     <% end %>
   </head>
 
@@ -27,8 +29,10 @@
                   Guide.configuration.local_variable_for_view_model => @layout_view.node_layout_view
                 } %>
 
-    <% @layout_view.node_javascripts.each do |javascript|%>
-      <%= javascript_include_tag(javascript) %>
+    <% if @layout_view.inject_javascripts? %>
+      <% @layout_view.node_javascripts.each do |javascript|%>
+        <%= javascript_include_tag(javascript) %>
+      <% end %>
     <% end %>
   </body>
 </html>

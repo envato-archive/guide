@@ -27,8 +27,16 @@ class Guide::ScenarioLayoutView
     @format
   end
 
+  def inject_stylesheets?
+    @node.format == 'html'
+  end
+
   def node_stylesheets
     @node.stylesheets
+  end
+
+  def inject_javascripts?
+    @node.format == 'html'
   end
 
   def node_javascripts
