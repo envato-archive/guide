@@ -24,14 +24,16 @@ class Guide::EndpointStocktaker
   end
 
   def add_structure(node_path:, structure:)
-    structure.scenarios.keys.each do |scenario_id|
-      @result[endpoint_key(node_path, scenario_id: scenario_id)] = {
-        "path" => url_helpers.scenario_path(
-          :scenario_id => scenario_id,
-          :scenario_format => :html,
-          :node_path => node_path,
-        )
-      }
+    structure.formats.each do |format|
+      structure.scenarios.keys.each do |scenario_id|
+        @result[endpoint_key(node_path, scenario_id: scenario_id, scenario_format: format)] = {
+          "path" => url_helpers.scenario_path(
+            :scenario_id => scenario_id,
+            :scenario_format => format,
+            :node_path => node_path,
+          )
+        }
+      end
     end
   end
 
@@ -39,8 +41,12 @@ class Guide::EndpointStocktaker
     @result[endpoint_key(node_path)] = { "path" => url_helpers.node_path(node_path) }
   end
 
-  def endpoint_key(node_path, scenario_id: nil)
-    [formatted_node_path(node_path), formatted_scenario_id(scenario_id)].compact.join('-')
+  def endpoint_key(node_path, scenario_id: nil, scenario_format: nil)
+    [
+      formatted_node_path(node_path),
+      formatted_scenario_id(scenario_id),
+      scenario_format,
+    ].compact.join('-')
   end
 
   def formatted_node_path(node_path)
