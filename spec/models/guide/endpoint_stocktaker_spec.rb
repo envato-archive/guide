@@ -41,6 +41,7 @@ RSpec.describe Guide::EndpointStocktaker do
       "section" => "Section",
       "section/admin" => "Section » Admin",
       "section/friendly/example" => "Section » Friendly » Example",
+      "section/friendly/email" => "Section » Friendly » Email",
     }
   end
 
@@ -54,6 +55,7 @@ RSpec.describe Guide::EndpointStocktaker do
     allow(monkey).to receive(:fetch_node).with("section").and_return(section)
     allow(monkey).to receive(:fetch_node).with("section/admin").and_return(admin)
     allow(monkey).to receive(:fetch_node).with("section/friendly/example").and_return(example)
+    allow(monkey).to receive(:fetch_node).with("section/friendly/email").and_return(email)
   end
 
   let(:section) do
@@ -62,12 +64,20 @@ RSpec.describe Guide::EndpointStocktaker do
   let(:admin) do
     instance_double(Guide::Structure,
                     :node_type => :structure,
+                    :formats => [:html],
                     :scenarios => admin_scenarios)
   end
   let(:example) do
     instance_double(Guide::Structure,
                     :node_type => :structure,
+                    :formats => [:html],
                     :scenarios => example_scenarios)
+  end
+  let(:email) do
+    instance_double(Guide::Structure,
+                    :node_type => :structure,
+                    :formats => [:html, :text],
+                    :scenarios => email_scenarios)
   end
 
   let(:admin_scenarios) do
@@ -84,6 +94,12 @@ RSpec.describe Guide::EndpointStocktaker do
       :example_scenario_with_really_obnoxiously_long_name_probably_trying_to_describe_something_complicated => double,
     }
   end
+  let(:email_scenarios) do
+    {
+      :default => double,
+      :obscure_mail_client => double,
+    }
+  end
 
   describe '#to_hash' do
     subject(:to_hash) { stocktaker.to_hash }
@@ -93,25 +109,37 @@ RSpec.describe Guide::EndpointStocktaker do
         "section" => {
           "path" => "/guide/section"
         },
-        "section.admin-default" => {
+        "section.admin-default-html" => {
           "path" => "/guide/scenario/default/html/for/section/admin"
         },
-        "section.admin-special_case" => {
+        "section.admin-special_case-html" => {
           "path" => "/guide/scenario/special_case/html/for/section/admin"
         },
-        "section.friendly.example-signed_out" => {
+        "section.friendly.example-signed_out-html" => {
           "path" => "/guide/scenario/signed_out/html/for/section/friendly/example"
         },
-        "section.friendly.example-less_friendly" => {
+        "section.friendly.example-less_friendly-html" => {
           "path" => "/guide/scenario/less_friendly/html/for/section/friendly/example"
         },
-        "section.friendly.example-more_friendly" => {
+        "section.friendly.example-more_friendly-html" => {
           "path" => "/guide/scenario/more_friendly/html/for/section/friendly/example"
         },
-        "section.friendly.example-example_scenario_with_re..be_something_complicated" => {
+        "section.friendly.example-example_scenario_with_re..be_something_complicated-html" => {
           "path" => "/guide/scenario/example_scenario_with_really_obnoxiously_long_name_"\
-                    "probably_trying_to_describe_something_complicated/html/for/section/friendly/example"
-        }
+          "probably_trying_to_describe_something_complicated/html/for/section/friendly/example"
+        },
+        "section.friendly.email-default-html" => {
+          "path" => "/guide/scenario/default/html/for/section/friendly/email"
+        },
+        "section.friendly.email-obscure_mail_client-html" => {
+          "path" => "/guide/scenario/obscure_mail_client/html/for/section/friendly/email"
+        },
+        "section.friendly.email-default-text" => {
+          "path" => "/guide/scenario/default/text/for/section/friendly/email"
+        },
+        "section.friendly.email-obscure_mail_client-text" => {
+          "path" => "/guide/scenario/obscure_mail_client/text/for/section/friendly/email"
+        },
       }
     end
 
