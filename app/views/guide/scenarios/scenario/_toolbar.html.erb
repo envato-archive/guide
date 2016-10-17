@@ -26,7 +26,7 @@
           <%= link_to "L", "##{scenario_id}", :class => "js-guide__responsive-desktop t-link -color-inherit -decoration-reversed" %>
         </div>
         <div class="sg-actions__control">
-          <%= link_to Guide::Engine.routes.url_helpers.scenario_path(
+          <%= link_to scenario_path(
                         :scenario_id => scenario_id,
                         :node_path => view.node_path,
                         :scenario_format => view.formats.first,
