@@ -9,9 +9,7 @@
             @layout_view.paths_to_visible_renderable_nodes.map do |node_path, node_title|
               {
                 :label => node_title,
-                :value => node_path(
-                  :node_path => node_path
-                )
+                :value => "/#{node_path}"
               }
             end
         } %>
