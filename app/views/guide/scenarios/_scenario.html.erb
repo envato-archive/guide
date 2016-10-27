@@ -4,16 +4,8 @@
       <% if view.uses_cells? %>
         <%= cell(view.cell, view.view_model).call %>
       <% else %>
-        <% if view.format == 'text' %>
-          <pre><%= render "#{view.template}.#{view.format}",
-                          Guide.configuration.local_variable_for_view_model => view.view_model %></pre>
-        <% elsif view.format == 'html' %>
-          <%= render  view.template,
-                      Guide.configuration.local_variable_for_view_model => view.view_model %>
-        <% else %>
-          <%= render  "#{view.template}.#{view.format}",
-                      Guide.configuration.local_variable_for_view_model => view.view_model %>
-        <% end %>
+        <pre><%= render partial: view.template, formats: [view.format], 
+          locals: { Guide.configuration.local_variable_for_view_model => view.view_model } %></pre>
       <% end %>
     </div>
   </div>
