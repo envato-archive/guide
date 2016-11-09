@@ -4,8 +4,14 @@
       <% if view.uses_cells? %>
         <%= cell(view.cell, view.view_model).call %>
       <% else %>
-        <pre><%= render partial: view.template, formats: [view.format], 
-          locals: { Guide.configuration.local_variable_for_view_model => view.view_model } %></pre>
+        <% if view.format.to_sym == :text %>
+          <pre>
+        <% end %>
+        <%= render partial: view.template, formats: [view.format],
+          locals: { Guide.configuration.local_variable_for_view_model => view.view_model } %>
+        <% if view.format.to_sym == :text %>
+          </pre>
+        <% end %>
       <% end %>
     </div>
   </div>
