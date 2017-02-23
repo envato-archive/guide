@@ -1,6 +1,5 @@
 class Guide::Configuration
-  attr_accessor :access_level_keys,
-    :asset_path_for_logo,
+  attr_accessor :asset_path_for_logo,
     :company_name,
     :controller_class_to_inherit,
     :default_layout_for_scenarios,
@@ -15,7 +14,6 @@ class Guide::Configuration
     :supported_locales
 
   def initialize
-    @access_level_keys = [:unpublished, :restricted]
     @asset_path_for_logo = ''
     @company_name = 'Your Awesome Company'
     @controller_class_to_inherit = 'ApplicationController'
@@ -24,7 +22,7 @@ class Guide::Configuration
     @default_javascripts_for_structures = []
     @default_stylesheets_for_documents = []
     @default_stylesheets_for_structures = []
-    @guide_name = 'Example Guide'
+    @guide_name = 'Your Awesome Guide'
     @helper_module_to_globally_include = 'Guide::ApplicationHelper::DefaultInclude'
     @local_variable_for_view_model = :view
     @markdown_wrapper_class = 'markdown'
