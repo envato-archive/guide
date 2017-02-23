@@ -15,7 +15,7 @@ class Guide::Bouncer
 
   def visibile_to_user?(label, visibility)
     return true unless visibility
-    if Guide.configuration.access_level_keys.include?(visibility)
+    if valid_visibility_options.include?(visibility)
       @authorisation_system.allow?(:"view_guide_#{visibility}")
     else
       raise Guide::Errors::InvalidVisibilityOption, <<-EOS.gsub(' ,', ' nil,').squish
