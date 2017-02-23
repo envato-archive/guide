@@ -4,7 +4,7 @@ class Guide::Bouncer
   end
 
   def user_can_access?(node)
-    visibile_to_user?(node.id, node.options[:visibility])
+    visible_to_user?(node.id, node.options[:visibility])
   end
 
   def user_is_privileged?
@@ -13,7 +13,7 @@ class Guide::Bouncer
 
   private
 
-  def visibile_to_user?(label, visibility)
+  def visible_to_user?(label, visibility)
     return true if visibility.blank?
 
     if valid_visibility_options.include?(visibility)
