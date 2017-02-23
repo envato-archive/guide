@@ -14,7 +14,8 @@ class Guide::Bouncer
   private
 
   def visibile_to_user?(label, visibility)
-    return true unless visibility
+    return true if visibility.blank?
+
     if valid_visibility_options.include?(visibility)
       @authorisation_system.allow?(:"view_guide_#{visibility}")
     else
