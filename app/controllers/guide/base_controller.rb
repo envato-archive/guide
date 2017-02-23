@@ -33,19 +33,19 @@ class Guide::BaseController < Guide.configuration.controller_class_to_inherit.co
     @bouncer ||= Guide::Bouncer.new(authorisation_system: injected_authorisation_system)
   end
 
-  def injected_authorisation_system
-    if defined?(authorisation_system)
-      authorisation_system
-    else
-      Guide::DefaultAuthorisationSystem.new
-    end
-  end
-
   def injected_authentication_system
     if defined?(authentication_system)
       authentication_system
     else
       Guide::DefaultAuthenticationSystem.new
+    end
+  end
+
+  def injected_authorisation_system
+    if defined?(authorisation_system)
+      authorisation_system
+    else
+      Guide::DefaultAuthorisationSystem.new
     end
   end
 

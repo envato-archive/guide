@@ -8,8 +8,7 @@ class Guide::Bouncer
   end
 
   def user_is_privileged?
-    @authorisation_system.allow?(:view_guide_unpublished) ||
-      @authorisation_system.allow?(:view_guide_restricted)
+    @authorisation_system.user_is_privileged?
   end
 
   private
@@ -19,22 +18,16 @@ class Guide::Bouncer
     if Guide.configuration.access_level_keys.include?(visibility)
       @authorisation_system.allow?(:"view_guide_#{visibility}")
     else
-      raise Guide::Errors::InvalidVisibilityLevel, <<-EOS.gsub(' ,', ' nil,').squish
+      raise Guide::Errors::InvalidVisibilityOption, <<-EOS.gsub(' ,', ' nil,').squish
         You tried to give :#{label} a visibility of :#{visibility},
         but :#{visibility} is not a valid selection.
         Valid visibility options include:
-        #{valid_visibility_levels.join(', :')}.
+        #{valid_visibility_options.join(', :')}.
       EOS
     end
   end
 
-  def valid_visibility_levels
-    # Feel free to override this method in your application if you would like
-    # a different set of visibility levels. Starting with nil is recommended.
-    [
-      nil,
-      :unpublished,
-      :restricted,
-    ]
+  def valid_visibility_options
+    @authorisation_system.valid_visibility_options
   end
 end

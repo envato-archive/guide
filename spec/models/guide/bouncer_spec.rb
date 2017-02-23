@@ -5,7 +5,17 @@ RSpec.describe Guide::Bouncer do
     described_class.new(authorisation_system: authorisation_system)
   end
   let(:authorisation_system) do
-    instance_double(Guide::DefaultAuthorisationSystem)
+    instance_double(Guide::DefaultAuthorisationSystem,
+                    :user_is_privileged? => auth_user_is_privileged?,
+                    :valid_visibility_options => auth_valid_visibility_options)
+  end
+  let(:auth_user_is_privileged?) { false }
+  let(:auth_valid_visibility_options) do
+    [
+      nil,
+      :unpublished,
+      :restricted,
+    ]
   end
 
   before do
@@ -109,13 +119,13 @@ RSpec.describe Guide::Bouncer do
     context 'given that the node has an invalid visibility option' do
       let(:node_visibility) { :explode_after_reading }
 
-      it "raises a Guide::InvalidVisibilityLevelError" do
-        expect{ user_can_access? }.to raise_error(Guide::Errors::InvalidVisibilityLevel)
+      it "raises a Guide::Errors::InvalidVisibilityOption" do
+        expect{ user_can_access? }.to raise_error(Guide::Errors::InvalidVisibilityOption)
       end
 
       it "provides a helpful error message" do
         expect{ user_can_access? }.to raise_error(
-          Guide::Errors::InvalidVisibilityLevel,
+          Guide::Errors::InvalidVisibilityOption,
           "You tried to give :checkout a visibility of :explode_after_reading, but :explode_after_reading is not a valid selection. Valid visibility options include: nil, :unpublished, :restricted."
         )
       end
@@ -125,26 +135,16 @@ RSpec.describe Guide::Bouncer do
   describe "#user_is_privileged?" do
     subject(:user_is_privileged?) { bouncer.user_is_privileged? }
 
-    context "when authorization system allows user to view unpublished nodes" do
-      let(:view_guide_unpublished) { true }
+    context "the authorization system reports that the user is privileged" do
+      let(:auth_user_is_privileged?) { true }
 
       it { is_expected.to be true }
     end
 
-    context "when authorization system prevents user from viewing unpublished nodes" do
-      let(:view_guide_unpublished) { false }
+    context "the authorization system reports that the user is not privileged" do
+      let(:auth_user_is_privileged?) { false }
 
-      context "but it allows user to view restricted nodes" do
-        let(:view_guide_restricted) { true }
-
-        it { is_expected.to be true }
-      end
-
-      context "and it prevents user from viewing restricted nodes" do
-        let(:view_guide_restricted) { false }
-
-        it { is_expected.to be false }
-      end
+      it { is_expected.to be false }
     end
   end
 end
