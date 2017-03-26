@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", ">= 3.1", "< 5"
   s.add_dependency "github-markup"
-  s.add_dependency "rdiscount"
   s.add_dependency "sass-rails", ">= 3.2"
 
   s.add_development_dependency "sqlite3"

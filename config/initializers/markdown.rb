@@ -1,5 +1,4 @@
 require 'github/markup'
-require 'rdiscount'
 
 class ActionView::Template
   module Handlers
