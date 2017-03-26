@@ -10,7 +10,6 @@ class Guide::Configuration
     :guide_name,
     :helper_module_to_globally_include,
     :local_variable_for_view_model,
-    :markdown_wrapper_class,
     :supported_locales
 
   def initialize
@@ -25,7 +24,6 @@ class Guide::Configuration
     @guide_name = 'Your Awesome Guide'
     @helper_module_to_globally_include = 'Guide::ApplicationHelper::DefaultInclude'
     @local_variable_for_view_model = :view
-    @markdown_wrapper_class = 'markdown'
     @supported_locales = { "English" => "en" }
   end
 end

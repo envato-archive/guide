@@ -37,7 +37,6 @@ Guide.configure do |config|
   config.guide_name = "Your Awesome Guide"
   config.helper_module_to_globally_include = 'Guide::HelperInjection'
   config.local_variable_for_view_model = :view_model
-  config.markdown_wrapper_class = 'markdown'
   config.supported_locales = {
     "English" => "en",
     "Portuguese" => "pt",
@@ -137,7 +136,6 @@ end
 **Supported formats**
 - `html`
 - `text`
-- `markdown`
 
 ```Ruby
 # app/documentation/guide/content/ui_library/typography/heading.rb
