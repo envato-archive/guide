@@ -1,0 +1,1 @@
+/Users/zubin/src/envato/guide/spec/test_apps/shared/config/initializers/i18n.rb
