@@ -4,12 +4,12 @@ class Guide::BaseController < Guide.configuration.controller_class_to_inherit.co
 
   private
 
-  around_filter :set_locale
+  around_action :set_locale
   def set_locale
     I18n.with_locale(diplomat.negotiate_locale) { yield }
   end
 
-  around_filter :handle_known_errors
+  around_action :handle_known_errors
   def handle_known_errors
     begin
       yield
