@@ -48,7 +48,11 @@ RSpec.describe Guide::NodesController, :type => :controller do
             end
 
             it "does not render the show template" do
-              expect(response).not_to render_template(:show)
+              if Rails.version < '5'
+                expect(response).not_to render_template(:show)
+              else
+                expect(response.body).to be_blank
+              end
             end
           end
         end
@@ -75,7 +79,11 @@ RSpec.describe Guide::NodesController, :type => :controller do
             end
 
             it "does not render the show template" do
-              expect(response).not_to render_template(:show)
+              if Rails.version < '5'
+                expect(response).not_to render_template(:show)
+              else
+                expect(response.body).to be_blank
+              end
             end
           end
         end
