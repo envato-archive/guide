@@ -5,9 +5,9 @@
 /InstalledFiles
 /pkg/
 /spec/reports/
-/spec/test_app/db/*.sqlite3
-/spec/test_app/log/*
-/spec/test_app/tmp/*
+/spec/test_apps/*/db/*.sqlite3
+/spec/test_apps/*/log/*
+/spec/test_apps/*/tmp/*
 /tmp/
 
 ## Documentation cache and generated files:
@@ -25,3 +25,5 @@
 
 node_modules
 npm-debug.log
+
+gemfiles/*.gemfile.lock

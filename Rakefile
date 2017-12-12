@@ -1,26 +1,18 @@
-begin
-  require 'bundler/setup'
-rescue LoadError
-  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
+require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
+
+RSpec::Core::RakeTask.new(:spec)
+
+task :setup_test_app, [:rails_version] do |_task, args|
+  require_relative './spec/test_apps/setup'
+  TestApps::Setup.call args.fetch(:rails_version) {
+    abort "Example usage: rake #{ARGV[0]}[5.1.4]"
+  }
 end
 
-require 'rdoc/task'
-
-RDoc::Task.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'Guide'
-  rdoc.options << '--line-numbers'
-  rdoc.rdoc_files.include('README.rdoc')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+if ENV['APPRAISAL_INITIALIZED'] || ENV['TRAVIS']
+  task default: :spec
+else
+  require 'appraisal'
+  task default: :appraisal
 end
-
-APP_RAKEFILE = File.expand_path("../spec/test_app/Rakefile", __FILE__)
-load 'rails/tasks/engine.rake'
-
-
-load 'rails/tasks/statistics.rake'
-
-
-
-Bundler::GemHelper.install_tasks
-
