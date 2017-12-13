@@ -90,10 +90,17 @@ module TestApps
     end
 
     def add_symlinks
-      symlink_sources.all? do |source|
-        dest = symlink_dest(source)
-        FileUtils.mkdir_p File.dirname(dest)
-        FileUtils.ln_sf source, dest
+      [
+        'app',
+        'config/database.yml',
+        'config/initializers/i18n.rb',
+      ].each do |path|
+        dest = File.join(root, path)
+        target_dir = File.dirname(dest)
+        FileUtils.mkdir_p(target_dir)
+        FileUtils.cd(target_dir)
+        relative_source = ['../' * path.count('/'), '../shared/', path].join
+        FileUtils.ln_sf relative_source, dest
       end
     end
   end
