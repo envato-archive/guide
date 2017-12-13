@@ -1,1 +1,0 @@
-/Users/zubin/src/envato/guide/spec/test_apps/shared/app/helpers/application_helper.rb
