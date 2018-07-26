@@ -104,6 +104,26 @@ RSpec.describe Guide::ScenariosController, :type => :controller do
       end
     end
 
+    context "the node_path is partial" do
+      let(:show) do
+        get(:show,
+            :node_path => partial_node_path,
+            :scenario_id => scenario_id.to_s,
+            :scenario_format => 'html')
+      end
+      let(:partial_node_path) { 'structures/friendly' }
+
+      context "we are not in a development environment" do
+        include_context description do
+          before { show }
+
+          it "renders a 404 not found response" do
+            expect(response).to have_http_status(:not_found)
+          end
+        end
+      end
+    end
+
     context "the node_path doesn't point to a valid node" do
       let(:show) do
         get(:show,

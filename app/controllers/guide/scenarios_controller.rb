@@ -4,6 +4,9 @@ class Guide::ScenariosController < Guide::BaseController
   def show
     expose_layout
     expose_scenario
+  rescue NoMethodError => e
+    logger.warn { "Rendering 404 after rescuing: #{e}" }
+    render plain: 'Nothing to see here.', status: '404'
   end
 
   private
