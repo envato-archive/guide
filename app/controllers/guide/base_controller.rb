@@ -18,9 +18,9 @@ class Guide::BaseController < Guide.configuration.controller_class_to_inherit.co
 
       case error
       when Guide::Errors::InvalidNode, Guide::Errors::PermissionDenied
-        render :text => 'Nothing to see here.', :status => '404'
+        render :plain => 'Nothing to see here.', :status => '404'
       else
-        render :text => "Something's gone wrong. Sorry about that.", :status => '500'
+        render :plain => "Something's gone wrong. Sorry about that.", :status => '500'
       end
     end
   end
