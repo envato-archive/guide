@@ -15,7 +15,8 @@
 ].each do |rails_version|
   ENV['APPRAISAL_RAILS_VERSION'] = rails_version
   appraise "rails-#{rails_version}" do
-    gem 'rails', rails_version
+    gem 'railties', rails_version
+    gem 'sprockets-rails', '~> 2'
     gem 'rails-controller-testing' if rails_version >= '5'
   end
 end
