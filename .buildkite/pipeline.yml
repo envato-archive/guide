@@ -9,30 +9,3 @@ steps:
     agents:
       queue: "$AGENT_QUEUE"
     timeout_in_minutes: 10
-
-  - label: ":ruby: 2.5 :rspec:"
-    command: ".buildkite/steps/rspec.sh"
-    plugins:
-      docker#v1.4.0:
-        image: "ruby:2.5"
-    agents:
-      queue: "$AGENT_QUEUE"
-    timeout_in_minutes: 10
-
-  - label: ":ruby: 2.4 :rspec:"
-    command: ".buildkite/steps/rspec.sh"
-    plugins:
-      docker#v1.4.0:
-        image: "ruby:2.4"
-    agents:
-      queue: "$AGENT_QUEUE"
-    timeout_in_minutes: 10
-
-  - label: ":ruby: 2.3 :rspec:"
-    command: ".buildkite/steps/rspec.sh"
-    plugins:
-      docker#v1.4.0:
-        image: "ruby:2.3"
-    agents:
-      queue: "$AGENT_QUEUE"
-    timeout_in_minutes: 10
