@@ -16,3 +16,15 @@ jobs:
           bundler-cache: true
       - run: bundle exec appraisal install
       - run: bundle exec appraisal rspec spec
+  javascript:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '10' ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm install
+      - run: npm test
