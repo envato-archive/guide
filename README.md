@@ -8,7 +8,7 @@ Document your entire user interface, not just your styles.
 - Fake out your backend at the view model layer
 - See what each template looks like when you vary the data it receives
 
-## Development Status [![Build status](https://badge.buildkite.com/277fd82c44a19eb19ac9a25a71df482cb7711c63ddf9bca3d3.svg)](https://buildkite.com/envato-marketplaces/guide)
+## Development Status [![tests](https://github.com/envato/guide/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/envato/guide/actions/workflows/test.yml)
 Guide runs in production at [Envato](https://market.styleguide.envato.com). While it is moderately mature at this stage, its API and features are still subject to changes.
 
 ## Installation
