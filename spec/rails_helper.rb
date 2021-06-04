@@ -2,7 +2,8 @@
 ENV['RAILS_ENV'] ||= 'test'
 
 require 'rails'
-require_relative "test_apps/rails-#{Rails.version}/config/environment"
+require 'rails-controller-testing'
+require_relative "test_apps/rails-#{Rails.gem_version.segments.take(2).join('.')}/config/environment"
 
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
