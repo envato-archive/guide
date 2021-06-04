@@ -1,0 +1,33 @@
+---
+name: tests
+on: [ push, pull_request ]
+jobs:
+  ruby:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby: [ '2.3', '2.4', '2.5' ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler: 1
+          bundler-cache: true
+      - run: bundle exec appraisal install
+      - run: bundle exec appraisal rspec spec
+  javascript:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '10' ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm install
+      - name: Run npm test
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: npm test
