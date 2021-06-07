@@ -1,8 +1,9 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 
-rails_version = ENV.fetch('APPRAISAL_RAILS_VERSION', '4.2.10')
-require File.expand_path("../../spec/test_apps/rails-#{rails_version}/config/environment", __FILE__)
+require 'rails'
+require 'rails-controller-testing'
+require_relative "test_apps/rails-#{Rails.gem_version.segments.take(2).join('.')}/config/environment"
 
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?

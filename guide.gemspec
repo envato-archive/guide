@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sass-rails", ">= 3.2"
 
   s.add_development_dependency "appraisal"
-  s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "pry"
+  s.add_development_dependency "rails-controller-testing"
 end

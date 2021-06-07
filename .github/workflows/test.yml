@@ -5,22 +5,28 @@ jobs:
   ruby:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        ruby: [ '2.3', '2.4', '2.5' ]
+        ruby: [ '2.6', '2.7', '3.0' ]
+        gemfile: [ 'rails_5.2', 'rails_6.1' ]
+        exclude:
+          - ruby: '3.0'
+            gemfile: 'rails_5.2'
+    env:
+      BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
     steps:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler: 1
           bundler-cache: true
-      - run: bundle exec appraisal install
-      - run: bundle exec appraisal rspec spec
+      - run: bundle exec rspec
   javascript:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        node: [ '10' ]
+        node: [ '12', '14', '16' ]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
