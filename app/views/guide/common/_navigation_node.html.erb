@@ -4,12 +4,12 @@
                     :class => top_level_node ? 'sg-navigation__section' : nil do %>
       <% if child_node_view.leaf_node? %>
         <%= link_to child_node_view.name,
-                    node_path.present? ? "/#{node_path}/#{child_node_view.id}" : "/#{child_node_view.id}",
+                    guide.node_path([node_path, child_node_view.id].compact.join('/')),
                     :class => child_node_view.active? ? 'is-active' : nil %>
       <% else %>
         <% if top_level_node %>
           <div class="sg-navigation__section-title">
-            <%= link_to "/#{child_node_view.id}" do %>
+            <%= link_to(guide.node_path(child_node_view.id)) do %>
               <h4><%= child_node_view.name %></h4>
             <% end %>
           </div>

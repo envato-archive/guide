@@ -168,8 +168,8 @@ The homepage of your Guide is a special snowflake. Edit the contents here:
 In order to link to other Guide pages from within your content, you will need to use the `node_path` url helper. Here are a couple of examples:
 
 ```Ruby
-<%= link_to "root level link", Guide::Engine.routes.url_helpers.node_path('documents') %>
-<%= link_to "nested link", Guide::Engine.routes.url_helpers.node_path('documents/restricted') %>
+<%= link_to "root level link", guide.node_path('documents') %>
+<%= link_to "nested link", guide.node_path('documents/restricted') %>
 ```
 
 ### Fixtures
