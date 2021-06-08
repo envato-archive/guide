@@ -39,6 +39,6 @@ class Guide::ScenariosController < Guide::BaseController
   end
 
   def scenario_format
-    params[:scenario_format]
+    params[:scenario_format].to_sym
   end
 end
