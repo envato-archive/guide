@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = "Document your Rails application with a living component library and styleguide"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 
   s.required_ruby_version = ">= 2.6"
 

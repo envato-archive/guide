@@ -32,6 +32,7 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 - Fixed scenarios not rendering with Rails 6 ([#93]).
 - Fixed links not using engine mount point ([#95]).
+- The `README.md` file is included in the gem ([#96]).
 
 [Unreleased]: https://github.com/envato/guide/compare/v0.5.0...HEAD
 [#91]: https://github.com/envato/guide/pull/91
@@ -39,6 +40,7 @@ The format is based on [Keep a Changelog], and this project adheres to
 [#93]: https://github.com/envato/guide/pull/93
 [#94]: https://github.com/envato/guide/pull/94
 [#95]: https://github.com/envato/guide/pull/95
+[#96]: https://github.com/envato/guide/pull/96
 
 ## [0.5.0] - 2021-03-25
 
