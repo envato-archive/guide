@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 ## [Unreleased]
 
+[Unreleased]: https://github.com/envato/guide/compare/v0.6.0...HEAD
+
+## [0.6.0] - 2021-06-09
+
 ### Added
 
 - Add `actionpack` and `actionview` as explicit dependencies ([#94]).
@@ -35,7 +39,7 @@ The format is based on [Keep a Changelog], and this project adheres to
 - Fixed links not using engine mount point ([#95]).
 - The `README.md` file is included in the gem ([#96]).
 
-[Unreleased]: https://github.com/envato/guide/compare/v0.5.0...HEAD
+[0.6.0]: https://github.com/envato/guide/compare/v0.5.0...v0.6.0
 [#91]: https://github.com/envato/guide/pull/91
 [#92]: https://github.com/envato/guide/pull/92
 [#93]: https://github.com/envato/guide/pull/93
