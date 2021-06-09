@@ -10,11 +10,15 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 ## [Unreleased]
 
+[Unreleased]: https://github.com/envato/guide/compare/v0.6.1...HEAD
+
+## [0.6.1] - 2021-06-10
+
 ### Fixed
 
 - Custom javascript and CSS is included in HTML scenarios ([#97]).
 
-[Unreleased]: https://github.com/envato/guide/compare/v0.6.0...HEAD
+[0.6.1]: https://github.com/envato/guide/compare/v0.6.0...v0.6.1
 [#97]: https://github.com/envato/guide/pull/97
 
 ## [0.6.0] - 2021-06-09
