@@ -14,8 +14,12 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.rdoc"]
 
-  s.add_dependency "railties", ">= 4"
-  s.add_dependency "activemodel", ">= 4"
+  s.required_ruby_version = ">= 2.6"
+
+  s.add_dependency "railties", ">= 5.2"
+  s.add_dependency "actionpack", ">= 5.2"
+  s.add_dependency "actionview", ">= 5.2"
+  s.add_dependency "activemodel", ">= 5.2"
   s.add_dependency "sprockets-rails"
   s.add_dependency "sass-rails", ">= 3.2"
 
