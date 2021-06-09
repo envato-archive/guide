@@ -26,7 +26,7 @@
           <%= link_to "L", "##{scenario_id}", :class => "js-guide__responsive-desktop t-link -color-inherit -decoration-reversed" %>
         </div>
         <div class="sg-actions__control">
-          <%= link_to "/scenario/#{scenario_id}/#{view.formats.first}/for/#{view.node_path}",
+          <%= link_to guide.scenario_path(scenario_id, view.formats.first, view.node_path),
                       :class =>"sg-actions__icon",
                       :target => "_blank",
                       :alt => "Open this scenario in a new tab" do %>
