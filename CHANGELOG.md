@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 - Add `actionpack` and `actionview` as explicit dependencies ([#94]).
   Previously, these were transitive dependencies.
+- Record project metadata in the gem spec ([#96]).
 
 ### Changed
 
