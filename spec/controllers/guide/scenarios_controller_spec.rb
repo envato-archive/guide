@@ -36,6 +36,14 @@ RSpec.describe Guide::ScenariosController, :type => :controller do
                 expect(assigns(:scenario_view)).
                   to be_a Guide::ScenarioView
               end
+
+              context "rendering turned on" do
+                render_views
+
+                it "responds with 200 ok" do
+                  expect(response).to have_http_status(:ok)
+                end
+              end
             end
           end
 
