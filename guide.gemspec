@@ -12,7 +12,14 @@ Gem::Specification.new do |s|
   s.description = "Document your Rails application with a living component library and styleguide"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.rdoc"]
+  s.metadata["homepage_uri"] = s.homepage
+  s.metadata["source_code_uri"] = "#{s.homepage}/tree/v#{s.version}"
+  s.metadata["changelog_uri"] = "#{s.homepage}/blob/HEAD/CHANGELOG.md"
+  s.metadata["bug_tracker_uri"] = "#{s.homepage}/issues"
+  s.metadata["wiki_uri"] = "#{s.homepage}/wiki"
+  s.metadata["documentation_uri"] = "https://www.rubydoc.info/gems/#{s.name}/#{s.version}"
+
+  s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 
   s.required_ruby_version = ">= 2.6"
 
