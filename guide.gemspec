@@ -28,7 +28,6 @@ Gem::Specification.new do |s|
   s.add_dependency "actionview", ">= 5.2"
   s.add_dependency "activemodel", ">= 5.2"
   s.add_dependency "sprockets-rails"
-  s.add_dependency "sass-rails", ">= 3.2"
 
   s.add_development_dependency "appraisal"
   s.add_development_dependency "rspec-rails"

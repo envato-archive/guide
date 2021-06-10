@@ -14,8 +14,13 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 - Support `sprockets` version 4 ([#98]).
 
+### Removed
+
+- The `sass-rails` dependency is removed ([#99]).
+
 [Unreleased]: https://github.com/envato/guide/compare/v0.6.1...HEAD
 [#98]: https://github.com/envato/guide/pull/98
+[#99]: https://github.com/envato/guide/pull/99
 
 ## [0.6.1] - 2021-06-10
 
