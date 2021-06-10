@@ -10,7 +10,16 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/envato/guide/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/envato/guide/compare/v0.6.1...HEAD
+
+## [0.6.1] - 2021-06-10
+
+### Fixed
+
+- Custom javascript and CSS is included in HTML scenarios ([#97]).
+
+[0.6.1]: https://github.com/envato/guide/compare/v0.6.0...v0.6.1
+[#97]: https://github.com/envato/guide/pull/97
 
 ## [0.6.0] - 2021-06-09
 
@@ -35,7 +44,25 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 ### Fixed
 
-- Fixed scenarios not rendering with Rails 6 ([#93]).
+- Fixed scenarios not rendering with Rails 6 ([#93]). Please ensure formats are
+  specified using symbols when defining structures:
+
+  ```diff
+   def formats
+  -  ['html', 'text']
+  +  [:html, :text]
+   end
+
+   def layout_templates
+     {
+  -    'html' => 'layouts/my_html_layout',
+  -    'text' => 'layouts/my_text_layout'
+  +    html: 'layouts/my_html_layout',
+  +    text: 'layouts/my_text_layout'
+     }
+   end
+  ```
+
 - Fixed links not using engine mount point ([#95]).
 - The `README.md` file is included in the gem ([#96]).
 

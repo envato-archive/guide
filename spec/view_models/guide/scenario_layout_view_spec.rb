@@ -18,7 +18,7 @@ RSpec.describe Guide::ScenarioLayoutView do
                     :javascripts => ['Node JavaScripts'])
   end
   let(:node_layout_templates) do
-    { 'html' => 'html/layout/template' }
+    { html: 'html/layout/template' }
   end
   let(:node_layout_view_model) { instance_double(Guide::ViewModel) }
 
@@ -48,13 +48,13 @@ RSpec.describe Guide::ScenarioLayoutView do
 
     let(:node_layout_templates) do
       {
-        'html' => 'html/layout/template',
-        'text' => 'text/layout/template',
+        html: 'html/layout/template',
+        text: 'text/layout/template',
       }
     end
 
     context 'there is a node-specific layout template for this format' do
-      let(:format_argument) { 'html' }
+      let(:format_argument) { :html }
 
       it "returns the layout template specified on the node" do
         expect(node_layout_template).to eq 'html/layout/template'
@@ -62,7 +62,7 @@ RSpec.describe Guide::ScenarioLayoutView do
     end
 
     context 'a node-specific layout template does not exist for this format' do
-      let(:format_argument) { 'pdf' }
+      let(:format_argument) { :pdf }
 
       it "returns the default layout for scenarios as specified in configuration" do
         expect(node_layout_template).to eq Guide.configuration.default_layout_for_scenarios
@@ -90,13 +90,13 @@ RSpec.describe Guide::ScenarioLayoutView do
     subject(:inject_stylesheets?) { view_model.inject_stylesheets? }
 
     context 'the scenario is in HTML format' do
-      let(:format_argument) { 'html' }
+      let(:format_argument) { :html }
 
       it { is_expected.to be true }
     end
 
     context 'the scenario is in a different format' do
-      let(:format_argument) { 'text' }
+      let(:format_argument) { :text }
 
       it { is_expected.to be false }
     end
@@ -114,13 +114,13 @@ RSpec.describe Guide::ScenarioLayoutView do
     subject(:inject_javascripts?) { view_model.inject_javascripts? }
 
     context 'the scenario is in HTML format' do
-      let(:format_argument) { 'html' }
+      let(:format_argument) { :html }
 
       it { is_expected.to be true }
     end
 
     context 'the scenario is in a different format' do
-      let(:format_argument) { 'text' }
+      let(:format_argument) { :text }
 
       it { is_expected.to be false }
     end
