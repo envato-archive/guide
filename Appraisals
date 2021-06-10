@@ -1,6 +1,6 @@
 appraise 'rails-6.1' do
   gem 'railties', '~> 6.1.0'
-  gem 'sprockets', '~> 3'
+  gem 'sprockets', '~> 4'
 end
 
 appraise 'rails-5.2' do
