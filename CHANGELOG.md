@@ -10,7 +10,12 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Support `sprockets` version 4 ([#98]).
+
 [Unreleased]: https://github.com/envato/guide/compare/v0.6.1...HEAD
+[#98]: https://github.com/envato/guide/pull/98
 
 ## [0.6.1] - 2021-06-10
 
