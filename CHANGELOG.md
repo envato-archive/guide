@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 ## [Unreleased]
 
+[Unreleased]: https://github.com/envato/guide/compare/v0.7.0...HEAD
+
+## [0.7.0] - 2021-06-11
+
 ### Added
 
 - Support `sprockets` version 4 ([#98]).
@@ -23,7 +27,7 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 - The `sass-rails` dependency is removed ([#99]).
 
-[Unreleased]: https://github.com/envato/guide/compare/v0.6.1...HEAD
+[0.7.0]: https://github.com/envato/guide/compare/v0.6.1...v0.7.0
 [#98]: https://github.com/envato/guide/pull/98
 [#99]: https://github.com/envato/guide/pull/99
 [#100]: https://github.com/envato/guide/pull/100
