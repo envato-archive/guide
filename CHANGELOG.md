@@ -14,6 +14,11 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 - Support `sprockets` version 4 ([#98]).
 
+### Changed
+
+- Moved guide asset compilation configuration to `lib/guide/engine.rb`, as
+  recommended by the [Rails Engine Guide] ([#100]).
+
 ### Removed
 
 - The `sass-rails` dependency is removed ([#99]).
@@ -21,6 +26,8 @@ The format is based on [Keep a Changelog], and this project adheres to
 [Unreleased]: https://github.com/envato/guide/compare/v0.6.1...HEAD
 [#98]: https://github.com/envato/guide/pull/98
 [#99]: https://github.com/envato/guide/pull/99
+[#100]: https://github.com/envato/guide/pull/100
+[Rails Engine Guide]: https://guides.rubyonrails.org/v6.1/engines.html#separate-assets-and-precompiling
 
 ## [0.6.1] - 2021-06-10
 
