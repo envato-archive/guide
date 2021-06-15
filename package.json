@@ -6,15 +6,15 @@
   "scripts": {
     "build-application-js": "browserify javascript/application.js -o app/assets/javascripts/guide/application.js",
     "build-scenario-js": "browserify javascript/scenario.js -o app/assets/javascripts/guide/scenario.js",
-    "build-js": "npm run build-application-js && npm run build-scenario-js",
+    "build-js": "yarn run build-application-js && yarn run build-scenario-js",
     "watch-application-js": "watchify -p browserify-hmr javascript/application.js -o app/assets/javascripts/guide/application.js",
     "watch-scenario-js": "watchify -p [ browserify-hmr -p 3124] javascript/scenario.js -o app/assets/javascripts/guide/scenario.js",
-    "watch": "npm run watch-application-js & npm run watch-scenario-js & npm run watch-css",
+    "watch": "yarn run watch-application-js & yarn run watch-scenario-js & yarn run watch-css",
     "lint": "standard javascript/**/*.js | snazzy",
-    "test": "npm run lint && browserify javascript/tests/*.test.js | tape-run",
+    "test": "yarn run lint && browserify javascript/tests/*.test.js | tape-run",
     "build-css": "postcss -c postcss.config.json -o app/assets/stylesheets/guide/application.css styles/application.css",
     "watch-css": "postcss -w -c postcss.config.json -o app/assets/stylesheets/guide/application.css styles/application.css",
-    "build": "npm run build-js && npm run build-css"
+    "build": "yarn run build-js && yarn run build-css"
   },
   "repository": {
     "type": "git",
