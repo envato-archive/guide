@@ -12,8 +12,8 @@
     "watch": "yarn run watch-application-js & yarn run watch-scenario-js & yarn run watch-css",
     "lint": "standard javascript/**/*.js | snazzy",
     "test": "yarn run lint && browserify javascript/tests/*.test.js | tape-run",
-    "build-css": "postcss -c postcss.config.json -o app/assets/stylesheets/guide/application.css styles/application.css",
-    "watch-css": "postcss -w -c postcss.config.json -o app/assets/stylesheets/guide/application.css styles/application.css",
+    "build-css": "postcss -o app/assets/stylesheets/guide/application.css styles/application.css",
+    "watch-css": "postcss -w -o app/assets/stylesheets/guide/application.css styles/application.css",
     "build": "yarn run build-js && yarn run build-css"
   },
   "repository": {
