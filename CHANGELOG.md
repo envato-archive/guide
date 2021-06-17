@@ -10,7 +10,19 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- Re-generate Javascript and CSS when building gem ([#101]).
+- Javascript and CSS preprocessing tools updated to latest versions ([#101]).
+- Use Yarn to manage Javascript packages ([#101]).
+- Commit dependency lock-files to git to ensure repeatable builds ([#101]).
+
+### Removed
+
+- Generated Javascript and CSS is removed from the git repository ([#101]).
+
 [Unreleased]: https://github.com/envato/guide/compare/v0.7.0...HEAD
+[#101]: https://github.com/envato/guide/pull/101
 
 ## [0.7.0] - 2021-06-11
 

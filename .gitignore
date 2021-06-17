@@ -1,6 +1,7 @@
 *.gem
 *.rbc
 /.config
+/app/assets/
 /coverage/
 /InstalledFiles
 /pkg/
@@ -8,6 +9,7 @@
 /spec/test_apps/*/db/*.sqlite3
 /spec/test_apps/*/log/*
 /spec/test_apps/*/tmp/*
+/spec/test_apps/*/public/*
 /tmp/
 
 ## Documentation cache and generated files:
@@ -19,8 +21,6 @@
 ## Environment normalisation:
 /.bundle/
 /vendor/bundle*
-/Gemfile.lock
-/.ruby-version
 /.ruby-gemset
 
 node_modules
