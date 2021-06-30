@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 ## [Unreleased]
 
+[Unreleased]: https://github.com/envato/guide/compare/v0.8.0...HEAD
+
+## [0.8.0] - 2021-07-01
+
 ### Changed
 
 - Re-generate Javascript and CSS when building gem ([#101]).
@@ -23,7 +27,7 @@ The format is based on [Keep a Changelog], and this project adheres to
 
 - Generated Javascript and CSS is removed from the git repository ([#101]).
 
-[Unreleased]: https://github.com/envato/guide/compare/v0.7.0...HEAD
+[0.8.0]: https://github.com/envato/guide/compare/v0.7.0...v0.8.0
 [#101]: https://github.com/envato/guide/pull/101
 [#102]: https://github.com/envato/guide/pull/102
 [#105]: https://github.com/envato/guide/pull/105

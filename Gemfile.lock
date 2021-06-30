@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    guide (0.7.0)
+    guide (0.8.0)
       actionpack (>= 5.2)
       actionview (>= 5.2)
       activemodel (>= 5.2)
@@ -119,4 +119,4 @@ DEPENDENCIES
   rspec-rails
 
 BUNDLED WITH
-   2.2.15
+   2.2.20
