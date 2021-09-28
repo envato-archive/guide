@@ -8,7 +8,7 @@ Document your entire user interface, not just your styles.
 - Fake out your backend at the view model layer
 - See what each template looks like when you vary the data it receives
 
-## Development Status [![tests](https://github.com/envato/guide/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/envato/guide/actions/workflows/test.yml)
+## Development Status [![tests](https://github.com/envato/guide/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/envato/guide/actions/workflows/test.yml)
 Guide runs in production at [Envato](https://market.styleguide.envato.com). While it is moderately mature at this stage, its API and features are still subject to changes.
 
 ## Installation
@@ -418,7 +418,7 @@ Any routes defined by the Guide gem will be prefixed with the path you specify w
 - [Luke Arndt](https://github.com/lukearndt)
 
 ## License
-Guide uses the MIT license. See [LICENSE.txt](https://github.com/envato/guide/blob/master/LICENSE.txt) for details.
+Guide uses the MIT license. See [LICENSE](./LICENSE) for details.
 
 ## Contact
 - [github project](https://github.com/envato/guide)
@@ -426,7 +426,7 @@ Guide uses the MIT license. See [LICENSE.txt](https://github.com/envato/guide/bl
 
 ## Code of conduct
 We welcome contribution from everyone. Read more about it in
-[`CODE_OF_CONDUCT.md`](https://github.com/envato/guide/blob/master/CODE_OF_CONDUCT.md)
+[`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)
 
 ## Contributing
 1. Fork it ( http://github.com/envato/guide/fork )
