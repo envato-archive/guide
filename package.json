@@ -51,7 +51,7 @@
     "iframe-resizer": "3.5.3",
     "jquery": "2.2.2",
     "modernizr": "3.3.1",
-    "prismjs": "1.25.0",
+    "prismjs": "1.27.0",
     "selectize": "0.12.1",
     "urijs": "1.19.7"
   }
